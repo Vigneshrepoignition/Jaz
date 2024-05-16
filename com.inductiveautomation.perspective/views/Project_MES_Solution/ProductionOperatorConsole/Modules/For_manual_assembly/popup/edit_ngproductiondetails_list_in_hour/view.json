@@ -1,0 +1,514 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\tdata\u003dself.params.rowdata\n\tlineID \u003d self.session.custom.LineID\n\tlineID \u003d2\n\tstartTime \u003d data[\"hourStart\"]\n\tendTime \u003d data[\u0027hourEnd\u0027]\n\tdata1 \u003d fpsi_ignition01.get_count_reasonslist_in_hour(startTime,endTime,lineID)\n\tself.getChild(\"root\").getChild(\"Tbl_HourlyproductionDetails\").props.data \u003d data1\n"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "rowdata": "value"
+  },
+  "propConfig": {
+    "params.rowdata": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 350,
+      "width": 632
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 38,
+          "width": 631
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Bad Product Details",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 10,
+            "textAlign": "Center",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "draggable": false,
+                "id": "jTZHtbkw10",
+                "modal": false,
+                "overlayDismiss": false,
+                "resizable": false,
+                "showCloseIcon": false,
+                "type": "close",
+                "viewPath": "Project_MES_Solution/ProductionOperatorConsole/Modules/For_manual_assembly/popup/edit_ngproductiondetails_list_in_hour",
+                "viewportBound": false
+              },
+              "scope": "C",
+              "type": "popup"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 34.78,
+          "width": 35,
+          "x": 593.3556249999999,
+          "y": 1.5899999999999999
+        },
+        "props": {
+          "color": "#FFFFFF",
+          "path": "material/close"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "id_field",
+          "visible": false
+        },
+        "position": {
+          "height": 32,
+          "width": 150,
+          "x": 41.46875,
+          "y": 230
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "Tbl_HourlyproductionDetails"
+        },
+        "position": {
+          "height": 305,
+          "width": 623,
+          "x": 5.77,
+          "y": 41.88
+        },
+        "propConfig": {
+          "props.columns[8].viewParams.value": {
+            "access": "PUBLIC"
+          }
+        },
+        "props": {
+          "bodyStyle": {
+            "classes": "Table/RowsBorder"
+          },
+          "cells": {
+            "allowEditOn": "single-click",
+            "style": {
+              "height": "15px",
+              "marginTop": 7
+            }
+          },
+          "columns": [
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "hourStart",
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Hour Start"
+              },
+              "justify": "center",
+              "numbeerFormat": "0,0.##",
+              "number": "value",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": "",
+                "paddingLeft": 5
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 150
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "hourEnd",
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Hour End"
+              },
+              "justify": "center",
+              "numbeerFormat": "0,0.##",
+              "number": "value",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": "",
+                "paddingLeft": 5
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 150
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "badQuantity",
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Bad Qty"
+              },
+              "justify": "center",
+              "numbeerFormat": "0,0.##",
+              "number": "value",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": "",
+                "paddingLeft": 5
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "Project_MES_Solution/ProductionOperatorConsole/Modules/For_manual_assembly/edit_goodproduct",
+              "visible": true,
+              "width": 30
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "reasonCodeName",
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Reasons"
+              },
+              "justify": "center",
+              "numbeerFormat": "0,0.##",
+              "number": "value",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": "",
+                "paddingLeft": 5
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "Project_MES_Solution/ProductionOperatorConsole/Modules/For_manual_assembly/edit_ngproduct",
+              "visible": true,
+              "width": 150
+            }
+          ],
+          "data": {
+            "$": [
+              "ds",
+              192,
+              1707558628974
+            ],
+            "$columns": [
+              {
+                "data": [],
+                "name": "isSuccess",
+                "type": "Boolean"
+              },
+              {
+                "data": [],
+                "name": "error",
+                "type": "String"
+              },
+              {
+                "data": [],
+                "name": "idd",
+                "type": "Integer"
+              },
+              {
+                "data": [],
+                "name": "badQuantity",
+                "type": "Integer"
+              },
+              {
+                "data": [],
+                "name": "goodQuantity",
+                "type": "Integer"
+              },
+              {
+                "data": [],
+                "name": "fkLineID",
+                "type": "String"
+              },
+              {
+                "data": [],
+                "name": "hourStart",
+                "type": "String"
+              },
+              {
+                "data": [],
+                "name": "hourEnd",
+                "type": "String"
+              }
+            ]
+          },
+          "dragOrderable": false,
+          "emptyMessage": {
+            "noData": {
+              "text": "Records Are Not Available."
+            }
+          },
+          "footerGroups": [
+            []
+          ],
+          "headerGroups": [
+            [
+              {
+                "align": "center",
+                "justify": "left",
+                "span": 1,
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              }
+            ]
+          ],
+          "headerStyle": {
+            "backgroundColor": "#CFCFCF",
+            "classes": "Table/Header",
+            "color": "#000000"
+          },
+          "pager": {
+            "bottom": false,
+            "initialOption": 15,
+            "options": [
+              10,
+              15,
+              20,
+              25,
+              50
+            ]
+          },
+          "rows": {
+            "height": 28,
+            "style": {
+              "classes": "Table/Rowsmiddle"
+            },
+            "subviewExpansionMode": "single"
+          }
+        },
+        "type": "ia.display.table"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "scope": "DG",
+  "version": 2,
+  "restricted": false,
+  "overridable": true,
+  "files": [
+    "query.sql"
+  ],
+  "attributes": {
+    "useMaxReturnSize": false,
+    "autoBatchEnabled": false,
+    "fallbackValue": "",
+    "maxReturnSize": 100,
+    "cacheUnit": "SEC",
+    "type": "Query",
+    "enabled": true,
+    "cacheAmount": 1,
+    "cacheEnabled": false,
+    "database": "JEMESNEW",
+    "fallbackEnabled": false,
+    "lastModificationSignature": "60598413255a2a304f017f49e679419c26505e0096b05f8a342bf5b974b4c955",
+    "permissions": [
+      {
+        "zone": "",
+        "role": ""
+      }
+    ],
+    "lastModification": {
+      "actor": "admin",
+      "timestamp": "2023-01-12T11:10:26Z"
+    },
+    "parameters": [
+      {
+        "type": "Parameter",
+        "identifier": "ClubId",
+        "sqlType": 7
+      },
+      {
+        "type": "Parameter",
+        "identifier": "WOName",
+        "sqlType": 7
+      },
+      {
+        "type": "Parameter",
+        "identifier": "PartNo",
+        "sqlType": 7
+      },
+      {
+        "type": "Parameter",
+        "identifier": "Status",
+        "sqlType": 2
+      }
+    ]
+  }
+}

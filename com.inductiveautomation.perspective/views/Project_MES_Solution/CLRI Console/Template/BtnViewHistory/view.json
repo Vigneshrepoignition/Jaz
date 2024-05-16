@@ -1,0 +1,109 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\trowData\u003dself.params.rowData\n#\t\tcolumnName\u003dself.params.column\n\t\t\n\n\texcept:\n\t\tpass\n"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "column": "value",
+    "columnIndex": "value",
+    "row": "value",
+    "rowData": "value",
+    "rowIndex": "value",
+    "value": "value"
+  },
+  "propConfig": {
+    "params.column": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.columnIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.row": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.value": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 35,
+      "width": 84
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\t\t\n\t\tTabledata\u003dself.view.params.rowData\n#\t\tStatus \u003d Tabledata.get(\"Status\")\n#\t\tif  str(Status).strip().lower()\u003d\u003d\u0027Completed\u0027.strip().lower():\n  \t\tsystem.perspective.openPopup(\u0027myPopupId1\u0027,\u0027Project_MES_Solution/CLRI Console/Popup/PopupViewHistory\u0027,params \u003d {\u0027rowData\u0027 :self.view.params.rowData},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\n\n\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnMainScreen",
+          "tooltip": {
+            "enabled": true,
+            "text": "Click to View History"
+          }
+        },
+        "position": {
+          "height": 0.9714,
+          "rotate": {
+            "anchor": "-77% 12%"
+          },
+          "width": 0.9762,
+          "x": -0.0119,
+          "y": 0.0143
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#FFFFFF",
+            "borderStyle": "none",
+            "fontFamily": "Arial"
+          },
+          "text": "View",
+          "textStyle": {
+            "color": "#4747FF",
+            "fontFamily": "Arial",
+            "fontSize": 12,
+            "fontWeight": "bold"
+          }
+        },
+        "type": "ia.input.button"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

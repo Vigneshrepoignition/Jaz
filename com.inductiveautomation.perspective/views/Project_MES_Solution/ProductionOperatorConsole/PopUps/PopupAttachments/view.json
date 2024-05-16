@@ -1,0 +1,181 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\tworkflowId\u003dself.session.custom.WorkflowId\t\t\t    \n\t\tworkflowOperationId\u003d self.session.custom.Operation\n\t\tworkflowProcessId\u003d self.session.custom.Process\n\t\tWoNumber\u003dself.session.custom.WoNumber\n\t\tattachmentTableResult \u003d WorkOrderDetailsAPI.getWorkInstructionAttachmentDetails(WoNumber,workflowId,workflowOperationId,workflowProcessId)\n\t\tself.getChild(\"root\").getChild(\"AttachmentContainer\").getChild(\"Table\").props.data \u003d attachmentTableResult\n\texcept:\n\t\tpass"
+        },
+        "enabled": false,
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "Filepath": ""
+  },
+  "propConfig": {
+    "params.Filepath": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 572,
+      "width": 950
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 31.8,
+          "width": 950
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Work-Instruction Attachments",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 10,
+            "textAlign": "Center",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": [
+              {
+                "config": {
+                  "draggable": false,
+                  "id": "FileLoad",
+                  "modal": false,
+                  "overlayDismiss": false,
+                  "resizable": false,
+                  "showCloseIcon": false,
+                  "type": "close",
+                  "viewPath": "Project_MES_Solution/ProductionOperatorConsole/PopUps/PopupWorkInstructions",
+                  "viewportBound": false
+                },
+                "scope": "C",
+                "type": "popup"
+              },
+              {
+                "config": {
+                  "script": "\tsystem.perspective.closePopup(\u0027wogpqNow\u0027)\n\t"
+                },
+                "scope": "G",
+                "type": "script"
+              }
+            ]
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 29,
+          "width": 36.86,
+          "x": 910.48,
+          "y": 0.5
+        },
+        "props": {
+          "color": "#FFFFFF",
+          "path": "material/close"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "AttachmentPlayers"
+        },
+        "position": {
+          "height": 520,
+          "width": 941,
+          "x": 4.3799999999999955,
+          "y": 41.25
+        },
+        "propConfig": {
+          "props.src": {
+            "binding": {
+              "config": {
+                "path": "view.params.Filepath"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "allowFullScreen": true
+        },
+        "scripts": {
+          "customMethods": [],
+          "extensionFunctions": null,
+          "messageHandlers": [
+            {
+              "messageType": "LoadImage",
+              "pageScope": false,
+              "script": "\t# implement your handler here",
+              "sessionScope": true,
+              "viewScope": false
+            }
+          ]
+        },
+        "type": "ia.display.iframe"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\t#Back to View attachment Tables:\n\tself.getSibling(\"AttachmentPlayers\").props.src \u003d \"\"\n\tself.getSibling(\"AttachmentPlayers\").meta.visible \u003d False\n\tself.getSibling(\"AttachmentContainer\").meta.visible \u003d False\n\tself.meta.visible \u003d False\n\t\n\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnBack",
+          "visible": false
+        },
+        "position": {
+          "height": 26,
+          "width": 83.22,
+          "x": 847.59,
+          "y": 41
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "classes": "Common/Button"
+          },
+          "text": "Back"
+        },
+        "type": "ia.input.button"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}

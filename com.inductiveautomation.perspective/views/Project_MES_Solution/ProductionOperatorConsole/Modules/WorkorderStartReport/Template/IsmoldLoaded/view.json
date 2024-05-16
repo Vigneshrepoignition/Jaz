@@ -1,0 +1,76 @@
+{
+  "custom": {},
+  "params": {
+    "rowData": "",
+    "rowIndex": "",
+    "value": ""
+  },
+  "propConfig": {
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.value": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 29,
+      "width": 27
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Checkbox"
+        },
+        "position": {
+          "height": 0.8276,
+          "width": 0.7767,
+          "x": 0.0393,
+          "y": 0.069
+        },
+        "propConfig": {
+          "props.selected": {
+            "binding": {
+              "config": {
+                "path": "view.params.value"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "checkedIcon": {
+            "color": {
+              "disabled": "#00AC00",
+              "enabled": "#00AC00"
+            }
+          },
+          "enabled": false,
+          "text": "",
+          "uncheckedIcon": {
+            "color": {
+              "disabled": "#355882"
+            }
+          }
+        },
+        "type": "ia.input.checkbox"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

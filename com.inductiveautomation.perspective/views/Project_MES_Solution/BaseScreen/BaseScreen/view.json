@@ -1,0 +1,452 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\tUserId\u003dself.session.custom.UserId\n\tif UserId\u003d\u003dNone or str(UserId)\u003d\u003d\u0027None\u0027 or str(UserId).strip()\u003d\u003d\u0027\u0027  or str(UserId).lower().strip()\u003d\u003d\u0027null\u0027:\n\t\tsystem.perspective.navigate(\u0027/LoginScreen\u0027)\n#\ttemp\u003d1\n#\tself.getChild(\"root\").getChild(\"CntDashBoard_0\").getChild(\"BtnSettings\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoardPlantHierarchy\").getChild(\"BtnDiagnostics\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoardPlantHierarchy\").getChild(\"BtnMachineMonitor\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoardPlanning\").getChild(\"BtnNotifications\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoardOrderExe\").getChild(\"tnDashboardOrderExe\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnOperatorConsole\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnDashRoleMaster\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnDashMaintOptrConsole\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnDashMaintOptrConsole_RM\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnDashWarehouseOptrConsole\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnQualityConsole\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnOperatorConsole_0\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnPEA\").meta.visible\u003dtemp\n#\troleId\u003d1\n#\tds\u003dAuthentication.GetModulesForRole(roleId)\n#\tfor i in ds:\n#\t\tmoduleName\u003d\tstr(i[\u0027moduleName\u0027]).lower().strip()\n#\t\tif \tmoduleName\u003d\u003d\u0027production\u0027:\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnOperatorConsole\").meta.visible\u003d1\t\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnPEA\").meta.visible\u003d1\n#\t\tif \tmoduleName\u003d\u003d\u0027Quality\u0027.lower():\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnDashRoleMaster\").meta.visible\u003d1\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnQualityConsole\").meta.visible\u003d1\n#\t\tif \tmoduleName\u003d\u003d\u0027Maintenance\u0027.lower():\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnDashMaintOptrConsole\").meta.visible\u003d1\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnDashMaintOptrConsole_RM\").meta.visible\u003d1\n#\t\tif \tmoduleName\u003d\u003d\u0027Warehouse\u0027.lower():\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnDashWarehouseOptrConsole\").meta.visible\u003d1\n#\t\tif \tmoduleName\u003d\u003d\u0027Administration\u0027.lower():\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoard_0\").getChild(\"BtnSettings\").meta.visible\u003d1\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoardPlantHierarchy\").getChild(\"BtnDiagnostics\").meta.visible\u003d1\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoardPlanning\").getChild(\"BtnNotifications\").meta.visible\u003d1\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoardPlantHierarchy\").getChild(\"BtnMachineMonitor\").meta.visible\u003d1\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoardOrderExe\").getChild(\"tnDashboardOrderExe\").meta.visible\u003d1"
+        },
+        "enabled": false,
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "propConfig": {
+    "props.defaultSize.height": {
+      "binding": {
+        "config": {
+          "path": "session.custom.ScreenHeight"
+        },
+        "type": "property"
+      }
+    },
+    "props.defaultSize.width": {
+      "binding": {
+        "config": {
+          "path": "session.custom.ScreenWidth"
+        },
+        "type": "property"
+      }
+    }
+  },
+  "props": {
+    "defaultSize": {}
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Accordion"
+        },
+        "position": {
+          "height": 0.995,
+          "width": 0.9988,
+          "x": 0.0013,
+          "y": 0.0024
+        },
+        "propConfig": {
+          "props.items[0].header.content.text": {
+            "binding": {
+              "config": {
+                "expression": "{session.props.locale}"
+              },
+              "transforms": [
+                {
+                  "code": "\tcName \u003d \u0027\u0027\n\tif (value \u003d\u003d \u0027en-US\u0027):\n\t\tcName\u003d\u0027Production Console\u0027\n\telif (value \u003d\u003d \u0027zh\u0027) or (value)\u003d\u003d\u0027zh-TW\u0027:\n\t\tcName \u003d u\u0027生产控制台\u0027\n\treturn cName",
+                  "type": "script"
+                }
+              ],
+              "type": "expr"
+            }
+          },
+          "props.items[1].header.content.text": {
+            "binding": {
+              "config": {
+                "expression": "{session.props.locale}"
+              },
+              "transforms": [
+                {
+                  "code": "\tcName \u003d \u0027\u0027\n\tif (value \u003d\u003d \u0027en-US\u0027):\n\t\tcName\u003d\u0027Quality Operator Console\u0027\n\telif (value \u003d\u003d \u0027zh\u0027) or (value)\u003d\u003d\u0027zh-TW\u0027:\n\t\tcName \u003d u\u0027质量操作员控制台\u0027\n\treturn cName",
+                  "type": "script"
+                }
+              ],
+              "type": "expr"
+            }
+          },
+          "props.items[2].header.content.text": {
+            "binding": {
+              "config": {
+                "expression": "{session.props.locale}"
+              },
+              "transforms": [
+                {
+                  "code": "\tcName \u003d \u0027\u0027\n\tif (value \u003d\u003d \u0027en-US\u0027):\n\t\tcName\u003d\u0027Maintenance Technician Console\u0027\n\telif (value \u003d\u003d \u0027zh\u0027) or (value)\u003d\u003d\u0027zh-TW\u0027:\n\t\tcName \u003d u\u0027维修技术员控制台\u0027\n\treturn cName",
+                  "type": "script"
+                }
+              ],
+              "type": "expr"
+            }
+          },
+          "props.items[3].header.content.text": {
+            "binding": {
+              "config": {
+                "expression": "{session.props.locale}"
+              },
+              "transforms": [
+                {
+                  "code": "\tcName \u003d \u0027\u0027\n\tif (value \u003d\u003d \u0027en-US\u0027):\n\t\tcName\u003d\u0027CLRI Console\u0027\n\telif (value \u003d\u003d \u0027zh\u0027) or (value)\u003d\u003d\u0027zh-TW\u0027:\n\t\tcName \u003d u\u0027CLRI控制台\u0027\n\treturn cName",
+                  "type": "script"
+                }
+              ],
+              "type": "expr"
+            }
+          },
+          "props.items[4].header.content.text": {
+            "binding": {
+              "config": {
+                "expression": "{session.props.locale}"
+              },
+              "transforms": [
+                {
+                  "code": "\tcName \u003d \u0027\u0027\n\tif (value \u003d\u003d \u0027en-US\u0027):\n\t\tcName\u003d\u0027Machine Diagnostics\u0027\n\telif (value \u003d\u003d \u0027zh\u0027) or (value)\u003d\u003d\u0027zh-TW\u0027:\n\t\tcName \u003d u\u0027机器监控\u0027\n\treturn cName",
+                  "type": "script"
+                }
+              ],
+              "type": "expr"
+            }
+          },
+          "props.items[5].header.content.text": {
+            "binding": {
+              "config": {
+                "expression": "{session.props.locale}"
+              },
+              "transforms": [
+                {
+                  "code": "\tcName \u003d \u0027\u0027\n\tif (value \u003d\u003d \u0027en-US\u0027):\n\t\tcName\u003d\u0027Packing Details\u0027\n\telif (value \u003d\u003d \u0027zh\u0027) or (value)\u003d\u003d\u0027zh-TW\u0027:\n\t\tcName \u003d u\u0027包装信息\u0027\n\treturn cName",
+                  "type": "script"
+                }
+              ],
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "items": [
+            {
+              "body": {
+                "height": 250,
+                "style": {
+                  "classes": "BaseScreen",
+                  "margin": "16px"
+                },
+                "useDefaultViewHeight": false,
+                "useDefaultViewWidth": false,
+                "viewParams": {},
+                "viewPath": "Project_MES_Solution/BaseScreen/ProductionOperatorConsole"
+              },
+              "expanded": true,
+              "header": {
+                "content": {
+                  "style": {
+                    "classes": "",
+                    "fontSize": 22,
+                    "fontWeight": "bold",
+                    "textDecorationLine": "underline"
+                  },
+                  "type": "text",
+                  "useDefaultViewHeight": false,
+                  "useDefaultViewWidth": false,
+                  "viewParams": {},
+                  "viewPath": ""
+                },
+                "height": "50px",
+                "reverse": false,
+                "style": {
+                  "classes": "BaseScreen",
+                  "fontFamily": "Arial",
+                  "fontSize": ""
+                },
+                "toggle": {
+                  "collapsedIcon": {
+                    "color": "",
+                    "path": "material/expand_more",
+                    "style": {
+                      "classes": ""
+                    }
+                  },
+                  "enabled": true,
+                  "expandedIcon": {
+                    "color": "",
+                    "path": "material/expand_less",
+                    "style": {
+                      "classes": ""
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "body": {
+                "height": 250,
+                "style": {
+                  "classes": "",
+                  "margin": "16px"
+                },
+                "useDefaultViewHeight": false,
+                "useDefaultViewWidth": false,
+                "viewParams": {},
+                "viewPath": "Project_MES_Solution/BaseScreen/QualityOperatorConsole"
+              },
+              "expanded": true,
+              "header": {
+                "content": {
+                  "style": {
+                    "classes": "BaseScreen",
+                    "textDecorationLine": "underline"
+                  },
+                  "type": "text",
+                  "useDefaultViewHeight": false,
+                  "useDefaultViewWidth": false,
+                  "viewParams": {},
+                  "viewPath": ""
+                },
+                "height": "50px",
+                "reverse": false,
+                "style": {
+                  "classes": ""
+                },
+                "toggle": {
+                  "collapsedIcon": {
+                    "color": "",
+                    "path": "material/expand_more",
+                    "style": {
+                      "classes": ""
+                    }
+                  },
+                  "enabled": true,
+                  "expandedIcon": {
+                    "color": "",
+                    "path": "material/expand_less",
+                    "style": {
+                      "classes": ""
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "body": {
+                "height": 250,
+                "style": {
+                  "classes": "",
+                  "margin": "10px"
+                },
+                "useDefaultViewHeight": false,
+                "useDefaultViewWidth": false,
+                "viewParams": {},
+                "viewPath": "Project_MES_Solution/BaseScreen/MaintenenaceTechnicianConsole"
+              },
+              "expanded": true,
+              "header": {
+                "content": {
+                  "style": {
+                    "classes": "BaseScreen",
+                    "textDecorationLine": "underline"
+                  },
+                  "type": "text",
+                  "useDefaultViewHeight": false,
+                  "useDefaultViewWidth": false,
+                  "viewParams": {},
+                  "viewPath": ""
+                },
+                "height": "50px",
+                "reverse": false,
+                "style": {
+                  "classes": ""
+                },
+                "toggle": {
+                  "collapsedIcon": {
+                    "color": "",
+                    "path": "material/expand_more",
+                    "style": {
+                      "classes": ""
+                    }
+                  },
+                  "enabled": true,
+                  "expandedIcon": {
+                    "color": "",
+                    "path": "material/expand_less",
+                    "style": {
+                      "classes": ""
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "body": {
+                "height": 250,
+                "style": {
+                  "classes": "",
+                  "margin": "16px"
+                },
+                "useDefaultViewHeight": false,
+                "useDefaultViewWidth": false,
+                "viewParams": {},
+                "viewPath": "Project_MES_Solution/BaseScreen/CLRI"
+              },
+              "expanded": true,
+              "header": {
+                "content": {
+                  "style": {
+                    "classes": "BaseScreen",
+                    "textDecorationLine": "underline"
+                  },
+                  "type": "text",
+                  "useDefaultViewHeight": false,
+                  "useDefaultViewWidth": false,
+                  "viewParams": {},
+                  "viewPath": ""
+                },
+                "height": "50px",
+                "reverse": false,
+                "style": {
+                  "classes": ""
+                },
+                "toggle": {
+                  "collapsedIcon": {
+                    "color": "",
+                    "path": "material/expand_more",
+                    "style": {
+                      "classes": ""
+                    }
+                  },
+                  "enabled": true,
+                  "expandedIcon": {
+                    "color": "",
+                    "path": "material/expand_less",
+                    "style": {
+                      "classes": ""
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "body": {
+                "height": 250,
+                "style": {
+                  "classes": "",
+                  "margin": "16px"
+                },
+                "useDefaultViewHeight": false,
+                "useDefaultViewWidth": false,
+                "viewParams": {},
+                "viewPath": "Project_MES_Solution/BaseScreen/Diagnostics"
+              },
+              "expanded": true,
+              "header": {
+                "content": {
+                  "style": {
+                    "classes": "BaseScreen",
+                    "textDecorationLine": "underline"
+                  },
+                  "type": "text",
+                  "useDefaultViewHeight": false,
+                  "useDefaultViewWidth": false,
+                  "viewParams": {},
+                  "viewPath": ""
+                },
+                "height": "50px",
+                "reverse": false,
+                "style": {
+                  "classes": ""
+                },
+                "toggle": {
+                  "collapsedIcon": {
+                    "color": "",
+                    "path": "material/expand_more",
+                    "style": {
+                      "classes": ""
+                    }
+                  },
+                  "enabled": true,
+                  "expandedIcon": {
+                    "color": "",
+                    "path": "material/expand_less",
+                    "style": {
+                      "classes": ""
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "body": {
+                "height": 250,
+                "style": {
+                  "classes": "",
+                  "margin": "16px"
+                },
+                "useDefaultViewHeight": false,
+                "useDefaultViewWidth": false,
+                "viewParams": {},
+                "viewPath": "Project_MES_Solution/BaseScreen/PackingDetails"
+              },
+              "expanded": true,
+              "header": {
+                "content": {
+                  "style": {
+                    "classes": "BaseScreen",
+                    "textDecorationLine": "underline"
+                  },
+                  "type": "text",
+                  "useDefaultViewHeight": false,
+                  "useDefaultViewWidth": false,
+                  "viewParams": {},
+                  "viewPath": ""
+                },
+                "height": "50px",
+                "reverse": false,
+                "style": {
+                  "classes": ""
+                },
+                "toggle": {
+                  "collapsedIcon": {
+                    "color": "",
+                    "path": "material/expand_more",
+                    "style": {
+                      "classes": ""
+                    }
+                  },
+                  "enabled": true,
+                  "expandedIcon": {
+                    "color": "",
+                    "path": "material/expand_less",
+                    "style": {
+                      "classes": ""
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "type": "ia.display.accordion"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -98,
+      "y": 5
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

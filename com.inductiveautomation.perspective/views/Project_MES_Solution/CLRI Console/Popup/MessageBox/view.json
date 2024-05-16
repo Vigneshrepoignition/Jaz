@@ -1,0 +1,149 @@
+{
+  "custom": {},
+  "params": {
+    "rowData": "value"
+  },
+  "propConfig": {
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 195,
+      "width": 334
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\"\")"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnNo",
+          "tooltip": {
+            "enabled": true,
+            "text": "Click to Cancel"
+          }
+        },
+        "position": {
+          "height": 34,
+          "width": 110,
+          "x": 111,
+          "y": 137.5
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "classes": "Common/Button"
+          },
+          "text": "OK"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 32,
+          "width": 332
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Message",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 10,
+            "textAlign": "left",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\"\")"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 30,
+          "width": 30,
+          "x": 300.938
+        },
+        "props": {
+          "path": "material/close",
+          "style": {
+            "color": "#FFFFFF",
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "ViewbtnLblMsg"
+        },
+        "position": {
+          "height": 42,
+          "width": 242,
+          "x": 66.94,
+          "y": 43
+        },
+        "props": {
+          "text": "CLRI Status On-Hold",
+          "textStyle": {
+            "fontFamily": "Arial",
+            "fontSize": 18,
+            "textTransform": "none"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -176,
+      "y": 35
+    },
+    "props": {
+      "style": {
+        "classes": "Panel/PopUp"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

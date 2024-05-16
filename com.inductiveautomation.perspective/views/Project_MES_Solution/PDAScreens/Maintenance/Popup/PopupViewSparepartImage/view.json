@@ -1,0 +1,107 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\tscriptName\u003d\u0027Spare PArt Delivry Img View\u0027\n\t\topeningUrl \u003d system.tag.read(\"[default]JMES_InternalTags/AttachmentUrl\").value\t\n#\t\topeningUrl \u003d system.tag.read(\"[default]JMES_InternalTags/AttachmentUrlSIT\").value\n\t\n\t\trowData \u003d self.params.rowData\n\t\tcolumnName \u003d self.params.columnName\n\t\tsystem.perspective.print(\u0027Row DAta on Pop: \u0027 + str(rowData))\n\t\tsystem.perspective.print(\u0027columnName on Pop: \u0027 + str(columnName))\n#\t\tif columnName \u003d\u003d \"viewAttachment\":\n\t\tFilePath \u003d rowData[\u0027SparePartImagePath\u0027]\n\t\tFileName \u003d rowData[\u0027SparePartImagePath\u0027]\n#\t\tself.getChild(\"root\").getChild(\"LblTitle\").props.text \u003d \"View Attachmnet: \"+str(FileName)\n\t\tsystem.perspective.print(\u0027FilePath : \u0027  + str(FilePath))\n\t\tfile \u003d str(FilePath).strip()\n\t\tname \u003dfile.replace(\u0027\\\\\u0027,\u0027/\u0027)\n\t\turl \u003d openingUrl+name\n\t\tself.getChild(\"root\").getChild(\"sparePartImage\").props.source \u003d url\n\t\tsystem.perspective.print(\u0027Image View url :\u0027 + str(url))\n\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)\n\t\tprint errorMessage\n\t\tsystem.perspective.print(str(errorMessage))"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "columnName": "",
+    "rowData": "value"
+  },
+  "propConfig": {
+    "params.columnName": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 482,
+      "width": 374
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "#\tsystem.perspective.closePopup()\n\tsystem.perspective.closePopup(\u0027\u0027)\n\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnBack"
+        },
+        "position": {
+          "height": 29,
+          "rotate": {
+            "anchor": "25% 100%"
+          },
+          "width": 76,
+          "x": 293,
+          "y": 3
+        },
+        "props": {
+          "enabled": 1,
+          "image": {
+            "width": 45
+          },
+          "style": {
+            "classes": "PDA/PDAButton"
+          },
+          "text": "Back",
+          "textStyle": {
+            "fontSize": 10
+          }
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "sparePartImage"
+        },
+        "position": {
+          "height": 436,
+          "width": 367,
+          "x": 3,
+          "y": 40
+        },
+        "props": {
+          "fit": {
+            "mode": "fill"
+          }
+        },
+        "type": "ia.display.image"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": 0,
+      "y": 0
+    },
+    "props": {
+      "style": {
+        "classes": "Panel/PopUp"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

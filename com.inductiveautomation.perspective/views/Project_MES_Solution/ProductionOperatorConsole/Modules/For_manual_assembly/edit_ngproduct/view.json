@@ -1,0 +1,161 @@
+{
+  "custom": {},
+  "params": {
+    "rowData": "value"
+  },
+  "propConfig": {
+    "params.rowData": {
+      "paramDirection": "inout",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 22,
+      "width": 110
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "TextField"
+        },
+        "position": {
+          "height": 0.8423,
+          "width": 0.2614,
+          "x": 0.1112,
+          "y": 0.1045
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.rowData"
+              },
+              "transforms": [
+                {
+                  "code": "\tvalue \u003d value[\"badQuantity\"]\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "enabled": false,
+          "style": {
+            "backgroundColor": "#FFFFFF",
+            "borderStyle": "none",
+            "textAlign": "right"
+          }
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": [
+              {
+                "config": {
+                  "draggable": false,
+                  "id": "jTZHtbkw",
+                  "modal": true,
+                  "overlayDismiss": false,
+                  "resizable": false,
+                  "showCloseIcon": false,
+                  "type": "open",
+                  "viewParams": {
+                    "rowdata": "{view.params.rowData}"
+                  },
+                  "viewPath": "Project_MES_Solution/ProductionOperatorConsole/Modules/For_manual_assembly/popup/edit_ngproductiondetails",
+                  "viewportBound": false
+                },
+                "scope": "C",
+                "type": "popup"
+              },
+              {
+                "config": {
+                  "script": "\tsystem.perspective.print(self.view.params.value)"
+                },
+                "scope": "G",
+                "type": "script"
+              }
+            ]
+          }
+        },
+        "meta": {
+          "name": "Icon"
+        },
+        "position": {
+          "height": 0.8945,
+          "width": 0.1502,
+          "x": 0.3964,
+          "y": 0.0545
+        },
+        "props": {
+          "path": "material/edit"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": [
+              {
+                "config": {
+                  "draggable": false,
+                  "id": "jTZHtbkw10",
+                  "modal": true,
+                  "overlayDismiss": false,
+                  "resizable": false,
+                  "showCloseIcon": false,
+                  "type": "open",
+                  "viewParams": {
+                    "rowdata": "{view.params.rowData}"
+                  },
+                  "viewPath": "Project_MES_Solution/ProductionOperatorConsole/Modules/For_manual_assembly/popup/edit_ngproductiondetails_list_in_hour",
+                  "viewportBound": false
+                },
+                "scope": "C",
+                "type": "popup"
+              },
+              {
+                "config": {
+                  "script": "\tsystem.perspective.print(self.view.params.value)"
+                },
+                "scope": "G",
+                "type": "script"
+              }
+            ]
+          }
+        },
+        "meta": {
+          "name": "Icon_0"
+        },
+        "position": {
+          "height": 0.8182,
+          "width": 0.1502,
+          "x": 0.5778,
+          "y": 0.1
+        },
+        "props": {
+          "path": "material/info"
+        },
+        "type": "ia.display.icon"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": 0.0588,
+      "y": 0.075
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

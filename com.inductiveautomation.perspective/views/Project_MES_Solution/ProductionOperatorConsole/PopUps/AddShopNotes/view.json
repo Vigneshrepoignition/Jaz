@@ -1,0 +1,729 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\tscriptName \u003d \"Get Shop Notes: Production Operator Console\"\n\t\tWorkorderId \u003d self.session.custom.WorkorderID\n\t\tuserId\u003dself.session.custom.UserId\n\t\tWONO\u003dself.session.custom.WoNumber\n\t\tsystem.perspective.print(\u0027userId :\u0027 + str(userId))\n\t\tsystem.perspective.print(\u0027WONO :\u0027 + str(WONO))\t\n\t\tsystem.perspective.print(\u0027WorkorderId :\u0027 + str(WorkorderId))\t\n#\t\tOperationList\u003dProductionOperatorConsole.getWorkflowOperationId(userId,WONO)\n\t\tOperationList\u003dProductionOperatorConsole.getOperationsForChecklist(WorkorderId,userId)\n\t\tsystem.perspective.print(\u0027OperationList :\u0027 + str(OperationList))\t\n\t\tself.getChild(\"root\").getChild(\"Dropdown\").props.options\u003d OperationList\n\t\tself.getChild(\"root\").getChild(\"Dropdown\").focus()\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)\t"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 555,
+      "width": 649
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\t\t\n\tWorkflowOperationsId \u003dself.session.custom.Operation\n\tWoNumber \u003d self.session.custom.WoNumber\n\tuserID \u003d self.session.custom.UserId\n\ttxtNotes \u003d self.getSibling(\"TxtEnterNotes\").props.text\n\t\n\tsystem.perspective.print(\"WorkflowOperationsId :\" + str(WorkflowOperationsId))\n\tsystem.perspective.print(\"WoNumber :\" + str(WoNumber))\n\tsystem.perspective.print(\"userID :\" + str(userID))\n\tsystem.perspective.print(\"txtNotes :\" + str(txtNotes))\n\t\n#\ttry:\n\tsaveResult \u003d ProductionOperatorConsole.addShopNotes(WorkflowOperationsId,WoNumber,txtNotes,userID)\n\tshopNotes \u003d WorkOrderDetailsAPI.getOprConsoleShopNotes(WorkflowOperationsId,WoNumber)\t\n\tsystem.perspective.print(\u0027saveResult : \u0027 + str(saveResult))\n\tsystem.perspective.print(\u0027shopNotes : \u0027 + str(shopNotes))\n\tself.getSibling(\"TblShopNotes\").props.data \u003d shopNotes\n\tself.getSibling(\"TxtEnterNotes\").props.text \u003d \u0027\u0027\n\tself.getSibling(\"TxtEnterNotes\").focus()\n#\texcept:\n#\t\tsystem.perspective.print(\"Unable to create alert..\")\n#\t\t\n\t\n\t\t\n\tshopNotes \u003d WorkOrderDetailsAPI.getOprConsoleShopNotes(WorkflowOperationsId,WoNumber)\t\n\tself.getChild(\"root\").getChild(\"TblShopNotes\").props.data \u003d shopNotes\t\n\n"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnSave",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Click To Add"
+          }
+        },
+        "position": {
+          "height": 38.00000000000006,
+          "width": 85,
+          "x": 280.56,
+          "y": 501.19
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "../TxtEnterNotes.props.text"
+              },
+              "transforms": [
+                {
+                  "code": "\tdrpdown \u003d self.getSibling(\"Dropdown\").props.value\n\tif (str(value).strip() !\u003d str(\u0027\u0027).strip() and (drpdown !\u003d \u0027\u0027 or drpdown !\u003d None or str(drpdown).lower() !\u003d \u0027null\u0027)):\n\t\tvalue \u003d True\n\t\tself.props.style.backgroundColor \u003d \"#3888CC\"\n\t\tself.props.style.borderColor \u003d \"#3888CC\"\n\telse:\n\t\tvalue \u003d False\n\t\tself.props.style.backgroundColor \u003d str(self.session.custom.disableBtncolour)\n\t\tself.props.style.borderColor \u003d  str(self.session.custom.disableBtncolour)\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "backgroundColor": "value",
+            "borderColor": "value",
+            "classes": "Common/Button"
+          },
+          "text": "ADD"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 31.81,
+          "width": 646
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Add Shop Note",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 10,
+            "textAlign": "Center",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 34,
+          "width": 44,
+          "x": 601.9300000000001,
+          "y": -2.3999988555908205
+        },
+        "props": {
+          "path": "material/close",
+          "style": {
+            "color": "#FFFFFF",
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "LblMsgNotes"
+        },
+        "position": {
+          "height": 35,
+          "width": 42,
+          "x": 20.1137,
+          "y": 439.4
+        },
+        "props": {
+          "style": {
+            "classes": "Common/Label"
+          },
+          "text": "Notes",
+          "textStyle": {
+            "classes": "Common/Label"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tval \u003d self.getSibling(\"Dropdown\").props.value\n\tif str(val).strip() \u003d\u003d \u0027\u0027 or str(val).strip() \u003d\u003d \u0027null\u0027 or  str(val).strip() \u003d\u003d None:\n\t\tself.getSibling(\"Dropdown\").focus()"
+              },
+              "scope": "G",
+              "type": "script"
+            },
+            "onKeyPress": {
+              "config": {
+                "script": "\tif str(event.key).lower() \u003d\u003d str(\u0027Enter\u0027).lower():\n\t\tself.getSibling(\"BtnSave\").focus()"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "TxtEnterNotes",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 57,
+          "width": 513,
+          "x": 96.69,
+          "y": 427.4
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "../Dropdown.props.value"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value !\u003d \u0027\u0027:\n\t\tvalue \u003d True\n\telse:\n\t\tvalue \u003d False\n\t\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "deferUpdates": false,
+          "placeholder": "Add Shop Notes",
+          "rejectUpdatesWhileFocused": false,
+          "style": {
+            "backgroundColor": "#FFFFFF",
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "TblShopNotes",
+          "tooltip": {
+            "style": {
+              "borderBottomLeftRadius": 10,
+              "borderBottomRightRadius": 10,
+              "borderColor": "#D5D5D5",
+              "borderStyle": "solid",
+              "borderTopLeftRadius": 10,
+              "borderTopRightRadius": 10
+            }
+          }
+        },
+        "position": {
+          "height": 319,
+          "width": 618,
+          "x": 14.9,
+          "y": 87.19
+        },
+        "props": {
+          "bodyStyle": {
+            "backgroundColor": "#FFFFFF"
+          },
+          "columns": [
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "NotesID",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "Notes",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Shop Notes"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "none",
+              "editable": false,
+              "field": "notesTimeStamp",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": true,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "always"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Added On"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "string",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 50
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "AddedBy",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Added By"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 50
+            }
+          ],
+          "data": {
+            "$": [
+              "ds",
+              192,
+              1672243268469
+            ],
+            "$columns": [
+              {
+                "data": [],
+                "name": "NotesID",
+                "type": "Integer"
+              },
+              {
+                "data": [],
+                "name": "notesTimeStamp",
+                "type": "Date"
+              },
+              {
+                "data": [],
+                "name": "Notes",
+                "type": "String"
+              }
+            ]
+          },
+          "dragOrderable": false,
+          "emptyMessage": {
+            "noData": {
+              "icon": {
+                "color": "#C0C0C0",
+                "path": "material/notes"
+              },
+              "text": "Notes are not available"
+            },
+            "style": {
+              "color": ""
+            }
+          },
+          "headerStyle": {
+            "classes": "Table/Header"
+          },
+          "pager": {
+            "bottom": false
+          },
+          "rows": {
+            "highlight": {
+              "color": "#FFFFFF"
+            },
+            "striped": {
+              "enabled": false
+            },
+            "style": {
+              "backgroundColor": "#FFFFFF"
+            },
+            "subviewExpansionMode": "single"
+          },
+          "selection": {
+            "enableRowSelection": false
+          }
+        },
+        "type": "ia.display.table"
+      },
+      {
+        "meta": {
+          "name": "LblMsgNotes_0"
+        },
+        "position": {
+          "height": 35,
+          "width": 14.000000000000007,
+          "x": 63.3237,
+          "y": 439.4
+        },
+        "props": {
+          "style": {
+            "classes": "Common/Label"
+          },
+          "text": "*",
+          "textStyle": {
+            "classes": "Common/Label",
+            "color": "#FF0000"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tself.getSibling(\"TblShopNotes\").props.data \u003d []\n\ttry:\n\t\tself.session.custom.Operation\u003dself.props.value\n\t\tWoNumber\u003dself.session.custom.WoNumber\n\t\tWorkflowOperationsId \u003dself.session.custom.Operation\n\t\tsystem.perspective.print(\u0027WoNumber :\u0027 + str(WoNumber))\n\t\tsystem.perspective.print(\u0027WorkflowOperationsId :\u0027 + str(WorkflowOperationsId))\n\t\tshopNotes \u003d WorkOrderDetailsAPI.getOprConsoleShopNotes(WorkflowOperationsId,WoNumber)\t\n\t\tself.getSibling(\"TblShopNotes\").props.data \u003d shopNotes\n\t\tself.getSibling(\"TxtEnterNotes\").focus()\n\texcept:\n\t\tpass"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Dropdown"
+        },
+        "position": {
+          "height": 30,
+          "width": 280,
+          "x": 15.420000000000002,
+          "y": 49.2
+        },
+        "props": {
+          "options": 0,
+          "placeholder": {
+            "text": "Please select operation first"
+          },
+          "search": {
+            "noResultsText": "No operations found"
+          },
+          "showClearIcon": true,
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.dropdown"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -161,
+      "y": -1
+    },
+    "props": {
+      "style": {
+        "classes": "Panel/PopUp"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

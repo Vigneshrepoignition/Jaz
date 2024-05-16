@@ -1,0 +1,452 @@
+{
+  "custom": {},
+  "params": {
+    "CurrentCompletedQty": "",
+    "CurrentCompletionDate": "",
+    "CurrentPartNo": "",
+    "CurrentPlannedQty": "",
+    "CurrentWOStatus": "",
+    "CurrentWoLoader": "",
+    "CurrentWoNo": ""
+  },
+  "propConfig": {
+    "params.CurrentCompletedQty": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.CurrentCompletionDate": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.CurrentPartNo": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.CurrentPlannedQty": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.CurrentWOStatus": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.CurrentWoLoader": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.CurrentWoNo": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 177,
+      "width": 438
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblSWoName"
+        },
+        "position": {
+          "height": 0.1547,
+          "width": 0.2808,
+          "x": 0.02,
+          "y": 0.011
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Workorder Name",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground",
+            "fontSize": 12
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblPartNo"
+        },
+        "position": {
+          "height": 0.1547,
+          "width": 0.224,
+          "x": 0.5155,
+          "y": 0.011
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Part No",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground",
+            "fontFamily": "Arial",
+            "fontSize": 12
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblPlannedQty"
+        },
+        "position": {
+          "height": 0.1547,
+          "width": 0.2808,
+          "x": 0.02,
+          "y": 0.6318
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Planned Quantity",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground",
+            "fontFamily": "Arial",
+            "fontSize": 12
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblWoStatus"
+        },
+        "position": {
+          "height": 0.1492,
+          "width": 0.2808,
+          "x": 0.02,
+          "y": 0.3331
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Status",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground",
+            "fontFamily": "Arial",
+            "fontSize": 12
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "lblDataWorkorderName",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 0.1492,
+          "width": 0.4452,
+          "x": 0.02,
+          "y": 0.1575
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.CurrentWoNo"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Common/TextBox_disabled",
+            "textAlign": "left"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "lblDataPartNo",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 0.1492,
+          "width": 0.4452,
+          "x": 0.5155,
+          "y": 0.1575
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.CurrentPartNo"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Common/TextBox_disabled",
+            "textAlign": "left"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "lblDataPlannedQty",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 0.1492,
+          "width": 0.4452,
+          "x": 0.02,
+          "y": 0.7873
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.CurrentPlannedQty"
+              },
+              "transforms": [
+                {
+                  "code": "\tif str(value).strip()\u003d\u003d\u0027\u0027 or str(value).strip()\u003d\u003d\u0027None\u0027 or str(value).strip()\u003d\u003d\u0027null\u0027:\n\t\tvalue\u003d0\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Common/TextBox_disabled",
+            "textAlign": "left"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "lblDataWoStatus",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 0.1492,
+          "width": 0.4452,
+          "x": 0.02,
+          "y": 0.478
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.CurrentWOStatus"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Common/TextBox_disabled",
+            "textAlign": "left"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblCompletionDate"
+        },
+        "position": {
+          "height": 0.1547,
+          "width": 0.2808,
+          "x": 0.5155,
+          "y": 0.3276
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Completion Date",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground",
+            "fontFamily": "Arial",
+            "fontSize": 12
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "lblDataCompletionDate",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 0.1492,
+          "width": 0.4452,
+          "x": 0.5155,
+          "y": 0.4561
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.CurrentCompletionDate"
+              },
+              "transforms": [
+                {
+                  "code": "\tif str(value).strip()\u003d\u003d\u0027\u0027 or str(value).strip()\u003d\u003d\u0027None\u0027 or str(value).strip()\u003d\u003d\u0027null\u0027:\n\t\tvalue\u003d\u0027\u0027\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Common/TextBox_disabled",
+            "textAlign": "left"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblCompletedQty"
+        },
+        "position": {
+          "height": 0.1547,
+          "width": 0.3744,
+          "x": 0.5155,
+          "y": 0.6317
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Completed Quantity",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground",
+            "fontFamily": "Arial",
+            "fontSize": 12
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "lblDataCompletedQty",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 0.1492,
+          "width": 0.4452,
+          "x": 0.5155,
+          "y": 0.7873
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.CurrentCompletedQty"
+              },
+              "transforms": [
+                {
+                  "code": "\tif str(value).strip()\u003d\u003d\u0027\u0027 or str(value).strip()\u003d\u003d\u0027None\u0027 or str(value).strip()\u003d\u003d\u0027null\u0027:\n\t\tvalue\u003d0\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Common/TextBox_disabled",
+            "textAlign": "left"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "ImageLoader",
+          "visible": 0
+        },
+        "position": {
+          "height": 0.5028,
+          "width": 0.2534,
+          "x": 0.3733,
+          "y": 0.2486
+        },
+        "propConfig": {
+          "meta.visible": {
+            "binding": {
+              "config": {
+                "path": "view.params.CurrentWoLoader"
+              },
+              "enabled": false,
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "fit": {
+            "mode": "cover"
+          },
+          "source": "/system/images/Builtin/icons/32/giphy.gif"
+        },
+        "type": "ia.display.image"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": 0.0033,
+      "y": -0.0372
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

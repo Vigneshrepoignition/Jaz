@@ -1,0 +1,204 @@
+{
+  "custom": {},
+  "params": {
+    "ItemId": 0
+  },
+  "propConfig": {
+    "params.ItemId": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 200,
+      "width": 350
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\tscriptName \u003d \"Quality Operator Console --\u003e Complete Quality- On Click\"\t\n\t\tInspectionProcessId \u003d self.session.custom.InspectionId\n\t\tWoNumber \u003d self.session.custom.WoNumber\n\t\tuserID \u003d self.session.custom.UserId\n\t\tItemId\u003dself.view.params.ItemId\n\t\tsystem.perspective.print(\"Complete Quality Operation Post Parameters:\")\n\t\tsystem.perspective.print(\"inspectionProcessId :\" + str(InspectionProcessId))\n\t\tsystem.perspective.print(\"WoNumber :\" + str(WoNumber))\n\t\tsystem.perspective.print(\"userId :\" + str(userID))\n\t\tpostComplete \u003d QualityOperatorConsole.completeQuality(InspectionProcessId,WoNumber,userID,ItemId)\n\t\tsystem.perspective.print(\"Post Complete To DB Successfully :\" + str(postComplete))\n\t\tif int(postComplete) \u003d\u003d int(1):\n\t\t\tsystem.perspective.navigate(\"/QualityConsole\")\n\t\t\tself.session.custom.manuallyTrigger\u003d0\n\t\telse:\n\t\t\tpass\n\t\tsystem.perspective.closePopup(\u0027\u0027)\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnYes"
+        },
+        "position": {
+          "height": 34,
+          "width": 110,
+          "x": 48,
+          "y": 141
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "classes": "Common/Button"
+          },
+          "text": "Yes"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnNo"
+        },
+        "position": {
+          "height": 34,
+          "width": 110,
+          "x": 179.938,
+          "y": 141
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "classes": "Common/Button"
+          },
+          "text": "No"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 32,
+          "width": 348
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Warning",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 10,
+            "textAlign": "left",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)\n\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 30,
+          "width": 30,
+          "x": 315.938
+        },
+        "props": {
+          "path": "material/close",
+          "style": {
+            "color": "#FFFFFF",
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "LblMsg"
+        },
+        "position": {
+          "height": 39,
+          "width": 310,
+          "x": 19,
+          "y": 45.5
+        },
+        "props": {
+          "alignVertical": "top",
+          "text": "Do you want to complete",
+          "textStyle": {
+            "fontFamily": "Arial",
+            "fontSize": 28
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblMsg_0"
+        },
+        "position": {
+          "height": 32,
+          "width": 197,
+          "x": 76.44,
+          "y": 90.5
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "session.custom.WoNumber"
+              },
+              "previewEnabled": false,
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "alignVertical": "top",
+          "textStyle": {
+            "fontFamily": "Arial",
+            "fontSize": 28,
+            "fontWeight": "bold"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "style": {
+        "classes": "Panel/PopUp"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

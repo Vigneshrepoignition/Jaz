@@ -1,0 +1,16 @@
+{
+  "base": {
+    "style": {
+      "borderColor": "#497FD4",
+      "borderStyle": "none",
+      "borderWidth": "1px",
+      "borderRadius": "3px",
+      "fontFamily": "Arial",
+      "fontSize": "10px",
+      "fontWeight": "normal",
+      "outlineWidth": "0",
+      "overflowWrap": "normal",
+      "textAlign": "right"
+    }
+  }
+}

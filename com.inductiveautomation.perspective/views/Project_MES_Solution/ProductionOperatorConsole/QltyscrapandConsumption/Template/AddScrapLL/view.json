@@ -1,0 +1,112 @@
+{
+  "custom": {},
+  "params": {
+    "rowData": "",
+    "rowIndex": "",
+    "value": 0
+  },
+  "propConfig": {
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.value": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 34,
+      "width": 106
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\t\t\t\t\t\t\t\t\t\t\t\n\t\tvalue\u003dfloat(self.props.value)\n\t\trowindex\u003dself.view.params.rowIndex\n\t\trowData\u003dself.view.params.rowData\n\t\tRemainingQty\u003drowData.get(\u0027RemainingQty\u0027)\n\t\t\n#\t\tSelctedRow\u003drowData[\u0027Sr No\u0027]\n\t\tSelctedRow\u003drowindex\t\n\n\n\t\tif float(value) \u003c\u003d float(RemainingQty):\t\t\n\t\t\tmessageType1 \u003d \u0027AddLLScrap\u0027\n\t\t\tsystem.perspective.sendMessage(messageType1, payload \u003d {\"value\":value,\"SelctedRowIndex\":rowindex}, scope \u003d \"page\")\n\t\t\tif value\u003e0:\n\t\t\t\tself.session.custom.IsQualitySaved\u003d0\n\t\t\telse:\n\t\t\t\tself.session.custom.IsQualitySaved\u003d1\n\t\telse:\n\t\t\tIsMaterialRequest\u003drowData.get(\u0027IsMaterialRequest\u0027)\n\t\t\tsystem.perspective.print(\u0027IsMaterialRequest :\u0027 + str(IsMaterialRequest))\n\t\t\tif str(IsMaterialRequest) \u003d\u003d str(\u00271\u0027) or str(IsMaterialRequest).lower().strip() \u003d\u003d str(\u0027true\u0027).strip() or IsMaterialRequest \u003d\u003d True:\n\t\t\t\tMessageText\u003d\"Unable to Add Scrap As Entered Quantity Is Greater Than Available Quantity  In Lot. The Available Lot Quantity Is:  \"+str(RemainingQty)\n\t\t\t\tupdaateStatus\u003d0\n\t\t\t\tself.props.value\u003d0\n\t\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\telse:\n\t\t\t\tmessageType1 \u003d \u0027AddLLScrap\u0027\n\t\t\t\tsystem.perspective.sendMessage(messageType1, payload \u003d {\"value\":value,\"SelctedRowIndex\":rowindex}, scope \u003d \"page\")\n\t\t\t\tif value\u003e0:\n\t\t\t\t\tself.session.custom.IsQualitySaved\u003d0\n\t\t\t\telse:\n\t\t\t\t\tself.session.custom.IsQualitySaved\u003d1\n\t\n\texcept:\n\t\tsystem.perspective.print(\u0027Exception:Update Scrap\u0027)\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)\n\t\tsys.exit()\t\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          },
+          "dom": {
+            "onMouseOver": {
+              "config": {
+                "script": "\tisReadOnly \u003d self.session.custom.authorizeLineLeadConsoleReadOnly\n\tif isReadOnly\u003d\u003d1 or str(isReadOnly).strip().lower() \u003d\u003d \u0027true\u0027:\n\t\tself.props.enabled \u003d 0\n\t\tself.meta.tooltip.text \u003d \u0027Read Only Access\u0027\n\telse:\n\t\tself.props.enabled \u003d 1"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "NumericEntryField"
+        },
+        "position": {
+          "height": 0.9118,
+          "width": 0.9623,
+          "x": 0.0149,
+          "y": 0.0374
+        },
+        "propConfig": {
+          "props.placeholder": {
+            "binding": {
+              "config": {
+                "path": "view.params.value"
+              },
+              "previewEnabled": false,
+              "type": "property"
+            }
+          },
+          "props.value": {
+            "binding": {
+              "config": {
+                "path": "view.params.value"
+              },
+              "transforms": [
+                {
+                  "code": "\tRetVal\u003dfloat(value)\n\tself.props.placeholder\u003dRetVal\n\treturn RetVal",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "align": "center",
+          "format": "0,0.000000000000",
+          "inputBounds": {
+            "minimum": 0
+          },
+          "style": {
+            "backgroundColor": "#F5FFFF",
+            "borderStyle": "solid",
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.input.numeric-entry-field"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -0.4151,
+      "y": 1.0588
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

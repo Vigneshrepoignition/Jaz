@@ -1,0 +1,50 @@
+{
+  "scope": "DG",
+  "version": 2,
+  "restricted": false,
+  "overridable": true,
+  "files": [
+    "query.sql"
+  ],
+  "attributes": {
+    "useMaxReturnSize": false,
+    "autoBatchEnabled": false,
+    "fallbackValue": "",
+    "maxReturnSize": 100,
+    "cacheUnit": "SEC",
+    "type": "Query",
+    "enabled": true,
+    "cacheAmount": 1,
+    "cacheEnabled": false,
+    "database": "JEMESNEW",
+    "fallbackEnabled": false,
+    "lastModificationSignature": "8599a65ef7c7498a4ee29856f82da9be48e7513aaa0ac98536bbd2e7201f8a14",
+    "permissions": [
+      {
+        "zone": "",
+        "role": ""
+      }
+    ],
+    "lastModification": {
+      "actor": "admin",
+      "timestamp": "2023-01-05T04:10:51Z"
+    },
+    "parameters": [
+      {
+        "type": "Parameter",
+        "identifier": "machineName",
+        "sqlType": 7
+      },
+      {
+        "type": "Parameter",
+        "identifier": "parameterName",
+        "sqlType": 7
+      },
+      {
+        "type": "Parameter",
+        "identifier": "parameterValue",
+        "sqlType": 2
+      }
+    ]
+  }
+}

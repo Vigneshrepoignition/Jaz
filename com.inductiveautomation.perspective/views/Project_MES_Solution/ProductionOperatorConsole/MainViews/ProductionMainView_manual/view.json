@@ -1,0 +1,183 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 769,
+      "width": 1348
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Dashboard"
+        },
+        "position": {
+          "height": 0.987,
+          "width": 0.9993,
+          "x": 0.0082,
+          "y": -0.0026
+        },
+        "props": {
+          "editingToggle": false,
+          "widgets": [
+            {
+              "body": {
+                "style": {
+                  "classes": ""
+                }
+              },
+              "header": {
+                "enabled": true,
+                "style": {
+                  "classes": "Widgets/WidgetsHeader"
+                },
+                "title": "Workorder Information"
+              },
+              "isConfigurable": false,
+              "minSize": {
+                "columnSpan": 1,
+                "rowSpan": 1
+              },
+              "name": "Workorder Information",
+              "position": {
+                "columnEnd": 5,
+                "columnStart": 1,
+                "rowEnd": 4,
+                "rowStart": 1
+              },
+              "style": {
+                "classes": ""
+              },
+              "viewParams": {},
+              "viewPath": "Project_MES_Solution/ProductionOperatorConsole/Modules/For_manual_assembly/WorkOrderInformation"
+            },
+            {
+              "body": {
+                "style": {
+                  "classes": ""
+                }
+              },
+              "header": {
+                "enabled": true,
+                "style": {
+                  "classes": "Widgets/WidgetsHeader"
+                },
+                "title": "Shift Production Details"
+              },
+              "isConfigurable": false,
+              "minSize": {
+                "columnSpan": 1,
+                "rowSpan": 1
+              },
+              "name": "Shift Production Details",
+              "position": {
+                "columnEnd": 10,
+                "columnStart": 1,
+                "rowEnd": 10,
+                "rowStart": 4
+              },
+              "style": {
+                "classes": ""
+              },
+              "viewParams": {
+                "value": []
+              },
+              "viewPath": "Project_MES_Solution/ProductionOperatorConsole/Modules/For_manual_assembly/ProductionGrid"
+            },
+            {
+              "body": {
+                "style": {
+                  "classes": ""
+                }
+              },
+              "header": {
+                "enabled": true,
+                "style": {
+                  "classes": "Widgets/WidgetsHeader"
+                },
+                "title": "Container Details"
+              },
+              "isConfigurable": false,
+              "minSize": {
+                "columnSpan": 1,
+                "rowSpan": 1
+              },
+              "name": "Running Workorders",
+              "position": {
+                "columnEnd": 10,
+                "columnStart": 7,
+                "rowEnd": 4,
+                "rowStart": 1
+              },
+              "style": {
+                "classes": ""
+              },
+              "viewParams": {},
+              "viewPath": "Project_MES_Solution/ProductionOperatorConsole/Modules/For_manual_assembly/Containersdetails"
+            },
+            {
+              "body": {
+                "style": {
+                  "classes": ""
+                }
+              },
+              "header": {
+                "enabled": true,
+                "style": {
+                  "classes": "Widgets/WidgetsHeader"
+                },
+                "title": "Packing Scan"
+              },
+              "isConfigurable": false,
+              "minSize": {
+                "columnSpan": 1,
+                "rowSpan": 1
+              },
+              "name": "Machine Status",
+              "position": {
+                "columnEnd": 7,
+                "columnStart": 5,
+                "rowEnd": 4,
+                "rowStart": 1
+              },
+              "style": {
+                "classes": ""
+              },
+              "viewParams": {},
+              "viewPath": "Project_MES_Solution/ProductionOperatorConsole/Modules/For_manual_assembly/Packaging_barcode"
+            }
+          ]
+        },
+        "type": "ia.display.dashboard"
+      },
+      {
+        "meta": {
+          "name": "EmbeddedView"
+        },
+        "position": {
+          "height": 0.0507,
+          "width": 0.2826,
+          "x": 0.7148,
+          "y": 0.3708
+        },
+        "props": {
+          "path": "Project_MES_Solution/ProductionOperatorConsole/Templates/ProductionGridColorCode"
+        },
+        "type": "ia.display.view"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -0.3746,
+      "y": 0.2874
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

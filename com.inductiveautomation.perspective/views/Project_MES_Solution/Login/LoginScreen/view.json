@@ -1,0 +1,768 @@
+{
+  "custom": {
+    "isBadgeVisible": 0
+  },
+  "events": {
+    "system": {
+      "onStartup": [
+        {
+          "config": {
+            "draggable": true,
+            "id": "LoaderPopup",
+            "modal": false,
+            "overlayDismiss": false,
+            "resizable": true,
+            "showCloseIcon": true,
+            "type": "close",
+            "viewPath": "Project_MES_Solution/ProductionOperatorConsole/PopUps/Loader/LoaderPopup",
+            "viewportBound": false
+          },
+          "scope": "C",
+          "type": "popup"
+        },
+        {
+          "config": {
+            "script": "\tvisbl\u003d1\n\tself.session.custom.authorizeProduction\u003dvisbl\n\tself.session.custom.authorizeQuality\u003dvisbl\n\tself.session.custom.authorizeCLRI\u003dvisbl\n\tself.session.custom.authorizeLineLeadConsole\u003dvisbl\n\tself.session.custom.authorizeMaintenanceRMTools\u003dvisbl\n\tself.session.custom.authorizeMaintenanceRMMachine\u003dvisbl\n\tself.session.custom.authorizeMaintenancePMTools\u003dvisbl\n\tself.session.custom.authorizeMaintenancePMMachine\u003dvisbl\n\tself.session.custom.authorizeMaintenanceMold\u003dvisbl\n\tself.session.custom.authorizeMachineMonitoring\u003dvisbl\t\t\t\t\t\t\t\n\tself.session.custom.authorizePrintingAndPackingConfiguration\u003dvisbl\n\tself.session.custom.authorizePDALineSideStorage\u003dvisbl\n\tself.session.custom.authorizePDAScanComponent\u003dvisbl\n\tself.session.custom.authorizePDAMaterialReturn\u003dvisbl\n\tself.session.custom.authorizePDALoadUnloadMold\u003dvisbl\n\tself.session.custom.authorizePDAScanPartReception\u003dvisbl\n\tself.session.custom.authorizePDAScanPartDelivery\u003dvisbl\n\tself.session.custom.authorizePDAScanPartReturn\u003dvisbl\n\t\n\tsystem.perspective.closePopup(\u0027LoaderPopup\u0027)\n"
+          },
+          "scope": "G",
+          "type": "script"
+        }
+      ]
+    }
+  },
+  "params": {},
+  "propConfig": {
+    "custom.isBadgeVisible": {
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 804,
+      "width": 1222
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Image_0"
+            },
+            "position": {
+              "breakpoints": [
+                {
+                  "colIndex": 0,
+                  "name": "sm",
+                  "order": 2,
+                  "rowIndex": 0,
+                  "span": 12
+                },
+                {
+                  "colIndex": 0,
+                  "name": "md",
+                  "order": 1,
+                  "rowIndex": 0,
+                  "span": 12
+                },
+                {
+                  "colIndex": 0,
+                  "name": "lg",
+                  "order": 2,
+                  "rowIndex": 0,
+                  "span": 12
+                }
+              ],
+              "height": 804,
+              "width": 0.9975
+            },
+            "props": {
+              "fit": {
+                "mode": "percent"
+              },
+              "source": "/system/images/Back.PNG",
+              "tint": {
+                "color": "#E5D7D5"
+              }
+            },
+            "type": "ia.display.image"
+          }
+        ],
+        "meta": {
+          "name": "CntImg"
+        },
+        "position": {
+          "height": 1,
+          "width": 1
+        },
+        "props": {
+          "breakpoints": [
+            {
+              "minWidth": 0,
+              "name": "sm"
+            },
+            {
+              "minWidth": 620,
+              "name": "md"
+            },
+            {
+              "minWidth": 1221,
+              "name": "lg"
+            }
+          ],
+          "gutters": {
+            "horizontal": 1,
+            "vertical": 2
+          }
+        },
+        "type": "ia.container.column"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "script": "\tself.session.custom.OpenPDAScreen \u003d 1"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "lblLogin"
+                    },
+                    "position": {
+                      "breakpoints": [
+                        {
+                          "colIndex": 0,
+                          "name": "sm",
+                          "order": 0,
+                          "rowIndex": 0,
+                          "span": 12
+                        },
+                        {
+                          "colIndex": 0,
+                          "name": "md",
+                          "order": 1,
+                          "rowIndex": 0,
+                          "span": 12
+                        },
+                        {
+                          "colIndex": 0,
+                          "name": "lg",
+                          "order": 0,
+                          "rowIndex": 0,
+                          "span": 12
+                        }
+                      ],
+                      "height": 53
+                    },
+                    "props": {
+                      "style": {
+                        "backgroundColor": "#227995",
+                        "classes": "Project_Mako4/Login/LabelHeader",
+                        "fontFamily": "inherit",
+                        "fontWeight": "bold",
+                        "textAlign": "center"
+                      },
+                      "text": "JE-MES",
+                      "textStyle": {
+                        "classes": "Login/ButtonText",
+                        "fontFamily": "inherit",
+                        "fontSize": 18,
+                        "fontWeight": "normal",
+                        "textAlign": "center"
+                      }
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "events": {
+                      "dom": {
+                        "onKeyUp": {
+                          "config": {
+                            "script": "\tself.getSibling(\"lblMeassage\").meta.visible\u003d0"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "txtUserName"
+                    },
+                    "position": {
+                      "breakpoints": [
+                        {
+                          "colIndex": 2,
+                          "name": "sm",
+                          "order": 1,
+                          "rowIndex": 1,
+                          "span": 9
+                        },
+                        {
+                          "colIndex": 2,
+                          "name": "md",
+                          "order": 1,
+                          "rowIndex": 1,
+                          "span": 9
+                        },
+                        {
+                          "colIndex": 2,
+                          "name": "lg",
+                          "order": 1,
+                          "rowIndex": 1,
+                          "span": 9
+                        }
+                      ],
+                      "height": 40
+                    },
+                    "props": {
+                      "placeholder": "Username",
+                      "style": {
+                        "classes": "Ref_MES/Common/TextBoxlogin"
+                      }
+                    },
+                    "type": "ia.input.text-field"
+                  },
+                  {
+                    "events": {
+                      "dom": {
+                        "onKeyPress": {
+                          "config": {
+                            "script": "\ttry:\n\t#Start of try block\n\t\tif event.key \u003d\u003d \u0027Enter\u0027:\n\t\t\tsystem.perspective.sendMessage(\"buttonClick\",payload \u003d {\"Index\":-1}, scope \u003d \"page\")\n\t\t\t#system.perspective.sendMessage(\"focusOn\",payload \u003d {\"Index\":-1}, scope \u003d \"page\")\n\t#End of try block\n\texcept:\n\t#Start of except block \n\t\tscreenName \u003d\u0027Login\u0027  \n\t\tfilePath\u003dstr(\u0027Project_Mako4/Login/Login\u0027)\n\t\terrorFunction \u003d str(\u0027Event:onKeyPress  -\u003e txtPassword\u0027)\n\t\terrorType\u003dstr(\u0027Application\u0027)\n\t\terrorCode \u003d str(Project_Mako4.Common.GenerateUUID.getUniqueUUID())  \n\t\tdescription\u003dstr(sys.exc_info()[1]) #error description\n\t\tlineNumber\u003dstr(sys.exc_info()[2].tb_lineno) #lineno on which error\n\t\tProject_Mako4.Configuration.Common.AddLogDetails.AddErrorLogs(screenName,filePath,errorFunction,errorType,errorCode,description,lineNumber)\n\t#End of except block \n\t\t"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        },
+                        "onKeyUp": {
+                          "config": {
+                            "script": "\tself.getSibling(\"lblMeassage\").meta.visible\u003d0"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        },
+                        "onMouseEnter": {
+                          "config": {
+                            "script": "\tself.getSibling(\"btnSubmit\").focus()\n\tsystem.perspective.print(\"Focus----\u003e\")"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "txtPassword"
+                    },
+                    "position": {
+                      "breakpoints": [
+                        {
+                          "colIndex": 2,
+                          "name": "sm",
+                          "order": 1,
+                          "rowIndex": 2,
+                          "span": 9
+                        },
+                        {
+                          "colIndex": 2,
+                          "name": "md",
+                          "order": 1,
+                          "rowIndex": 2,
+                          "span": 9
+                        },
+                        {
+                          "colIndex": 2,
+                          "name": "lg",
+                          "order": 1,
+                          "rowIndex": 2,
+                          "span": 9
+                        }
+                      ],
+                      "height": 40
+                    },
+                    "propConfig": {
+                      "custom.key": {
+                        "binding": {
+                          "config": {
+                            "path": "this.props.text"
+                          },
+                          "type": "property"
+                        }
+                      },
+                      "props.text": {
+                        "onChange": {
+                          "enabled": false,
+                          "script": "\tpass\n"
+                        }
+                      }
+                    },
+                    "props": {
+                      "placeholder": "Password",
+                      "style": {
+                        "classes": "Ref_MES/Common/TextBoxlogin"
+                      }
+                    },
+                    "type": "ia.input.password-field"
+                  },
+                  {
+                    "events": {
+                      "component": {
+                        "onActionPerformed": {
+                          "config": {
+                            "script": "\t# Write your script here\n\ttry:\n\t#Start of try block\n\t\tuserName \u003d self.getSibling(\"txtUserName\").props.text\n\t\tuserPassword \u003d self.getSibling(\"txtPassword\").props.text\n\t\t\n\t\tmemoryDatasetPy \u003d system.dataset.toPyDataSet(system.tag.read(\"[default]Login/LoginData\").value)\n\t\tlength \u003d len(memoryDatasetPy)\n\t\tif (int(length) \u003e 0):\n\t\t\tfor rows in range(len(memoryDatasetPy)):\n\t\t\t\tdatauser \u003d memoryDatasetPy[rows][1]\n\t\t\t\tdatapass \u003d memoryDatasetPy[rows][2]\n\t\t\t\tif((str(datauser) \u003d\u003d str(userName)) and (str(datapass) \u003d\u003d str(userPassword))):\t\t\t\n\t\t\t\t\tsystem.perspective.navigate(\u0027/oee\u0027)\n\t\t\t\t\tself.session.custom.user_Name \u003d str(memoryDatasetPy[rows][0])\n\t\t\t\telse:\n\t\t\t\t\tself.getSibling(\"Label\").meta.visible \u003d 1\n\t#End of try block\n\texcept:\n\t#Start of except block \n\t\tscreenName \u003d\u0027Login\u0027  \n\t\tfilePath\u003dstr(\u0027Project_Mako4/Login/Login\u0027)\n\t\terrorFunction \u003d str(\u0027Event:onActionPerformed  -\u003e drpLang\u0027)\n\t\terrorType\u003dstr(\u0027Application\u0027)\n\t\terrorCode \u003d str(Project_Mako4.Common.GenerateUUID.getUniqueUUID())  \n\t\tdescription\u003dstr(sys.exc_info()[1]) #error description\n\t\tlineNumber\u003dstr(sys.exc_info()[2].tb_lineno) #lineno on which error\n\t\tProject_Mako4.Configuration.Common.AddLogDetails.AddErrorLogs(screenName,filePath,errorFunction,errorType,errorCode,description,lineNumber)\n\t#End of except block "
+                          },
+                          "enabled": false,
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      },
+                      "dom": {
+                        "onKeyPress": {
+                          "config": {
+                            "script": "\ttry:\n\t#Start of try block\n\t\tif(self.props.value!\u003d-1):\n\t\t\tif event.key \u003d\u003d \u0027Enter\u0027:\n\t\t\t\tsystem.perspective.sendMessage(\"buttonClick\",payload \u003d {\"Index\":-1}, scope \u003d \"page\")\n\t#Start of try block\n\texcept:\n\t#Start of except block \n\t\tscreenName \u003d\u0027Login\u0027  \n\t\tfilePath\u003dstr(\u0027Project_Mako4/Login/Login\u0027)\n\t\terrorFunction \u003d str(\u0027Event:onKeyPress  -\u003e drpLang\u0027)\n\t\terrorType\u003dstr(\u0027Application\u0027)\n\t\terrorCode \u003d str(Project_Mako4.Common.GenerateUUID.getUniqueUUID())  \n\t\tdescription\u003dstr(sys.exc_info()[1]) #error description\n\t\tlineNumber\u003dstr(sys.exc_info()[2].tb_lineno) #lineno on which error\n\t\tProject_Mako4.Configuration.Common.AddLogDetails.AddErrorLogs(screenName,filePath,errorFunction,errorType,errorCode,description,lineNumber)\n\t#End of except block "
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "drpLang"
+                    },
+                    "position": {
+                      "breakpoints": [
+                        {
+                          "colIndex": 1,
+                          "name": "sm",
+                          "order": 0,
+                          "rowIndex": 3,
+                          "span": 10
+                        },
+                        {
+                          "colIndex": 1,
+                          "name": "md",
+                          "order": 1,
+                          "rowIndex": 3,
+                          "span": 10
+                        },
+                        {
+                          "colIndex": 1,
+                          "name": "lg",
+                          "order": 1,
+                          "rowIndex": 3,
+                          "span": 10
+                        }
+                      ],
+                      "height": 40
+                    },
+                    "propConfig": {
+                      "props.style.marginTop": {
+                        "binding": {
+                          "config": {
+                            "expression": "if({view.custom.isBadgeVisible}\u003d0,0,5)"
+                          },
+                          "enabled": false,
+                          "type": "expr"
+                        }
+                      },
+                      "props.value": {
+                        "binding": {
+                          "config": {
+                            "bidirectional": true,
+                            "path": "session.props.locale"
+                          },
+                          "type": "property"
+                        }
+                      }
+                    },
+                    "props": {
+                      "options": [
+                        {
+                          "label": "Chinese",
+                          "value": "zh-TW"
+                        },
+                        {
+                          "label": "English",
+                          "value": "en-US"
+                        }
+                      ],
+                      "placeholder": {
+                        "text": "Select Language"
+                      },
+                      "style": {
+                        "classes": "Ref_MES/Common/TextBoxlogin",
+                        "marginTop": 0
+                      }
+                    },
+                    "type": "ia.input.dropdown"
+                  },
+                  {
+                    "events": {
+                      "component": {
+                        "onActionPerformed": {
+                          "config": {
+                            "script": "\ttry:\n\t\tvisbl\u003d0\n\t\tself.session.custom.authorizeProduction\u003dvisbl\n\t\tself.session.custom.authorizeQuality\u003dvisbl\n\t\tself.session.custom.authorizeCLRI\u003dvisbl\n\t\tself.session.custom.authorizeLineLeadConsole\u003dvisbl\n\t\tself.session.custom.authorizeMaintenanceRMTools\u003dvisbl\n\t\tself.session.custom.authorizeMaintenanceRMMachine\u003dvisbl\n\t\tself.session.custom.authorizeMaintenancePMTools\u003dvisbl\n\t\tself.session.custom.authorizeMaintenancePMMachine\u003dvisbl\n\t\tself.session.custom.authorizeMaintenanceMold\u003dvisbl\n\t\tself.session.custom.authorizeMachineMonitoring\u003dvisbl\t\t\t\t\t\t\t\n\t\tself.session.custom.authorizePrintingAndPackingConfiguration\u003dvisbl\n\t\tself.session.custom.authorizePDAScanComponent\u003dvisbl\n\t\tself.session.custom.authorizePDAMaterialReturn\u003dvisbl\n\t\tself.session.custom.authorizePDALoadUnloadMold\u003dvisbl\n\t\tself.session.custom.authorizePDAScanPartReception\u003dvisbl\n\t\tself.session.custom.authorizePDAScanPartDelivery\u003dvisbl\n\t\tself.session.custom.authorizePDAScanPartReturn\u003dvisbl\n\t\tself.session.custom.authorizePDALineSideStorage\u003dvisbl\t\t\n\t\tself.session.custom.PMMaintenanceMachineBackBtnH\u003dvisbl\n\t\tself.session.custom.RMMaintenanceMachineBackBtnH\u003dvisbl\n\t\tself.session.custom.QualityBackBtnH\u003dvisbl\n\t\tself.session.custom.ProductionOCBackBtnH\u003dvisbl\n\t\tself.session.custom.LineLeadOCBackBtnH\u003dvisbl\n\t\tself.session.custom.CLRIBackBtnH\u003dvisbl\t\t\t\n\t\tself.session.custom.authorizePDALoadUnloadTool \u003d visbl\t\t\t\t\t\t\t\t\t\n\t\t\t\t\n\t\t\n\t\treadOnly\u003d0\n\t\tself.session.custom.authorizeProductionReadOnly\u003dreadOnly\n\t\tself.session.custom.authorizeQualityReadOnly\u003dreadOnly\n\t\tself.session.custom.authorizeCLRIReadOnly \u003d 0 \n\t\tself.session.custom.authorizeLineLeadConsoleReadOnly\u003dreadOnly\n\t\tself.session.custom.authorizeMaintenanceRMToolsReadOnly\u003dreadOnly\n\t\tself.session.custom.authorizeMaintenanceRMMachineReadOnly\u003dreadOnly\n\t\tself.session.custom.authorizeMaintenancePMToolsReadOnly\u003dreadOnly\n\t\tself.session.custom.authorizeMaintenancePMMachineReadOnly\u003dreadOnly\n\t\tself.session.custom.authorizeMaintenanceMoldReadOnly\u003dreadOnly\n\t\tself.session.custom.authorizeMachineMonitoringReadOnly\u003dreadOnly\t\t\t\t\t\t\t\n\t\tself.session.custom.authorizePrintingAndPackingConfigurationReadOnly\u003dreadOnly\n\t\tself.session.custom.authorizePDAScanComponentReadOnly\u003dreadOnly\n\t\tself.session.custom.authorizePDAMaterialReturnReadOnly\u003dreadOnly\n\t\tself.session.custom.authorizePDALoadUnloadMoldReadOnly\u003dreadOnly\n\t\tself.session.custom.authorizePDAScanPartReceptionReadOnly\u003dreadOnly\n\t\tself.session.custom.authorizePDAScanPartDeliveryReadOnly\u003dreadOnly\n\t\tself.session.custom.authorizePDAScanPartReturnReadOnly\u003dreadOnly\n\t\tself.session.custom.authorizePDALoadUnloadToolReadOnly \u003d readOnly\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\troleId\u003d0\n\t\tself.session.custom.disableBtncolour \u003d \"#7BB2E1\"\n\t\tloginId\u003dstr(self.getSibling(\"txtUserName\").props.text)\n\t\tPassword\u003dstr(self.getSibling(\"txtPassword\").props.text)\n\t\t\n\t\tResult\u003d Authentication.Login(loginId,Password)\t\t\t\t# call API which gives user details\n\t\t\n\t\tsystem.perspective.print(\"Result :\" + str(Result))\n\t\tResult \u003d Result.get(\"user\")\n\t\tsystem.perspective.print(\"secResult :\" + str(Result))\n\t\tif Result\u003d\u003d0 or Result\u003d\u003dNone or Result\u003d\u003d\u0027\u0027 :\n\t\t\tsystem.perspective.print(\"Login Fail\")\n\t\t\tself.getSibling(\"lblMeassage\").meta.visible \u003d1\n\t\telse:\t\n\t\t\tself.getSibling(\"lblMeassage\").meta.visible \u003d0\n\t\t\tuserId\u003dResult.get(\"userId\")\n\t\t\tloginId\u003dResult.get(\"loginId\")\n\t\t\tpassword\u003dResult.get(\"password\")\n\t\t\tfirstName\u003dResult.get(\"firstName\")\n\t\t\tlastName\u003dResult.get(\"lastName\")\n\t\t\t\n\t\t\tmiddleName\u003dResult.get(\"middleName\")\n\t\t\temailId\u003dResult.get(\"emailId\")\n\t\t\tmobileNo\u003dResult.get(\"mobileNo\")\n\t\t\temployeeId\u003dResult.get(\"employeeId\")\n\t\t\taddress\u003dResult.get(\"address\")\t\t\t\n\t\t\troleId\u003dResult.get(\"roleId\")\n\n\t\t\tself.session.custom.FirstName \u003d firstName\n\t\t\tself.session.custom.LastName \u003d lastName\n\t\t\tself.session.custom.Username\u003dloginId\n\t\t\tself.session.custom.UserId\u003duserId\n\t\t\tself.session.custom.LoginID \u003d loginId\n\n\t\t\tsystem.perspective.print(\"print\u00272222\u0027\u0027\u0027\u0027\u0027\u0027\u0027\u0027\u0027\u0027\u0027\u0027\u0027\u0027\u0027\")\n\t\t\tdeviceType \u003d self.session.props.device.type\n\t\t\topenPDAScreen \u003d self.session.custom.OpenPDAScreen\n\t\t\t\n\t\t\tsystem.perspective.print(\"deviceType: \" + str(deviceType))\n\t\t\t\n\t\t\tif str(deviceType).lower() \u003d\u003d str(\u0027browser\u0027).lower():\n\t\t\t\topenPDAScreen \u003d 2\n\t\t\telse:\n\t\t\t\topenPDAScreen \u003d 1\t\t\t\t\t\t\t\t\t\n\t\t\tsystem.perspective.print(\"print\u0027\u0027\u0027\u0027\u0027\u0027\u0027\u0027\u0027\u0027\u0027\u0027\u0027\u0027\u0027\u0027\")\n\n#\t\t\tds\u003dAuthentication.GetModulesForRole(roleId)\n\t\t\tsystem.perspective.print(\"login page userId \u003d \"+str(userId))\n\t\t\tsystem.perspective.print(\"login page roleId \u003d \"+str(roleId))\n\t\t\t\n\t\t\t##temp\n\t\t\t\n#\t\t\tsystem.perspective.print(\"Base Screen is Opened.......\")\n#\t\t\tsystem.perspective.navigate(\u0027/BaseScreen\u0027)\n#\t\t\tself.session.custom.authorizeProduction\u003d1\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\tds\u003dAuthentication.GetAssignFormToUser(userId)\n\t\t\tsystem.perspective.print(\"ds:\"+str(ds))\n\t\t\tisFormAccessble\u003d0\n\t\t\tfor i in ds:\n\t\t\t\tformName\u003d\tstr(i[\u0027formName\u0027]).lower().strip()\n\t\t\t\tisReadOnly\u003d\ti[\u0027isReadOnly\u0027]\n#\t\t\t\tif isReadOnly\u003d\u003dTrue or str(isReadOnly).lower().strip()\u003d\u003dstr(\u0027true\u0027).lower().strip():\n#\t\t\t\t\treadOnly\u003d0\n#\t\t\t\t\tisFormAccessble\u003d1\n#\t\t\t\telse:\n#\t\t\t\t\treadOnly\u003d1\n#\t\t\t\t\tisFormAccessble\u003d1\n\t\t\t\tif \tformName\u003d\u003d\u0027Operator Console\u0027.lower().strip():\n\t\t\t\t\tself.session.custom.authorizeProduction\u003d1\n\t\t\t\t\tself.session.custom.authorizeProductionReadOnly\u003disReadOnly\n\t\t\t\telif \tformName\u003d\u003d\u0027Line Lead Console\u0027.lower().strip():\n\t\t\t\t\tself.session.custom.authorizeLineLeadConsole\u003d1\n\t\t\t\t\tself.session.custom.authorizeLineLeadConsoleReadOnly\u003disReadOnly\n\t\t\t\telif \tformName\u003d\u003d\u0027Workflow CLRI\u0027.lower().strip():\t\n\t\t\t\t\tself.session.custom.authorizeCLRI\u003d1\n\t\t\t\t\tif isReadOnly\u003d\u003d 1:\n\t\t\t\t\t\tself.session.custom.authorizeCLRIReadOnly \u003d 0\n\t\t\t\t\telse:\n\t\t\t\t\t\tself.session.custom.authorizeCLRIReadOnly \u003d 1\n\t\t\t\telif \tformName\u003d\u003d\u0027Quality Operator Console\u0027.lower().strip():\n\t\t\t\t\tself.session.custom.authorizeQuality\u003d1\n\t\t\t\t\tself.session.custom.authorizeQualityReadOnly\u003disReadOnly\t\t\n\t\t\t\telif \tformName\u003d\u003d\u0027Maintenance RM -Tools\u0027.lower().strip():\n\t\t\t\t\tself.session.custom.authorizeMaintenanceRMTools\u003d1\n\t\t\t\t\tself.session.custom.authorizeMaintenanceRMToolsReadOnly\u003disReadOnly\t\t\t\t\t\t\t\t\t\t\n\t\t\t\telif \tformName\u003d\u003d\u0027Maintenance RM -Machine\u0027.lower().strip():\n\t\t\t\t\tself.session.custom.authorizeMaintenanceRMMachine\u003d1\n\t\t\t\t\tself.session.custom.authorizeMaintenanceRMMachineReadOnly\u003disReadOnly\n\t\t\t\telif \tformName\u003d\u003d\u0027Maintenance PM -Tools\u0027.lower().strip():\n\t\t\t\t\tself.session.custom.authorizeMaintenancePMTools\u003d1\n\t\t\t\t\tself.session.custom.authorizeMaintenancePMToolsReadOnly\u003disReadOnly\t\n\t\t\t\telif \tformName\u003d\u003d\u0027Maintenance PM -Machine\u0027.lower().strip():\t\n\t\t\t\t\tself.session.custom.authorizeMaintenancePMMachine\u003d1\n\t\t\t\t\tself.session.custom.authorizeMaintenancePMMachineReadOnly\u003disReadOnly\n\t\t\t\telif \tformName\u003d\u003d\u0027Mold Details\u0027.lower().strip():\t\n\t\t\t\t\tself.session.custom.authorizeMaintenanceMold\u003d1\n\t\t\t\t\tself.session.custom.authorizeMaintenanceMoldReadOnly\u003disReadOnly\t\n\t\t\t\telif \tformName\u003d\u003d\u0027Machine Monitoring\u0027.lower().strip():\t\n\t\t\t\t\tself.session.custom.authorizeMachineMonitoring\u003d1\n\t\t\t\t\tself.session.custom.authorizeMachineMonitoringReadOnly\u003disReadOnly\t\n\t\t\t\telif \tformName\u003d\u003d\u0027printing and packing configuration\u0027.lower().strip():\t\n\t\t\t\t\tself.session.custom.authorizePrintingAndPackingConfiguration\u003d1\t\n\t\t\t\t\tself.session.custom.authorizePrintingAndPackingConfigurationReadOnly\u003disReadOnly\n\t\t\t\telif \tformName\u003d\u003d\u0027Line Side Storage\u0027.lower().strip():\t\n\t\t\t\t\tself.session.custom.authorizePDALineSideStorage\u003d1\n\t\t\t\t\tself.session.custom.authorizePDALineSideStorageReadOnly\u003disReadOnly\n\t\t\t\telif \tformName\u003d\u003d\u0027Scan Component\u0027.lower().strip():\t\n\t\t\t\t\tself.session.custom.authorizePDAScanComponent\u003d1\n\t\t\t\t\tself.session.custom.authorizePDAScanComponentReadOnly\u003disReadOnly\t\t\n\t\t\t\telif \tformName\u003d\u003d\u0027Material Return\u0027.lower().strip():\n\t\t\t\t\tself.session.custom.authorizePDAMaterialReturn\u003d1\n\t\t\t\t\tself.session.custom.authorizePDAMaterialReturnReadOnly\u003disReadOnly\t\t\n\t\t\t\telif \tformName\u003d\u003d\u0027Load UnloadMold\u0027.lower().strip():\t\n\t\t\t\t\tself.session.custom.authorizePDALoadUnloadMold\u003d1\n\t\t\t\t\tself.session.custom.authorizePDALoadUnloadMoldReadOnly\u003disReadOnly\t\t\t\t\t\t\t\t\n\t\t\t\telif \tformName\u003d\u003d\u0027Spare Part Reception\u0027.lower().strip():\t\n\t\t\t\t\tself.session.custom.authorizePDAScanPartReception\u003d1\n\t\t\t\t\tself.session.custom.authorizePDAScanPartReceptionReadOnly\u003disReadOnly\n\t\t\t\telif \tformName\u003d\u003d\u0027Spare Part Delivery\u0027.lower().strip():\t\n\t\t\t\t\tself.session.custom.authorizePDAScanPartDelivery\u003d1\t\n\t\t\t\t\tself.session.custom.authorizePDAScanPartDeliveryReadOnly\u003disReadOnly\t\n\t\t\t\telif \tformName\u003d\u003d\u0027Spare Part Return\u0027.lower().strip():\t\n\t\t\t\t\tself.session.custom.authorizePDAScanPartReturn\u003d1\n\t\t\t\t\tself.session.custom.authorizePDAScanPartReturnReadOnly\u003disReadOnly\t\n\t\t\t\telif \tformName\u003d\u003d\u0027Load Unload Tool\u0027.lower().strip():\t\n\t\t\t\t\tself.session.custom.authorizePDALoadUnloadTool \u003d 1\t\t\t\t\t\t\t\t\t\n\t\t\t\t\tself.session.custom.authorizePDALoadUnloadToolReadOnly \u003d isReadOnly\t\n\t\t\t\telse:\n\t\t\t\t\tpass\n#\t\t\t\t\treadOnly\u003d1\n#\t\t\t\t\tisFormAccessble\u003d1\t\n\t\n\n\n\t\t\tisFormAccessble\u003d1\n\t\t\tsystem.perspective.print(\"isFormAccessble: \"+str(isFormAccessble))\t\t\n\t\t\tif isFormAccessble\u003d\u003d0:\n\t\t\t\tuserName \u003d self.getSibling(\"txtUserName\").props.text\n\t\t\t\tself.getSibling(\"lblMeassage\").props.text\u003d\u0027User dont have access to application, Please contact your administrator.\u0027\n\t\t\t\tself.getSibling(\"lblMeassage\").meta.visible \u003d1\n\t\t\telif deviceType \u003d\u003d \"Android\" or openPDAScreen \u003d\u003d 1:\n\t\t\t\tsystem.perspective.navigate(\u0027/PDADashboard\u0027)\n\t\t\t\tsystem.perspective.print(\"PDA Screen is Opened.......\")\n\t\t\telse:\n\t\t\t\tsystem.perspective.print(\"Base Screen is Opened.......\")\n\t\t\t\tsystem.perspective.navigate(\u0027/BaseScreen\u0027)\n\t\t\t\tself.session.custom.disableBtncolour \u003d \"#7BB2E1\"\n\t\t\t\tsystem.perspective.print(\"Base Screen is Opened.......\")\n\t\t\t\t\n\texcept :\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)\t\n\t\tsystem.perspective.print(\"Exception in login\" +str(errorMessage))\t\n\t\tself.getSibling(\"lblMeassage\").meta.visible \u003d1"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "btnSubmit"
+                    },
+                    "position": {
+                      "breakpoints": [
+                        {
+                          "colIndex": 1,
+                          "name": "sm",
+                          "order": 0,
+                          "rowIndex": 4,
+                          "span": 10
+                        },
+                        {
+                          "colIndex": 1,
+                          "name": "md",
+                          "order": 0,
+                          "rowIndex": 4,
+                          "span": 10
+                        },
+                        {
+                          "colIndex": 1,
+                          "name": "lg",
+                          "order": 0,
+                          "rowIndex": 4,
+                          "span": 10
+                        }
+                      ],
+                      "height": 40
+                    },
+                    "propConfig": {
+                      "props.enabled": {
+                        "binding": {
+                          "config": {
+                            "expression": "if(({../txtUserName.props.text} !\u003d \u0027\u0027 \u0026 {../txtPassword.props.text} !\u003d \u0027\u0027),toBoolean(1),toBoolean(0))"
+                          },
+                          "enabled": false,
+                          "type": "expr"
+                        }
+                      },
+                      "props.style.backgroundColor": {
+                        "binding": {
+                          "config": {
+                            "expression": "{this.props.enabled}"
+                          },
+                          "transforms": [
+                            {
+                              "code": "\tif value !\u003d True or value !\u003d1:\n\t\tvalue \u003d \"#7BB2E1\"\n\telse:\n\t \tvalue \u003d \"#227995\" \n\treturn value",
+                              "type": "script"
+                            }
+                          ],
+                          "type": "expr"
+                        }
+                      }
+                    },
+                    "props": {
+                      "style": {
+                        "marginTop": "25px"
+                      },
+                      "text": "LOGIN"
+                    },
+                    "scripts": {
+                      "customMethods": [],
+                      "extensionFunctions": null,
+                      "messageHandlers": [
+                        {
+                          "messageType": "buttonClick",
+                          "pageScope": true,
+                          "script": "\ttry:\n\t#Start of try block\n\t\timport json\n\t\tProject_Mako4.Configuration.Common.AddLogDetails.showloader()\n\t\tuserDetails\u003d[]\n\t\t#self.parent.parent.parent.getChild(\"cntbadge\").meta.visible\u003d0\n\t\tself.getSibling(\"lblMeassage\").meta.visible \u003d 0\n\t\tuserName \u003d self.getSibling(\"txtUserName\").props.text\n\t\tuserPassword \u003d self.getSibling(\"txtPassword\").props.text\n\t\t#API call attenticate user in AD\n\t\tIsStrykerAuthentication \u003d system.tag.read(\"[default]Project_Mako4/ClientTags/IsStrykerAuthentication\").value\n\t\tplantName \u003d system.tag.read(\"[default]Project_Mako4/ClientTags/PlantName\").value\n\t\tisAuthenticated\u003d0\n\t\tuserDetails\u003dProject_Mako4.Login.Authenticate.GetUserByUserName(userName)\n\t\t\n\t\tif(len(userDetails)\u003e0):\t\t\n\t\t\tuserId\u003dstr(userDetails[0][\"Id\"])\n\t\t\tIsUserAccountLocked\u003duserDetails[0][\"IsLocked\"]\n\t#\t\tsystem.perspective.print(IsUserAccountLocked)\n\t\t\t#Getting ip address from current session\n\t\t\tall_sessions \u003d system.perspective.getSessionInfo()\n\t\t\tfor ses in all_sessions:\n\t\t\t\tif (ses.id \u003d\u003d self.session.props.id):\n\t\t\t\t\tipAddress \u003d ses.clientAddress\n\t\t\t\t\tself.session.custom.currentIpAddress\u003dipAddress\n\t#\t\t\t\tsystem.perspective.print(\u0027ipAddress :\u0027+str(ipAddress))\n\t\t\tif(IsUserAccountLocked\u003d\u003d0):\n\t\t\t\tif(IsStrykerAuthentication\u003d\u003d1):\t\n\t#\t\t\t\tsystem.perspective.print(\u0027Api call\u0027)\n\t\t\t\t#\tauthenticateResult\u003dProject_Mako4.Login.Authenticate.AuthenticateUserFromAD(userName,userPassword)\n\t\t\t\t\tauthenticateResult\u003d(system.db.runNamedQuery(\u0027Project_Mako4/User/Get_User_Authenticated\u0027,{\u0027Password\u0027:userPassword,\u0027UserName\u0027:userName})).getValueAt(0,0)\n\t\t\t\t\tsystem.perspective.print(\"authenticateResult\u003d\"+str(authenticateResult))\n\t\t\t\t\t#if(\u0027Success\u0027 in str(authenticateResult)):\n\t\t\t\t\tif authenticateResult \u003d\u003d 1:\n\t\t\t\t\t \n\t\t\t\t\t\tisAuthenticated\u003d1\n\t\t\t\t\n\t\t\t\tif(isAuthenticated\u003d\u003d1):\n\t\t\t\t\trows \u003d 0\n\t\t\t\t\tdatauser \u003d userDetails[rows][\"UserName\"]\n\t\t\t\t\tdatauserid \u003d str(userDetails[rows][\"Id\"])\n\t\t\t\t\tdatarole \u003d str(userDetails[rows][\"RoleName\"])\n\t\t\t\t\tdataFirstName \u003d str(userDetails[rows][\"FirstName\"])\n\t\t\t\t\tdataLastName \u003d str(userDetails[rows][\"LastName\"])\n\t\t\t\t\tuserImage \u003d str(userDetails[rows][\"ImageURL\"])\t\t\t\t\n\t\t\t\t\tself.session.custom.currentPageUrl \u003d \u0027/homepage\u0027\n\t\t\t\t\tself.session.custom.currentUserName \u003d str(userDetails[rows][\"UserName\"])\n\t\t\t\t\tself.session.custom.currentUserRole \u003d str(userDetails[rows][\"RoleName\"])\n\t\t\t\t\tself.session.custom.currentUserFullName \u003d str(dataFirstName+\" \"+dataLastName)\n\t\t\t\t\tuserFullName \u003d str(dataFirstName+\" \"+dataLastName)\n\t\t\t\t\tlenUserFullName \u003d len(userFullName)\n\t\t\t\t\tif(lenUserFullName \u003e 15):\n\t\t\t\t\t\ttopUserFullName \u003d userFullName[0:15]\n\t\t\t\t\t\ttopUserFullName \u003d topUserFullName + \u0027...\u0027\n\t\t\t\t\telse:\n\t\t\t\t\t\ttopUserFullName \u003d userFullName\n\t\t\t\t\tself.session.custom.topCurrentUserFullName \u003d topUserFullName\t\n\t\t\t\t\tself.session.custom.currentUserEmailId \u003d str(userDetails[rows][\"Email\"])\n\t\t\t\t\troleId \u003d str(userDetails[rows][\"RoleId\"])\n\t\t\t\t\tself.session.custom.currentUserRoleId \u003d int(roleId)\n\t\t\t\t\tself.session.custom.currentUserId \u003d str(userDetails[rows][\"Id\"])\n\t\t\t\t\tself.session.custom.previousPageUrl \u003d \u0027login\u0027\n\t\t\t\t\tself.session.custom.currentUserImage \u003d \u0027/system/images/Stryker/no-image-available.png\u0027\n\t\t\t\t\tif(str(userImage) \u003d\u003d \u0027\u0027 or str(userImage) \u003d\u003d \u0027None\u0027):\n\t\t\t\t\t\tself.session.custom.currentUserImage \u003d \u0027/system/images/Stryker/no-image-available.png\u0027\n\t\t\t\t\telse:\n\t\t\t\t\t\tself.session.custom.currentUserImage \u003d str(userImage)\n\t\t\t\t\tzoneName \u003d Project_Mako4.ShiftTimeZone.getZonename(plantName)\n\t\t\t\t\tself.session.custom.zoneName \u003d zoneName\n\t\t\t\t\ttagPath \u003d \u0027[default]Project_Mako4/ClientTags/ZoneName\u0027\n\t\t\t\t\tsystem.tag.write(tagPath,zoneName)\n\t\t\t\t\tsystem.perspective.print(\u0027zoneName:\u0027+str(self.session.custom.zoneName))\n\t\t\t\t\t#Function call for Get module by user role\n\t\t\t\t\tuserRoleModulePyData\u003dProject_Mako4.Login.ButtonSubmit.GetModuleByUserRole(roleId)\n\t\t\t\t\tself.session.custom.currentUserModules \u003d userRoleModulePyData\n\t\t\t\t\t\n\t\t\t\t\t#Function call for Get screen by user role\t\n\t\t\t\t\tuserRolePyScreenData\u003dProject_Mako4.Login.ButtonSubmit.GetScreenByUserRole(roleId)\n\t\t\t\t\tself.session.custom.currentUserScreens \u003d userRolePyScreenData\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t#paasing this ip address to function to find workstation       \n\t\t\t\t\tloginWorkStation\u003dProject_Mako4.Configuration.Common.WorkStation.getWorkStationIdByIpAddress(ipAddress)\t   \n\t#\t\t\t\tsystem.perspective.print(\u0027loginWorkStation :\u0027+str(loginWorkStation))\n\t#\t\t\t\tsystem.perspective.print(\u0027First name :\u0027+str(dataFirstName))\n\t#\t\t\t\tsystem.perspective.print(\u0027Username :\u0027+str(datauser))\n\t#\t\t\t\tsystem.perspective.print(\u0027datauserid :\u0027+str(datauserid))\n\t\t\t\t\tsystem.perspective.print(\u0027ipAddress1 :\u0027+str(ipAddress))\n\t\t\t\t\tif(loginWorkStation\u003d\u003dNone):\n\t#\t\t\t\t\tsystem.perspective.print(\u0027loginWorkStation is null\u0027)\n\t\t\t\t\t\tself.session.custom.currentWorkStationId\u003d0\n\t\t\t\t\telse:\n\t\t\t\t\t\tself.session.custom.currentWorkStationId\u003dloginWorkStation\n\t\t\t\t\t\tupdateLoginTag\u003dProject_Mako4.Configuration.WorkStationLogin.UpdateWorkStationLoginTag.updateTagLogin(loginWorkStation)\n\t\t\t\t\t\t\n\t\t\t\t\tparams \u003d {\"userId\":userId,\"badgeNumber\":\"\",\"ipAddress\":str(ipAddress),\"Status\":\u0027Success\u0027}\n\t\t\t\t\tisAccountLocked \u003d system.db.runNamedQuery(\"Project_Mako4/User/Insert_UserLoginCheckFailedAttempt\",params)\n\t#\t\t\t\tsystem.perspective.print(\u0027datarole \u0027+str(datarole))\n\t\t\t\t\tif(str(datarole)!\u003d\u0027Administrator\u0027):\n\t\t\t\t\t\tbadgeNumber \u003d self.getSibling(\"txtBadgeNumber\").props.text\n\t\t\t\t\t\tif( badgeNumber!\u003d\u0027\u0027):\n\t\t\t\t\t\t\tif( len(badgeNumber) \u003e\u003d 2 and len(badgeNumber)\u003c\u003d20):\t\t\t\n\t\t\t\t\t\t\t\tparams \u003d {\"userId\":self.session.custom.currentUserId,\"badgeNumber\":str(badgeNumber),\"ipAddress\":str(self.session.custom.currentIpAddress)}\n\t\t\t\t\t\t\t\tuserLogin \u003d system.db.runNamedQuery(\"Project_Mako4/User/Insert_UserLoginCheckFailedAttempt\",params)\n\t#\t\t\t\t\t\t\tsystem.perspective.print(\u0027Navigation\u0027)\n\t\t\t\t\t\t\t\tsystem.perspective.navigate(\u0027/homepage\u0027)\n\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\tself.getSibling(\"lblMeassage\").props.text \u003d \u0027Badge number should be 2 to 20 digits!\u0027\n\t\t\t\t\t\t\t\tself.getSibling(\"lblMeassage\").meta.visible \u003d 1\t\n\t\t\t\t\t\telse:\n\t\t\t\t\t\t\tself.getSibling(\"lblMeassage\").props.text \u003d \u0027Please enter badge number.\u0027\n\t\t\t\t\t\t\tself.getSibling(\"lblMeassage\").meta.visible \u003d 1\t\t\t\t\n\t\t\t\t\telse:\n\t\t\t\t\t\tsystem.perspective.navigate(\u0027/homepage\u0027)\n\t\t\t\t\tProject_Mako4.Configuration.Common.AddLogDetails.closeloader()\n\t\t\t\telse:\t\t\t\n\t\t\t\t\tparams \u003d {\"userId\":userId,\"badgeNumber\":\"\",\"ipAddress\":str(ipAddress),\"Status\":\u0027Failed\u0027}\n\t\t\t\t\tisAccountLocked \u003d system.db.runNamedQuery(\"Project_Mako4/User/Insert_UserLoginCheckFailedAttempt\",params)\n\t#\t\t\t\tsystem.perspective.print(\u0027isAccountLocked \u0027+str(isAccountLocked))\n\t\t\t\t\t#-----\n\t\t\t\t\t#params \u003d {\"UserId\":userId}\n\t\t\t\t\t#isAccountLocked \u003d system.db.runNamedQuery(\"Project_Mako4/User/CheckFailedLoginAttemp\",params)\n\t\t\t\t\tif(isAccountLocked\u003d\u003d1):\n\t\t\t\t\t\trows \u003d 0\n\t\t\t\t\t\temailAddress \u003d userDetails[rows][\"Email\"]\n\t\t\t\t\t\tdatauser \u003d userDetails[rows][\"UserName\"]\n\t\t\t\t\t\tdatarole \u003d str(userDetails[rows][\"RoleName\"])\n\t\t\t\t\t\tdataFirstName \u003d str(userDetails[rows][\"FirstName\"])\n\t\t\t\t\t\tdataLastName \u003d str(userDetails[rows][\"LastName\"])\n\t\t\t\t\t\t\n\t\t\t\t\t\tparams \u003d {\"userId\":userId}\n\t\t\t\t\t\tAccountLockedDetails \u003d system.db.runNamedQuery(\"Project_Mako4/User/Get_Top3Details\",params)\n\t\t\t\t\t\tAccountLockedDetails \u003d system.dataset.toPyDataSet(AccountLockedDetails)\n\t\t\t\t\t\tlengthAcc \u003d len(AccountLockedDetails)\n\t\t\t\t\t\tfor rowAccount in range(3):\n\t\t\t\t\t\t\taccIpAddress \u003d AccountLockedDetails[rowAccount][\u0027IpAddress\u0027]\n\t\t\t\t\t\t\tcreatedDate \u003d AccountLockedDetails[rowAccount][\u0027CreatedDate\u0027]\t\t\t\t\t\t\n\t\t\t\t\t\t\tparams \u003d {\"UserId\":userId,\"UserName\":datauser,\"FirstName\":dataFirstName,\"LastName\":dataLastName,\"EmailAddress\":emailAddress,\"BadgeNumber\":\u0027\u0027,\"ScreenName\":\u0027Main Screen\u0027,\"AccountLockedDate\":createdDate,\"IPAddress\":accIpAddress}\n\t\t\t\t\t\t\tisAccountLockedDetails \u003d system.db.runNamedQuery(\"Project_Mako4/eDHR/Insert_TRNUserLogin\",params)\n\t\t\t\t\t\tself.getSibling(\"lblMeassage\").props.text \u003d \u0027Your account has been locked because you have reached the maximum number of login attempts. Please contact the administrator to unlock.\u0027\n\t\t\t\t\t\tself.getSibling(\"lblMeassage\").meta.visible \u003d 1\n\t\t\t\t\t\tProject_Mako4.Login.EmailSendAccLocked.EmailId(userName)\n\t\t\t\t\t\tProject_Mako4.Configuration.Common.AddLogDetails.closeloader()\n\t\t\t\t\telse:\n\t\t\t\t\t\tself.getSibling(\"lblMeassage\").props.text \u003d \u0027Invalid Credentials!\u0027\n\t\t\t\t\t\tself.getSibling(\"lblMeassage\").meta.visible \u003d 1\n\t\t\t\t\t\tProject_Mako4.Configuration.Common.AddLogDetails.closeloader()\n\t\t\telse:\n\t\t\t\tself.getSibling(\"lblMeassage\").props.text \u003d \u0027Your account has been locked. Please contact the administrator to unlock.\u0027\n\t\t\t\tself.getSibling(\"lblMeassage\").meta.visible \u003d 1\t\n\t\t\t\tProject_Mako4.Login.EmailSendAccLocked.EmailId(userName)\n\t\t\t\tProject_Mako4.Configuration.Common.AddLogDetails.closeloader()\n\t\telse:\n\t\t\tself.getSibling(\"lblMeassage\").props.text \u003d \u0027You are not registered. Please contact the administrator.\u0027\n\t\t\tself.getSibling(\"lblMeassage\").meta.visible \u003d 1\t\n\t\tProject_Mako4.Configuration.Common.AddLogDetails.closeloader()\n\t\t#self.parent.parent.parent.getChild(\"cntbadge\").getChild(\"cntColumn\").getChild(\"txtBadgeNumber\").focus()\n\t\t#system.perspective.sendMessage(\"focusOn\",payload \u003d {\"Index\":-1}, scope \u003d \"page\")\n\t#End of try block\n\texcept:\n\t#Start of except block\n\t\tscreenName \u003d\u0027Login\u0027   \n\t\tfilePath\u003dstr(\u0027Project_Mako4/Login/Login\u0027)  \n\t\terrorFunction \u003d str(\u0027Message Handler:buttonClick -\u003e btnSubmit\u0027)  \n\t\terrorType\u003dstr(\u0027Application\u0027)  \n\t\terrorCode \u003d str(Project_Mako4.Common.GenerateUUID.getUniqueUUID())   \n\t\tdescription\u003dstr(sys.exc_info()[1]) #error description \n\t\tlineNumber\u003dstr(sys.exc_info()[2].tb_lineno) #lineno on which error \n\t\tProject_Mako4.Configuration.Common.AddLogDetails.AddErrorLogs(screenName,filePath,errorFunction,errorType,errorCode,description,lineNumber) \n\t#End of except block \n\t\t",
+                          "sessionScope": false,
+                          "viewScope": false
+                        }
+                      ]
+                    },
+                    "type": "ia.input.button"
+                  },
+                  {
+                    "meta": {
+                      "name": "lblMeassage",
+                      "visible": false
+                    },
+                    "position": {
+                      "breakpoints": [
+                        {
+                          "colIndex": 1,
+                          "name": "sm",
+                          "order": 0,
+                          "rowIndex": 5,
+                          "span": 10
+                        },
+                        {
+                          "colIndex": 1,
+                          "name": "md",
+                          "order": 1,
+                          "rowIndex": 5,
+                          "span": 10
+                        },
+                        {
+                          "colIndex": 1,
+                          "name": "lg",
+                          "order": 1,
+                          "rowIndex": 5,
+                          "span": 4
+                        }
+                      ],
+                      "height": 10
+                    },
+                    "props": {
+                      "style": {
+                        "backgroundColor": "#FFFFFF",
+                        "borderStyle": "none",
+                        "classes": "Ref_MES/Common/Label",
+                        "color": "#FF0000",
+                        "fontSize": "12px"
+                      },
+                      "text": "Invalid credentials"
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "meta": {
+                      "name": "IcnUserName"
+                    },
+                    "position": {
+                      "breakpoints": [
+                        {
+                          "colIndex": 1,
+                          "name": "sm",
+                          "order": 0,
+                          "rowIndex": 1,
+                          "span": 1
+                        },
+                        {
+                          "colIndex": 1,
+                          "name": "md",
+                          "order": 0,
+                          "rowIndex": 1,
+                          "span": 1
+                        },
+                        {
+                          "colIndex": 1,
+                          "name": "lg",
+                          "order": 0,
+                          "rowIndex": 1,
+                          "span": 1
+                        }
+                      ],
+                      "height": 40
+                    },
+                    "props": {
+                      "color": "#000000",
+                      "path": "material/person",
+                      "style": {
+                        "backgroundColor": "#E4EEF5",
+                        "borderBottomLeftRadius": 4,
+                        "borderColor": "#497FD4",
+                        "borderStyle": "solid",
+                        "borderTopLeftRadius": 4,
+                        "borderWidth": 1,
+                        "marginLeft": 2,
+                        "opacity": "0.50",
+                        "paddingLeft": 4,
+                        "paddingRight": 4
+                      }
+                    },
+                    "type": "ia.display.icon"
+                  },
+                  {
+                    "meta": {
+                      "name": "IcnUserName_0"
+                    },
+                    "position": {
+                      "breakpoints": [
+                        {
+                          "colIndex": 1,
+                          "name": "sm",
+                          "order": 0,
+                          "rowIndex": 2,
+                          "span": 1
+                        },
+                        {
+                          "colIndex": 1,
+                          "name": "md",
+                          "order": 0,
+                          "rowIndex": 2,
+                          "span": 1
+                        },
+                        {
+                          "colIndex": 1,
+                          "name": "lg",
+                          "order": 0,
+                          "rowIndex": 2,
+                          "span": 1
+                        }
+                      ],
+                      "height": 40
+                    },
+                    "props": {
+                      "color": "#000000",
+                      "path": "material/vpn_key",
+                      "style": {
+                        "backgroundColor": "#E4EEF5",
+                        "borderBottomLeftRadius": 4,
+                        "borderColor": "#497FD4",
+                        "borderStyle": "solid",
+                        "borderTopLeftRadius": 4,
+                        "borderWidth": 1,
+                        "fontWeight": "normal",
+                        "marginLeft": 2,
+                        "opacity": "0.50",
+                        "paddingLeft": 4,
+                        "paddingRight": 4
+                      }
+                    },
+                    "type": "ia.display.icon"
+                  }
+                ],
+                "meta": {
+                  "name": "cntColumn"
+                },
+                "position": {
+                  "height": 0.9968,
+                  "width": 1,
+                  "y": -0.0014
+                },
+                "props": {
+                  "gutters": {
+                    "vertical": 0
+                  },
+                  "style": {
+                    "backgroundColor": "#FfFfFf",
+                    "borderBottomLeftRadius": 4,
+                    "borderBottomRightRadius": 4,
+                    "borderColor": "#349DF6",
+                    "borderStyle": "ridge",
+                    "borderTopLeftRadius": 4,
+                    "borderTopRightRadius": 4,
+                    "borderWidth": 2,
+                    "outlineStyle": "none"
+                  }
+                },
+                "type": "ia.container.column"
+              },
+              {
+                "meta": {
+                  "name": "Image"
+                },
+                "position": {
+                  "height": 0.3135,
+                  "width": 0.677,
+                  "x": -0.9668,
+                  "y": -0.1437
+                },
+                "props": {
+                  "fit": {
+                    "mode": "percent"
+                  },
+                  "source": "/system/images/Builtin/icons/16/JELogo.png"
+                },
+                "type": "ia.display.image"
+              }
+            ],
+            "meta": {
+              "name": "cntLogin"
+            },
+            "position": {
+              "breakpoints": [
+                {
+                  "colIndex": 1,
+                  "name": "sm",
+                  "order": 0,
+                  "rowIndex": 1,
+                  "span": 10
+                },
+                {
+                  "colIndex": 7,
+                  "name": "md",
+                  "order": 1,
+                  "rowIndex": 3,
+                  "span": 4
+                },
+                {
+                  "colIndex": 4,
+                  "name": "lg",
+                  "order": 0,
+                  "rowIndex": 4,
+                  "span": 4
+                }
+              ],
+              "height": 319
+            },
+            "props": {
+              "mode": "percent",
+              "style": {
+                "classes": "Ref_MES/Common/Label",
+                "marginTop": "1px"
+              }
+            },
+            "type": "ia.container.coord"
+          }
+        ],
+        "meta": {
+          "name": "cntColumn"
+        },
+        "position": {
+          "height": 1,
+          "width": 1,
+          "x": -0.0007,
+          "y": -0.0011
+        },
+        "props": {
+          "gutters": {
+            "horizontal": 1,
+            "vertical": 1
+          },
+          "style": {
+            "backgroundColor": "#FFFFFF00",
+            "borderStyle": "groove",
+            "borderWidth": 2
+          }
+        },
+        "type": "ia.container.column"
+      }
+    ],
+    "events": {
+      "system": {
+        "onStartup": {
+          "config": {
+            "script": "\ttry:\n\t#Start of try block\n\t\tsystem.perspective.closePopup(\u0027LogoutPopUp\u0027)\t\t\n\t\tself.getChild(\"cntColumn\").getChild(\"cntLogin\").getChild(\"cntColumn\").getChild(\"txtUserName\").props.text \u003d \u0027\u0027\n\t\tself.getChild(\"cntColumn\").getChild(\"cntLogin\").getChild(\"cntColumn\").getChild(\"txtPassword\").props.text \u003d \u0027\u0027\n\t\tself.session.custom.Username\u003d\"\"\n\t\tself.view.custom.isBadgeVisible\u003d0\n\t\tself.getChild(\"cntColumn\").getChild(\"cntLogin\").getChild(\"cntColumn\").getChild(\"txtUserName\").focus()\n\t#End of try block\n\texcept:\n\t#Start of except block\n\t\tscreenName \u003d\u0027Login\u0027\n\t\tfilePath\u003dstr(\u0027Project_Mako4/Login/Login\u0027)\n\t\terrorFunction \u003d str(\u0027Event:onStartup  -\u003e root\u0027)\n\t\terrorType\u003dstr(\u0027Application\u0027)\n\t\terrorCode \u003d str(Project_Mako4.Common.GenerateUUID.getUniqueUUID())  \n\t\tdescription\u003dstr(sys.exc_info()[1]) #error description\n\t\tlineNumber\u003dstr(sys.exc_info()[2].tb_lineno) #lineno on which error\n\t\tProject_Mako4.Configuration.Common.AddLogDetails.AddErrorLogs(screenName,filePath,errorFunction,errorType,errorCode,description,lineNumber)\n\t#End of except block "
+          },
+          "scope": "G",
+          "type": "script"
+        }
+      }
+    },
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": 0.0041,
+      "y": 0.0087
+    },
+    "props": {
+      "mode": "percent",
+      "style": {
+        "classes": "Project_Mako4/Login/LoginBackground"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

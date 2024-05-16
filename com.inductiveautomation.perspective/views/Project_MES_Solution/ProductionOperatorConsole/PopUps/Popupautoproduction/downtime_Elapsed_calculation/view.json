@@ -1,0 +1,63 @@
+{
+  "custom": {},
+  "params": {
+    "rowData": "value"
+  },
+  "propConfig": {
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 36,
+      "width": 218
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "TextField"
+        },
+        "position": {
+          "height": 0.6038,
+          "width": 0.8899,
+          "x": 0.092,
+          "y": 0.0755
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.rowData[\"elapsedTime\"]"
+              },
+              "transforms": [
+                {
+                  "code": "\n    # Calculate days, hours, minutes, and seconds\n    days \u003d value // (24 * 3600)\n    hours \u003d (value % (24 * 3600)) // 3600\n    minutes \u003d (value % 3600) // 60\n    seconds \u003d value % 60\n\n    # Format the time based on the calculated values\n    if days \u003e 0:\n    \t \n        result \u003d \"{} day{} {} hour{} {} min{} {} sec\".format(\n            days, \u0027s\u0027 if days \u003e 1 else \u0027\u0027, hours, \u0027s\u0027 if hours \u003e 1 else \u0027\u0027, minutes, \u0027s\u0027 if minutes \u003e 1 else \u0027\u0027, seconds\n        )\n    elif hours \u003e 0:\n        result \u003d \"{} hour{} {} min{} {} sec\".format(\n            hours, \u0027s\u0027 if hours \u003e 1 else \u0027\u0027, minutes, \u0027s\u0027 if minutes \u003e 1 else \u0027\u0027, seconds\n        )\n    elif minutes \u003e 0:\n        result \u003d \"{}min{} {}sec\".format(\n            minutes, \u0027s\u0027 if minutes \u003e 1 else \u0027\u0027, seconds\n        )\n    else:\n        result \u003d \"{} sec\".format(seconds)\n\n    # Return the formatted time string\n    return result\n\n## Example usage:\n#value \u003d 7200\n#formatted_time \u003d format_time(value)\n#print(formatted_time)",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "borderColor": "#FFFFFF",
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.input.text-field"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

@@ -1,0 +1,1409 @@
+{
+  "custom": {
+    "Qty": 0,
+    "WONumber": "",
+    "dsSparePartRequest": "",
+    "dsSpareParts": null,
+    "dsWOSparePart": "",
+    "onHandQty": 0,
+    "requestID": 0,
+    "sparePartId": 0,
+    "sparePartNumber": ""
+  },
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\n\tself.session.custom.WoNumber \u003d \u0027\u0027\n\tself.session.custom.WorkflowId \u003d \u0027\u0027\n\tself.session.custom.WorkflowOperationsId \u003d \u0027\u0027\n\tself.session.custom.WorkOrderType \u003d \u0027\u0027\n\tself.session.custom.WOOperationStatus \u003d \u0027\u0027\n\tself.session.custom.Workflow \u003d \u0027\u0027\n\tself.session.custom.areaName \u003d \u0027\u0027\n\tself.session.custom.enterpriseName \u003d \u0027\u0027\n\tself.session.custom.lineName \u003d \u0027\u0027\n\tself.session.custom.machineName \u003d \u0027\u0027\n\tself.session.custom.plantName \u003d \u0027\u0027\n\tself.session.custom.WorkOrderQty \u003d \u0027\u0027\n\tself.session.custom.PDAOpValue \u003d \u0027\u0027\n#\tif self.session.custom.authorizePDAScanPartDelivery !\u003d 1 :\n#\t\tsystem.perspective.navigate(\u0027/LoginScreen\u0027)\n#\telse:\n#--------------------------------------End -------------------------------------------------\t\n\tself.getChild(\"root\").getChild(\"tblSparePartDelivery\").props.data\u003dNone\n\tself.getChild(\"root\").getChild(\"Txt_SparePartName\").props.text\u003d\u0027\u0027\n\tself.getChild(\"root\").getChild(\"Txt_Slot\").props.text\u003d\u0027\u0027\n\t\n\tself.getChild(\"root\").getChild(\"DrpDwnSelWoNumber\").props.value\u003d\u0027\u0027\n\tself.getChild(\"root\").getChild(\"DrpDwnReqNo\").props.value\u003d\u0027\u0027\n\tself.getChild(\"root\").getChild(\"DrpDwnSparePartNum\").props.value\u003d\u0027\u0027\n\tuserId \u003d self.session.custom.UserId\n\tself.getChild(\"root\").getChild(\"LblValidateSlotBarcode_1\").meta.visible\u003d0\n\tself.getChild(\"root\").getChild(\"tblSparePartDelivery\").props.data\u003dNone\n\tself.custom.Qty\u003d0\n\tself.custom.onHandQty\u003d0\n\tself.custom.requestID\u003d0\n\tself.custom.sparePartNumber\u003d\u0027\u0027\n\tself.custom.dsSpareParts\u003dNone\n\tself.getChild(\"root\").getChild(\"DrpDwnSelWoNumber\").props.value\u003d\u0027\u0027\n\tself.getChild(\"root\").getChild(\"DrpDwnReqNo\").props.value\u003d\u0027\u0027\n\tself.getChild(\"root\").getChild(\"Txt_Quantity\").props.enabled\u003d0\n\tself.getChild(\"root\").getChild(\"Txt_SparePartNo\").props.enabled\u003d0\n\tself.getChild(\"root\").getChild(\"Txt_SparePartNo\").props.text\u003d\u0027\u0027\n\tself.getChild(\"root\").getChild(\"Txt_SparePartName\").props.text\u003d\u0027\u0027\n\tself.getChild(\"root\").getChild(\"Txt_ReceivedBy\").props.text\u003d\u0027\u0027\n\t\n\t\n\tif userId!\u003d\u0027\u0027:\n\t\tUserId \u003dself.session.custom.UserId\n\t\tGetSupermarket\u003d PDASparePart.GetWarehouseByUserId(UserId)\n\t\t\n\t\tif GetSupermarket\u003d\u003d[] or GetSupermarket \u003d\u003dNone :\n\t\t\tsystem.perspective.print(\"No data found\")\n\t\telse:\n\t\t\tself.getChild(\"root\").getChild(\"DrpDwnSelWarehouse\").props.options\u003dGetSupermarket\n"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "propConfig": {
+    "custom.Qty": {
+      "persistent": true
+    },
+    "custom.WONumber": {
+      "persistent": true
+    },
+    "custom.dsSparePartRequest": {
+      "persistent": true
+    },
+    "custom.dsSpareParts": {
+      "persistent": true
+    },
+    "custom.dsWOSparePart": {
+      "persistent": true
+    },
+    "custom.onHandQty": {
+      "persistent": true
+    },
+    "custom.requestID": {
+      "persistent": true
+    },
+    "custom.sparePartId": {
+      "persistent": true
+    },
+    "custom.sparePartNumber": {
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 464,
+      "width": 383
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "page": "/PDADashboard"
+              },
+              "scope": "C",
+              "type": "nav"
+            }
+          }
+        },
+        "meta": {
+          "name": "NavigateBackButton"
+        },
+        "position": {
+          "height": 22,
+          "width": 30,
+          "x": 6,
+          "y": 7
+        },
+        "props": {
+          "path": "material/arrow_back"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 22,
+          "width": 228,
+          "x": 41,
+          "y": 7
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDAHeader"
+          },
+          "text": "Spare Part Delivery"
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblWorkorderNo_0"
+        },
+        "position": {
+          "height": 21,
+          "width": 85,
+          "x": 7.5,
+          "y": 268.5
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Quantity",
+          "textStyle": {
+            "classes": "PDA/PDALabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblWorkorderNo_1"
+        },
+        "position": {
+          "height": 21,
+          "width": 120,
+          "x": 7.5,
+          "y": 90.5
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Work Order Number",
+          "textStyle": {
+            "classes": "PDA/PDALabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\timport re\n\t\timport json\n\t\timport urllib2, urllib \n\t\timport datetime\n\t\twarehouseId\u003dself.getSibling(\"DrpDwnSelWarehouse\").props.value\n#\t\tqty\u003dself.view.custom.Qty\n\t\tqty\u003dself.getSibling(\"Txt_Quantity\").props.value\n\t\trequestId\u003dself.getSibling(\"DrpDwnReqNo\").props.value\n\t\tgreenColor\u003d\"#00AC00\"\n\t\tredColor\u003d\"#FF0000\"\n\t\tqtyCheck\u003d0\n\t\tdsSparePart\u003dPDASparePart.GetSparePartsByRequest(requestId)\n\t\tScannedQRData\u003dself.getSibling(\"Txt_SparePartNo\").props.text\n\t\tScannedQRData\u003dstr(ScannedQRData).strip().lower()\n\t\tfor i in dsSparePart:\n\t\t\tsparePartNumber\u003d str(i[\u0027sparePartNumber\u0027]).strip().lower()\n\t\t\trequestedQty\u003d int(i[\u0027requestedQty\u0027])\n\t\t\tif ScannedQRData\u003d\u003dsparePartNumber:\n\t\t\t\tqtyCheck\u003drequestedQty\n\t\tif qtyCheck \u003c qty or qtyCheck \u003c 0:\n\t\t\tself.getSibling(\"LblValidateSlotBarcode_1\").meta.visible\u003d1\n\t\t\tself.getSibling(\"LblValidateSlotBarcode_1\").props.text\u003d\u0027Request Already Raised.\u0027\n\t\t\tself.getSibling(\"LblValidateSlotBarcode_1\").props.textStyle.color\u003d\u0027#FF0000\u0027\n\t\t\n\n\t\telse:\n\t\t\tSPId\u003dself.view.custom.sparePartId\n\t\t\tres\u003dPDASparePart.SetSparePartAllocateQty(SPId,qty,requestId,warehouseId)\n\t\t\tsystem.perspective.print(\"res \"+str(res))\n\t\t\tif res\u003d\u003d1:\n\t\t\t\tself.getSibling(\"LblValidateSlotBarcode_1\").meta.visible\u003d1\n\t\t\t\tself.getSibling(\"LblValidateSlotBarcode_1\").props.text\u003d\u0027Sparepart allocated succesfully.\u0027\n\t\t\t\tself.getSibling(\"LblValidateSlotBarcode_1\").props.textStyle.color\u003dgreenColor #\u0027#2B2B2B\u0027\n#\t\t\t\tself.getSibling(\"DrpDwnSelWarehouse\").props.value\u003d-1\n\t\t\t\tself.getSibling(\"Txt_SparePartNo\").props.text\u003d\u0027\u0027\n\t\t\t\tself.getSibling(\"Txt_SparePartName\").props.text\u003d\u0027\u0027\n\t\t\t\tself.getSibling(\"Txt_ReceivedBy\").props.text\u003d\u0027\u0027\n\t\t\t\tself.getSibling(\"Txt_SparePartNo\").props.enabled\u003d0\n\t\t\t\tself.props.enabled\u003d0\n\t\t\t\tself.getSibling(\"Txt_Quantity\").props.enabled\u003d0\n\t\t\t\tself.getSibling(\"Txt_Quantity\").props.value\u003d0\n\t\t\t\t\n\t\t\t\tself.getSibling(\"DrpDwnSelWarehouse\").props.value\u003d\u0027\u0027\n\t\t\t\tself.getSibling(\"DrpDwnSelWoNumber\").props.value \u003d \u0027\u0027\n\t\t\t\tself.getSibling(\"DrpDwnSelWoNumber\").props.options \u003d None\n\t\t\t\tself.getSibling(\"DrpDwnReqNo\").props.value \u003d \u0027\u0027\n\t\t\t\tself.getSibling(\"DrpDwnReqNo\").props.options \u003d None\n\t\t\t\tself.getSibling(\"tblSparePartDelivery\").props.data\u003dNone\n\n\t\t\t\tself.view.custom.onHandQty\u003d0\n\t\t\t\tself.view.custom.Qty\u003d0\n\t\t\t\t\n\t\t\telse:\n\t\t\t\tself.getSibling(\"LblValidateSlotBarcode_1\").meta.visible\u003d1\n\t\t\t\tself.getSibling(\"LblValidateSlotBarcode_1\").props.text\u003d\u0027sparepart is not allocated, Please contact system administrator for more details\u0027\n\t\t\t\tself.getSibling(\"LblValidateSlotBarcode_1\").props.textStyle.color\u003dredColor  #\u0027#FF0000\u0027\n\t\t\t\t\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)\n\t\tsystem.perspective.print(\"errorMessage \" + str(errorMessage))"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "LblWorkorderNo_2"
+        },
+        "position": {
+          "height": 21,
+          "width": 117,
+          "x": 7.5,
+          "y": 158.5
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Spare Part Number",
+          "textStyle": {
+            "classes": "PDA/PDALabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblWorkorderNo_4"
+        },
+        "position": {
+          "height": 21,
+          "width": 111,
+          "x": 7.5,
+          "y": 124.5
+        },
+        "props": {
+          "enabled": 0,
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Request Number",
+          "textStyle": {
+            "classes": "PDA/PDALabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Txt_Quantity"
+        },
+        "position": {
+          "height": 24,
+          "width": 84,
+          "x": 141,
+          "y": 268.5
+        },
+        "props": {
+          "align": "left",
+          "enabled": 0,
+          "format": "0,0",
+          "inputBounds": {
+            "maximum": 99999999,
+            "minimum": 0
+          },
+          "placeholder": "Enter quantity",
+          "style": {
+            "classes": "Ref_MES/Common/TextBox"
+          }
+        },
+        "type": "ia.input.numeric-entry-field"
+      },
+      {
+        "meta": {
+          "name": "LblWorkorderNo_3"
+        },
+        "position": {
+          "height": 21,
+          "width": 85,
+          "x": 7.5,
+          "y": 54.5
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Warehouse",
+          "textStyle": {
+            "classes": "PDA/PDALabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\n#\t\toptions\u003dself.props.options\n#\t\tsystem.perspective.print(\"warehouseId \"+str(options))\n#\t\tfor i in options:\t\n#\t\t\tsystem.perspective.print(\"warehouseId \"+str(i[0]))\n#\t\t\tsystem.perspective.print(\"warehouseId \"+str(i[1]))\n\t\t\n\t\twarehouseId\u003dself.props.value\n\t\tself.view.custom.sparePartNumber\u003d\u0027\u0027\n\t\tself.view.custom.Qty\u003d0\n\t\tself.view.custom.sparePartId\u003d0\n\t\tself.view.custom.requestID\u003d0\n\t\tself.view.custom.dsSpareParts\u003dNone\n\t\tself.view.custom.dsWOSparePart\u003dNone\n\t\tself.view.custom.dsSparePartRequest\u003dNone\n\t\tself.getSibling(\"Txt_Slot\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"Txt_Quantity\").props.enabled\u003d0\n\t\tself.getSibling(\"Txt_Quantity\").props.value\u003d0\n\t\tself.getSibling(\"Txt_SparePartNo\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"Txt_SparePartName\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"Txt_ReceivedBy\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"LblValidateSlotBarcode_1\").meta.visible\u003d0\n\t\tself.getSibling(\"DrpDwnSelWoNumber\").props.value\u003d-1\n\t\tself.getSibling(\"tblSparePartDelivery\").props.data\u003dNone\n\t\tself.getSibling(\"DrpDwnReqNo\").props.value\u003d-1\n\t\tself.getSibling(\"DrpDwnSparePartNum\").props.value\u003d-1\n\t\tself.getSibling(\"DrpDwnSparePartNum\").props.options\u003dNone\n\t\tself.getSibling(\"Txt_SparePartName\").props.text\u003d\u0027\u0027\n\t\tsystem.perspective.print(\"warehouseId \"+str(warehouseId))\n\t\tself.getSibling(\"DrpDwnSparePartNum\").props.options\u003dNone\n\t\tself.getSibling(\"tblSparePartDelivery\").props.data\u003dNone\n\t\tactionTypeId\u003d1\n\t\tdsWOSparePart\u003dPDASparePart.GetWorkOrdersForSparePartDelivery(warehouseId,actionTypeId)\n\t\tself.view.custom.dsWOSparePart\u003ddsWOSparePart\n\t\tsystem.perspective.print(\"dsWOSparePart len \u003d \"+str( len(dsWOSparePart)))\n\t\tif len(dsWOSparePart) \u003e 0:\n\t\t\tdataList \u003d []\n\t\t\theaders \u003d [\"requestId\",\"workOrder\"]\n\t\t\t\n\t\t\tfor i in dsWOSparePart:\t\t\n\t\t\t\tworkOrder \u003d i[\"workOrder\"]\n\t\t\t\trequestId \u003d i[\"requestId\"]\n\t\t\t\tmyList \u003d [requestId,workOrder] \t\t\n\t\t\t\tdataList.append(myList)\t\n\t\t\tresultDetails \u003d system.dataset.toDataSet(headers,dataList)\n\t\t\tresultDetails\u003dsystem.dataset.toPyDataSet(resultDetails)\n\t\t\tself.getSibling(\"DrpDwnSelWoNumber\").props.options\u003dresultDetails\n\t\telse:\n\t\t\tself.getSibling(\"DrpDwnSelWoNumber\").props.options\u003dNone\n\t\t\tself.getSibling(\"DrpDwnSelWoNumber\").props.options\u003dNone\n\n\t\tdsSparePartRequests\u003dPDASparePart.GetSparePartRequestsByWorkOrder(-1,warehouseId,actionTypeId)\t\n\t\tself.view.custom.dsSparePartRequest\u003ddsSparePartRequests\n\t\tsystem.perspective.print(\"dsSparePartRequests len \u003d \"+str( len(dsSparePartRequests)))\n\t\tif len(dsSparePartRequests) \u003e 0:\n\t\t\tdataList \u003d []\n\t\t\theaders \u003d [\"id\",\"requestNumber\"]\n\t\t\t\n\t\t\tfor i in dsSparePartRequests:\t\t\n\t\t\t\tid \u003d i[\"id\"]\n\t\t\t\trequestNumber \u003d i[\"requestNumber\"]\n\t\t\t\tmyList \u003d [id,requestNumber] \t\t\n\t\t\t\tdataList.append(myList)\t\n\t\t\tresultDetails \u003d system.dataset.toDataSet(headers,dataList)\n\t\t\tresultDetails\u003dsystem.dataset.toPyDataSet(resultDetails)\n\t\t\tself.getSibling(\"DrpDwnReqNo\").props.options\u003dresultDetails\n\t\telse:\n\t\t\tself.getSibling(\"DrpDwnReqNo\").props.options\u003dNone\n\texcept exception as e:\n\t\tsystem.perspective.print(\"errpr \u003d \"+str( e ))\n#\tself.view.custom.dsSpareParts\u003ddsSparePart\n#\tsystem.perspective.print(\"dsSparePart \"+str(len(dsSparePart)))\n"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          },
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tUserId \u003dself.session.custom.UserId\n\tsystem.perspective.print(\"userId\")\n\tsystem.perspective.print(UserId)\n\tGetSupermarket\u003d PDASparePart.GetWarehouseByUserId(UserId)\n\tif GetSupermarket\u003d\u003d[] or GetSupermarket\u003d\u003dNone:\n\t\tsystem.perspective.print(\"No data found\")\n\telse:\n\t\tself.props.options\u003dGetSupermarket\n\t"
+              },
+              "enabled": false,
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "DrpDwnSelWarehouse"
+        },
+        "position": {
+          "height": 25,
+          "width": 233,
+          "x": 141,
+          "y": 53
+        },
+        "propConfig": {
+          "props.value": {
+            "onChange": {
+              "enabled": false,
+              "script": "\tSupermarket\u003dself.props.value\n\tif Supermarket\u003d\u003d\u0027\u0027:\n\t\tpass\n\telse:\n\t\tds\u003dself.props.options\n\t\tds1\u003dsystem.dataset.toPyDataSet(ds)\n\t\tsystem.perspective.print(\"Supermarket Name\")\n\t\tsystem.perspective.print(ds1)\n\t\tdsCount\u003dds.getRowCount()\n\t\tfor i in range(dsCount):\n\t\t\tSupermarketLable\u003dds.getValueAt(i, \u0027SupermarketID\u0027)\n\t\t\tif Supermarket\u003d\u003dSupermarketLable:\n\t\t\t\tSupermarketName\u003dds.getValueAt(i, \u0027Supermarket\u0027)\n#\t\t\t\tsystem.perspective.print(SupermarketLable)\n\t\t\t\tself.session.custom.PDASupermarket\u003dSupermarketName\n\t\t\t\tself.session.custom.PDASupermarketID\u003dSupermarketLable\n\t\t\t\tsystem.perspective.print(self.session.custom.PDASupermarket)\n\t\t\t\tsystem.perspective.print(self.session.custom.PDASupermarketID)\n\n##\t\tfor i in ds1:\n##\t\t\tSupermarketLable\u003di.get(\u0027SupermarketID\u0027)\t\n###\t\t\tSupermarketName\u003di.get(\u0027Supermarket\u0027)\n##\t\t\tif Supermarket\u003d\u003dSupermarketLable:\n###\t\t\t\tSupermarketLable\u003di.get(\u0027SupermarketID\u0027)\t\n##\t\t\t\tSupermarketName\u003di.get(\u0027Supermarket\u0027)\n#\t\t\t\tsystem.perspective.print(SupermarketLable)\n#\t\t\t\tself.session.custom.PDASupermarket\u003dSupermarketName\n#\t\t\t\tself.session.custom.PDASupermarketID\u003dSupermarketLable\n#\t\t\t\tsystem.perspective.print(self.session.custom.PDASupermarket)\n#\t\t\t\tsystem.perspective.print(self.session.custom.PDASupermarketID)\n#\t\t"
+            }
+          }
+        },
+        "props": {
+          "placeholder": {
+            "color": "#AAAAAA",
+            "text": "Select Warehouse"
+          },
+          "style": {
+            "classes": "Ref_MES/Common/TextBox"
+          }
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\treqID\u003dself.props.value\n\tself.getSibling(\"DrpDwnReqNo\").props.value\u003dreqID\n\tself.view.custom.requestID\u003dreqID\n\tself.getSibling(\"Txt_Quantity\").props.enabled\u003d0\n\tself.getSibling(\"Txt_Quantity\").props.value\u003d0\n\tself.getSibling(\"Txt_SparePartNo\").props.text\u003d\u0027\u0027\n\tself.getSibling(\"Txt_SparePartName\").props.text\u003d\u0027\u0027\n\tself.getSibling(\"Txt_ReceivedBy\").props.text\u003d\u0027\u0027\n\tself.getSibling(\"tblSparePartDelivery\").props.data\u003dNone\n\tself.getSibling(\"Txt_SparePartName\").props.text\u003d\u0027\u0027\n\tself.getSibling(\"Txt_Slot\").props.text\u003d\u0027\u0027\n\n\tself.getSibling(\"DrpDwnSparePartNum\").props.value\u003d-1\n#\tself.getSibling(\"DrpDwnSparePartNum\").props.options\u003dNone\n#\tself.view.custom.WONumber\u003d\n\tself.view.custom.sparePartId\u003d0\n\tself.view.custom.sparePartNumber\u003d\u0027\u0027\n\tself.view.custom.sparePartId\u003d0\n\tself.view.custom.dsSpareParts\u003dPDASparePart.GetSparePartsByRequest(reqID)\n\ttry:\n\t\tscriptName\u003d\"Binding binding\"\n\t\tif len(self.view.custom.dsSpareParts) \u003e 0:\n\t\t\tresultData\u003dself.view.custom.dsSpareParts\n\t\t\tself.getSibling(\"tblSparePartDelivery\").props.data\u003dresultData\n\t\t\tdataList \u003d []\n\t\t\theaders \u003d [\"id\",\"sparePartNumber\"]\n\t\t\tdataList\u003d[]\n\t\t\tfor i in resultData:\t\t\n\t\t\t\tid \u003d i[\"id\"]\n\t\t\t\tsparePartNumber \u003d i[\"sparePartNumber\"]\n\t\t\t\trequestedQty \u003d i[\"requestedQty\"]\n\t\t\t\tif requestedQty \u003e 0 :\n\t\t\t\t\tmyList \u003d [id,sparePartNumber] \t\t\n\t\t\t\t\tdataList.append(myList)\t\n\t\t\tresultDetails \u003d system.dataset.toDataSet(headers,dataList)\n\t\t\tresultDetails\u003dsystem.dataset.toPyDataSet(resultDetails)\n\t\t\tself.getSibling(\"DrpDwnSparePartNum\").props.options\u003dresultDetails\n\t\t\t\n\t\t\t\n\t\t\tsystem.perspective.print(\"DrpDwnSparePartNum binding done \")\n\t\t\tif len(resultDetails)\u003d\u003d1:\n\t\t\t\tself.getSibling(\"DrpDwnSparePartNum\").props.value\u003dresultDetails[0][0]\n\t\t\t\n\t\t\tself.getSibling(\"Txt_SparePartNo\").focus()\n\t\telse:\n\t\t\tself.getSibling(\"DrpDwnSparePartNum\").props.options\u003dNone\n\t\t\tself.getSibling(\"tblSparePartDelivery\").props.data\u003dNone\n\t\t\t\n\n\texcept :\n\t\t\t\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)\n\t\tsystem.perspective.print(\"errorMessage \"+  errorMessage)\n\t\treturn None"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "DrpDwnSelWoNumber"
+        },
+        "position": {
+          "height": 25,
+          "width": 233,
+          "x": 141,
+          "y": 87
+        },
+        "props": {
+          "placeholder": {
+            "color": "#AAAAAA",
+            "text": "Select WorkOrder"
+          },
+          "style": {
+            "classes": "Ref_MES/Common/TextBox"
+          }
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\treqID\u003dself.props.value\n\tself.getSibling(\"DrpDwnSelWoNumber\").props.value\u003dreqID\n\tself.view.custom.requestID\u003dreqID\n\tself.getSibling(\"Txt_Quantity\").props.enabled\u003d0\n\tself.getSibling(\"Txt_Quantity\").props.value\u003d0\n\tself.getSibling(\"Txt_SparePartNo\").props.text\u003d\u0027\u0027\n\tself.getSibling(\"Txt_SparePartName\").props.text\u003d\u0027\u0027\n\tself.getSibling(\"Txt_ReceivedBy\").props.text\u003d\u0027\u0027\n\tself.getSibling(\"tblSparePartDelivery\").props.data\u003dNone\n\tself.getSibling(\"DrpDwnSparePartNum\").props.value\u003d-1\n\tself.getSibling(\"Txt_SparePartName\").props.text\u003d\u0027\u0027\n\tself.getSibling(\"Txt_Slot\").props.text\u003d\u0027\u0027\n#\tself.getSibling(\"DrpDwnSparePartNum\").props.options\u003dNone\n\tself.view.custom.sparePartId\u003d0\n\tself.view.custom.sparePartNumber\u003d\u0027\u0027\n\tself.view.custom.sparePartId\u003d0\n\tsystem.perspective.print(\"reqID \"+str(reqID))\n\tself.view.custom.dsSpareParts\u003dPDASparePart.GetSparePartsByRequest(reqID)\n\tsystem.perspective.print(\"dsSpareParts len \"+str(len(self.view.custom.dsSpareParts) ))\n\ttry:\n\t\tscriptName\u003d\"Binding binding\"\n\t\tif len(self.view.custom.dsSpareParts) \u003e 0:\n\t\t\tresultData\u003dself.view.custom.dsSpareParts\n\t\t\tself.getSibling(\"tblSparePartDelivery\").props.data\u003dresultData\n\t\t\tdataList \u003d []\n\t\t\theaders \u003d [\"id\",\"sparePartNumber\"]\n\t\t\tdataList\u003d[]\n\t\t\tfor i in resultData:\t\t\n\t\t\t\tid \u003d i[\"id\"]\n\t\t\t\tsparePartNumber \u003d i[\"sparePartNumber\"]\n\t\t\t\trequestedQty \u003d i[\"requestedQty\"]\n\t\t\t\tif requestedQty \u003e 0 :\n\t\t\t\t\tmyList \u003d [id,sparePartNumber] \t\t\n\t\t\t\t\tdataList.append(myList)\t\n\t\t\tresultDetails \u003d system.dataset.toDataSet(headers,dataList)\n\t\t\tresultDetails\u003dsystem.dataset.toPyDataSet(resultDetails)\n\t\t\tself.getSibling(\"DrpDwnSparePartNum\").props.options\u003dresultDetails\n\t\t\tif len(resultDetails)\u003d\u003d1:\n\t\t\t\tself.getSibling(\"DrpDwnSparePartNum\").props.value\u003dresultDetails[0][0]\n\t\t\tsystem.perspective.print(\"DrpDwnSparePartNum binding done \")\n\t\t\tself.getSibling(\"Txt_SparePartNo\").focus()\n\t\telse:\n\t\t\tself.getSibling(\"DrpDwnSparePartNum\").props.options\u003dNone\n\t\t\tself.getSibling(\"tblSparePartDelivery\").props.data\u003dNone\n\n\texcept :\n\t\t\t\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)\n\t\tsystem.perspective.print(\"errorMessage \"+  errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "DrpDwnReqNo",
+          "visible": 0
+        },
+        "position": {
+          "height": 25,
+          "width": 233,
+          "x": 141,
+          "y": 121
+        },
+        "props": {
+          "placeholder": {
+            "color": "#AAAAAA",
+            "text": "Select Request No"
+          },
+          "style": {
+            "classes": "Ref_MES/Common/TextBox"
+          }
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "meta": {
+          "name": "LblValidateSlotBarcode"
+        },
+        "position": {
+          "height": 16,
+          "width": 276,
+          "x": 102,
+          "y": 183
+        },
+        "propConfig": {
+          "meta.visible": {
+            "binding": {
+              "config": {
+                "path": "this.meta.visible"
+              },
+              "transforms": [
+                {
+                  "code": "\tpartNumber\u003dself.getSibling(\"Txt_SparePartNo\").props.text\n\tif str(partNumber).strip()\u003d\u003d\u0027\u0027 or str(partNumber).strip()\u003d\u003dNone:\n\t\tvalue\u003d0\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Ref_MES/Common/Label_PDAValidation"
+          },
+          "textStyle": {
+            "classes": "PDA/lblWarning",
+            "color": "#FF0000",
+            "textAlign": "right"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblValidateSlotBarcode_0"
+        },
+        "position": {
+          "height": 16,
+          "width": 362,
+          "x": 16,
+          "y": 293
+        },
+        "propConfig": {
+          "meta.visible": {
+            "binding": {
+              "config": {
+                "path": "this.meta.visible"
+              },
+              "transforms": [
+                {
+                  "code": "\tqtyEnter\u003dself.getSibling(\"Txt_Quantity\").props.value\n\tQty\u003dself.view.custom.Qty\n\tonHandQty\u003dself.view.custom.onHandQty\n\tQtyena\u003dself.getSibling(\"Txt_Quantity\").props.enabled\n\tif  Qtyena \u003d\u003d1:\n\t\tif qtyEnter \u003e Qty or  (onHandQty \u003c  Qty  and onHandQty \u003c  qtyEnter) :\n\t\t\tvalue\u003d1\n\t\telse:\n\t\t\tvalue\u003d0\n\telse:\t\n\t\tvalue\u003d0\n\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "this.meta.visible"
+              },
+              "transforms": [
+                {
+                  "code": "\t\n\tif value \u003d\u003d True:\n\t\tQty\u003dself.view.custom.Qty\n#\t\tvalue \u003d \"Please Enter Qty less than total requested qty \"+str(Qty)+\" against scanned spare part\"\n\t\tvalue \u003d \"Entered Quantity exceeds Requested or Available Qty\"\n\telse:\n\t\tvalue  \u003d \"\"\n\t\t\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Ref_MES/Common/Label_PDAValidation"
+          },
+          "textStyle": {
+            "classes": "PDA/lblWarning",
+            "color": "#FF0000"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblValidateSlotBarcode_1",
+          "visible": 0
+        },
+        "position": {
+          "height": 16,
+          "width": 286,
+          "x": 95,
+          "y": 34
+        },
+        "props": {
+          "style": {
+            "classes": "Ref_MES/Common/Label_PDAValidation"
+          },
+          "text": "Part Allocated Succesfully.",
+          "textStyle": {
+            "classes": "PDA/LabelText",
+            "color": "#2B2B2B"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Label_2"
+        },
+        "position": {
+          "height": 23,
+          "width": 12,
+          "x": 61,
+          "y": 269.5
+        },
+        "props": {
+          "text": "*",
+          "textStyle": {
+            "color": "#FF0000"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Label_3"
+        },
+        "position": {
+          "height": 23,
+          "width": 12,
+          "x": 120,
+          "y": 160
+        },
+        "props": {
+          "text": "*",
+          "textStyle": {
+            "color": "#FF0000"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Label_4"
+        },
+        "position": {
+          "height": 22,
+          "width": 12,
+          "x": 107,
+          "y": 126
+        },
+        "props": {
+          "text": "*",
+          "textStyle": {
+            "color": "#FF0000"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Label_5"
+        },
+        "position": {
+          "height": 22,
+          "width": 12,
+          "x": 76,
+          "y": 56.5
+        },
+        "props": {
+          "text": "*",
+          "textStyle": {
+            "color": "#FF0000"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Label_6"
+        },
+        "position": {
+          "height": 22,
+          "width": 12,
+          "x": 126,
+          "y": 92
+        },
+        "props": {
+          "text": "*",
+          "textStyle": {
+            "color": "#FF0000"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblSparePartName"
+        },
+        "position": {
+          "height": 21,
+          "width": 106,
+          "x": 7.5,
+          "y": 202.5
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Spare Part Name",
+          "textStyle": {
+            "classes": "PDA/PDALabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Label_7"
+        },
+        "position": {
+          "height": 23,
+          "width": 12,
+          "x": 44,
+          "y": 236.5
+        },
+        "props": {
+          "textStyle": {
+            "color": "#FF0000"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Txt_SparePartName",
+          "tooltip": {
+            "enabled": true
+          }
+        },
+        "position": {
+          "height": 24,
+          "width": 233,
+          "x": 141,
+          "y": 201
+        },
+        "props": {
+          "data": null,
+          "deferUpdates": false,
+          "enabled": 0,
+          "placeholder": "Spare Part Name",
+          "rejectUpdatesWhileFocused": false,
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "tblSparePartDelivery"
+        },
+        "position": {
+          "height": 123,
+          "width": 377,
+          "y": 309.97
+        },
+        "props": {
+          "bodyStyle": {
+            "classes": "Table/RowsBorder",
+            "fontSize": 10,
+            "fontWeight": "bold"
+          },
+          "cells": {
+            "allowEditOn": "single-click"
+          },
+          "columns": [
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "LineName",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Line"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 40
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "MachineName",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Machine"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 120
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "sparePartNumber",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "SP Number"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 100
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "onHandQty",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Avl Qty"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 50
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "SparePartImagePath",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Image"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "view",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {
+                "rowData": "value"
+              },
+              "viewPath": "Project_MES_Solution/PDAScreens/Maintenance/Template/SparePartDeliveryViewButtonImage",
+              "visible": true,
+              "width": 60
+            }
+          ],
+          "data": null,
+          "emptyMessage": {
+            "noData": {
+              "icon": {
+                "color": "#C0C0C0",
+                "path": "material/hourglass_empty"
+              }
+            }
+          },
+          "headerStyle": {
+            "classes": "Table/Header"
+          },
+          "pager": {
+            "bottom": false
+          },
+          "rows": {
+            "highlight": {
+              "color": "#F7F5DD"
+            },
+            "style": {
+              "classes": "Ref_MES/Table/Rowsmiddle"
+            },
+            "subview": {
+              "enabled": 0
+            }
+          },
+          "selection": {
+            "enableColumnSelection": true
+          },
+          "text": ""
+        },
+        "type": "ia.display.table"
+      },
+      {
+        "meta": {
+          "name": "Txt_ReceivedBy",
+          "tooltip": {
+            "enabled": true
+          }
+        },
+        "position": {
+          "height": 24,
+          "width": 151,
+          "x": 97,
+          "y": 437
+        },
+        "props": {
+          "deferUpdates": false,
+          "enabled": 1,
+          "placeholder": "Received By",
+          "rejectUpdatesWhileFocused": false,
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "Label_8"
+        },
+        "position": {
+          "height": 23,
+          "width": 12,
+          "x": 252,
+          "y": 439.5
+        },
+        "props": {
+          "enabled": 0,
+          "text": "*",
+          "textStyle": {
+            "color": "#FF0000"
+          },
+          "value": ""
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tsystem.perspective.print(\"Action perform\")"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "DrpDwnSparePartNum"
+        },
+        "position": {
+          "height": 28,
+          "width": 233,
+          "x": 141,
+          "y": 155
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "this.props.enabled"
+              },
+              "transforms": [
+                {
+                  "code": "\tif self.getSibling(\"DrpDwnSelWoNumber\").props.value!\u003d\u0027\u0027 and self.getSibling(\"DrpDwnReqNo\").props.value!\u003d\u0027\u0027:\n\t\tvalue\u003d1\n\telse:\n\t\tvalue\u003d0\t\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.value": {
+            "onChange": {
+              "enabled": null,
+              "script": "\ttry:\n\t\tscriptName\u003d\"PDA API call Spare Part Delivery \"\n\t\tsystem.perspective.print(\"Spare Part CALL DDL\")\n\t\toptions\u003dself.props.options\n\t\tScannedQRDatavalue\u003dself.props.value\n\t\tsystem.perspective.print(\"Spare Part ID  \"+str(options))\n\t\tfor i in options:\t\n\t\t\tsystem.perspective.print(\"Spare Part ID \"+str(i[0]))\n\t\t\tsystem.perspective.print(\"Spare Part ID \"+str(i[1]))\n\t\t\tif ScannedQRDatavalue\u003d\u003di[0]:\n#\t\t\t\tself.getSibling(\"Txt_SparePartNo\").props.text\u003dstr(i[1]).strip()\n\t\t\t\tself.getSibling(\"Txt_SparePartNo\").props.text\u003d(i[1]).strip()\n\t\t\t\n\t\t\n#\t\tScannedQRDatavalue\u003dself.props.value\n#\t\tisPartValid\u003d0\n#\t\tself.view.custom.Qty\u003d0\n#\t\tself.view.custom.onHandQty\u003d0\n#\t\tif str(ScannedQRDatavalue).strip()!\u003d\u0027\u0027 and str(ScannedQRDatavalue)!\u003dNone and ScannedQRDatavalue \u003e 0:\n#\t\t\tdsSparePart\u003dself.view.custom.dsSpareParts\n#\t\t\tsystem.perspective.print(\"dsSparePart \u003d \"+str(len(dsSparePart)))\n#\t\t\tfor i in dsSparePart:\n#\t\t\t\tsparePartId\u003d i[\u0027id\u0027]\n#\t\t\t\tsparePartNumber\u003d str(i[\u0027sparePartNumber\u0027]).strip().lower()\n#\t\t\t\trequestedQty\u003d i[\u0027requestedQty\u0027]\n#\t\t\t\tcanConsumedQty\u003d i[\u0027canConsumedQty\u0027]\n#\t\t\t\tonHandQty\u003d int(i[\u0027onHandQty\u0027])\n#\t\t\t\t\n#\t\t\t\tsystem.perspective.print(\"requestedQty \" +str(requestedQty))\t\t\t\t\n#\t\t\t\tsystem.perspective.print(\"sparePartNumber \u003d \"+str(sparePartNumber))\n#\t\t\t\tsystem.perspective.print(\"onHandQty \u003d \"+str(onHandQty))\n#\n#\t\t\t\tif sparePartId\u003d\u003dScannedQRDatavalue:\n#\t\t\t\t\tself.view.custom.Qty\u003drequestedQty\n#\t\t\t\t\tself.view.custom.onHandQty\u003dint(onHandQty)\n#\t\t\t\t\tself.view.custom.sparePartNumber\u003dsparePartNumber\n#\t\t\t\t\tself.view.custom.sparePartId\u003dsparePartId\n#\n#\t\t\t\t\tisPartValid\u003d1\n#\t\t\t\t\tbreak\n#\n#\n#\t\t\t\t\t\t\n#\t\t\tif isPartValid\u003d\u003d0:\n#\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.text\u003d\"Please Scan/Enter correct spare part against selected requests\"\n#\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").meta.visible\u003d1\n#\t\t\t\tself.view.custom.Qty\u003d0\n#\t\t\t\tself.view.custom.sparePartNumber\u003d\"\"\n#\n#\t\t\t\tself.getSibling(\"Txt_Quantity\").props.enabled\u003d0\n#\t\t\t\n#\t\t\telif  isPartValid\u003d\u003d1:\n#\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.text\u003d\"\"\n#\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").meta.visible\u003d0\n#\t\t\t\tself.getSibling(\"Txt_Quantity\").props.enabled\u003d1\n#\t\t\t\tself.getSibling(\"Txt_Quantity\").props.value\u003dself.view.custom.Qty\n\texcept:\t\t\t\n\t\n\t\t\timport sys, os\n\t\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\t\tAuthentication.exceptionLogger(errorMessage)\n\t\t\tsystem.perspective.print(\"errorMessage \" +str(errorMessage))"
+            }
+          }
+        },
+        "props": {
+          "placeholder": {
+            "color": "#AAAAAA",
+            "text": "Select/Scan SparePart Number"
+          },
+          "style": {
+            "classes": "Ref_MES/Common/TextBox"
+          },
+          "text": ""
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "events": {
+          "dom": {
+            "onKeyPress": {
+              "config": {
+                "script": "\tself.parent.getChild(\"ColumnContainer_0\").getChild(\"LblActivitySts\").props.text\u003d\u0027\u0027\n\tsystem.perspective.print(\"Lot Validation Manully\")\n\tself.session.custom.IsKeyPressed\u003d1\n\tScannedLot\u003dself.props.text\t\t\t\t\n\tLotBarcode\u003dstr(ScannedLot).strip()\n\tLotBarcodeLen\u003dlen(LotBarcode)\n\tLotBarcodeLength\u003dsystem.tag.read(\"[default]InternalTags/Barcode_Structure/LotBarcodeLength.value\").value\n\tif LotBarcodeLen\u003e\u003dLotBarcodeLength:\n\t\tself.getSibling(\"LblValidateLotBarcode\").meta.visible\u003d1\n\t\tself.props.text\u003d\u0027\u0027\n\t\tself.focus()\n\t\tsystem.perspective.print(\"Part greater\")\n\telse:\n\t\tself.getSibling(\"LblValidateLotBarcode\").meta.visible\u003d0\n\t\tsystem.perspective.print(\"Part less\")\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t"
+              },
+              "scope": "G",
+              "type": "script"
+            },
+            "onKeyUp": {
+              "config": {
+                "script": "\tself.session.custom.IsKeyPressed\u003d0"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Txt_SparePartNo",
+          "tooltip": {
+            "enabled": true
+          }
+        },
+        "position": {
+          "height": 23,
+          "width": 205,
+          "x": 143,
+          "y": 157
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "this.props.enabled"
+              },
+              "transforms": [
+                {
+                  "code": "\tif self.getSibling(\"DrpDwnSelWoNumber\").props.value!\u003d\u0027\u0027 and self.getSibling(\"DrpDwnReqNo\").props.value!\u003d\u0027\u0027:\n\t\tvalue\u003d1\n\telse:\n\t\tvalue\u003d0\t\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.text": {
+            "onChange": {
+              "enabled": null,
+              "script": "\ttry:\n\t\tscriptName\u003d\"PDA API call Spare Part Delivery \"\n\t\tScannedQRData\u003dself.props.text\n\t\tisPartValid\u003d0\n\t\tself.view.custom.Qty\u003d0\n\t\tself.view.custom.onHandQty\u003d0\n\t\tif str(ScannedQRData).strip()!\u003d\u0027\u0027 and str(ScannedQRData)!\u003dNone:\n\t\t\tScannedQRData\u003dstr(ScannedQRData).strip().lower()\n\t\t\tdsSparePart\u003dself.view.custom.dsSpareParts\n\t\t\tsystem.perspective.print(\"dsSparePart \u003d \"+str(len(dsSparePart)))\n\t\t\tfor i in dsSparePart:\n\t\t\t\tsparePartId\u003d i[\u0027id\u0027]\n\t\t\t\tsparePartName\u003d i[\u0027SparePartName\u0027]\n\t\t\t\tsparePartNumber\u003d str(i[\u0027sparePartNumber\u0027]).strip().lower()\n\t\t\t\trequestedQty\u003d i[\u0027requestedQty\u0027]\n\t\t\t\tcanConsumedQty\u003d i[\u0027canConsumedQty\u0027]\n\t\t\t\tonHandQty\u003d int(i[\u0027onHandQty\u0027])\n\t\t\t\tslot\u003d(i[\u0027Slot\u0027]).strip()\n\t\t\t\tsystem.perspective.print(\"requestedQty \" +str(requestedQty))\t\t\t\t\n\t\t\t\tsystem.perspective.print(\"sparePartNumber \u003d \"+str(sparePartNumber))\n\t\t\t\tsystem.perspective.print(\"onHandQty \u003d \"+str(onHandQty))\n\t\t\t\tif ScannedQRData\u003d\u003dsparePartNumber:\n\t\t\t\t\tself.view.custom.Qty\u003drequestedQty\n\t\t\t\t\tself.view.custom.onHandQty\u003dint(onHandQty)\n\t\t\t\t\tself.view.custom.sparePartNumber\u003d(self.props.text).strip()\n\t\t\t\t\tself.view.custom.sparePartId\u003dsparePartId\n\t\t\t\t\tself.getSibling(\"DrpDwnSparePartNum\").props.value\u003dsparePartId\n\t\t\t\t\tself.getSibling(\"Txt_SparePartName\").props.text\u003dsparePartName\n\t\t\t\t\tself.getSibling(\"Txt_SparePartName\").props.text\u003dsparePartName\n\t\t\t\t\tself.getSibling(\"Txt_Slot\").props.text\u003dslot\n#\t\t\t\t\tself.view.custom.sparePartId\u003dsparePartId\n\t\t\t\t\tisPartValid\u003d1\n\t\t\t\t\tbreak\n#\t\t\t\telse:\n\n\t\t\t\t\t\t\n\t\t\tif isPartValid\u003d\u003d0:\n\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.text\u003d\"Please Scan/Enter correct spare part against selected requests\"\n\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").meta.visible\u003d1\n\t\t\t\tself.view.custom.Qty\u003d0\n\t\t\t\tself.view.custom.sparePartNumber\u003d\"\"\n\t\t\t\tself.getSibling(\"Txt_SparePartName\").props.text\u003d\u0027\u0027\n\t\t\t\tself.getSibling(\"Txt_Quantity\").props.enabled\u003d0\n\t\t\t\tself.getSibling(\"DrpDwnSparePartNum\").props.value\u003d-1\n\t\t\t\tself.getSibling(\"Txt_Slot\").props.text\u003d\u0027\u0027\n\t\t\t\n\t\t\telif  isPartValid\u003d\u003d1:\n\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.text\u003d\"\"\n\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").meta.visible\u003d0\n\t\t\t\tself.getSibling(\"Txt_Quantity\").props.enabled\u003d1\n\t\t\t\tself.getSibling(\"Txt_Quantity\").props.value\u003dself.view.custom.Qty\n\t\t\t\tself.getSibling(\"Txt_Quantity\").focus()\n\t\t\t\t\n\t\t\t\tfrom threading import Timer\n\t\t\t\tdef runThisLater():\n\t\t\t\t\tself.getSibling(\"Txt_Quantity\").focus()\n\t\t\t\tTimer(1.05, runThisLater).start()\n\texcept:\t\t\t\n\t\n\t\t\timport sys, os\n\t\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\t\tAuthentication.exceptionLogger(errorMessage)\n\t\t\tsystem.perspective.print(\"errorMessage \" +str(errorMessage))\n\t\t\t\t\t\t"
+            }
+          }
+        },
+        "props": {
+          "deferUpdates": false,
+          "placeholder": "Select/Scan Spare Part Number",
+          "rejectUpdatesWhileFocused": false,
+          "style": {
+            "borderStyle": "none",
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "Txt_Slot",
+          "tooltip": {
+            "enabled": true
+          }
+        },
+        "position": {
+          "height": 24,
+          "width": 233,
+          "x": 141,
+          "y": 234
+        },
+        "props": {
+          "deferUpdates": false,
+          "enabled": 0,
+          "placeholder": "Slot",
+          "rejectUpdatesWhileFocused": false,
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "LblSlot"
+        },
+        "position": {
+          "height": 21,
+          "width": 34,
+          "x": 7.5,
+          "y": 235.5
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Slot",
+          "textStyle": {
+            "classes": "PDA/PDALabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Label_9"
+        },
+        "position": {
+          "height": 23,
+          "width": 12,
+          "x": 112,
+          "y": 203.5
+        },
+        "props": {
+          "enabled": 0,
+          "style": {
+            "backgroundColor": "value",
+            "borderColor": "value"
+          },
+          "text": "*",
+          "textStyle": {
+            "color": "#FF0000"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\timport re\n\t\timport json\n\t\timport urllib2, urllib \n\t\timport datetime\n\t\twarehouseId\u003dself.getSibling(\"DrpDwnSelWarehouse\").props.value\n\t\t\n\t\twarehouseId\u003dself.getSibling(\"DrpDwnSelWarehouse\").props.value\n\t\trequestId\u003dself.getSibling(\"DrpDwnReqNo\").props.value\n\t\trequestIdWO\u003dself.getSibling(\"DrpDwnSelWoNumber\").props.value\n\t\t\n\t\tactionTypeId\u003d1\n\t\tdsWOSparePart\u003dPDASparePart.GetWorkOrdersForSparePartDelivery(warehouseId,actionTypeId)\n\t\tisFound\u003d0\n\t\tfor i in dsWOSparePart:\t\t\n\t\t\t\n\t\t\trequestIdDDL \u003d i[\"requestId\"]\n\t\t\tif requestId\u003d\u003drequestIdDDL or requestIdWO\u003d\u003drequestIdDDL:\n\t\t\t\tisFound\u003d1\n\t\t\t\tbreak\n\t\tif isFound\u003d\u003d0:\n\t\t\tdsSparePartRequests\u003dPDASparePart.GetSparePartRequestsByWorkOrder(-1,warehouseId,actionTypeId)\t\n\t\t\tfor i in dsSparePartRequests:\t\t\n\t\t\t\tid \u003d i[\"id\"]\n\t\t\t\tif requestId\u003d\u003did or requestIdWO\u003d\u003did:\n\t\t\t\t\tisFound\u003d1\n\t\t\t\t\tbreak\n\t\t\n#\t\tqty\u003dself.view.custom.Qty\n\t\tif isFound\u003d\u003d0:\n\t\t\tself.getSibling(\"DrpDwnSelWarehouse\").props.value\u003d-1\n\t\t\tself.getSibling(\"LblValidateSlotBarcode_1\").meta.visible\u003d1\n\t\t\tself.getSibling(\"LblValidateSlotBarcode_1\").props.text\u003d\u0027Selected WorkOrder Already Completed\u0027\n\t\t\tself.getSibling(\"LblValidateSlotBarcode_1\").props.textStyle.color\u003d\u0027#FF0000\u0027\n\t\t\tself.getSibling(\"LblValidateSlotBarcode_1\").meta.visible\u003d1\n\n\t\t\tself.getSibling(\"LblValidateSlotBarcode_1\").props.textStyle.color\u003dredColor  #\u0027#FF0000\u0027\n\t\telse:\n\t\n\t\t#\t\tqty\u003dself.view.custom.Qty\n\t\t\tqty\u003dself.getSibling(\"Txt_Quantity\").props.value\n\t\t\trequestId\u003dself.getSibling(\"DrpDwnReqNo\").props.value\n\t\t\tgreenColor\u003d\"#00AC00\"\n\t\t\tredColor\u003d\"#FF0000\"\n\t\t\tqtyCheck\u003d0\n\t\t\tUserId\u003dself.session.custom.UserId\n\t\t\tdsSparePart\u003dPDASparePart.GetSparePartsByRequest(requestId)\n\t\t\tScannedQRData\u003dself.getSibling(\"Txt_SparePartNo\").props.text\n\t\t\tScannedQRData\u003dstr(ScannedQRData).strip().lower()\n\t\t\tReceivedBy\u003d\tself.getSibling(\"Txt_ReceivedBy\").props.text\n\t\t\tReceivedBy\u003dstr(ReceivedBy).strip()\n\t\t\tfor i in dsSparePart:\n\t\t\t\tsparePartNumber\u003d str(i[\u0027sparePartNumber\u0027]).strip().lower()\n\t\t\t\trequestedQty\u003d int(i[\u0027requestedQty\u0027])\n\t\t\t\tif ScannedQRData\u003d\u003dsparePartNumber:\n\t\t\t\t\tqtyCheck\u003drequestedQty\n\t\t\tif qtyCheck \u003c qty or qtyCheck \u003c 0:\n\t\t\t\tself.getSibling(\"LblValidateSlotBarcode_1\").meta.visible\u003d1\n\t\t\t\tself.getSibling(\"LblValidateSlotBarcode_1\").props.text\u003d\u0027Request Already Raised.\u0027\n\t\t\t\tself.getSibling(\"LblValidateSlotBarcode_1\").props.textStyle.color\u003d\u0027#FF0000\u0027\n\t\t\t\n\t\n\t\t\telse:\n\t\t\t\tSPId\u003dself.view.custom.sparePartId\n\t\t\t\tres\u003dPDASparePart.SetSparePartAllocateQty(SPId,qty,requestId,warehouseId,ReceivedBy,UserId)\n\t\t\t\tsystem.perspective.print(\"res \"+str(res))\n\t\t\t\tif res\u003d\u003d1:\n\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode_1\").meta.visible\u003d1\n\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode_1\").props.text\u003d\u0027Sparepart allocated succesfully.\u0027\n\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode_1\").props.textStyle.color\u003dgreenColor #\u0027#2B2B2B\u0027\n\t#\t\t\t\tself.getSibling(\"DrpDwnSelWarehouse\").props.value\u003d-1\n\t\t\t\t\tself.getSibling(\"Txt_SparePartNo\").props.text\u003d\u0027\u0027\n\t\t\t\t\tself.getSibling(\"Txt_SparePartName\").props.text\u003d\u0027\u0027\n\t\t\t\t\tself.getSibling(\"Txt_ReceivedBy\").props.text\u003d\u0027\u0027\n\t\t\t\t\tself.getSibling(\"Txt_SparePartNo\").props.enabled\u003d0\n\t\t\t\t\tself.props.enabled\u003d0\n\t\t\t\t\tself.getSibling(\"Txt_Quantity\").props.enabled\u003d0\n\t\t\t\t\tself.getSibling(\"Txt_Quantity\").props.value\u003d0\n\t\t\t\t\t\n\t\t\t\t\tself.getSibling(\"DrpDwnSelWarehouse\").props.value\u003d\u0027\u0027\n\t\t\t\t\tself.getSibling(\"DrpDwnSelWoNumber\").props.value \u003d \u0027\u0027\n\t\t\t\t\tself.getSibling(\"DrpDwnSelWoNumber\").props.options \u003d None\n\t\t\t\t\tself.getSibling(\"DrpDwnReqNo\").props.value \u003d \u0027\u0027\n\t\t\t\t\tself.getSibling(\"DrpDwnReqNo\").props.options \u003d None\n\t\t\t\t\tself.getSibling(\"tblSparePartDelivery\").props.data\u003dNone\n\t\t\t\t\tself.getSibling(\"Txt_SparePartName\").props.text\u003d\u0027\u0027\n\t\t\t\t\tself.getSibling(\"Txt_Slot\").props.text\u003dslot\n\t\t\t\t\tself.view.custom.onHandQty\u003d0\n\t\t\t\t\tself.view.custom.Qty\u003d0\n\t\t\t\t\tself.getSibling(\"Txt_ReceivedBy\").props.text\u003d\u0027\u0027\n\t\t\t\t\tself.getSibling(\"Txt_Slot\").props.text\u003d\u0027\u0027\n\t\t\t\telif  res\u003d\u003d-1:\t\n\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode_1\").meta.visible\u003d1\n\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode_1\").props.text\u003d\u0027Selected WorkOrder Already Completed\u0027\n\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode_1\").props.textStyle.color\u003dredColor  #\u0027#FF0000\u0027\n\t\t\t\telse:\n\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode_1\").meta.visible\u003d1\n\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode_1\").props.text\u003d\u0027sparepart is not allocated, Please contact system administrator for more details\u0027\n\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode_1\").props.textStyle.color\u003dredColor  #\u0027#FF0000\u0027\n\t\t\t\t\t\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)\n\t\tsystem.perspective.print(\"errorMessage \" + str(errorMessage))"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnFinishTrollley"
+        },
+        "position": {
+          "height": 28,
+          "width": 80,
+          "x": 294,
+          "y": 5
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "this.props.enabled"
+              },
+              "previewEnabled": false,
+              "transforms": [
+                {
+                  "code": "\tReceivedBy\u003dself.getSibling(\"Txt_ReceivedBy\").props.text\n\tReceivedBy\u003dstr(ReceivedBy).strip()\n\tqty\u003dself.getSibling(\"Txt_Quantity\").props.value\n\tisreadonly \u003d self.session.custom.authorizePDAScanPartDeliveryReadOnly\n#\tsystem.perspective.print(\"isreadonly:\"+str(isreadonly))\n\tif self.getSibling(\"Txt_Quantity\").props.enabled\u003d\u003d1 and qty \u003e 0 and self.getSibling(\"LblValidateSlotBarcode_0\").meta.visible\u003d\u003d0 and isreadonly \u003d\u003d False and ReceivedBy!\u003d\u0027\u0027:\n\t\tvalue\u003d1\n\t\tself.props.style.backgroundColor \u003d \"#3888CC\"\t\n\t\tself.props.style.borderColor \u003d \"#3888CC\"\t\n\telse:\n\t\tvalue\u003d0\t\n\t\tself.props.style.backgroundColor \u003d str(self.session.custom.disableBtncolour)\n\t\tself.props.style.borderColor \u003d str(self.session.custom.disableBtncolour)\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "image": {
+            "width": 45
+          },
+          "style": {
+            "backgroundColor": "value",
+            "borderColor": "value",
+            "classes": "PDA/PDAButton"
+          },
+          "text": "Allocate",
+          "textStyle": {
+            "fontSize": 10
+          }
+        },
+        "type": "ia.input.button"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}

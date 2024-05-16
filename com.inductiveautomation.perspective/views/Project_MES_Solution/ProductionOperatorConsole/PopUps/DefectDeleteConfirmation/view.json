@@ -1,0 +1,195 @@
+{
+  "custom": {},
+  "params": {
+    "rowData": ""
+  },
+  "propConfig": {
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 193,
+      "width": 354
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 31,
+          "width": "100%"
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Confirmation",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 75,
+            "textAlign": "Center",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 31,
+          "width": 40,
+          "x": 307.95,
+          "y": 1
+        },
+        "props": {
+          "path": "material/close",
+          "style": {
+            "color": "#FFFFFF",
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "LblMsgScan"
+        },
+        "position": {
+          "height": 26.000000000000007,
+          "width": 209,
+          "x": 71.44,
+          "y": 63.18000000000001
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/Label_WithOutBackground"
+          },
+          "text": "Do you want to Delete the defect?",
+          "textStyle": {
+            "classes": "PDA/LabelText"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\n\t\trowData \u003d self.view.params.rowData\n\t\tsystem.perspective.print(\"rowData :\"+str(rowData))\n\t\tDefectId \u003d rowData.get(\u0027DefectId\u0027)\n\t\tDefectQty \u003d 0\t\n\t\tReasonId \u003d 0\n\t\tComment \u003d \u0027\u0027\t\t\t\n\t\tAction \u003d 2\t\t\t\n\t\tEditresult \u003d ProductionOperatorConsole.EditDeleteProductionDefect(DefectId,DefectQty,ReasonId,Comment,Action)\n\t\tsystem.perspective.print(\"Editresult :\"+str(Editresult))\n\t\tif Editresult \u003d\u003d1: \n\t\t\tupdaateStatus\u003d1\n#\t\t\tMessageText \u003d \u0027Defect Deleted successfully.\u0027\n#\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\n\t\t\tsystem.perspective.closePopup(\u0027DeleteDefect\u0027)\n\t\t\tmessageType \u003d \u0027UpdateDeffects\u0027\n\t\t\tsystem.perspective.sendMessage(messageType)\t\t\n\t\telse:\n\t\t\tupdaateStatus\u003d0\n\t\t\tMessageText \u003d \u0027Failed to delete the defect.\u0027\n\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\n\t\tsystem.perspective.closePopup(\u0027EditDefect\u0027)\n\texcept:\n\t\tsystem.perspective.print(\"Exception:: Complete Workorder By Line Lead\")\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)\n"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnOk",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Click To Complete"
+          }
+        },
+        "position": {
+          "height": 35,
+          "width": 100,
+          "x": 61,
+          "y": 128.5
+        },
+        "props": {
+          "image": {
+            "width": 100
+          },
+          "style": {
+            "backgroundColor": "value",
+            "borderColor": "value",
+            "classes": "PDA/PDAButton"
+          },
+          "text": "Yes"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnOk_0",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Click To Cancel"
+          }
+        },
+        "position": {
+          "height": 35,
+          "width": 100,
+          "x": 191,
+          "y": 128.5
+        },
+        "props": {
+          "image": {
+            "width": 100
+          },
+          "style": {
+            "classes": "PDA/PDAButton"
+          },
+          "text": "No"
+        },
+        "type": "ia.input.button"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -6.0625,
+      "y": -11.109375
+    },
+    "props": {
+      "style": {
+        "classes": "Panel/PopUp"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

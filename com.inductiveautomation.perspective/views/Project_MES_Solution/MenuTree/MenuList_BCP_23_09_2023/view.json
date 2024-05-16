@@ -1,0 +1,711 @@
+{
+  "custom": {},
+  "params": {},
+  "propConfig": {
+    "custom.key": {
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 754,
+      "width": 298
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Label"
+        },
+        "position": {
+          "height": 0.0699,
+          "width": 0.2852,
+          "x": 0.2014,
+          "y": 0.0542
+        },
+        "props": {
+          "style": {
+            "fontWeight": "bold"
+          },
+          "text": "Welcome"
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Label_0"
+        },
+        "position": {
+          "height": 0.0642,
+          "width": 0.5101,
+          "x": 0.4698,
+          "y": 0.0578
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "session.custom.Username"
+              },
+              "transforms": [
+                {
+                  "code": "\tvalue \u003d \u0027 - \u0027+str(value)\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "MenuTreeFont",
+            "fontStyle": "italic"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Image"
+        },
+        "position": {
+          "height": 0.0642,
+          "width": 0.2852,
+          "x": 0.3138,
+          "y": 0.015
+        },
+        "props": {
+          "fit": {
+            "mode": "fill"
+          },
+          "source": "/system/images/Builtin/icons/48/businessman2.png"
+        },
+        "type": "ia.display.image"
+      },
+      {
+        "custom": {
+          "logoColor": "#5555D2",
+          "logoDisbledColor": "#808080"
+        },
+        "meta": {
+          "name": "MenuTree",
+          "tooltip": {
+            "width": 0.9167
+          }
+        },
+        "position": {
+          "height": 0.8745,
+          "width": 0.9967,
+          "y": 0.1241
+        },
+        "propConfig": {
+          "props.items[0].enabled": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizeProduction"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d1:\n\t\tresult\u003dTrue\n\telse:\n\t\tresult\u003dFalse\n\treturn result",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.items[0].label.icon.color": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizeProduction"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d1:\n\t\tresult\u003dself.custom.logoColor\n\telse:\n\t\tresult\u003dself.custom.logoDisbledColor\n\treturn result",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.items[11].enabled": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizePrintingAndPackingConfiguration"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d1:\n\t\tresult\u003dTrue\n\telse:\n\t\tresult\u003dFalse\n\treturn result",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.items[11].label.icon.color": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizePrintingAndPackingConfiguration"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d1:\n\t\tresult\u003dself.custom.logoColor\n\telse:\n\t\tresult\u003dself.custom.logoDisbledColor\n\treturn result",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.items[1].enabled": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizeQuality"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d1:\n\t\tresult\u003dTrue\n\telse:\n\t\tresult\u003dFalse\n\treturn result",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.items[1].label.icon.color": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizeQuality"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d1:\n\t\tresult\u003dself.custom.logoColor\n\telse:\n\t\tresult\u003dself.custom.logoDisbledColor\n\treturn result",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.items[2].enabled": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizeLineLeadConsole"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d1:\n\t\tresult\u003dTrue\n\telse:\n\t\tresult\u003dFalse\n\treturn result",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.items[2].label.icon.color": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizeLineLeadConsole"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d1:\n\t\tresult\u003dself.custom.logoColor\n\telse:\n\t\tresult\u003dself.custom.logoDisbledColor\n\treturn result",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.items[3].enabled": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizeMaintenancePMMachine"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d1:\n\t\tresult\u003dTrue\n\telse:\n\t\tresult\u003dFalse\n\treturn result",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.items[3].label.icon.color": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizeMaintenancePMMachine"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d1:\n\t\tresult\u003dself.custom.logoColor\n\telse:\n\t\tresult\u003dself.custom.logoDisbledColor\n\treturn result",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.items[4].enabled": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizeMaintenancePMTools"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d1:\n\t\tresult\u003dTrue\n\telse:\n\t\tresult\u003dFalse\n\treturn result",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.items[4].label.icon.color": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizeMaintenancePMTools"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d1:\n\t\tresult\u003dself.custom.logoColor\n\telse:\n\t\tresult\u003dself.custom.logoDisbledColor\n\treturn result",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.items[5].enabled": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizeMaintenanceRMMachine"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d1:\n\t\tresult\u003dTrue\n\telse:\n\t\tresult\u003dFalse\n\treturn result",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.items[5].label.icon.color": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizeMaintenanceRMMachine"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d1:\n\t\tresult\u003dself.custom.logoColor\n\telse:\n\t\tresult\u003dself.custom.logoDisbledColor\n\treturn result",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.items[6].enabled": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizeMaintenanceRMTools"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d1:\n\t\tresult\u003dTrue\n\telse:\n\t\tresult\u003dFalse\n\treturn result",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.items[6].label.icon.color": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizeMaintenanceRMTools"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d1:\n\t\tresult\u003dself.custom.logoColor\n\telse:\n\t\tresult\u003dself.custom.logoDisbledColor\n\treturn result",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.items[7].enabled": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizeCLRI"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d1:\n\t\tresult\u003dTrue\n\telse:\n\t\tresult\u003dFalse\n\treturn result",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.items[7].label.icon.color": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizeCLRI"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d1:\n\t\tresult\u003dself.custom.logoColor\n\telse:\n\t\tresult\u003dself.custom.logoDisbledColor\n\treturn result",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.items[8].enabled": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizeMachineMonitoring"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d1:\n\t\tresult\u003dTrue\n\telse:\n\t\tresult\u003dFalse\n\treturn result",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.items[8].label.icon.color": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizeMachineMonitoring"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d1:\n\t\tresult\u003dself.custom.logoColor\n\telse:\n\t\tresult\u003dself.custom.logoDisbledColor\n\treturn result",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.items[9].enabled": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizePrintingAndPackingConfiguration"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d1:\n\t\tresult\u003dTrue\n\telse:\n\t\tresult\u003dFalse\n\treturn result",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.items[9].label.icon.color": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizePrintingAndPackingConfiguration"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d1:\n\t\tresult\u003dself.custom.logoColor\n\telse:\n\t\tresult\u003dself.custom.logoDisbledColor\n\treturn result",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "backActionStyle": {
+            "backgroundColor": ""
+          },
+          "itemStyle": {
+            "backgroundColor": "C2DCE4",
+            "classes": "Ref_MES/MenuTreeFont"
+          },
+          "items": [
+            {
+              "items": [],
+              "label": {
+                "icon": {
+                  "path": "material/engineering"
+                },
+                "text": "Production Operator Console"
+              },
+              "navIcon": {
+                "color": "",
+                "path": "material/chevron_right"
+              },
+              "resetOnClick": true,
+              "showHeader": true,
+              "style": {
+                "classes": "MenuTreeFont"
+              },
+              "target": "/ProductionOperatorConsole",
+              "visible": true
+            },
+            {
+              "items": [],
+              "label": {
+                "icon": {
+                  "path": "material/grading"
+                },
+                "text": "Quality Operator Console"
+              },
+              "navIcon": {
+                "color": "",
+                "path": "material/chevron_right"
+              },
+              "resetOnClick": false,
+              "showHeader": true,
+              "style": {
+                "classes": "MenuTreeFont"
+              },
+              "target": "/QualityConsole",
+              "visible": true
+            },
+            {
+              "items": [],
+              "label": {
+                "icon": {
+                  "path": "material/insert_chart_outlined"
+                },
+                "text": "Line Lead Console"
+              },
+              "navIcon": {
+                "color": "",
+                "path": "material/chevron_right"
+              },
+              "resetOnClick": false,
+              "showHeader": true,
+              "style": {
+                "classes": "MenuTreeFont"
+              },
+              "target": "/LineLeadConsole",
+              "visible": true
+            },
+            {
+              "label": {
+                "icon": {
+                  "path": "material/home_repair_service"
+                },
+                "text": "Maintenance Technician Console PM - Machine"
+              },
+              "navIcon": {
+                "color": "",
+                "path": "material/chevron_right"
+              },
+              "resetOnClick": false,
+              "showHeader": true,
+              "style": {
+                "classes": "MenuTreeFont"
+              },
+              "target": "/MaintenanceOperatorConsole",
+              "visible": true
+            },
+            {
+              "items": [],
+              "label": {
+                "icon": {
+                  "path": "material/home_repair_service"
+                },
+                "text": "Maintenance Technician Console PM - Tools"
+              },
+              "navIcon": {
+                "color": "",
+                "path": "material/chevron_right"
+              },
+              "resetOnClick": false,
+              "showHeader": true,
+              "style": {
+                "classes": "MenuTreeFont"
+              },
+              "target": "/MaintenanceTechnicianConsole-Tools",
+              "visible": true
+            },
+            {
+              "items": [],
+              "label": {
+                "icon": {
+                  "path": "material/home_repair_service"
+                },
+                "text": "Maintenance Technician Console RM - Machines"
+              },
+              "navIcon": {
+                "color": "",
+                "path": "material/chevron_right"
+              },
+              "resetOnClick": false,
+              "showHeader": true,
+              "style": {
+                "classes": "MenuTreeFont"
+              },
+              "target": "/Maintenence Operator Console - RM",
+              "visible": true
+            },
+            {
+              "items": [],
+              "label": {
+                "icon": {
+                  "path": "material/home_repair_service"
+                },
+                "text": "Maintenance Technician Console RM - Tools"
+              },
+              "navIcon": {
+                "color": "",
+                "path": "material/chevron_right"
+              },
+              "resetOnClick": false,
+              "showHeader": true,
+              "style": {
+                "classes": "MenuTreeFont"
+              },
+              "target": "/Maintenence Operator Console - RMTools",
+              "visible": true
+            },
+            {
+              "items": [],
+              "label": {
+                "icon": {
+                  "path": "material/list_alt"
+                },
+                "text": "CLRI Console"
+              },
+              "navIcon": {
+                "color": "",
+                "path": "material/chevron_right"
+              },
+              "resetOnClick": false,
+              "showHeader": true,
+              "style": {
+                "classes": "MenuTreeFont"
+              },
+              "target": "/CLRI",
+              "visible": true
+            },
+            {
+              "items": [],
+              "label": {
+                "icon": {
+                  "path": "material/laptop_mac"
+                },
+                "text": "Machine Diagnostics"
+              },
+              "navIcon": {
+                "color": "",
+                "path": "material/chevron_right"
+              },
+              "resetOnClick": false,
+              "showHeader": true,
+              "style": {
+                "classes": "MenuTreeFont"
+              },
+              "target": "/Diagnostics",
+              "visible": true
+            },
+            {
+              "items": [],
+              "label": {
+                "icon": {
+                  "path": "material/backpack"
+                },
+                "text": "Packing Details"
+              },
+              "navIcon": {
+                "color": "",
+                "path": "material/chevron_right"
+              },
+              "resetOnClick": false,
+              "showHeader": true,
+              "style": {
+                "classes": "MenuTreeFont"
+              },
+              "target": "/PackingConfiguration",
+              "visible": true
+            },
+            {
+              "enabled": true,
+              "items": [],
+              "label": {
+                "icon": {
+                  "color": "#5555D2",
+                  "path": "material/local_printshop"
+                },
+                "text": "PRN File Manual Testing"
+              },
+              "navIcon": {
+                "color": "",
+                "path": "material/chevron_right"
+              },
+              "resetOnClick": false,
+              "showHeader": true,
+              "style": {
+                "classes": "MenuTreeFont"
+              },
+              "target": "/labelprint",
+              "visible": false
+            },
+            {
+              "items": [],
+              "label": {
+                "icon": {
+                  "path": "material/local_printshop"
+                },
+                "text": "Printer Configuration"
+              },
+              "navIcon": {
+                "color": "",
+                "path": "material/chevron_right"
+              },
+              "resetOnClick": false,
+              "showHeader": true,
+              "style": {
+                "classes": "MenuTreeFont"
+              },
+              "target": "/PrinterConfiguration",
+              "visible": true
+            },
+            {
+              "enabled": true,
+              "items": [],
+              "label": {
+                "icon": {
+                  "color": "#5555D2",
+                  "path": "material/assessment"
+                },
+                "text": "Mold Details"
+              },
+              "navIcon": {
+                "color": "",
+                "path": "material/chevron_right"
+              },
+              "resetOnClick": false,
+              "showHeader": true,
+              "style": {
+                "classes": ""
+              },
+              "target": "/MoldReport",
+              "visible": false
+            }
+          ],
+          "style": {
+            "backgroundColor": ""
+          }
+        },
+        "type": "ia.navigation.menutree"
+      }
+    ],
+    "meta": {
+      "name": "root",
+      "tooltip": {
+        "width": 230
+      }
+    },
+    "position": {
+      "x": 0.0973,
+      "y": 0.0013
+    },
+    "props": {
+      "mode": "percent",
+      "style": {
+        "backgroundColor": "#307492E6"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

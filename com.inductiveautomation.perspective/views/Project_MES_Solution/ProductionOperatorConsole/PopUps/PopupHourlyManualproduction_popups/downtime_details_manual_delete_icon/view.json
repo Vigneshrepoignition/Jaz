@@ -1,0 +1,55 @@
+{
+  "custom": {},
+  "params": {
+    "rowData": "value"
+  },
+  "propConfig": {
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 38,
+      "width": 47
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\n\tsystem.perspective.print(self.view.params.rowData[\"fkDowntimeId\"])\n\ta \u003d fpsi_ignition01.Downtime_history_manual_delete(downtimeiid\u003dself.view.params.rowData[\"fkDowntimeId\"])\n\tif a \u003d\u003d 1 :\n\t\tsystem.perspective.sendMessage(\"get_auto_downtimehistory\",scope \u003d \"session\")\n\tsystem.perspective.print(\"delete success\")"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Icon"
+        },
+        "position": {
+          "height": 0.7895,
+          "width": 0.6383,
+          "x": 0.2128,
+          "y": 0.1579
+        },
+        "props": {
+          "path": "material/delete_forever"
+        },
+        "type": "ia.display.icon"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

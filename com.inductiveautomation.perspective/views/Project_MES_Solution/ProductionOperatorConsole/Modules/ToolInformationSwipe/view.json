@@ -1,0 +1,207 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 252,
+      "width": 347
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Carousel"
+        },
+        "position": {
+          "height": 1,
+          "width": 1
+        },
+        "props": {
+          "appearance": {
+            "arrows": {
+              "enabled": false,
+              "next": {
+                "iconPath": "material/keyboard_arrow_right"
+              },
+              "previous": {
+                "iconPath": "material/keyboard_arrow_left"
+              }
+            },
+            "slidePadding": 0,
+            "slidesToShow": 0
+          },
+          "lazyLoad": false,
+          "views": [
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "ActualProductionCount": "value",
+                "Isenabled": "value",
+                "MaxVal": "value",
+                "PMAlertQty": "value",
+                "PMCounter": "value",
+                "PmWorkflow": "value",
+                "ToolCode": "value",
+                "ToolName": "value"
+              },
+              "viewPath": "Project_MES_Solution/ProductionOperatorConsole/Modules/CarasoulEmptyTemplate"
+            }
+          ]
+        },
+        "type": "ia.display.carousel"
+      },
+      {
+        "meta": {
+          "name": "ImageLoader",
+          "visible": 0
+        },
+        "position": {
+          "height": 0.372,
+          "width": 0.3971,
+          "x": 0.3782,
+          "y": 0.254
+        },
+        "props": {
+          "fit": {
+            "mode": "cover"
+          },
+          "source": "/system/images/Builtin/icons/32/giphy.gif"
+        },
+        "type": "ia.display.image"
+      }
+    ],
+    "events": {
+      "system": {
+        "onStartup": {
+          "config": {
+            "script": "\ttry:\n\t\tself.getChild(\"ImageLoader\").meta.visible \u003d 1\n\t\tWoNumber\u003dself.session.custom.WoNumber\n\t\tWorkorderId\u003dself.session.custom.WorkorderID\n\t\tmachineID\u003d0    #--------------------------To Load The Mold No Need To Send Machine ID, Will Get All Molds Against Wo No---------------\n\t\tToolDetails\u003d ProductionOperatorConsole.NewgetMoldAssignmentDetails(WorkorderId,machineID)\n\t\tsystem.perspective.print(\u0027ToolDetails: \u0027+str(ToolDetails))\n\t\tPMToolList\u003d[]\n\t\tEquipmentCodeList \u003d []\n\t\tfor toolList in (ToolDetails):\n\t\t\tToolCode\u003dtoolList.get(\u0027MoldCode\u0027)\n\t\t\tMachineName\u003dtoolList.get(\u0027MachineName\u0027)\n\t\t\tToolCode\u003d{\"ToolCode\":ToolCode}\n\t\t\tEquipmentCode \u003d {\"MachineName\":MachineName}\n\t\t\tPMToolList.append(ToolCode)\n\t\t\tEquipmentCodeList.append(EquipmentCode)\n\t\tsystem.perspective.print(\u0027PMToolList: \u0027+str(PMToolList))\t\n\t\tNoOfPmTools\u003dlen(PMToolList)\t\n\t\tif \tNoOfPmTools \u003e 0:\n\t\t\tToolviewElements\u003d{\u0027alignItems\u0027: \u0027flex-start\u0027, \u0027justify\u0027: \u0027flex-start\u0027, \u0027viewParams\u0027: {\u0027ToolName\u0027: \u0027value\u0027, \u0027ToolCode\u0027: \u0027value\u0027, \u0027PmWorkflow\u0027: \u0027value\u0027, \u0027PMCounter\u0027: \u0027value\u0027, \u0027MaxVal\u0027: \u0027value\u0027, \u0027PMAlertQty\u0027: \u0027value\u0027,\u0027Isenabled\u0027:\u0027value\u0027,\u0027ActualProductionCount\u0027: \u0027value\u0027}, \u0027direction\u0027: \u0027row\u0027, \u0027viewPath\u0027: \u0027Project_MES_Solution/ProductionOperatorConsole/Modules/ToolPMDetails\u0027}\n\t\t\tToolDynamicViewElements\u003d[]\t\n\t\telse:\n\t\t\tsystem.perspective.print(\u0027tool is not available\u0027)\n\t\t\tToolviewElements\u003d{\u0027alignItems\u0027: \u0027flex-start\u0027, \u0027justify\u0027: \u0027flex-start\u0027, \u0027viewParams\u0027: {\u0027ToolName\u0027: \u0027value\u0027, \u0027ToolCode\u0027: \u0027value\u0027, \u0027PmWorkflow\u0027: \u0027value\u0027, \u0027PMCounter\u0027: \u0027value\u0027, \u0027MaxVal\u0027: \u0027value\u0027, \u0027PMAlertQty\u0027: \u0027value\u0027,\u0027Isenabled\u0027:\u0027value\u0027,\u0027ActualProductionCount\u0027: \u0027value\u0027}, \u0027direction\u0027: \u0027row\u0027, \u0027viewPath\u0027: \u0027Project_MES_Solution/ProductionOperatorConsole/Modules/CarasoulEmptyTemplate\u0027}\n\t\t\tToolDynamicViewElements\u003d[]\n\t\t\tToolDynamicViewElements.append(ToolviewElements)\t\n\t\t\tself.getChild(\"Carousel\").props.views \u003d ToolDynamicViewElements\n\t\t\n\n\t#-----------------------------------Loading Parameters Values To the Views----------------------------------\t\n\t\n\t\t\n#----------------------------------Prepared the List Of PM Tool WF--------------------------------\n\t\tPMTList \u003d []\n\t\tfor toolList in (PMToolList):\t\t\t\n\t\t\tToolCode\u003dtoolList.get(\u0027ToolCode\u0027)\t\t\t\t\t\n\t\t\tPMToolDetails \u003d ProductionOperatorConsole.GetPMToolDetails(ToolCode)\n\t\t\tfor tool in (PMToolDetails)\t:\t\t\n\t\t\t\tToolName \u003d ToolCode\n\t\t\t\tToolCode \u003d ToolCode\n\t\t\t\tPmWorkflow \u003d tool.get(\u0027NAME\u0027)\n\t\t\t\tPMCounter \u003d tool.get(\u0027PMCOUNTER\u0027)\t\t\t\n\t\t\t\tMaxVal \u003d tool.get(\u0027PMCOUNTER\u0027)\n\t\t\t\tPMAlertQty \u003d tool.get(\u0027ALERTQTY\u0027)\n\t\t\t\tIsenabled \u003d tool.get(\u0027Isenabled\u0027)\n\t\t\t\t\n\t\t\t\tActualProductionCount \u003d tool.get(\u0027ACTUALPMCOUNT\u0027)\n\t\t\t\t\n\t\t\t\tPMToolList1 \u003d {\u0027ToolName\u0027:ToolName,\u0027ToolCode\u0027:ToolCode,\u0027PmWorkflow\u0027:PmWorkflow,\u0027PMCounter\u0027:PMCounter,\u0027MaxVal\u0027:MaxVal,\u0027PMAlertQty\u0027:PMAlertQty,\u0027Isenabled\u0027:Isenabled,\u0027ActualProductionCount\u0027:ActualProductionCount}\n\t\t\t\tPMTList.append(PMToolList1)\n\n\t\tnooftotaltools \u003d len(PMTList)\n\t\t\n\t\t#----------------------------------Prepared the List Of PM Machine WF--------------------------------\n\t\tPMMList \u003d []\n\t\tsystem.perspective.print(\"EquipmentCodeList: \"+str(EquipmentCodeList))\n\t\tfor MachineList in (EquipmentCodeList):\t\t\t\n\t\t\tEquipmentCode\u003dMachineList.get(\u0027MachineName\u0027)\t\t\t\t\t\t\t\t\n\t\t\tPMMachineDetails \u003d ProductionOperatorConsole.GetPMMachineDetails(EquipmentCode)\n\t\t\tsystem.perspective.print(\"PMMachineDetails: \"+str(PMMachineDetails))\n\t\t\tfor Machine in (PMMachineDetails):\t\t\n\t\t\t\tToolName \u003d EquipmentCode\n\t\t\t\tToolCode \u003d EquipmentCode\n\t\t\t\tPmWorkflow \u003d Machine.get(\u0027NAME\u0027)\n\t\t\t\tPMCounter \u003d Machine.get(\u0027PMCOUNTER\u0027)\t\t\t\n\t\t\t\tMaxVal \u003d Machine.get(\u0027PMCOUNTER\u0027)\n\t\t\t\tPMAlertQty \u003d Machine.get(\u0027ALERTQTY\u0027)\n\t\t\t\tIsenabled \u003d tool.get(\u0027Isenabled\u0027)\n\t\t\t\tActualProductionCount \u003d Machine.get(\u0027ACTUALPMCOUNT\u0027)\n\t\t\t\t\n\t\t\t\tPMMachineList1 \u003d {\u0027ToolName\u0027:ToolName,\u0027ToolCode\u0027:ToolCode,\u0027PmWorkflow\u0027:PmWorkflow,\u0027PMCounter\u0027:PMCounter,\u0027MaxVal\u0027:MaxVal,\u0027PMAlertQty\u0027:PMAlertQty,\u0027Isenabled\u0027:Isenabled,\u0027ActualProductionCount\u0027:ActualProductionCount}\n\t\t\t\tPMMList.append(PMMachineList1)\n\t\tsystem.perspective.print(\"Final PM Machine lIst: \" +str(PMMList))\n\t\t\n#-------------------------------------------Merged PM Tool Detail List PM Machine Detail List-----------------------\t\t\n\t\tfor PMToolMachinelist1 in (PMTList):\n\t\t\tPMMList.append(PMToolMachinelist1)\t\t\n\n\t\t\n\t\tnooftotaltools \u003d len(PMMList)\t\n#\t\tif \tnooftotaltools \u003e 0 :\t\t\n\t\tfor loadecarasoul in range (nooftotaltools):\n\t\t\tToolDynamicViewElements.append(ToolviewElements)\t\n\t\t\tsystem.perspective.print(\"carasouldata open: \"+str(ToolDynamicViewElements))\t\t\n\t\t\tself.getChild(\"Carousel\").props.views \u003d ToolDynamicViewElements\n\n\t\ttoolno \u003d -1\n\t\tfor PMworkflow in (PMMList):\n\t\t\ttoolno \u003d toolno+1\n\t\t\tself.getChild(\"Carousel\").props.views[toolno].viewParams.ToolName \u003d PMworkflow.get(\u0027ToolName\u0027)\n\t\t\tself.getChild(\"Carousel\").props.views[toolno].viewParams.ToolCode \u003d PMworkflow.get(\u0027ToolCode\u0027)\n\t\t\tself.getChild(\"Carousel\").props.views[toolno].viewParams.PmWorkflow \u003d PMworkflow.get(\u0027PmWorkflow\u0027)\n\t\t\tself.getChild(\"Carousel\").props.views[toolno].viewParams.PMCounter\u003dPMworkflow.get(\u0027PMCounter\u0027)\n\t\t\tself.getChild(\"Carousel\").props.views[toolno].viewParams.MaxVal \u003d PMworkflow.get(\u0027MaxVal\u0027)\n\t\t\tself.getChild(\"Carousel\").props.views[toolno].viewParams.PMAlertQty\u003d PMworkflow.get(\u0027PMAlertQty\u0027)\n\t\t\tWFstatus \u003d PMworkflow.get(\u0027Isenabled\u0027)\n\t\t\tif WFstatus \u003d\u003d True or WFstatus\u003d\u003d1 :\n\t\t\t\tstatus \u003d\u0027Enabled\u0027\n\t\t\telse:\n\t\t\t\tstatus \u003d\u0027Enabled\u0027\n\t\t\tself.getChild(\"Carousel\").props.views[toolno].viewParams.Isenabled\u003d status\n\t\t\tsystem.perspective.print(\"PM Status: \"+str(status))\n\t\t\tself.getChild(\"Carousel\").props.views[toolno].viewParams.ActualProductionCount \u003d PMworkflow.get(\u0027ActualProductionCount\u0027)\n#\t\telse:\n#\t\t\tpass\n#\t\t\tsystem.perspective.print(\"Data is not available\")\n##\t\t\tsystem.perspective.print(\"carasouldata: \"+str(ToolviewElements))\n##\t\t\tToolDynamicViewElements.append(ToolviewElements)\n#\t\t\tsystem.perspective.print(\"carasouldata Empty: \"+str(ToolviewElements))\n#\t\t\tself.getChild(\"Carousel\").props.views \u003dToolviewElements\n\t\tself.getChild(\"ImageLoader\").meta.visible \u003d 0\n\t\tsystem.perspective.print(\"PM Tool Information refreshed Successfully---\u003e\")\n\texcept:\n\t\tself.getChild(\"ImageLoader\").meta.visible \u003d 0\n\t\tsystem.perspective.print(\"Exception::Value loading to PM Tool swipe\")\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)\t\t\t"
+          },
+          "scope": "G",
+          "type": "script"
+        }
+      }
+    },
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -0.1835,
+      "y": 0.0042
+    },
+    "propConfig": {
+      "custom.RefreshFrequecy": {
+        "binding": {
+          "config": {
+            "aggregate": "MinMax",
+            "avoidScanClassValidation": true,
+            "dateRange": {
+              "mostRecent": "1",
+              "mostRecentUnits": "HOUR"
+            },
+            "enableValueCache": true,
+            "ignoreBadQuality": false,
+            "polling": {
+              "enabled": true,
+              "rate": "2"
+            },
+            "preventInterpolation": false,
+            "returnFormat": "Wide",
+            "returnSize": {
+              "numRows": "100",
+              "type": "FIXED"
+            },
+            "tags": [],
+            "valueFormat": "DATASET"
+          },
+          "transforms": [
+            {
+              "code": "\ttry:\n\t\tWoNumber\u003dself.session.custom.WoNumber\n\t\tWorkorderId\u003dself.session.custom.WorkorderID\n\t\tmachineID\u003d0    #--------------------------To Load The Mold No Need To Send Machine ID, Will Get All Molds Against Wo No---------------\n\t\tToolDetails\u003d ProductionOperatorConsole.NewgetMoldAssignmentDetails(WorkorderId,machineID)\n\t\tPMToolList\u003d[]\n\t\tEquipmentCodeList \u003d []\n\t\tfor toolList in (ToolDetails):\n\t\t\tToolCode\u003dtoolList.get(\u0027MoldCode\u0027)\n\t\t\tMachineName\u003dtoolList.get(\u0027MachineName\u0027)\n\t\t\tToolCode\u003d{\"ToolCode\":ToolCode}\n\t\t\tEquipmentCode \u003d {\"MachineName\":MachineName}\n\t\t\tPMToolList.append(ToolCode)\n\t\t\tEquipmentCodeList.append(EquipmentCode)\n\t\t\t\n\t\tNoOfPmTools\u003dlen(PMToolList)\t\n\t\tif \tNoOfPmTools \u003e 0:\n\t\t\tToolviewElements\u003d{\u0027alignItems\u0027: \u0027flex-start\u0027, \u0027justify\u0027: \u0027flex-start\u0027, \u0027viewParams\u0027: {\u0027ToolName\u0027: \u0027value\u0027, \u0027ToolCode\u0027: \u0027value\u0027, \u0027PmWorkflow\u0027: \u0027value\u0027, \u0027PMCounter\u0027: \u0027value\u0027, \u0027MaxVal\u0027: \u0027value\u0027, \u0027PMAlertQty\u0027: \u0027value\u0027,\u0027Isenabled\u0027:\u0027value\u0027,\u0027ActualProductionCount\u0027: \u0027value\u0027}, \u0027direction\u0027: \u0027row\u0027, \u0027viewPath\u0027: \u0027Project_MES_Solution/ProductionOperatorConsole/Modules/ToolPMDetails\u0027}\n\t\t\tToolDynamicViewElements\u003d[]\t\n\t\telse:\n#\t\t\tsystem.perspective.print(\u0027tool is not available\u0027)\n\t\t\tToolviewElements\u003d{\u0027alignItems\u0027: \u0027flex-start\u0027, \u0027justify\u0027: \u0027flex-start\u0027, \u0027viewParams\u0027: {\u0027ToolName\u0027: \u0027value\u0027, \u0027ToolCode\u0027: \u0027value\u0027, \u0027PmWorkflow\u0027: \u0027value\u0027, \u0027PMCounter\u0027: \u0027value\u0027, \u0027MaxVal\u0027: \u0027value\u0027, \u0027PMAlertQty\u0027: \u0027value\u0027,\u0027Isenabled\u0027:\u0027value\u0027,\u0027ActualProductionCount\u0027: \u0027value\u0027}, \u0027direction\u0027: \u0027row\u0027, \u0027viewPath\u0027: \u0027Project_MES_Solution/ProductionOperatorConsole/Modules/CarasoulEmptyTemplate\u0027}\n\t\t\tToolDynamicViewElements\u003d[]\n\t\t\tToolDynamicViewElements.append(ToolviewElements)\t\n\t\t\tself.getChild(\"Carousel\").props.views \u003d ToolDynamicViewElements\n\t\t\n\n\t#-----------------------------------Loading Parameters Values To the Views----------------------------------\t\n\t\n\t\t\n#----------------------------------Prepared the List Of PM Tool WF--------------------------------\n\t\tPMTList \u003d []\n\t\tfor toolList in (PMToolList):\t\t\t\n\t\t\tToolCode\u003dtoolList.get(\u0027ToolCode\u0027)\t\t\t\t\t\n\t\t\tPMToolDetails \u003d ProductionOperatorConsole.GetPMToolDetails(ToolCode)\n\t\t\tfor tool in (PMToolDetails)\t:\t\t\n\t\t\t\tToolName \u003d ToolCode\n\t\t\t\tToolCode \u003d ToolCode\n\t\t\t\tPmWorkflow \u003d tool.get(\u0027NAME\u0027)\n\t\t\t\tPMCounter \u003d tool.get(\u0027PMCOUNTER\u0027)\t\t\t\n\t\t\t\tMaxVal \u003d tool.get(\u0027PMCOUNTER\u0027)\n\t\t\t\tPMAlertQty \u003d tool.get(\u0027ALERTQTY\u0027)\n\t\t\t\tIsenabled \u003d tool.get(\u0027Isenabled\u0027)\n\t\t\t\t\n\t\t\t\tActualProductionCount \u003d tool.get(\u0027ACTUALPMCOUNT\u0027)\n\t\t\t\t\n\t\t\t\tPMToolList1 \u003d {\u0027ToolName\u0027:ToolName,\u0027ToolCode\u0027:ToolCode,\u0027PmWorkflow\u0027:PmWorkflow,\u0027PMCounter\u0027:PMCounter,\u0027MaxVal\u0027:MaxVal,\u0027PMAlertQty\u0027:PMAlertQty,\u0027Isenabled\u0027:Isenabled,\u0027ActualProductionCount\u0027:ActualProductionCount}\n\t\t\t\tPMTList.append(PMToolList1)\n\n\t\tnooftotaltools \u003d len(PMTList)\n\t\t\n\t\t#----------------------------------Prepared the List Of PM Machine WF--------------------------------\n\t\tPMMList \u003d []\n#\t\tsystem.perspective.print(\"EquipmentCodeList: \"+str(EquipmentCodeList))\n\t\tfor MachineList in (EquipmentCodeList):\t\t\t\n\t\t\tEquipmentCode\u003dMachineList.get(\u0027MachineName\u0027)\t\t\t\t\t\t\t\t\n\t\t\tPMMachineDetails \u003d ProductionOperatorConsole.GetPMMachineDetails(EquipmentCode)\n#\t\t\tsystem.perspective.print(\u0027PMMachineDetails: \u0027+str(PMMachineDetails))\n\t\t\tfor Machine in (PMMachineDetails):\t\t\n\t\t\t\tToolName \u003d EquipmentCode\n\t\t\t\tToolCode \u003d EquipmentCode\n\t\t\t\tPmWorkflow \u003d Machine.get(\u0027NAME\u0027)\n\t\t\t\tPMCounter \u003d Machine.get(\u0027PMCOUNTER\u0027)\t\t\t\n\t\t\t\tMaxVal \u003d Machine.get(\u0027PMCOUNTER\u0027)\n\t\t\t\tPMAlertQty \u003d Machine.get(\u0027ALERTQTY\u0027)\n\t\t\t\tIsenabled \u003d tool.get(\u0027Isenabled\u0027)\n\t\t\t\tActualProductionCount \u003d Machine.get(\u0027ACTUALPMCOUNT\u0027)\n\t\t\t\t\n\t\t\t\tPMMachineList1 \u003d {\u0027ToolName\u0027:ToolName,\u0027ToolCode\u0027:ToolCode,\u0027PmWorkflow\u0027:PmWorkflow,\u0027PMCounter\u0027:PMCounter,\u0027MaxVal\u0027:MaxVal,\u0027PMAlertQty\u0027:PMAlertQty,\u0027Isenabled\u0027:Isenabled,\u0027ActualProductionCount\u0027:ActualProductionCount}\n\t\t\t\tPMMList.append(PMMachineList1)\n#\t\tsystem.perspective.print(\"Final PM Machine lIst: \" +str(PMMList))\n\t\t\n#-------------------------------------------Merged PM Tool Detail List PM Machine Detail List-----------------------\t\t\n\t\tfor PMToolMachinelist1 in (PMTList):\n\t\t\tPMMList.append(PMToolMachinelist1)\t\t\n\n\t\t\n\t\tnooftotaltools \u003d len(PMMList)\t\n#\t\tif \tnooftotaltools \u003e 0 :\t\t\n\t\tfor loadecarasoul in range (nooftotaltools):\n\t\t\tToolDynamicViewElements.append(ToolviewElements)\t\n#\t\t\tsystem.perspective.print(\"carasouldata open: \"+str(ToolDynamicViewElements))\t\t\n\t\t\tself.getChild(\"Carousel\").props.views \u003d ToolDynamicViewElements\n\n\t\ttoolno \u003d -1\n\t\tfor PMworkflow in (PMMList):\n\t\t\ttoolno \u003d toolno+1\n\t\t\tself.getChild(\"Carousel\").props.views[toolno].viewParams.ToolName \u003d PMworkflow.get(\u0027ToolName\u0027)\n\t\t\tself.getChild(\"Carousel\").props.views[toolno].viewParams.ToolCode \u003d PMworkflow.get(\u0027ToolCode\u0027)\n\t\t\tself.getChild(\"Carousel\").props.views[toolno].viewParams.PmWorkflow \u003d PMworkflow.get(\u0027PmWorkflow\u0027)\n\t\t\tself.getChild(\"Carousel\").props.views[toolno].viewParams.PMCounter\u003dPMworkflow.get(\u0027PMCounter\u0027)\n\t\t\tself.getChild(\"Carousel\").props.views[toolno].viewParams.MaxVal \u003d PMworkflow.get(\u0027MaxVal\u0027)\n\t\t\tself.getChild(\"Carousel\").props.views[toolno].viewParams.PMAlertQty\u003d PMworkflow.get(\u0027PMAlertQty\u0027)\n\t\t\tWFstatus \u003d PMworkflow.get(\u0027Isenabled\u0027)\n\t\t\tif WFstatus \u003d\u003d True or WFstatus\u003d\u003d1 :\n\t\t\t\tstatus \u003d\u0027Enabled\u0027\n\t\t\telse:\n\t\t\t\tstatus \u003d\u0027Enabled\u0027\n\t\t\tself.getChild(\"Carousel\").props.views[toolno].viewParams.Isenabled\u003d status\n\t\t\tself.getChild(\"Carousel\").props.views[toolno].viewParams.ActualProductionCount \u003d PMworkflow.get(\u0027ActualProductionCount\u0027)\n#\t\telse:\n#\t\t\tpass\n#\t\t\tsystem.perspective.print(\"Data is not available\")\n##\t\t\tsystem.perspective.print(\"carasouldata: \"+str(ToolviewElements))\n##\t\t\tToolDynamicViewElements.append(ToolviewElements)\n#\t\t\tsystem.perspective.print(\"carasouldata Empty: \"+str(ToolviewElements))\n#\t\t\tself.getChild(\"Carousel\").props.views \u003dToolviewElements\n\t\n#\t\tsystem.perspective.print(\"PM Tool Information refreshed Successfully---\u003e\")\n\t\treturn 1\n\texcept:\n\t\treturn 1\n\t\tsystem.perspective.print(\"Exception::Auto Refresh PM Tool\")\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)",
+              "type": "script"
+            }
+          ],
+          "type": "tag-history"
+        }
+      }
+    },
+    "props": {
+      "mode": "percent",
+      "pipes": [
+        {
+          "appearance": "auto",
+          "end": "none",
+          "fill": "",
+          "flanges": true,
+          "lineVariant": "solid",
+          "name": "pipe",
+          "origin": {
+            "connections": [],
+            "x": 0,
+            "y": 0
+          },
+          "start": "none",
+          "stroke": "",
+          "visible": true,
+          "width": 10
+        },
+        {
+          "appearance": "auto",
+          "end": "none",
+          "fill": "",
+          "flanges": true,
+          "lineVariant": "solid",
+          "name": "pipe_0",
+          "origin": {
+            "connections": [],
+            "x": 0,
+            "y": 0
+          },
+          "start": "none",
+          "stroke": "",
+          "visible": true,
+          "width": 10
+        },
+        {
+          "appearance": "auto",
+          "end": "none",
+          "fill": "",
+          "flanges": true,
+          "lineVariant": "solid",
+          "name": "pipe_1",
+          "origin": {
+            "connections": [],
+            "x": 0,
+            "y": 0
+          },
+          "start": "none",
+          "stroke": "",
+          "visible": true,
+          "width": 10
+        },
+        {
+          "appearance": "auto",
+          "end": "none",
+          "fill": "",
+          "flanges": true,
+          "lineVariant": "solid",
+          "name": "pipe_2",
+          "origin": {
+            "connections": [],
+            "x": 0,
+            "y": 0
+          },
+          "start": "none",
+          "stroke": "",
+          "visible": true,
+          "width": 10
+        }
+      ],
+      "style": {
+        "classes": "Widgets/Widgets"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

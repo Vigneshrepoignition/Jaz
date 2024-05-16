@@ -1,0 +1,219 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry: \n\t\tscriptName \u003d \"CLRI: AssignConfirmation Popup: On Startup\"\n\t\tTabledata\u003dself.params.rowData\n\t\tsystem.perspective.print(self.params.rowData)\n\t\tname \u003d Tabledata.get(\"Name\")\n\t\tself.getChild(\"root\").getChild(\"requestName\").props.text\u003dname\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "rowData": "value"
+  },
+  "propConfig": {
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 196,
+      "width": 334
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry: \n\t\timport re\n\t\timport json\n\t\timport urllib2, urllib\n\t\tURLPath \u003d system.tag.read(\"[default]JMES_InternalTags/urlAPI\").value\n\t\tscriptName \u003d \"CLRI: AssignOrder OK Button: On Click\"\n\t\tTabledata\u003dself.view.params.rowData\n\t\tcurrentCLRIName  \u003d Tabledata.get(\"Name\")\n\t\tself.session.custom.MachineID\u003dTabledata.get(\"MachineId\")\n\t\tUserId\u003dself.session.custom.UserId\n\t\tdataList\u003dCLRIConsole.GetCLRIWorkflowByMachine(0,UserId)\n\t\tisAssign\u003d0\n\t\tdataList\u003dsystem.dataset.toPyDataSet(dataList)\n\t\tfor i in dataList:\n\t\t\tStatusId\u003d int(i[\u0027StatusId\u0027])\n\t\t\tAssignUserId\u003d int(i[\u0027AssignUserId\u0027])\n\t\t\tname\u003d i[\u0027Name\u0027]\n\t\t\tif StatusId \u003d\u003d1 or StatusId \u003d\u003d7:\n\t\t\t\tisAssign\u003d1\n\t\t\t\tbreak\n\t\t\n\t\tif isAssign\u003d\u003d1:\n\t\t\tsystem.perspective.closePopup(\u0027\u0027)\n\t\t\tif currentCLRIName.strip() \u003d\u003d name.strip():\n\t\t\t\tsystem.perspective.openPopup(\u0027myPopupId1\u0027,\u0027Project_MES_Solution/CLRI Console/Popup/AssignMessageBox\u0027,params \u003d {\u0027rowData\u0027 :self.view.params.rowData,\u0027name\u0027:name,\u0027CLRIName\u0027: currentCLRIName},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\telse:\n\t  \t\t\tsystem.perspective.openPopup(\u0027myPopupId1\u0027,\u0027Project_MES_Solution/CLRI Console/Popup/AssignMessageBox\u0027,params \u003d {\u0027rowData\u0027 :self.view.params.rowData,\u0027name\u0027 :name},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\telse:\t\n\t\t\tCLRIID \u003d  (Tabledata.get(\"ID\"))\n\t\t\tStatus \u003d Tabledata.get(\"Status\")\n\t\t\t\n\t\t\t\n\t\t\tif str(Status).lower().strip()\u003d\u003d\u0027On-Hold\u0027.lower():\n\t\t\t\tstatusId \u003d 1\n\t\t\telse:\n\t\t\t\tstatusId \u003d 1\n\t\t\tuserID  \u003d self.session.custom.UserId\n\t\t\tMachineId\u003dself.session.custom.MachineID\n\t\t\tReasonCategoryId\u003d0\n\t\t\tReasonCodeId\u003d0\n\t\t\tReasonCodeComments\u003d\u0027\u0027\n\t\t\tsystem.perspective.print(\"CLRIID \"+str(CLRIID))\n\t\t\tsystem.perspective.print(\"statusId \"+str(statusId))\n\t\t\tsystem.perspective.print(\"MachineId \"+str(MachineId))\n\t\t\tsystem.perspective.print(\"userID \"+str(userID))\n\t\t\tsystem.perspective.print(\"ReasonCategoryId \"+str(ReasonCategoryId))\n\t\t\tsystem.perspective.print(\"ReasonCodeId \"+str(ReasonCodeId))\n\t\t\tsystem.perspective.print(\"ReasonCodeComments \"+str(ReasonCodeComments))\n\t\t\ttry:\n\t\t\t\tscriptName \u003d \"CLRI: Post Assign Details: On OK Button: On Click\"\n\n\t\t\t\tpostAssignDetails \u003d CLRIConsole.OperationStatusConformation(CLRIID,statusId,MachineId,userID,ReasonCategoryId,ReasonCodeId,ReasonCodeComments)\n\n\t\t\t\tsystem.perspective.print(\"postAssignDetails \"+str(postAssignDetails))\n\t\t\t\tif postAssignDetails\u003d\u003d1 or str(postAssignDetails)\u003d\u003d\u00271\u0027:\n\t\t\t\t\tif str(Status).lower().strip()\u003d\u003d\u0027On-Hold\u0027.lower():\n\t\t\t\t\t\tself.session.custom.WOOperationStatus\u003d\u0027In-Progress\u0027\n\t\t\t\t\telse:\n#\t\t\t\t\t\tself.session.custom.WOOperationStatus\u003d\u0027Assigned\u0027\n\t\t\t\t\t\tself.session.custom.WOOperationStatus\u003d\u0027In-Progress\u0027\n\t\t\t\t\t\t\n\t\t\t\tsystem.perspective.sendMessage(\"AssignedCLRIStatusTableUpdate\", scope\u003d\u0027page\u0027)\n\t\t\t\tsystem.perspective.print(\"Assigned Successfullt Send Message handler\")\n\t\t\t\n\t\t\t\tsystem.perspective.sendMessage(\"CLRIStatusforSingleRow\", scope\u003d\u0027page\u0027)\n#\t\t\t\tsystem.perspective.sendMessage(\"CLRIStart\", scope\u003d\u0027page\u0027)\n#\t\t\t\tsystem.perspective.print(\"Assigned Successfullt Send Message handler\")\n\t\t\t\t\n\t\t\t\t\n\t\t\t\tUserID \u003d self.session.custom.UserId\n\t\t#\t\tmachineId\u003dself.session.custom.MachineID\n\t\t\t\tTabledata\u003dself.view.params.rowData\n\t\t\t\tmachineId\u003dTabledata.get(\"MachineId\")\n\t\t\t\tAssignUserId\u003dTabledata.get(\"AssignUserId\")\n\t\t\t\tself.session.custom.MachineID\u003dmachineId\n\t\t\t\tsystem.perspective.print(\"machineId \u003d \"+str(machineId))\n\t\t\t\tsystem.perspective.print(\"UserID \u003d \"+str(UserID))\n\t\t\t\tapiPath \u003d \"CLRIWorkFlow/GetCLRIWorkflowByMachine/\"+str(machineId)+\"/\"+str(UserID)\n\t\t\t\turl \u003d URLPath + apiPath\n\t\t\t\tresultData\u003dNone\n\t\t\t\tclient \u003d system.net.httpClient()\n\t\t\t\tdata \u003d client.get(url)\n\t\t\t\tif data.good:    \n\t\t\t\t  resultData\u003ddata.json\n\t\t\t\tdataList \u003d []\n\t\t\t\tj\u003d1\n\t\t\t\tTabledata\u003dself.view.params.rowData\n\t\t\t\tStatus \u003d Tabledata.get(\"Status\")\n\t\t\t\tif  str(Status).strip().lower()\u003d\u003d\u0027Completed\u0027.strip().lower():\n\t\t\t  \t\tsystem.perspective.openPopup(\u0027myPopupId1\u0027,\u0027Project_MES_Solution/CLRI Console/Popup/MessageBox\u0027,params \u003d {\u0027rowData\u0027 :self.view.params.rowData},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t  \telse:\t\n\t\t\t\t\tfor i in resultData:\t\n\t\t\t\t\t\tID \u003d j\n\t\t\t\t\t\tname \u003d i.get(\"Name\")\n\t\t\t\t\t\tStatus \u003d i.get(\"Status\")\n\t\t\t\t\t\tsystem.perspective.print(\"Status \"+str(Status))\n\t\t\t\t\t\tif Status \u003d\u003d \"Assigned\" or Status \u003d\u003d \"In-Progress\":\n\t\t\t\t\t\t\tStatus \u003d str(Status)\n\t\t\t\t\t\t\tname \u003d str(name)\n\t\t\t\t\t\t\tbreak\n\t\t\t\t\tsystem.perspective.print(\"after break Status \"+str(Status))\t\n\t\t\t\t\tif Status \u003d\u003d str(\"Assigned\").strip() or Status \u003d\u003d str(\"In-Progress\").strip(): \n\t\t\t\t\t\tTabledata\u003dself.view.params.rowData\n\t\t\t\t\t\ttry: \n\t\t\t\t\t\t\tscriptName \u003d \"CLRI Console :View Button Script\"\n\t\t\t\t\t\t\tTabledata\u003dself.view.params.rowData\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\tif Tabledata\u003d\u003d[]:\n\t\t\t\t\t\t\t\t\tsystem.perspective.print(\"empty\")\n\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\tStatus \u003d Status\n\t\t\t\t\t\t\t\tsystem.perspective.print(\"navigate print CLRIStart Status \u003d \"+str(Status))\n\t\t\t\t\t\t\t\tif Status \u003d\u003d str(\"Assigned\").strip() or Status \u003d\u003d str(\"In-Progress\").strip():#or Status \u003d\u003d str(\"On-Hold\").strip():\n\t\t\t\t\t\t\t\t\tsystem.perspective.print(\"navigate print CLRIStart\")\n\t\t\t\t\t\t\t\t\tsystem.perspective.navigate(view \u003d \u0027Project_MES_Solution/CLRI Console/Popup/CLRIConsoleWOSel\u0027,params \u003d {\u0027rowData\u0027 :self.view.params.rowData,\u0027IsStartCLRI\u0027:1})\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\tsystem.perspective.sendMessage(\"CLRIStart\", scope\u003d\u0027page\u0027)\n\t\t\t\t\t\t\t\t\tsystem.perspective.print(\"Assigned Successfullt Send Message handler\")\n\t\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027myPopupId1\u0027,\u0027Project_MES_Solution/CLRI Console/Popup/ViewMessageBox\u0027,params \u003d {\u0027rowData\u0027 :self.view.params.rowData},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\texcept:\n\t\t\t\t\t\t\timport sys, os\n\t\t\t\t\t\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\t\t\t\t\t\tAuthentication.exceptionLogger(errorMessage)\t\n\t\t\t\t\t\t\tsystem.perspective.print(v)\n\t\t\t\t\telse:\t\n\t\t\t\t\t\tTabledata\u003dself.view.params.rowData\n\t\t\t\t\t\tStatus \u003d Tabledata.get(\"Status\")\n\t\t\t\t\t\tif Status \u003d\u003d str(\"On-Hold\").strip() and str(AssignUserId)\u003d\u003dstr(UserID):\n\t\t\t\t\t\t\tsystem.perspective.navigate(view \u003d \u0027Project_MES_Solution/CLRI Console/Popup/CLRIConsoleWOSel\u0027,params \u003d {\u0027rowData\u0027 :self.view.params.rowData,\u0027IsStartCLRI\u0027:1})\n\t\t\t\t\t\t\tstem.perspective.sendMessage(\"CLRIStart\", scope\u003d\u0027page\u0027)\n\t\t\t\t\t\t\tsystem.perspective.print(\"Assigned Successfullt Send Message handler\")\n\t\t\t\t\t\telse:\n\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027myPopupId\u0027,\u0027Project_MES_Solution/CLRI Console/Popup/ViewMessageBox\u0027,params \u003d {\u0027rowData\u0027 :self.view.params.rowData},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\tsystem.perspective.closePopup(\u0027\u0027)\n\t\t\texcept:\n\t\t\t\timport sys, os\n\t\t\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\t\t\tAuthentication.exceptionLogger(errorMessage)\n\t\t\t\tsystem.perspective.print(errorMessage)\n\t\t\tsystem.perspective.closePopup(\u0027\u0027)\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)\n\t\tsystem.perspective.print(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnYes",
+          "tooltip": {
+            "enabled": true,
+            "location": "bottom-left",
+            "text": "Click To Delete"
+          }
+        },
+        "position": {
+          "height": 34,
+          "width": 110,
+          "x": 30,
+          "y": 146
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "classes": "Common/Button"
+          },
+          "text": "Yes"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tself.session.custom.WoNumber \u003d \"\"\n\tself.session.custom.RMOrderID \u003d \"\"\n\tself.session.custom.Line \u003d \"\"\n\tself.session.custom.Machine \u003d \"\"\t\t\n\tself.session.custom.WOOperationStatus \u003d \"\"\n\tself.session.custom.ActualStartDate \u003d \"\"\n\tself.session.custom.ActualCmpDateTime \u003d \"\"\t\n\tself.session.custom.AreaID \u003d \"\"\n\tself.session.custom.areaName \u003d \"\"\n\tself.session.custom.lineName \u003d \"\"\n\tself.session.custom.MachineID \u003d \"\"\n\tself.session.custom.enterpriseName\u003d \"\"\n\tself.session.custom.plantName \u003d \"\"\n\tsystem.perspective.closePopup(\"\")"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnNo",
+          "tooltip": {
+            "enabled": true,
+            "text": "Click to Cancel"
+          }
+        },
+        "position": {
+          "height": 34,
+          "width": 110,
+          "x": 188.938,
+          "y": 146
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "classes": "Common/Button"
+          },
+          "text": "No"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 32,
+          "width": 332
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Confirmation",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 10,
+            "textAlign": "left",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tself.session.custom.WoNumber \u003d \"\"\n\tself.session.custom.RMOrderID \u003d \"\"\n\tself.session.custom.Line \u003d \"\"\n\tself.session.custom.Machine \u003d \"\"\t\t\n\tself.session.custom.WOOperationStatus \u003d \"\"\n\tself.session.custom.ActualStartDate \u003d \"\"\n\tself.session.custom.ActualCmpDateTime \u003d \"\"\t\n\tself.session.custom.AreaID \u003d \"\"\n\tself.session.custom.areaName \u003d \"\"\n\tself.session.custom.lineName \u003d \"\"\n\tself.session.custom.MachineID \u003d \"\"\n\tself.session.custom.enterpriseName\u003d \"\"\n\tself.session.custom.plantName \u003d \"\"\n\tsystem.perspective.closePopup(\"\")"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 30,
+          "width": 30,
+          "x": 300.938
+        },
+        "props": {
+          "path": "material/close",
+          "style": {
+            "color": "#FFFFFF",
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "LblMsg"
+        },
+        "position": {
+          "height": 35,
+          "width": 274,
+          "x": 27.94,
+          "y": 48
+        },
+        "props": {
+          "text": "Do you want to Assign",
+          "textStyle": {
+            "fontFamily": "Arial",
+            "fontSize": 22,
+            "textAlign": "center",
+            "textTransform": "none"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "requestName"
+        },
+        "position": {
+          "height": 35,
+          "width": 267,
+          "x": 32,
+          "y": 90
+        },
+        "props": {
+          "textStyle": {
+            "fontFamily": "Arial",
+            "fontSize": 26,
+            "fontWeight": "bold",
+            "textAlign": "center",
+            "textTransform": "none"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -176,
+      "y": 35
+    },
+    "props": {
+      "style": {
+        "classes": "Panel/PopUp"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

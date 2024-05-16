@@ -1,0 +1,2078 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\tscriptName \u003d \"Machine Monitoring: On Startup\" \n\t\tuserID \u003d self.session.custom.UserId\n\t\tif self.session.custom.authorizeMachineMonitoring!\u003d1:\n\t\t\tsystem.perspective.navigate(\u0027/LoginScreen\u0027)\n\t\telse:\n\t\t\ttry:\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").props.currentTabIndex\u003d0\n\t\t\t\tdataList \u003d []\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").getChild(\"CoordinateContainer\").getChild(\"CoordinateContainer\").getChild(\"AreaDrpDwn\").props.value\u003d0\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").getChild(\"cnt_MachineStatus\").getChild(\"CoordinateContainer\").getChild(\"EnterpriseDrpDwn\").props.value\u003d0\n\t\t\t\t\n\t\t\t\theaders \u003d [\"SrNo\",\"ParameterName\",\"Quality\",\"Value\",\"LastUpdate\"]\n\t\t\t\tds \u003d system.dataset.toDataSet(headers,dataList)\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").getChild(\"CoordinateContainer\").getChild(\"tblMachinedetail\").props.data\u003dds\n\t\t\t\t\n\t\t\t\theaders \u003d [\"MachineID\",\"SerialNumber\",\"MachineName\",\"Status\",\"Check\",\"LastUpdate\"]\n\t\t\t\tds \u003d system.dataset.toDataSet(headers,dataList)\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").getChild(\"cnt_MachineStatus\").getChild(\"tblMachineStatus\").props.data\u003dds\n\t\t\t\t\n\t\t\t\t#-----Binding--To the Machine Status Values--\u003e\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").getChild(\"cnt_MachineStatus\").getChild(\"CoordinateContainer\").getChild(\"EnterpriseDrpDwn\").props.value \u003d \u0027\u0027\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").getChild(\"cnt_MachineStatus\").getChild(\"CoordinateContainer\").getChild(\"PlantDrpDwn\").props.value \u003d \u0027\u0027\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").getChild(\"cnt_MachineStatus\").getChild(\"CoordinateContainer\").getChild(\"AreaDrpDwn\").props.value \u003d \u0027\u0027\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").getChild(\"cnt_MachineStatus\").getChild(\"CoordinateContainer\").getChild(\"LineDrpDwn\").props.value \u003d \u0027\u0027\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").getChild(\"cnt_MachineStatus\").getChild(\"CoordinateContainer\").getChild(\"MachineDrpDwn\").props.value \u003d \u0027\u0027\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").getChild(\"cnt_MachineStatus\").getChild(\"CoordinateContainer\").getChild(\"EnterpriseDrpDwn\").props.placeholder.text \u003d \u0027Select Enterprise\u0027\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").getChild(\"cnt_MachineStatus\").getChild(\"CoordinateContainer\").getChild(\"PlantDrpDwn\").props.placeholder.text \u003d \u0027Select Plant\u0027\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").getChild(\"cnt_MachineStatus\").getChild(\"CoordinateContainer\").getChild(\"AreaDrpDwn\").props.placeholder.text \u003d \u0027Select Area\u0027\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").getChild(\"cnt_MachineStatus\").getChild(\"CoordinateContainer\").getChild(\"LineDrpDwn\").props.placeholder.text \u003d \u0027Select Line\u0027\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").getChild(\"cnt_MachineStatus\").getChild(\"CoordinateContainer\").getChild(\"MachineDrpDwn\").props.placeholder.text \u003d \u0027Select Machine\u0027\n\t\t\t\t\n\t\t\t\t#---Machine Machines ------\u003e\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").getChild(\"CoordinateContainer\").getChild(\"CoordinateContainer\").getChild(\"EnterpriseDrpDwn\").props.value \u003d \u0027\u0027\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").getChild(\"CoordinateContainer\").getChild(\"CoordinateContainer\").getChild(\"PlantDrpDwn\").props.value \u003d \u0027\u0027\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").getChild(\"CoordinateContainer\").getChild(\"CoordinateContainer\").getChild(\"AreaDrpDwn\").props.value \u003d \u0027\u0027\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").getChild(\"CoordinateContainer\").getChild(\"CoordinateContainer\").getChild(\"LineDrpDwn\").props.value \u003d \u0027\u0027\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").getChild(\"CoordinateContainer\").getChild(\"CoordinateContainer\").getChild(\"MachineDrpDwn\").props.value \u003d \u0027\u0027\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").getChild(\"CoordinateContainer\").getChild(\"CoordinateContainer\").getChild(\"EnterpriseDrpDwn\").props.placeholder.text \u003d \u0027Select Enterprise\u0027\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").getChild(\"CoordinateContainer\").getChild(\"CoordinateContainer\").getChild(\"PlantDrpDwn\").props.placeholder.text \u003d \u0027Select Plant\u0027\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").getChild(\"CoordinateContainer\").getChild(\"CoordinateContainer\").getChild(\"AreaDrpDwn\").props.placeholder.text \u003d \u0027Select Area\u0027\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").getChild(\"CoordinateContainer\").getChild(\"CoordinateContainer\").getChild(\"LineDrpDwn\").props.placeholder.text \u003d \u0027Select Line\u0027\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").getChild(\"CoordinateContainer\").getChild(\"CoordinateContainer\").getChild(\"MachineDrpDwn\").props.placeholder.text \u003d \u0027Select Machine\u0027\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\tenterpriseID \u003d0 \n\t\t\t\tplantID \u003d 0\n\t\t\t\tareaID \u003d 0\n\t\t\t\tlineID \u003d 0\n\t\t\t\tUserId \u003d self.session.custom.UserId\n\t\t\t\tenterpriseList\u003dPlantHirarchyAPI.getEnterpriseList(UserId)\n\t\t\t\tplantList\u003dPlantHirarchyAPI.getPlantList(enterpriseID,UserId)\n\t\t\t\tareaList\u003dPlantHirarchyAPI.getAreaList(enterpriseID,plantID,UserId)\n\t\t\t\tlineList\u003dPlantHirarchyAPI.getLineList(enterpriseID,plantID,areaID,UserId)\n\t\t\t\tmachineList\u003dPlantHirarchyAPI.getMachineList(enterpriseID,plantID,areaID,lineID,UserId)\n\t\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").getChild(\"cnt_MachineStatus\").getChild(\"CoordinateContainer\").getChild(\"EnterpriseDrpDwn\").props.options\u003denterpriseList\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").getChild(\"cnt_MachineStatus\").getChild(\"CoordinateContainer\").getChild(\"PlantDrpDwn\").props.options\u003dplantList\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").getChild(\"cnt_MachineStatus\").getChild(\"CoordinateContainer\").getChild(\"AreaDrpDwn\").props.options\u003dareaList\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").getChild(\"cnt_MachineStatus\").getChild(\"CoordinateContainer\").getChild(\"LineDrpDwn\").props.options\u003dlineList\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").getChild(\"cnt_MachineStatus\").getChild(\"CoordinateContainer\").getChild(\"MachineDrpDwn\").props.options\u003dmachineList\n\t\t\t\t\n\t\t\t\t#-----Binding--To the Machine Parameter values----------------------\u003e\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").getChild(\"CoordinateContainer\").getChild(\"CoordinateContainer\").getChild(\"EnterpriseDrpDwn\").props.options\u003denterpriseList\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").getChild(\"CoordinateContainer\").getChild(\"CoordinateContainer\").getChild(\"PlantDrpDwn\").props.options\u003dplantList\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").getChild(\"CoordinateContainer\").getChild(\"CoordinateContainer\").getChild(\"AreaDrpDwn\").props.options\u003dareaList\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").getChild(\"CoordinateContainer\").getChild(\"CoordinateContainer\").getChild(\"LineDrpDwn\").props.options\u003dlineList\n\t\t\t\tself.getChild(\"root\").getChild(\"cntCoordinate\").getChild(\"TabContainer\").getChild(\"CoordinateContainer\").getChild(\"CoordinateContainer\").getChild(\"MachineDrpDwn\").props.options\u003dmachineList\n\t\t\texcept:\n\t\t\t\timport sys, os\n\t\t\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\t\t\tAuthentication.exceptionLogger(errorMessage)\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)\n\t\t"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 852,
+      "width": 1348
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "position": {
+                  "height": 0.3486,
+                  "width": 0.9993,
+                  "x": -0.0003,
+                  "y": 0.0094
+                },
+                "props": {
+                  "style": {
+                    "backgroundColor": "#D5D5D594"
+                  },
+                  "text": "Machine Diagnostics",
+                  "textStyle": {
+                    "classes": "Common/Label_Header",
+                    "textAlign": "center"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "HeaderContainer"
+            },
+            "position": {
+              "height": 0.1219,
+              "width": 0.9985,
+              "x": 0.0009,
+              "y": -0.0005
+            },
+            "props": {
+              "mode": "percent",
+              "style": {
+                "backgroundColor": "#EDF0F0"
+              }
+            },
+            "type": "ia.container.coord"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "tblMachinedetail"
+                    },
+                    "position": {
+                      "height": 0.8514,
+                      "width": 0.9762,
+                      "x": 0.0111,
+                      "y": 0.1316
+                    },
+                    "props": {
+                      "bodyStyle": {
+                        "classes": "Table/RowsBorder"
+                      },
+                      "columns": [
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "SrNo",
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "center",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": "Sr No"
+                          },
+                          "justify": "center",
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": false,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": true,
+                          "width": 30
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "ParameterName",
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": "Parameter Name"
+                          },
+                          "justify": "auto",
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": false,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": true,
+                          "width": 90
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "Quality",
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "justify": "auto",
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": false,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": true,
+                          "width": 60
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "Value",
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "justify": "auto",
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": false,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": true,
+                          "width": 70
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY HH:mm:ss",
+                          "editable": false,
+                          "field": "LastUpdate",
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": "Update Datetime"
+                          },
+                          "justify": "auto",
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "date",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": false,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": true,
+                          "width": 120
+                        }
+                      ],
+                      "data": {
+                        "$": [
+                          "ds",
+                          192,
+                          1696481881019
+                        ],
+                        "$columns": [
+                          {
+                            "data": [],
+                            "name": "SrNo",
+                            "type": "String"
+                          },
+                          {
+                            "data": [],
+                            "name": "ParameterName",
+                            "type": "String"
+                          },
+                          {
+                            "data": [],
+                            "name": "Quality",
+                            "type": "String"
+                          },
+                          {
+                            "data": [],
+                            "name": "Value",
+                            "type": "String"
+                          },
+                          {
+                            "data": [],
+                            "name": "LastUpdate",
+                            "type": "String"
+                          }
+                        ]
+                      },
+                      "dragOrderable": false,
+                      "filter": {
+                        "enabled": true
+                      },
+                      "headerStyle": {
+                        "classes": "Table/Header"
+                      },
+                      "rows": {
+                        "style": {
+                          "classes": "Table/Rowsmiddle"
+                        },
+                        "subviewExpansionMode": "single"
+                      },
+                      "selection": {
+                        "enableRowSelection": false
+                      }
+                    },
+                    "type": "ia.display.table"
+                  },
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "EnterpriseLbl"
+                        },
+                        "position": {
+                          "height": 0.6523,
+                          "width": 0.0506,
+                          "x": 0.0119,
+                          "y": 0.1738
+                        },
+                        "props": {
+                          "style": {
+                            "backgroundColor": "#EDF0F0",
+                            "classes": "Common/Label"
+                          },
+                          "text": "Enterprise",
+                          "textStyle": {
+                            "classes": "Common/OprConsoleLabelText"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "custom": {
+                          "entID": "value",
+                          "entName": "value"
+                        },
+                        "events": {
+                          "component": {
+                            "onActionPerformed": {
+                              "config": {
+                                "script": "\ttry:\n\t\tself.getSibling(\"PlantDrpDwn\").props.value \u003d \"\"\n\t\tself.getSibling(\"PlantDrpDwn\").props.placeholder.text \u003d\u0027Select Plant\u0027\n\t\tself.getSibling(\"AreaDrpDwn\").props.value \u003d \"\"\n\t\tself.getSibling(\"AreaDrpDwn\").props.placeholder.text \u003d\u0027Select Area\u0027\n\t\tself.getSibling(\"LineDrpDwn\").props.value \u003d \"\"\n\t\tself.getSibling(\"LineDrpDwn\").props.placeholder.text \u003d\u0027Select Line\u0027\n\t\tself.getSibling(\"MachineDrpDwn\").props.value \u003d \"\"\n\t\tself.getSibling(\"MachineDrpDwn\").props.placeholder.text \u003d\u0027Select Machine\u0027\n\t\tself.parent.parent.getChild(\"tblMachinedetail\").props.data \u003d None\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: PMTC:: Enterprise Dropdown: On Action Performed :\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+                              },
+                              "scope": "G",
+                              "type": "script"
+                            }
+                          }
+                        },
+                        "meta": {
+                          "name": "EnterpriseDrpDwn",
+                          "tooltip": {
+                            "location": "bottom-right",
+                            "style": {
+                              "classes": "Common/ToolTip"
+                            }
+                          }
+                        },
+                        "position": {
+                          "height": 0.6523,
+                          "width": 0.1163,
+                          "x": 0.0676,
+                          "y": 0.1731
+                        },
+                        "propConfig": {
+                          "props.options": {
+                            "binding": {
+                              "config": {
+                                "path": "session.custom.UserId"
+                              },
+                              "transforms": [
+                                {
+                                  "code": "\tuserID \u003d value \n\ttry:\n\t\tvalue  \u003d PlantHirarchyAPI.getEnterpriseList(userID)\t\n\texcept:\n\t\tvalue \u003d \u0027\u0027\t\n\treturn value",
+                                  "type": "script"
+                                }
+                              ],
+                              "type": "property"
+                            }
+                          }
+                        },
+                        "props": {
+                          "placeholder": {
+                            "text": "Select Enterprise"
+                          },
+                          "style": {
+                            "classes": "Common/TextBox"
+                          }
+                        },
+                        "type": "ia.input.dropdown"
+                      },
+                      {
+                        "meta": {
+                          "name": "PlantLbl"
+                        },
+                        "position": {
+                          "height": 0.6523,
+                          "width": 0.0551,
+                          "x": 0.1945,
+                          "y": 0.1731
+                        },
+                        "props": {
+                          "style": {
+                            "backgroundColor": "#EDF0F0",
+                            "classes": "Common/Label"
+                          },
+                          "text": "Plant",
+                          "textStyle": {
+                            "classes": "Common/OprConsoleLabelText"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "events": {
+                          "component": {
+                            "onActionPerformed": {
+                              "config": {
+                                "script": "\ttry:\n\t\tself.getSibling(\"AreaDrpDwn\").props.value \u003d \u0027\u0027\n\t\tself.getSibling(\"AreaDrpDwn\").props.placeholder.text \u003d \u0027Select Area\u0027\n\t\tself.getSibling(\"LineDrpDwn\").props.value \u003d \u0027\u0027\n\t\tself.getSibling(\"LineDrpDwn\").props.placeholder.text \u003d \u0027Select Line\u0027\n\t\tself.getSibling(\"MachineDrpDwn\").props.value \u003d \u0027\u0027\n\t\tself.getSibling(\"MachineDrpDwn\").props.placeholder.text \u003d \u0027Select Machine\u0027\n\t\tself.parent.parent.getChild(\"tblMachinedetail\").props.data \u003d None\t\n\t\tscriptName \u003d \"PMTC : Plant Dropdown\"\n\t\tenterpriseID \u003d 0\n\t\tUserId \u003d self.session.custom.UserId\n\t\tplantID \u003d self.props.value\n\t\tresultData\u003dPlantHirarchyAPI.getPlantHirarchyDetailsbyPlantId(enterpriseID,UserId)\n\t\tsystem.perspective.print(\u0027ResultDAta \u003d \u0027 + str(resultData))\n\t\tfor i in resultData:\t\n\t\t\tPlantId \u003d i.get(\"PlantId\")\n\t\t\tif PlantId \u003d\u003d plantID:\n\t\t\t\tself.getSibling(\"EnterpriseDrpDwn\").props.value\u003d i.get(\"EnterpriseId\")\n\t\t\t\tself.getSibling(\"EnterpriseDrpDwn\").props.placeholder.text \u003d i.get(\"EnterpriseName\")\n\t\t\t\tsystem.perspective.print(\u0027Enterprise Name is: \u0027 + str(i.get(\"EnterpriseName\")))\n\t\t\t\tsystem.perspective.print(\u0027Enterprise Id is: \u0027 + str(i.get(\"EnterpriseId\")))\n\t\t\t\tbreak\n\t\t\n\t\tself.props.value \u003d plantID\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: PMTC:: Plant Dropdown: On Action Performed :\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+                              },
+                              "scope": "G",
+                              "type": "script"
+                            }
+                          }
+                        },
+                        "meta": {
+                          "name": "PlantDrpDwn",
+                          "tooltip": {
+                            "style": {
+                              "classes": "Common/ToolTip"
+                            }
+                          }
+                        },
+                        "position": {
+                          "height": 0.6523,
+                          "rotate": {
+                            "anchor": "25% 50%"
+                          },
+                          "width": 0.1255,
+                          "x": 0.2548,
+                          "y": 0.1731
+                        },
+                        "propConfig": {
+                          "props.options": {
+                            "binding": {
+                              "config": {
+                                "expression": "{../EnterpriseDrpDwn.props.value}"
+                              },
+                              "transforms": [
+                                {
+                                  "code": "\tenterpriseID \u003d value\n\tuserID \u003d self.session.custom.UserId\n\ttry:\n\t\tvalue \u003d PlantHirarchyAPI.getPlantList(enterpriseID,userID)\n\texcept Exception as e:\n\t\tvalue \u003d \u0027\u0027\n\t\tscriptName \u003d \"Operator Console:\"\n\t\terrorMessage\u003dscriptName  +\u0027 Exception - \u0027+  str(e)\n\t\tAuthentication.exceptionLogger(errorMessage)\n\treturn value",
+                                  "type": "script"
+                                }
+                              ],
+                              "type": "expr"
+                            }
+                          }
+                        },
+                        "props": {
+                          "placeholder": {
+                            "text": "Select Plant"
+                          },
+                          "style": {
+                            "classes": "Common/TextBox"
+                          }
+                        },
+                        "type": "ia.input.dropdown"
+                      },
+                      {
+                        "meta": {
+                          "name": "AreaLbl"
+                        },
+                        "position": {
+                          "height": 0.6523,
+                          "rotate": {
+                            "anchor": "-167% 39%"
+                          },
+                          "width": 0.048,
+                          "x": 0.3937,
+                          "y": 0.1731
+                        },
+                        "props": {
+                          "style": {
+                            "backgroundColor": "#EDF0F0",
+                            "classes": "Common/Label"
+                          },
+                          "text": "Area",
+                          "textStyle": {
+                            "classes": "Common/OprConsoleLabelText"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "events": {
+                          "component": {
+                            "onActionPerformed": {
+                              "config": {
+                                "script": "\ttry:\n\t\tself.getSibling(\"LineDrpDwn\").props.value \u003d \u0027\u0027\n\t\tself.getSibling(\"LineDrpDwn\").props.placeholder.text \u003d \u0027Select Line\u0027\n\t\tself.getSibling(\"MachineDrpDwn\").props.value \u003d \u0027\u0027\n\t\tself.getSibling(\"MachineDrpDwn\").props.placeholder.text \u003d \u0027Select Machine\u0027\n\t\tself.parent.parent.getChild(\"tblMachinedetail\").props.data \u003d None\n\t\tenterpriseID \u003d 0\n\t\tplantID \u003d 0\n\t\tUserId \u003d self.session.custom.UserId\n\t\tAreaID \u003d self.props.value\n\t\tresultData\u003dPlantHirarchyAPI.getPlantHirarchyDetailsbyAreaId(enterpriseID,plantID,UserId)\n\t\n\t\tfor i in resultData:\t\n\t\t\tAreaId \u003d i.get(\"AreaId\")\n\t\t\tif AreaId \u003d\u003d AreaID:\n\t\t\t\tself.getSibling(\"EnterpriseDrpDwn\").props.value \u003d i.get(\"EnterpriseId\")\n\t\t\t\tself.getSibling(\"EnterpriseDrpDwn\").props.placeholder.text \u003d i.get(\"EnterpriseName\")\n\t\t\t\tself.getSibling(\"PlantDrpDwn\").props.value \u003di.get(\"PlantId\")\n\t\t\t\tself.getSibling(\"PlantDrpDwn\").props.placeholder.text \u003d i.get(\"PlantName\")\n\t\t\t\tbreak\n\t\tself.props.value \u003d AreaID\n\texcept:\n\t\tpass"
+                              },
+                              "scope": "G",
+                              "type": "script"
+                            }
+                          }
+                        },
+                        "meta": {
+                          "name": "AreaDrpDwn",
+                          "tooltip": {
+                            "location": "bottom-right",
+                            "style": {
+                              "classes": "Common/ToolTip"
+                            }
+                          }
+                        },
+                        "position": {
+                          "height": 0.6523,
+                          "rotate": {
+                            "anchor": "450% 50%"
+                          },
+                          "width": 0.1247,
+                          "x": 0.444,
+                          "y": 0.1731
+                        },
+                        "propConfig": {
+                          "props.options": {
+                            "binding": {
+                              "config": {
+                                "expression": "{../PlantDrpDwn.props.value}"
+                              },
+                              "transforms": [
+                                {
+                                  "code": "\tplantID \u003d value\n\tenterpriseID \u003d self.getSibling(\"EnterpriseDrpDwn\").props.value\n\tuserID \u003d self.session.custom.UserId\n\ttry:\n\t\tvalue \u003d PlantHirarchyAPI.getAreaList(enterpriseID,plantID,userID)\n\texcept Exception as e:\n\t\tvalue \u003d \u0027\u0027\t\n\t\tscriptName \u003d \"Operator Console:\"\n\t\terrorMessage\u003dscriptName  +\u0027 Exception - \u0027+  str(e)\n\t\tAuthentication.exceptionLogger(errorMessage)\n\treturn value",
+                                  "type": "script"
+                                }
+                              ],
+                              "type": "expr"
+                            }
+                          }
+                        },
+                        "props": {
+                          "placeholder": {
+                            "text": "Select Area"
+                          },
+                          "style": {
+                            "classes": "Common/TextBox"
+                          }
+                        },
+                        "type": "ia.input.dropdown"
+                      },
+                      {
+                        "meta": {
+                          "name": "LineLbl"
+                        },
+                        "position": {
+                          "height": 0.6523,
+                          "width": 0.0498,
+                          "x": 0.5837,
+                          "y": 0.1731
+                        },
+                        "props": {
+                          "style": {
+                            "backgroundColor": "#EDF0F0",
+                            "classes": "Common/Label"
+                          },
+                          "text": "Line",
+                          "textStyle": {
+                            "classes": "Common/OprConsoleLabelText"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "events": {
+                          "component": {
+                            "onActionPerformed": {
+                              "config": {
+                                "script": "\ttry:\n\t\tscriptName\u003d\u0027Machine status Machine DropDown OnAction Performed\u0027\n\t\tself.getSibling(\"MachineDrpDwn\").props.value \u003d \u0027\u0027\n\t\tself.getSibling(\"MachineDrpDwn\").props.placeholder.text \u003d \u0027Select Machine\u0027\n\t\tself.parent.parent.getChild(\"tblMachinedetail\").props.data \u003d None\n\t\tenterpriseID \u003d 0\n\t\tplantID \u003d 0\n\t\tareaID \u003d 0\n\t\tUserId \u003d self.session.custom.UserId\n\t\tLineID \u003d self.props.value\n\t\tresultData\u003dPlantHirarchyAPI.getPlantHirarchyDetailsbyLineId(enterpriseID,plantID,areaID,UserId)\n\t\n\t\tfor i in resultData:\t\n\t\t\tLineId \u003d i.get(\"LineId\")\n\t\t\tif LineId \u003d\u003d LineID:\n\t\t\t\tself.getSibling(\"EnterpriseDrpDwn\").props.value \u003d i.get(\"EnterpriseId\")\n\t\t\t\tself.getSibling(\"EnterpriseDrpDwn\").props.placeholder.text \u003d i.get(\"EnterpriseName\")\n\t\t\t\tself.getSibling(\"PlantDrpDwn\").props.value \u003di.get(\"PlantId\")\n\t\t\t\tself.getSibling(\"PlantDrpDwn\").props.placeholder.text \u003d i.get(\"PlantName\")\n\t\t\t\tself.getSibling(\"AreaDrpDwn\").props.value \u003d  i.get(\"AreaId\")\n\t\t\t\tself.getSibling(\"AreaDrpDwn\").props.placeholder.text \u003d i.get(\"AreaName\")\n\t\t\t\tbreak\n\t\tself.props.value \u003d LineID\n\n\texcept:\t\t\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tsystem.perspective.print(\"errorMessage \u003d \"+str(errorMessage))\n\t\tAuthentication.exceptionLogger(errorMessage)\t"
+                              },
+                              "scope": "G",
+                              "type": "script"
+                            }
+                          }
+                        },
+                        "meta": {
+                          "name": "LineDrpDwn",
+                          "tooltip": {
+                            "location": "bottom-right",
+                            "style": {
+                              "classes": "Common/ToolTip"
+                            }
+                          }
+                        },
+                        "position": {
+                          "height": 0.6523,
+                          "width": 0.1392,
+                          "x": 0.6362,
+                          "y": 0.1731
+                        },
+                        "propConfig": {
+                          "props.options": {
+                            "binding": {
+                              "config": {
+                                "expression": "{../AreaDrpDwn.props.value}"
+                              },
+                              "transforms": [
+                                {
+                                  "code": "\tareaID \u003d value\n\tplantID \u003d self.getSibling(\"PlantDrpDwn\").props.value\n\tenterpriseID \u003d self.getSibling(\"EnterpriseDrpDwn\").props.value\n\tuserID \u003d self.session.custom.UserId\n\ttry:\n\t\tvalue \u003d PlantHirarchyAPI.getLineList(enterpriseID,plantID,areaID,userID)\t\t\n\texcept Exception as e:\n\t\tvalue \u003d \u0027\u0027\n\t\tscriptName \u003d \"Operator Console:\"\n\t\terrorMessage\u003dscriptName  +\u0027 Exception - \u0027+  str(e)\n\t\tAuthentication.exceptionLogger(errorMessage)\n\treturn value",
+                                  "type": "script"
+                                }
+                              ],
+                              "type": "expr"
+                            }
+                          }
+                        },
+                        "props": {
+                          "placeholder": {
+                            "text": "Select Line"
+                          },
+                          "style": {
+                            "classes": "Common/TextBox"
+                          }
+                        },
+                        "type": "ia.input.dropdown"
+                      },
+                      {
+                        "meta": {
+                          "name": "MachienLbl"
+                        },
+                        "position": {
+                          "height": 0.6523,
+                          "width": 0.048,
+                          "x": 0.7865,
+                          "y": 0.1731
+                        },
+                        "props": {
+                          "style": {
+                            "backgroundColor": "#EDF0F0",
+                            "classes": "Common/Label"
+                          },
+                          "text": "Machine",
+                          "textStyle": {
+                            "classes": "Common/OprConsoleLabelText"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "events": {
+                          "component": {
+                            "onActionPerformed": {
+                              "config": {
+                                "script": "\ttry:\n\t\tself.parent.parent.getChild(\"tblMachinedetail\").props.data \u003d None\n\t\tscriptName\u003d\u0027Machine Status Machine DropDown OnAction Performed\u0027\n\t\tUserId \u003d self.session.custom.UserId\n\t\tenterpriseID \u003d 0\n\t\tplantID \u003d 0\n\t\tareaID \u003d 0\n\t\tlineID \u003d 0\n\t\tMachineID \u003d self.props.value\n\t\tresultData\u003dPlantHirarchyAPI.getPlantHirarchyDetailsbyMachineId(enterpriseID,plantID,areaID,lineID,UserId)\n\t\tfor i in resultData:\n\t\t\tMachineId \u003d i.get(\"MachineId\")\n\t\t\tMachineName \u003d i.get(\"MachineName\")\n\t\t\tif MachineId \u003d\u003d MachineID:\n\t\t\t\tself.props.value\u003dMachineId\n\t\t\t\tself.getSibling(\"EnterpriseDrpDwn\").props.value \u003d i.get(\"EnterpriseId\")\n\t\t\t\tself.getSibling(\"PlantDrpDwn\").props.value \u003di.get(\"PlantId\")\n\t\t\t\tself.getSibling(\"AreaDrpDwn\").props.value \u003d i.get(\"AreaId\")\n\t\t\t\tself.getSibling(\"LineDrpDwn\").props.value \u003d i.get(\"LineId\")\n\t\t\t\tself.props.placeholder.text \u003d i.get(\"MachineName\")\n\t\t\t\tself.getSibling(\"LineDrpDwn\").props.placeholder.text \u003d i.get(\"LineName\")\t\n\t\t\t\tself.getSibling(\"AreaDrpDwn\").props.placeholder.text \u003d i.get(\"AreaName\")\n\t\t\t\tself.getSibling(\"PlantDrpDwn\").props.placeholder.text \u003d i.get(\"PlantName\")\n\t\t\t\tself.getSibling(\"EnterpriseDrpDwn\").props.placeholder.text \u003d i.get(\"EnterpriseName\")\n\t\t\t\tbreak\t\n\t\tself.props.value\u003dMachineID\n\t\tdefaultTagPath \u003d system.tag.read(\"[default]JMES_InternalTags/DafaultTagPath.value\").value\t\n\t\tmachineID\u003dself.props.value\n\t\tmachineName\u003dMachineDetails.getMachineName(machineID)\n\t\t\n\t\tds \u003d ProductionOperatorConsole.getMachineDiagnostics(machineName)\n\t\tself.parent.parent.getChild(\"tblMachinedetail\").props.data\u003dds\n\texcept:\t\t\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)\n\t\tsystem.perspective.print(\"error \u003d \"+ str(errorMessage))\t\n\t"
+                              },
+                              "scope": "G",
+                              "type": "script"
+                            }
+                          }
+                        },
+                        "meta": {
+                          "name": "MachineDrpDwn",
+                          "tooltip": {
+                            "location": "bottom-right",
+                            "style": {
+                              "classes": "Common/ToolTip"
+                            }
+                          }
+                        },
+                        "position": {
+                          "height": 0.6523,
+                          "width": 0.149,
+                          "x": 0.8376,
+                          "y": 0.1731
+                        },
+                        "propConfig": {
+                          "props.options": {
+                            "binding": {
+                              "config": {
+                                "expression": "{../LineDrpDwn.props.value}"
+                              },
+                              "previewEnabled": false,
+                              "transforms": [
+                                {
+                                  "code": "\tlineID \u003d value\n\ttry:\n\t\tlineID \u003d value\n\t\tvalue \u003d MachineDetails.getMachineLineWise(lineID)\n\texcept Exception as e:\n\t\tvalue \u003d \u0027\u0027\n\t\tscriptName \u003d \"Machine Status Console:\"\n\t\terrorMessage\u003dscriptName  +\u0027 Exception - \u0027+  str(e)\n\t\tAuthentication.exceptionLogger(errorMessage)\t\n\treturn value",
+                                  "type": "script"
+                                }
+                              ],
+                              "type": "expr"
+                            }
+                          }
+                        },
+                        "props": {
+                          "placeholder": {
+                            "text": "Select Machine"
+                          },
+                          "style": {
+                            "classes": "Common/TextBox"
+                          }
+                        },
+                        "type": "ia.input.dropdown"
+                      }
+                    ],
+                    "meta": {
+                      "name": "CoordinateContainer"
+                    },
+                    "position": {
+                      "height": 0.0736,
+                      "width": 0.9955,
+                      "x": 0.0006,
+                      "y": 0.058
+                    },
+                    "props": {
+                      "mode": "percent",
+                      "style": {
+                        "classes": "Basic/OprConsoleHirarchy"
+                      }
+                    },
+                    "type": "ia.container.coord"
+                  },
+                  {
+                    "meta": {
+                      "name": "Label"
+                    },
+                    "position": {
+                      "height": 0.0478,
+                      "width": 0.9888,
+                      "x": 0.0047,
+                      "y": 0.0048
+                    },
+                    "props": {
+                      "style": {
+                        "backgroundColor": "#FFFFFF",
+                        "borderStyle": "none",
+                        "classes": "Common/Label"
+                      },
+                      "text": "Machine Parameters",
+                      "textStyle": {
+                        "backgroundColor": "#FFFFFF",
+                        "classes": "Common/OprConsoleLabelText",
+                        "textAlign": "left"
+                      }
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "draggable": false,
+                            "id": "MQJzWNyK",
+                            "modal": true,
+                            "overlayDismiss": false,
+                            "resizable": false,
+                            "showCloseIcon": false,
+                            "type": "open",
+                            "viewPath": "Project_MES_Solution/ProductionOperatorConsole/PopUps/PopupLinkMachineParameter",
+                            "viewportBound": false
+                          },
+                          "scope": "C",
+                          "type": "popup"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "Button",
+                      "visible": false
+                    },
+                    "position": {
+                      "height": 0.044,
+                      "width": 0.151,
+                      "x": 0.7213,
+                      "y": 0.0045
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "Common/Button"
+                      },
+                      "text": "Add Machine Description"
+                    },
+                    "type": "ia.input.button"
+                  },
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "script": "\ttry:\n\t\tself.getSibling(\"tblMachinedetail\").props.data \u003d None\n\t\tscriptName\u003d\u0027Machine Status Machine DropDown OnAction Performed\u0027\n\t\tUserId \u003d self.session.custom.UserId\n\t\tmachineID \u003d self.parent.getChild(\"CoordinateContainer\").getChild(\"MachineDrpDwn\").props.value\n\t\tif str(machineID).strip() !\u003d str(\u0027\u0027).strip():\n\t\t\tmachineName\u003dMachineDetails.getMachineName(machineID)\n\t\t\tds \u003d ProductionOperatorConsole.getMachineDiagnostics(machineName)\n\t\t\tself.getSibling(\"tblMachinedetail\").props.data\u003dds\n\t\telse:\n\t\t\tsystem.perspective.openPopup(\u0027MessagePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/Material Request Screens/MessageBoxPopup\u0027,params\u003d{\"MessageText\":\" Please select the machine first\",\"ErrorVisible\": True,\"SuccessVisible\":False},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: Machine Monitoruinhg:: Refresh Button  :\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "BtnRefresh",
+                      "tooltip": {
+                        "location": "bottom-left",
+                        "style": {
+                          "classes": "Common/ToolTip"
+                        },
+                        "text": "Click To Refresh"
+                      }
+                    },
+                    "position": {
+                      "height": 0.0427,
+                      "width": 0.0938,
+                      "x": 0.8852,
+                      "y": 0.0045
+                    },
+                    "props": {
+                      "enabled": 1,
+                      "image": {
+                        "width": 50
+                      },
+                      "style": {
+                        "backgroundColor": "value",
+                        "borderColor": "value",
+                        "classes": "Common/Button"
+                      },
+                      "text": "Refresh"
+                    },
+                    "type": "ia.input.button"
+                  }
+                ],
+                "meta": {
+                  "name": "CoordinateContainer"
+                },
+                "position": {
+                  "tabIndex": 1
+                },
+                "props": {
+                  "mode": "percent"
+                },
+                "type": "ia.container.coord"
+              },
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "Label"
+                    },
+                    "position": {
+                      "height": 0.057,
+                      "width": 0.8763,
+                      "x": 0.0025,
+                      "y": 0.0004
+                    },
+                    "props": {
+                      "style": {
+                        "backgroundColor": "#FFFFFF",
+                        "borderStyle": "none",
+                        "classes": "Common/Label"
+                      },
+                      "text": "Machine Status",
+                      "textStyle": {
+                        "backgroundColor": "#FFFFFF",
+                        "classes": "Common/OprConsoleLabelText",
+                        "textAlign": "left"
+                      }
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "events": {
+                      "component": {
+                        "onRowClick": {
+                          "config": {
+                            "script": "\ttry:\n\t\t\n\t\tsystem.perspective.print(\"selectedColumn \u003d \"+str(self.props.selection.selectedColumn))\n\t\tsystem.perspective.print(\"authorizeMachineMonitoringReadOnly \u003d \"+str(self.session.custom.authorizeMachineMonitoringReadOnly))\n\t\t\n\t\tif self.props.selection.selectedColumn\u003d\u003d\u0027Check\u0027 and self.session.custom.authorizeMachineMonitoringReadOnly\u003d\u003d1:\n\t\t\t\n\t\t\tselColumn\u003dself.props.selection.selectedColumn\t\n\t\t\t\n\t\t\tsystem.perspective.print(\"on row click\")\n\t\t\t\n\t\t\tselectedRow\u003dself.props.selection.selectedRow\n\t\t\tsystem.perspective.print(\"selectedRow \u003d \"+str(selectedRow))\n\t\t\t\n\t\t\trowValues\u003devent.value\n\t\t\tsystem.perspective.print(\"event.value  \u003d \"+str(event.value))\n\t\t\t\n\t\t\tdefineKeyColumn \u003d \"MachineID\"\n\t\t\t#----------------- get selected cell value,row number,column number -----------------  \n\t\t\tupdatedValue\u003drowValues[\u0027Check\u0027]\n\t\t\tif updatedValue\u003d\u003dTrue or updatedValue\u003d\u003d1 :\n\t\t\t\tupdatedValue\u003d0\n\t\t\telse:\n\t\t\t\tupdatedValue\u003d1\t\n\t\t\tselRow\u003devent.row  \n#\t\t\tsystem.perspective.print(\"selRow \u003d \"+str(selRow))\n\t\t\t\n\t\t\n\t\t\t#-------------------------------------- End ----------------------------------------\n\t\t\t\n\t\t\t#----------------- update data back in existing table dataset ----------------------  \n\t\t\tdtSet\u003dself.props.data\n\t\t\tupdateRowResultDs \u003d {selColumn:updatedValue}\n\t\t\tsystem.perspective.print(\"updatedValue \u003d \"+str(updatedValue))\n\t\t\tsystem.perspective.print(\"selColumn \u003d \"+str(selColumn))\n\t\t\tsystem.perspective.print(\"before  Update row\u003d \"+str(updatedValue))\n\t\t\tresultpyData \u003d system.dataset.updateRow(dtSet,selRow,updateRowResultDs)  \n\t\t\tds\u003d system.dataset.toPyDataSet(resultpyData)\n\t\t\tself.props.data\u003dds\n\t\t\tsystem.perspective.print(\"update Cell Done\")\t\t\n\t\t\tself.props.selection.selectedColumn\u003dNone\n\t\t\t\n\texcept:\t\t\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception ::Machine PArams Row Select\u0027:\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      },
+                      "dom": {
+                        "onMouseOver": {
+                          "config": {
+                            "script": "\tif  self.session.custom.authorizeMachineMonitoringReadOnly\u003d\u003d0\n\t\tself.props.columns[4].editable\u003d0\n\telse:\n\t\n\t\tif self.props.selection.selectedColumn\u003d\u003d\u0027Check\u0027:\n\t\t\tself.props.columns[4].editable\u003dFalse\n\t\t\t\t\t\t\n\t\telse:\n\t\t\tself.props.columns[4].editable\u003dTrue"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "tblMachineStatus"
+                    },
+                    "position": {
+                      "height": 0.8472,
+                      "width": 0.9768,
+                      "x": 0.0075,
+                      "y": 0.1313
+                    },
+                    "propConfig": {
+                      "props.columns[4].editable": {
+                        "binding": {
+                          "config": {
+                            "path": "session.custom.authorizeMachineMonitoringReadOnly"
+                          },
+                          "enabled": false,
+                          "transforms": [
+                            {
+                              "code": "\tif value\u003d\u003d1:\n\t\tresult\u003dTrue\n\telse:\n\t\tresult\u003dFalse\n\treturn result",
+                              "type": "script"
+                            }
+                          ],
+                          "type": "property"
+                        }
+                      }
+                    },
+                    "props": {
+                      "bodyStyle": {
+                        "classes": "Table/RowsBorder"
+                      },
+                      "cells": {
+                        "allowEditOn": "single-click"
+                      },
+                      "columns": [
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "MachineID",
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "center",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": "ID"
+                          },
+                          "justify": "center",
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": false,
+                          "sort": "none",
+                          "sortable": false,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": false,
+                          "width": "70%"
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "SerialNumber",
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": "Sr No"
+                          },
+                          "justify": "auto",
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": false,
+                          "strictWidth": true,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": true,
+                          "width": 50
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "MachineName",
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": "Machine Name"
+                          },
+                          "justify": "auto",
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": false,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": true,
+                          "width": ""
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "Status",
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": "Machine Status"
+                          },
+                          "justify": "auto",
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": false,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": true,
+                          "width": ""
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "Check",
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "center",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": "MES ON/OFF"
+                          },
+                          "justify": "center",
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "boolean",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": false,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "Project_MES_Solution/ProductionOperatorConsole/Templates/MachineDiagnostics",
+                          "visible": true,
+                          "width": ""
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "Update Datetime",
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": "Last Update"
+                          },
+                          "justify": "auto",
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": true,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": true,
+                          "width": ""
+                        }
+                      ],
+                      "data": {
+                        "$": [
+                          "ds",
+                          192,
+                          1696481881019
+                        ],
+                        "$columns": [
+                          {
+                            "data": [],
+                            "name": "MachineID",
+                            "type": "String"
+                          },
+                          {
+                            "data": [],
+                            "name": "SerialNumber",
+                            "type": "String"
+                          },
+                          {
+                            "data": [],
+                            "name": "MachineName",
+                            "type": "String"
+                          },
+                          {
+                            "data": [],
+                            "name": "Status",
+                            "type": "String"
+                          },
+                          {
+                            "data": [],
+                            "name": "Check",
+                            "type": "String"
+                          },
+                          {
+                            "data": [],
+                            "name": "LastUpdate",
+                            "type": "String"
+                          }
+                        ]
+                      },
+                      "dragOrderable": false,
+                      "filter": {
+                        "enabled": true
+                      },
+                      "headerStyle": {
+                        "classes": "Table/Header"
+                      },
+                      "rows": {
+                        "style": {
+                          "classes": "Table/Rowsmiddle"
+                        },
+                        "subviewExpansionMode": "single"
+                      }
+                    },
+                    "type": "ia.display.table"
+                  },
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "EnterpriseLbl"
+                        },
+                        "position": {
+                          "height": 0.6523,
+                          "width": 0.0506,
+                          "x": 0.0119,
+                          "y": 0.1738
+                        },
+                        "props": {
+                          "style": {
+                            "backgroundColor": "#EDF0F0",
+                            "classes": "Common/Label"
+                          },
+                          "text": "Enterprise",
+                          "textStyle": {
+                            "classes": "Common/OprConsoleLabelText"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "custom": {
+                          "entID": "value",
+                          "entName": "value"
+                        },
+                        "events": {
+                          "component": {
+                            "onActionPerformed": {
+                              "config": {
+                                "script": "\ttry:\n\t\tself.getSibling(\"PlantDrpDwn\").props.value \u003d \"\"\n\t\tself.getSibling(\"PlantDrpDwn\").props.placeholder.text \u003d\u0027Select Plant\u0027\n\t\tself.getSibling(\"AreaDrpDwn\").props.value \u003d \"\"\n\t\tself.getSibling(\"AreaDrpDwn\").props.placeholder.text \u003d\u0027Select Area\u0027\n\t\tself.getSibling(\"LineDrpDwn\").props.value \u003d \"\"\n\t\tself.getSibling(\"LineDrpDwn\").props.placeholder.text \u003d\u0027Select Line\u0027\n\t\tself.getSibling(\"MachineDrpDwn\").props.value \u003d \"\"\n\t\tself.getSibling(\"MachineDrpDwn\").props.placeholder.text \u003d\u0027Select Machine\u0027\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: PMTC:: Enterprise Dropdown: On Action Performed :\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+                              },
+                              "scope": "G",
+                              "type": "script"
+                            }
+                          }
+                        },
+                        "meta": {
+                          "name": "EnterpriseDrpDwn",
+                          "tooltip": {
+                            "location": "bottom-right",
+                            "style": {
+                              "classes": "Common/ToolTip"
+                            }
+                          }
+                        },
+                        "position": {
+                          "height": 0.6523,
+                          "width": 0.1163,
+                          "x": 0.0676,
+                          "y": 0.1731
+                        },
+                        "propConfig": {
+                          "props.options": {
+                            "binding": {
+                              "config": {
+                                "path": "session.custom.UserId"
+                              },
+                              "transforms": [
+                                {
+                                  "code": "\tuserID \u003d value \n\ttry:\n\t\tvalue  \u003d PlantHirarchyAPI.getEnterpriseList(userID)\t\n\texcept:\n\t\tvalue \u003d \u0027\u0027\t\n\treturn value",
+                                  "type": "script"
+                                }
+                              ],
+                              "type": "property"
+                            }
+                          }
+                        },
+                        "props": {
+                          "placeholder": {
+                            "text": "Select Enterprise"
+                          },
+                          "style": {
+                            "classes": "Common/TextBox"
+                          }
+                        },
+                        "type": "ia.input.dropdown"
+                      },
+                      {
+                        "meta": {
+                          "name": "PlantLbl"
+                        },
+                        "position": {
+                          "height": 0.6523,
+                          "width": 0.0551,
+                          "x": 0.1945,
+                          "y": 0.1731
+                        },
+                        "props": {
+                          "style": {
+                            "backgroundColor": "#EDF0F0",
+                            "classes": "Common/Label"
+                          },
+                          "text": "Plant",
+                          "textStyle": {
+                            "classes": "Common/OprConsoleLabelText"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "events": {
+                          "component": {
+                            "onActionPerformed": {
+                              "config": {
+                                "script": "\ttry:\n\t\tself.getSibling(\"AreaDrpDwn\").props.value \u003d \u0027\u0027\n\t\tself.getSibling(\"AreaDrpDwn\").props.placeholder.text \u003d \u0027Select Area\u0027\n\t\tself.getSibling(\"LineDrpDwn\").props.value \u003d \u0027\u0027\n\t\tself.getSibling(\"LineDrpDwn\").props.placeholder.text \u003d \u0027Select Line\u0027\n\t\tself.getSibling(\"MachineDrpDwn\").props.value \u003d \u0027\u0027\n\t\tself.getSibling(\"MachineDrpDwn\").props.placeholder.text \u003d \u0027Select Machine\u0027\n\t\tscriptName \u003d \"PMTC : Plant Dropdown\"\n\t\tenterpriseID \u003d 0\n\t\tUserId \u003d self.session.custom.UserId\n\t\tplantID \u003d self.props.value\n\t\tresultData\u003dPlantHirarchyAPI.getPlantHirarchyDetailsbyPlantId(enterpriseID,UserId)\n\t\tsystem.perspective.print(\u0027ResultDAta \u003d \u0027 + str(resultData))\n\t\tfor i in resultData:\t\n\t\t\tPlantId \u003d i.get(\"PlantId\")\n\t\t\tif PlantId \u003d\u003d plantID:\n\t\t\t\tself.getSibling(\"EnterpriseDrpDwn\").props.value\u003d i.get(\"EnterpriseId\")\n\t\t\t\tself.getSibling(\"EnterpriseDrpDwn\").props.placeholder.text \u003d i.get(\"EnterpriseName\")\n\t\t\t\tsystem.perspective.print(\u0027Enterprise Name is: \u0027 + str(i.get(\"EnterpriseName\")))\n\t\t\t\tsystem.perspective.print(\u0027Enterprise Id is: \u0027 + str(i.get(\"EnterpriseId\")))\n\t\t\t\tbreak\n\t\t\n\t\tself.props.value \u003d plantID\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: PMTC:: Plant Dropdown: On Action Performed :\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+                              },
+                              "scope": "G",
+                              "type": "script"
+                            }
+                          }
+                        },
+                        "meta": {
+                          "name": "PlantDrpDwn",
+                          "tooltip": {
+                            "style": {
+                              "classes": "Common/ToolTip"
+                            }
+                          }
+                        },
+                        "position": {
+                          "height": 0.6523,
+                          "rotate": {
+                            "anchor": "25% 50%"
+                          },
+                          "width": 0.1255,
+                          "x": 0.2548,
+                          "y": 0.1731
+                        },
+                        "propConfig": {
+                          "props.options": {
+                            "binding": {
+                              "config": {
+                                "expression": "{../EnterpriseDrpDwn.props.value}"
+                              },
+                              "transforms": [
+                                {
+                                  "code": "\tenterpriseID \u003d value\n\tuserID \u003d self.session.custom.UserId\n\ttry:\n\t\tvalue \u003d PlantHirarchyAPI.getPlantList(enterpriseID,userID)\n\texcept Exception as e:\n\t\tvalue \u003d \u0027\u0027\n\t\tscriptName \u003d \"Operator Console:\"\n\t\terrorMessage\u003dscriptName  +\u0027 Exception - \u0027+  str(e)\n\t\tAuthentication.exceptionLogger(errorMessage)\n\treturn value",
+                                  "type": "script"
+                                }
+                              ],
+                              "type": "expr"
+                            }
+                          }
+                        },
+                        "props": {
+                          "placeholder": {
+                            "text": "Select Plant"
+                          },
+                          "style": {
+                            "classes": "Common/TextBox"
+                          }
+                        },
+                        "type": "ia.input.dropdown"
+                      },
+                      {
+                        "meta": {
+                          "name": "AreaLbl"
+                        },
+                        "position": {
+                          "height": 0.6523,
+                          "rotate": {
+                            "anchor": "-167% 39%"
+                          },
+                          "width": 0.048,
+                          "x": 0.3937,
+                          "y": 0.1731
+                        },
+                        "props": {
+                          "style": {
+                            "backgroundColor": "#EDF0F0",
+                            "classes": "Common/Label"
+                          },
+                          "text": "Area",
+                          "textStyle": {
+                            "classes": "Common/OprConsoleLabelText"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "events": {
+                          "component": {
+                            "onActionPerformed": {
+                              "config": {
+                                "script": "\ttry:\n\t\tself.getSibling(\"LineDrpDwn\").props.value \u003d \u0027\u0027\n\t\tself.getSibling(\"LineDrpDwn\").props.placeholder.text \u003d \u0027Select Line\u0027\n\t\tself.getSibling(\"MachineDrpDwn\").props.value \u003d \u0027\u0027\n\t\tself.getSibling(\"MachineDrpDwn\").props.placeholder.text \u003d \u0027Select Machine\u0027\n\t\tenterpriseID \u003d 0\n\t\tplantID \u003d 0\n\t\tUserId \u003d self.session.custom.UserId\n\t\tAreaID \u003d self.props.value\n\t\tresultData\u003dPlantHirarchyAPI.getPlantHirarchyDetailsbyAreaId(enterpriseID,plantID,UserId)\n\t\n\t\tfor i in resultData:\t\n\t\t\tAreaId \u003d i.get(\"AreaId\")\n\t\t\tif AreaId \u003d\u003d AreaID:\n\t\t\t\tself.getSibling(\"EnterpriseDrpDwn\").props.value \u003d i.get(\"EnterpriseId\")\n\t\t\t\tself.getSibling(\"EnterpriseDrpDwn\").props.placeholder.text \u003d i.get(\"EnterpriseName\")\n\t\t\t\tself.getSibling(\"PlantDrpDwn\").props.value \u003di.get(\"PlantId\")\n\t\t\t\tself.getSibling(\"PlantDrpDwn\").props.placeholder.text \u003d i.get(\"PlantName\")\n\t\t\t\tbreak\n\t\tself.props.value \u003d AreaID\n\texcept:\n\t\tpass"
+                              },
+                              "scope": "G",
+                              "type": "script"
+                            }
+                          }
+                        },
+                        "meta": {
+                          "name": "AreaDrpDwn",
+                          "tooltip": {
+                            "location": "bottom-right",
+                            "style": {
+                              "classes": "Common/ToolTip"
+                            }
+                          }
+                        },
+                        "position": {
+                          "height": 0.6523,
+                          "rotate": {
+                            "anchor": "450% 50%"
+                          },
+                          "width": 0.1247,
+                          "x": 0.444,
+                          "y": 0.1731
+                        },
+                        "propConfig": {
+                          "props.options": {
+                            "binding": {
+                              "config": {
+                                "expression": "{../PlantDrpDwn.props.value}"
+                              },
+                              "transforms": [
+                                {
+                                  "code": "\tplantID \u003d value\n\tenterpriseID \u003d self.getSibling(\"EnterpriseDrpDwn\").props.value\n\tuserID \u003d self.session.custom.UserId\n\ttry:\n\t\tvalue \u003d PlantHirarchyAPI.getAreaList(enterpriseID,plantID,userID)\n\texcept Exception as e:\n\t\tvalue \u003d \u0027\u0027\t\n\t\tscriptName \u003d \"Operator Console:\"\n\t\terrorMessage\u003dscriptName  +\u0027 Exception - \u0027+  str(e)\n\t\tAuthentication.exceptionLogger(errorMessage)\n\treturn value",
+                                  "type": "script"
+                                }
+                              ],
+                              "type": "expr"
+                            }
+                          }
+                        },
+                        "props": {
+                          "placeholder": {
+                            "text": "Select Area"
+                          },
+                          "style": {
+                            "classes": "Common/TextBox"
+                          }
+                        },
+                        "type": "ia.input.dropdown"
+                      },
+                      {
+                        "meta": {
+                          "name": "LineLbl"
+                        },
+                        "position": {
+                          "height": 0.6523,
+                          "width": 0.0498,
+                          "x": 0.5837,
+                          "y": 0.1731
+                        },
+                        "props": {
+                          "style": {
+                            "backgroundColor": "#EDF0F0",
+                            "classes": "Common/Label"
+                          },
+                          "text": "Line",
+                          "textStyle": {
+                            "classes": "Common/OprConsoleLabelText"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "events": {
+                          "component": {
+                            "onActionPerformed": {
+                              "config": {
+                                "script": "\t\n\tself.getSibling(\"MachineDrpDwn\").props.value \u003d \u0027\u0027\n\ttry:\n\t\tscriptName\u003d\u0027Machine status Machine DropDown OnAction Performed\u0027\n\t\tself.getSibling(\"MachineDrpDwn\").props.value \u003d \u0027\u0027\n\t\tself.getSibling(\"MachineDrpDwn\").props.placeholder.text \u003d \u0027Select Machine\u0027\n\t\tenterpriseID \u003d 0\n\t\tplantID \u003d 0\n\t\tareaID \u003d 0\n\t\tUserId \u003d self.session.custom.UserId\n\t\tLineID \u003d self.props.value\n\t\tresultData\u003dPlantHirarchyAPI.getPlantHirarchyDetailsbyLineId(enterpriseID,plantID,areaID,UserId)\n\t\n\t\tfor i in resultData:\t\n\t\t\tLineId \u003d i.get(\"LineId\")\n\t\t\tif LineId \u003d\u003d LineID:\n\t\t\t\tself.getSibling(\"EnterpriseDrpDwn\").props.value \u003d i.get(\"EnterpriseId\")\n\t\t\t\tself.getSibling(\"EnterpriseDrpDwn\").props.placeholder.text \u003d i.get(\"EnterpriseName\")\n\t\t\t\tself.getSibling(\"PlantDrpDwn\").props.value \u003di.get(\"PlantId\")\n\t\t\t\tself.getSibling(\"PlantDrpDwn\").props.placeholder.text \u003d i.get(\"PlantName\")\n\t\t\t\tself.getSibling(\"AreaDrpDwn\").props.value \u003d  i.get(\"AreaId\")\n\t\t\t\tself.getSibling(\"AreaDrpDwn\").props.placeholder.text \u003d i.get(\"AreaName\")\n\t\t\t\tbreak\n\t\tself.props.value \u003d LineID\n\t\t\n\t\tdefaultTagPath \u003d system.tag.read(\"[default]JMES_InternalTags/DafaultTagPath.value\").value\t\n\t\tlineID\u003dself.props.value\n\t\tareaID \u003d self.getSibling(\"LineDrpDwn\").props.value\t\n\t\tplantID \u003d self.getSibling(\"PlantDrpDwn\").props.value\n\t\tenterpriseID \u003d self.getSibling(\"EnterpriseDrpDwn\").props.value\n\t\tuserID \u003d self.session.custom.UserId\n\t\tsystem.perspective.print(\"enterpriseID \"+str(enterpriseID))\n\t\tsystem.perspective.print(\"plantID \"+str(plantID))\n\t\tsystem.perspective.print(\"areaID \"+str(areaID))\n\t\tsystem.perspective.print(\"lineID \"+str(lineID))\n\t\tsystem.perspective.print(\"userID \"+str(userID))\n\t\t\n\t\tds \u003d MachineDetails.getMachineLineWise(lineID)\n\t\tsystem.perspective.print(\"ds \"+str(ds))\n\t\tds\u003dsystem.dataset.toPyDataSet(ds)\n\t\tdataList \u003d []\n\t\t\n\t\tsystem.perspective.print(\"ds \"+str(ds))\n\t\timport re\n\t\timport json\n\t\timport urllib2, urllib\n\t\tSerialNumber\u003d1\n\t\tfor i in ds:\n\t\t\t\n#\t\t\tprint i[\u0027ID\u0027]\n\t\t\tmachineName\u003dstr(i[\u0027Name\u0027])\n\t\t\tMachineID\u003dstr(i[\u0027ID\u0027])\n\t\t\tif system.tag.exists(str(defaultTagPath)+str(machineName)):\n\t\t\t\tsystem.perspective.print(\"machineName \"+str(machineName))\n\t\t\t\tvalue\u003dsystem.tag.read(str(defaultTagPath)+str(machineName)+\"/MachineStatus\").value\n#\t\t\t\ttimestamp\u003dsystem.tag.read(str(defaultTagPath)+str(machineName)+\"/MachineStatus\").timestamp\n\t\t\t\ttimestamp\u003d system.date.now()\n#\t\t\t\tSerialNumber\u003dsystem.tag.read(\"[default]JEMESMachines/\"+str(machineName)+\"/PartNumber\").value\n\t\t\t\ttimestamp \u003d system.date.format(timestamp, \"MM/dd/YYYY HH:mm:ss\")\n#\t\t\t\tSerialNumber\u003dsystem.tag.read(\"[default]JEMESMachines/\"+str(machineName)+\"/PartNumber\").value\n#\t\t\t\tSerialNumber\u003d1\n\t\t\t\tif str(value).strip()\u003d\u003d\u0027\u0027 or value\u003d\u003dNone or str(value).lower()\u003d\u003d\u0027null\u0027:\t\n\t\t\t\t\tvalue\u003d0\n\t\t\t\t\tCheck\u003d0\n\t\t\t\tif int(value)\u003d\u003d0:\n\t\t\t\t    status\u003d\"Network Disconnected\"\n\t\t\t\t    Check\u003d0\n\t\t\t\telif int(value)\u003d\u003d1:\n\t\t\t\t    status\u003d\"Running\"\n\t\t\t\t    Check\u003d1\n\t\t\t\telif int(value)\u003d\u003d2:\n\t\t\t\t    status\u003d\"Manual\"\n\t\t\t\t    Check\u003d0\n\t\t\t\telif int(value)\u003d\u003d3 or int(value)\u003d\u003d4:\n\t\t\t\t    status\u003d\"NA\"    \n\t\t\t\t    Check\u003d0\n\t\t\t\telif int(value)\u003d\u003d5:\n\t\t\t\t    status\u003d\"Alert\"    \n\t\t\t\t    Check\u003d0\n\t\t\t\telse:\n\t\t\t\t    status\u003d\"Unknown\"\n\t\t\t\t    Check\u003d0                    \n\t\t\t\t\n\t\t\t\n\t\t\t\t    \t\t\t\t   \n\t\t\t\t\n\t\t\t\t\n\t\t\t\tmyList \u003d [MachineID,str(SerialNumber),str(machineName),str(status),Check,str(timestamp)]\t\n\t\t\t\tdataList.append(myList)\n\t\t\t\tSerialNumber\u003dSerialNumber+1\n\t\t\t\tsystem.perspective.print(\"Binding Done\")\t\t\t\t\n\t\t\telse:\t\n\t\t\t\tsystem.perspective.print(\"Tag Not Exists\")\n\t\t\t\t\n#\t\theaders \u003d [\"MachineName\",\"Status\"]\n\t\t\n\t\theaders \u003d [\"MachineID\",\"SerialNumber\",\"MachineName\",\"Status\",\"Check\",\"LastUpdate\"]\n\t\tds \u003d system.dataset.toDataSet(headers,dataList)\n\t\tsystem.perspective.print(\"ds to Bind Table : \" +  str(ds))\n\n\t\tself.parent.parent.getChild(\"tblMachineStatus\").props.data\u003dds\n\t\t\n\texcept:\t\t\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tsystem.perspective.print(\"errorMessage \u003d \"+str(errorMessage))\n\t\tAuthentication.exceptionLogger(errorMessage)\t"
+                              },
+                              "scope": "G",
+                              "type": "script"
+                            }
+                          }
+                        },
+                        "meta": {
+                          "name": "LineDrpDwn",
+                          "tooltip": {
+                            "location": "bottom-right",
+                            "style": {
+                              "classes": "Common/ToolTip"
+                            }
+                          }
+                        },
+                        "position": {
+                          "height": 0.6523,
+                          "width": 0.1392,
+                          "x": 0.6362,
+                          "y": 0.1731
+                        },
+                        "propConfig": {
+                          "props.options": {
+                            "binding": {
+                              "config": {
+                                "expression": "{../AreaDrpDwn.props.value}"
+                              },
+                              "transforms": [
+                                {
+                                  "code": "\tareaID \u003d value\n\tplantID \u003d self.getSibling(\"PlantDrpDwn\").props.value\n\tenterpriseID \u003d self.getSibling(\"EnterpriseDrpDwn\").props.value\n\tuserID \u003d self.session.custom.UserId\n\ttry:\n\t\tvalue \u003d PlantHirarchyAPI.getLineList(enterpriseID,plantID,areaID,userID)\t\t\n\texcept Exception as e:\n\t\tvalue \u003d \u0027\u0027\n\t\tscriptName \u003d \"Operator Console:\"\n\t\terrorMessage\u003dscriptName  +\u0027 Exception - \u0027+  str(e)\n\t\tAuthentication.exceptionLogger(errorMessage)\n\treturn value",
+                                  "type": "script"
+                                }
+                              ],
+                              "type": "expr"
+                            }
+                          }
+                        },
+                        "props": {
+                          "placeholder": {
+                            "text": "Select Line"
+                          },
+                          "style": {
+                            "classes": "Common/TextBox"
+                          }
+                        },
+                        "type": "ia.input.dropdown"
+                      },
+                      {
+                        "meta": {
+                          "name": "MachienLbl"
+                        },
+                        "position": {
+                          "height": 0.6523,
+                          "width": 0.048,
+                          "x": 0.7865,
+                          "y": 0.1731
+                        },
+                        "props": {
+                          "style": {
+                            "backgroundColor": "#EDF0F0",
+                            "classes": "Common/Label"
+                          },
+                          "text": "Machine",
+                          "textStyle": {
+                            "classes": "Common/OprConsoleLabelText"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "events": {
+                          "component": {
+                            "onActionPerformed": {
+                              "config": {
+                                "script": "\ttry:\n\t\tscriptName\u003d\u0027Machine Status Machine DropDown OnAction Performed\u0027\n\t\tUserId \u003d self.session.custom.UserId\n\t\tenterpriseID \u003d 0\n\t\tplantID \u003d 0\n\t\tareaID \u003d 0\n\t\tlineID \u003d 0\n\t\tMachineID \u003d self.props.value\n\t\tresultData\u003dPlantHirarchyAPI.getPlantHirarchyDetailsbyMachineId(enterpriseID,plantID,areaID,lineID,UserId)\n\t\tfor i in resultData:\n\t\t\tMachineId \u003d i.get(\"MachineId\")\n\t\t\tMachineName \u003d i.get(\"MachineName\")\n\t\t\tif MachineId \u003d\u003d MachineID:\n\t\t\t\tself.props.value\u003dMachineId\n\t\t\t\tself.getSibling(\"EnterpriseDrpDwn\").props.value \u003d i.get(\"EnterpriseId\")\n\t\t\t\tself.getSibling(\"PlantDrpDwn\").props.value \u003di.get(\"PlantId\")\n\t\t\t\tself.getSibling(\"AreaDrpDwn\").props.value \u003d i.get(\"AreaId\")\n\t\t\t\tself.getSibling(\"LineDrpDwn\").props.value \u003d i.get(\"LineId\")\n\t\t\t\tself.props.placeholder.text \u003d i.get(\"MachineName\")\n\t\t\t\tself.getSibling(\"LineDrpDwn\").props.placeholder.text \u003d i.get(\"LineName\")\t\n\t\t\t\tself.getSibling(\"AreaDrpDwn\").props.placeholder.text \u003d i.get(\"AreaName\")\n\t\t\t\tself.getSibling(\"PlantDrpDwn\").props.placeholder.text \u003d i.get(\"PlantName\")\n\t\t\t\tself.getSibling(\"EnterpriseDrpDwn\").props.placeholder.text \u003d i.get(\"EnterpriseName\")\n\t\t\t\tbreak\t\n\t\tself.props.value\u003dMachineID\n\t\tdefaultTagPath \u003d system.tag.read(\"[default]JMES_InternalTags/DafaultTagPath.value\").value\t\n\t\tmachineID\u003dself.props.value\n\t\tMachineID\u003dself.props.value\n\t\tsystem.perspective.print(\"machineID \"+str(machineID))\n\t\tmachineName\u003dMachineDetails.getMachineName(machineID)\n\t\t\t\t\t\t\t\t\t\t\t\t\n#\t\tmachineName\u003dsystem.tag.read(\"[default]JEMESMachines/MYE_AFUS_120A_005\").value\n\t\timport re\n\t\timport json\n\t\timport urllib2, urllib\n\t\t\n\t\tif system.tag.exists(str(defaultTagPath)+str(machineName)):\n\t\t\n\t\t\tvalue\u003dsystem.tag.read(str(defaultTagPath)+str(machineName)+\"/MachineStatus\").value\n#\t\t\ttimestamp\u003dsystem.tag.read(str(defaultTagPath)+str(machineName)+\"/MachineStatus\").timestamp\t\t\n\t\t\ttimestamp \u003d system.date.now()\n\t\t\tSerialNumber\u003d1\n#\t\t\tSerialNumber\u003dsystem.tag.read(\"[default]JEMESMachines/\"+str(machineName)+\"/PartNumber\").value\n\t\t\ttimestamp \u003d system.date.format(timestamp, \"MM/dd/YYYY HH:mm:ss\")\n\t\t\tCheck\u003d0\n\t\t\tif str(value).strip()\u003d\u003d\u0027\u0027 or value\u003d\u003dNone or str(value).lower()\u003d\u003d\u0027null\u0027:\t\n\t\t\t\tvalue\u003d0\n\t\t\tif int(value)\u003d\u003d0:\n\t\t\t    status\u003d\"Network Disconnected\"\n\t\t\telif int(value)\u003d\u003d1:\n\t\t\t    status\u003d\"Running\"\n\t\t\t    Check\u003d1\n\t\t\telif int(value)\u003d\u003d2:\n\t\t\t    status\u003d\"Manual\"\n\t\t\telif int(value)\u003d\u003d3 or int(value)\u003d\u003d4:\n\t\t\t    status\u003d\"NA\"    \n\t\t\telif int(value)\u003d\u003d5:\n\t\t\t    status\u003d\"Alert\"    \n\t\t\telse:\n\t\t\t    status\u003d\"Unknown\"                    \n\t\t\n\t\t\tdataList\u003d[]\n\t\t\tmyList \u003d [MachineID,str(SerialNumber),str(machineName),str(status),Check,str(timestamp)]\t\n\t\t\tdataList.append(myList)\n\t\t\tSerialNumber\u003dSerialNumber+1\t\t\t\t\n\t\t\theaders \u003d [\"MachineID\",\"SerialNumber\",\"MachineName\",\"Status\",\"Check\",\"LastUpdate\"]\n\t\t\tds \u003d system.dataset.toDataSet(headers,dataList)\t\n\t\t\tself.parent.parent.getChild(\"tblMachineStatus\").props.data\u003dds\n\t\telse:\t\n\t\t\tsystem.perspective.print(\"Tag Not Exists\")\n\t\t\tself.parent.parent.getChild(\"tblMachineStatus\").props.data\u003dNone\n\texcept:\t\t\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)\n\t\tsystem.perspective.print(\"error \u003d \"+ str(errorMessage))\t\n\t"
+                              },
+                              "scope": "G",
+                              "type": "script"
+                            }
+                          }
+                        },
+                        "meta": {
+                          "name": "MachineDrpDwn",
+                          "tooltip": {
+                            "location": "bottom-right",
+                            "style": {
+                              "classes": "Common/ToolTip"
+                            }
+                          }
+                        },
+                        "position": {
+                          "height": 0.6523,
+                          "width": 0.149,
+                          "x": 0.8376,
+                          "y": 0.1731
+                        },
+                        "propConfig": {
+                          "props.options": {
+                            "binding": {
+                              "config": {
+                                "expression": "{../LineDrpDwn.props.value}"
+                              },
+                              "previewEnabled": false,
+                              "transforms": [
+                                {
+                                  "code": "\tlineID \u003d value\n\ttry:\n\t\tlineID \u003d value\n\t\tvalue \u003d MachineDetails.getMachineLineWise(lineID)\n\texcept Exception as e:\n\t\tvalue \u003d \u0027\u0027\n\t\tscriptName \u003d \"Machine Status Console:\"\n\t\terrorMessage\u003dscriptName  +\u0027 Exception - \u0027+  str(e)\n\t\tAuthentication.exceptionLogger(errorMessage)\t\n\treturn value",
+                                  "type": "script"
+                                }
+                              ],
+                              "type": "expr"
+                            }
+                          }
+                        },
+                        "props": {
+                          "placeholder": {
+                            "text": "Select Machine"
+                          },
+                          "style": {
+                            "classes": "Common/TextBox"
+                          }
+                        },
+                        "type": "ia.input.dropdown"
+                      }
+                    ],
+                    "meta": {
+                      "name": "CoordinateContainer"
+                    },
+                    "position": {
+                      "height": 0.0622,
+                      "width": 1.0007,
+                      "x": -0.0007,
+                      "y": 0.0639
+                    },
+                    "props": {
+                      "mode": "percent",
+                      "style": {
+                        "classes": "Basic/OprConsoleHirarchy"
+                      }
+                    },
+                    "type": "ia.container.coord"
+                  },
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "script": "\ttry:\n\t\timport re\n\t\timport json\n\t\timport urllib2, urllib\n\t\t\n\t\tself.getSibling(\"tblMachineStatus\").props.data \u003d None\n\t\tscriptName \u003d \u0027Machine Status\u0027\n\t\tUserId \u003d self.session.custom.UserId\n\t\tmachineID \u003d self.parent.getChild(\"CoordinateContainer\").getChild(\"MachineDrpDwn\").props.value\n\t\tlineID \u003d self.parent.getChild(\"CoordinateContainer\").getChild(\"LineDrpDwn\").props.value\n\t\tuserID \u003d self.session.custom.UserId\n\t\tdefaultTagPath \u003d system.tag.read(\"[default]JMES_InternalTags/DafaultTagPath.value\").value\t\n\t\tif lineID !\u003d \"\"  and machineID \u003d\u003d \"\":\n\t\t\tds \u003d MachineDetails.getMachineLineWise(lineID)\n\t\t\tds\u003dsystem.dataset.toPyDataSet(ds)\n\t\t\tdataList \u003d []\n\t\t\tSerialNumber\u003d1\n\t\t\tfor i in ds:\n\t\t\t\tmachineName\u003dstr(i[\u0027Name\u0027])\n\t\t\t\tMachineID\u003dstr(i[\u0027ID\u0027])\n\t\t\t\tif system.tag.exists(str(defaultTagPath)+str(machineName)):\n\t\t\t\t\tvalue\u003dsystem.tag.read(str(defaultTagPath)+str(machineName)+\"/MachineStatus\").value\n\t\t\t\t\ttimestamp\u003dsystem.tag.read(str(defaultTagPath)+str(machineName)+\"/MachineStatus\").timestamp\n\t\t\t\t\ttimestamp \u003d system.date.format(timestamp, \"MM/dd/YYYY HH:mm:ss\")\n\t\t\t\t\tif str(value).strip()\u003d\u003d\u0027\u0027 or value\u003d\u003dNone or str(value).lower()\u003d\u003d\u0027null\u0027:\t\n\t\t\t\t\t\tvalue\u003d0\n\t\t\t\t\t\tCheck\u003d0\n\t\t\t\t\tif int(value)\u003d\u003d0:\n\t\t\t\t\t    status\u003d\"Network Disconnected\"\n\t\t\t\t\t    Check\u003d0\n\t\t\t\t\telif int(value)\u003d\u003d1:\n\t\t\t\t\t    status\u003d\"Running\"\n\t\t\t\t\t    Check\u003d1\n\t\t\t\t\telif int(value)\u003d\u003d2:\n\t\t\t\t\t    status\u003d\"Manual\"\n\t\t\t\t\t    Check\u003d0\n\t\t\t\t\telif int(value)\u003d\u003d3 or int(value)\u003d\u003d4:\n\t\t\t\t\t    status\u003d\"NA\"    \n\t\t\t\t\t    Check\u003d0\n\t\t\t\t\telif int(value)\u003d\u003d5:\n\t\t\t\t\t    status\u003d\"Alert\"    \n\t\t\t\t\t    Check\u003d0\n\t\t\t\t\telse:\n\t\t\t\t\t    status\u003d\"Unknown\"\n\t\t\t\t\t    Check\u003d0                    \n\t\n\t\t\t\t\tmyList \u003d [MachineID,str(SerialNumber),str(machineName),str(status),Check,str(timestamp)]\t\n\t\t\t\t\tdataList.append(myList)\n\t\t\t\t\tSerialNumber\u003dSerialNumber+1\n\t\t\t\t\t\n\t\t\t\telse:\t\n\t\t\t\t\theaders \u003d [\"MachineID\",\"SerialNumber\",\"MachineName\",\"Status\",\"Check\",\"LastUpdate\"]\n\t\t\t\t\tds \u003d system.dataset.toDataSet(headers,dataList)\n\t\t\t\t\tself.getSibling(\"tblMachineStatus\").props.data\u003dds\n\t\telse:\n\t\t\tmachineName\u003dMachineDetails.getMachineName(machineID)\n\t\t\tMachineID \u003d self.parent.getChild(\"CoordinateContainer\").getChild(\"MachineDrpDwn\").props.value\n\t\t\tif system.tag.exists(str(defaultTagPath)+str(machineName)):\n\t\t\t\tvalue\u003dsystem.tag.read(str(defaultTagPath)+str(machineName)+\"/MachineStatus\").value\n\t\t\t\ttimestamp\u003dsystem.tag.read(str(defaultTagPath)+str(machineName)+\"/MachineStatus\").timestamp\t\t\n\t\t\t\tSerialNumber\u003d1\n\t\t\t\ttimestamp \u003d system.date.format(timestamp, \"MM/dd/YYYY HH:mm:ss\")\n\t\t\t\tCheck\u003d0\n\t\t\t\tif str(value).strip()\u003d\u003d\u0027\u0027 or value\u003d\u003dNone or str(value).lower()\u003d\u003d\u0027null\u0027:\t\n\t\t\t\t\tvalue\u003d0\n\t\t\t\tif int(value)\u003d\u003d0:\n\t\t\t\t    status\u003d\"Network Disconnected\"\n\t\t\t\telif int(value)\u003d\u003d1:\n\t\t\t\t    status\u003d\"Running\"\n\t\t\t\t    Check\u003d1\n\t\t\t\telif int(value)\u003d\u003d2:\n\t\t\t\t    status\u003d\"Manual\"\n\t\t\t\telif int(value)\u003d\u003d3 or int(value)\u003d\u003d4:\n\t\t\t\t    status\u003d\"NA\"    \n\t\t\t\telif int(value)\u003d\u003d5:\n\t\t\t\t    status\u003d\"Alert\"    \n\t\t\t\telse:\n\t\t\t\t    status\u003d\"Unknown\"                    \n\t\t\t\n\t\t\t\tdataList\u003d[]\n\t\t\t\tmyList \u003d [MachineID,str(SerialNumber),str(machineName),str(status),Check,str(timestamp)]\t\n\t\t\t\tdataList.append(myList)\n\t\t\t\tSerialNumber\u003dSerialNumber+1\t\t\t\t\n\t\t\t\theaders \u003d [\"MachineID\",\"SerialNumber\",\"MachineName\",\"Status\",\"Check\",\"LastUpdate\"]\n\t\t\t\tds \u003d system.dataset.toDataSet(headers,dataList)\t\n\t\t\t\tself.getSibling(\"tblMachineStatus\").props.data\u003dds\n\t\t\telse:\t\n\t\t\t\tsystem.perspective.openPopup(\u0027MessagePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/Material Request Screens/MessageBoxPopup\u0027,params\u003d{\"MessageText\":\" Please select the machine or line to see more details\",\"ErrorVisible\": True,\"SuccessVisible\":False},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: Machine Monitoring:: Refresh Button  :\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "BtnRefresh",
+                      "tooltip": {
+                        "location": "bottom-left",
+                        "style": {
+                          "classes": "Common/ToolTip"
+                        },
+                        "text": "Click To Refresh"
+                      }
+                    },
+                    "position": {
+                      "height": 0.0427,
+                      "width": 0.0938,
+                      "x": 0.8885,
+                      "y": 0.0107
+                    },
+                    "props": {
+                      "enabled": 1,
+                      "image": {
+                        "width": 50
+                      },
+                      "style": {
+                        "backgroundColor": "value",
+                        "borderColor": "value",
+                        "classes": "Common/Button"
+                      },
+                      "text": "Refresh"
+                    },
+                    "type": "ia.input.button"
+                  }
+                ],
+                "meta": {
+                  "name": "cnt_MachineStatus"
+                },
+                "props": {
+                  "mode": "percent",
+                  "style": {
+                    "classes": "Basic/OprConsoleHirarchy"
+                  }
+                },
+                "type": "ia.container.coord"
+              }
+            ],
+            "events": {
+              "system": {
+                "onStartup": {
+                  "config": {
+                    "script": "\ttry:\n\t\tscriptName \u003d \"Tab Monitoring: On Startup\" \n\t\tuserID \u003d self.session.custom.UserId\n\t\ttry:\n\t\t\t\n\t\t\tdataList \u003d []\n\n\t\t\tself.getChild(\"CoordinateContainer\").getChild(\"CoordinateContainer\").getChild(\"AreaDrpDwn\").props.value\u003d0\n\t\t\tself.getChild(\"cnt_MachineStatus\").getChild(\"CoordinateContainer\").getChild(\"EnterpriseDrpDwn\").props.value\u003d0\n\t\t\theaders \u003d [\"SrNo\",\"ParameterName\",\"Quality\",\"Value\",\"LastUpdate\"]\t\n\t\t\tds \u003d system.dataset.toDataSet(headers,dataList)\n\t\t\tself.getChild(\"CoordinateContainer\").getChild(\"tblMachinedetail\").props.data\u003dds\n\t\t\t\n#\t\t\theaders \u003d [\"MachineName\",\"Status\"]\n#\t\t\theaders \u003d [\"MachineID\",\"MachineName\",\"Status\",\"Check\",\"LastUpdate\"]\n\t\t\theaders \u003d [\"MachineID\",\"SerialNumber\",\"MachineName\",\"Status\",\"Check\",\"LastUpdate\"]\n\t\t\tds \u003d system.dataset.toDataSet(headers,dataList)\n\t\t\tself.getChild(\"cnt_MachineStatus\").getChild(\"tblMachineStatus\").props.data\u003dds\n\t\t\t\n\t\texcept:\n\t\t\timport sys, os\n\t\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\t\tAuthentication.exceptionLogger(errorMessage)\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "TabContainer"
+            },
+            "position": {
+              "height": 0.9552,
+              "width": 1.0007,
+              "x": -0.0007,
+              "y": 0.0421
+            },
+            "props": {
+              "currentTabIndex": 1,
+              "menuType": "modern",
+              "style": {
+                "backgroundColor": "#EDF0F0"
+              },
+              "tabSize": {
+                "width": 155
+              },
+              "tabs": [
+                "Machine status",
+                "Machine Parameters"
+              ]
+            },
+            "type": "ia.container.tab"
+          }
+        ],
+        "meta": {
+          "name": "cntCoordinate"
+        },
+        "position": {
+          "height": 0.9965,
+          "width": 0.9978,
+          "x": 0.0015,
+          "y": 0.001
+        },
+        "props": {
+          "mode": "percent"
+        },
+        "type": "ia.container.coord"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": 0.0963,
+      "y": -0.0103
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

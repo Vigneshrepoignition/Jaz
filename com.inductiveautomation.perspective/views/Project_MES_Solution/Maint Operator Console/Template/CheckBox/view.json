@@ -1,0 +1,202 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\tscriptName \u003d \u0027PMTC: CheckBox: On Startup\u0027\n\t\tds\u003dself.params.rowData\n\t\tSelctedRow\u003dself.params.rowIndex\n\t\tcolumnName\u003dself.params.column\n\t\tsystem.perspective.print(\u0027Column Name on Startus is : \u0027 + str(columnName))\n\t\tsystem.perspective.print(\u0027ds is : \u0027 + str(ds))\n\t\n\t\tif str(columnName).strip().lower()\u003d\u003dstr(\u0027OkSelected\u0027).lower():\n\t\t\tOkSelected \u003d ds[\u0027OkSelected\u0027]\n\t\t\tif str(OkSelected).lower() \u003d\u003d \"true\":\n\t\t\t\tOkSelected \u003d True\n\t\t\telse:\n\t\t\t\tOkSelected \u003d False\n\t\t\tself.getChild(\"root\").getChild(\"OKCheckBox\").meta.visible \u003d True\n\t\t\tself.getChild(\"root\").getChild(\"NokCheckBox\").meta.visible \u003d False\n\t\t\tself.getChild(\"root\").getChild(\"OKCheckBox\").props.selected \u003d OkSelected\n\t\t\n\t\telif str(columnName).strip().lower()\u003d\u003d str(\u0027OkSelectedTxt\u0027).lower():\n#\t\t\tOkSelected \u003d self.params.value\n\t\t\tOkSelected \u003d ds[\u0027OkSelectedTxt\u0027]\n\t\t\tif str(OkSelected).lower() \u003d\u003d \"true\":\n\t\t\t\tOkSelected \u003d True\n\t\t\telse:\n\t\t\t\tOkSelected \u003d False\n\t\t\tself.getChild(\"root\").getChild(\"OKCheckBox\").meta.visible \u003d True\n\t\t\tself.getChild(\"root\").getChild(\"NokCheckBox\").meta.visible \u003d False\n\t\t\tself.getChild(\"root\").getChild(\"OKCheckBox\").props.selected \u003d OkSelected\n\t\t\n\t\telif str(columnName).strip().lower()\u003d\u003d str(\u0027Action\u0027).lower():\n\t\t\tNokSelection  \u003d  ds[\u0027Action\u0027]\n\t\t\tif str(NokSelection).lower() \u003d\u003d \"true\":\n\t\t\t\tNokSelection \u003d True\n\t\t\telse:\n\t\t\t\tNokSelection \u003d False\n\t\t\tself.getChild(\"root\").getChild(\"OKCheckBox\").meta.visible \u003d False\n\t\t\tself.getChild(\"root\").getChild(\"NokCheckBox\").meta.visible \u003d True\n\t\t\tself.getChild(\"root\").getChild(\"NokCheckBox\").props.selected \u003d NokSelection\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "column": "value",
+    "columnIndex": "value",
+    "row": "value",
+    "rowData": "value",
+    "rowIndex": "value",
+    "value": "value"
+  },
+  "propConfig": {
+    "params.column": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.columnIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.row": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.value": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 37,
+      "width": 38
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\n\t\tscriptName \u003d \u0027PMTC: OK CheckBoc: On Action Performed\u0027\n\t\tSelctedRow\u003dself.view.params.rowIndex\n\t\tcolumnName\u003dself.view.params.column\t\n\t\trowData\u003dself.view.params.rowData\n\t\tselection\u003dself.props.selected\n\t\t\n\t\n\t\tif \tstr(columnName).lower() \u003d\u003d str(\"OkSelectedTxt\").lower():\n\t\t\tmessageType \u003d \u0027UpdateTextTask\u0027\n\t\t\tsystem.perspective.sendMessage(messageType, payload \u003d {\"columnName\":columnName,\"selection\":selection,\"SelctedRow\":SelctedRow}, scope \u003d \"page\")\n\t\t\tsystem.perspective.print(\u0027selection  \u0027 + str(selection))\n\t\t\tsystem.perspective.print(\u0027Ok Selected Txt Message Handler Sent Successfully : \u0027)\n\t\telse:\n\t\t\tmessageType \u003d \u0027UpdateBoolTask\u0027\n\t\t\tsystem.perspective.sendMessage(messageType, payload \u003d {\"columnName\":columnName,\"selection\":selection,\"SelctedRow\":SelctedRow}, scope \u003d \"page\")\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          },
+          "system": {
+            "onStartup": {
+              "config": {
+                "script": "\ttry:\n\t\tds\u003dself.view.params.rowData\n\t\tSelctedRow\u003dself.view.params.rowIndex\n\t\tcolumnName\u003dself.view.params.column\n\t\tsystem.perspective.print(\u0027Column Name on Startus is : \u0027 + str(columnName))\n\t\tsystem.perspective.print(\u0027ds is : \u0027 + str(ds))\n\t\n#\t\tif str(columnName).strip().lower()\u003d\u003dstr(\u0027OkSelected\u0027).lower():\n#\t\t\tOkSelected \u003d ds[\u0027OkSelected\u0027]\n#\t\t\tif str(OkSelected).lower() \u003d\u003d \"true\":\n#\t\t\t\tOkSelected \u003d True\n#\t\t\telse:\n#\t\t\t\tOkSelected \u003d False\n#\t\t\tself.getChild(\"root\").getChild(\"OKCheckBox\").meta.visible \u003d True\n#\t\t\tself.getChild(\"root\").getChild(\"NokCheckBox\").meta.visible \u003d False\n#\t\t\tself.getChild(\"root\").getChild(\"OKCheckBox\").props.selected \u003d OkSelected\n#\t\t\n#\t\telif str(columnName).strip().lower()\u003d\u003d str(\u0027OkSelectedTxt\u0027).lower():\n##\t\t\tOkSelected \u003d self.params.value\n#\t\t\tOkSelected \u003d ds[\u0027OkSelectedTxt\u0027]\n#\t\t\tif str(OkSelected).lower() \u003d\u003d \"true\":\n#\t\t\t\tOkSelected \u003d True\n#\t\t\telse:\n#\t\t\t\tOkSelected \u003d False\n#\t\t\tself.getChild(\"root\").getChild(\"OKCheckBox\").meta.visible \u003d True\n#\t\t\tself.getChild(\"root\").getChild(\"NokCheckBox\").meta.visible \u003d False\n#\t\t\tself.getChild(\"root\").getChild(\"OKCheckBox\").props.selected \u003d OkSelected\n#\t\t\n#\t\telif str(columnName).strip().lower()\u003d\u003d str(\u0027Action\u0027).lower():\n#\t\t\tNokSelection  \u003d  ds[\u0027Action\u0027]\n#\t\t\tif str(NokSelection).lower() \u003d\u003d \"true\":\n#\t\t\t\tNokSelection \u003d True\n#\t\t\telse:\n#\t\t\t\tNokSelection \u003d False\n#\t\t\tself.getChild(\"root\").getChild(\"OKCheckBox\").meta.visible \u003d False\n#\t\t\tself.getChild(\"root\").getChild(\"NokCheckBox\").meta.visible \u003d True\n#\t\t\tself.getChild(\"root\").getChild(\"NokCheckBox\").props.selected \u003d NokSelection\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "OKCheckBox"
+        },
+        "position": {
+          "height": 35,
+          "rotate": {
+            "anchor": "50% 35%"
+          },
+          "width": 35,
+          "x": 0.78,
+          "y": 0.03
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "session.custom.WOOperationStatus"
+              },
+              "transforms": [
+                {
+                  "code": "\tmaintenanceType \u003d self.session.custom.PMType  #1-Machine 2-Tools\n\tif str(maintenanceType) \u003d\u003d str(\u00271\u0027) or int(maintenanceType) \u003d\u003d int(1):\n\t\tif value \u003d\u003d str(\"In-Progress\"):# and str(self.session.custom.authorizeMaintenancePMMachineReadOnly) \u003d\u003d str(\u00270\u0027):\n\t\t\tvalue \u003d True\n\t\telse:\n\t\t\tvalue \u003d False \n\telse:\n\t\tif value \u003d\u003d str(\"In-Progress\"):# and str(self.session.custom.authorizeMaintenancePMToolsReadOnly) \u003d\u003d str(\u00270\u0027):\n\t\t\tvalue \u003d True\n\t\telse:\n\t\t\tvalue \u003d False \n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.selected": {
+            "binding": {
+              "config": {
+                "path": "view.params.value"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "checkedIcon": {
+            "color": {
+              "enabled": "#00AC00"
+            }
+          },
+          "text": "",
+          "uncheckedIcon": {
+            "color": {
+              "enabled": "#D5D5D5"
+            }
+          }
+        },
+        "type": "ia.input.checkbox"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\n\t\tscriptName \u003d \u0027PMTC: NOK Checkbox: On Action Performed\u0027\n\t\tSelctedRow\u003dself.view.params.rowIndex\n\t\tcolumnName\u003dself.view.params.column\t\n\t\trowData\u003dself.view.params.rowData\n\t\tselection\u003dself.props.selected\n\t\t\t\t\t\n\t\tmessageType \u003d \u0027UpdateBoolTask\u0027\n\t\tsystem.perspective.sendMessage(messageType, payload \u003d {\"columnName\":columnName,\"selection\":selection,\"SelctedRow\":SelctedRow}, scope \u003d \"page\")\n\t\t\n\t\t\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "NokCheckBox"
+        },
+        "position": {
+          "height": 35,
+          "rotate": {
+            "anchor": "50% 25%"
+          },
+          "width": 35,
+          "x": 0.78,
+          "y": 0.03
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "session.custom.WOOperationStatus"
+              },
+              "transforms": [
+                {
+                  "code": "\tmaintenanceType \u003d self.session.custom.PMType  #1-Machine 2-Tools\n\tif str(maintenanceType) \u003d\u003d str(\u00271\u0027) or int(maintenanceType) \u003d\u003d int(1):\n\t\tif value \u003d\u003d str(\"In-Progress\"):# and str(self.session.custom.authorizeMaintenancePMMachineReadOnly) \u003d\u003d str(\u00271\u0027):\n\t\t\tvalue \u003d True\n\t\telse:\n\t\t\tvalue \u003d False \n\telse:\n\t\tif value \u003d\u003d str(\"In-Progress\"):# and str(self.session.custom.authorizeMaintenancePMToolsReadOnly) \u003d\u003d str(\u00271\u0027):\n\t\t\tvalue \u003d True\n\t\telse:\n\t\t\tvalue \u003d False \n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "checkedIcon": {
+            "color": {
+              "enabled": "#FF0000"
+            }
+          },
+          "text": "",
+          "uncheckedIcon": {
+            "color": {
+              "enabled": "#AAAAAA"
+            }
+          }
+        },
+        "type": "ia.input.checkbox"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "scripts": {
+      "customMethods": [],
+      "extensionFunctions": null,
+      "messageHandlers": [
+        {
+          "messageType": "VisibleTxt",
+          "pageScope": true,
+          "script": "#\ttry:\n#\t\tsystem.perspective.print(\u0027Inside Viusible Txt Message handelre\u0027)\n#\t\tSelctedRow\u003dself.view.params.rowIndex\n#\t\tcolumnName\u003dself.view.params.column\t\n#\t\trowData\u003dself.view.params.rowData\n#\t\tif str(columnName).lower() \u003d\u003d str(\"OkSelectedTxt\").lower():\n#\t\t\tsystem.perspective.print(\u0027rowData :\u0027 + str(rowData))\n#\t\t\tOkSelected\u003drowData[\u0027OkSelectedTxt\u0027]\n#\t\t\tsystem.perspective.print(\u0027OkSelected :\u0027 + str(OkSelected))\n#\t\t\tself.meta.visible \u003d False\n#\t\t\tfrom threading import Timer\n#\t\t\tdef runThisLater():\n#\t\t\t\tself.meta.visible \u003d True\n#\t\t\tTimer(0.09, runThisLater).start()\n#\t\telse:\n#\t\t\tpass\n#\texcept:\n#\t\timport sys, os\n#\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n#\t\tlineno \u003d tb.tb_lineno\n#\t\terrorMessage \u003d \"\u0027Exception :: PMTC:: Message Handelr Checkbox:\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n#\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n#\t\tAuthentication.exceptionLogger(errorMessage)",
+          "sessionScope": false,
+          "viewScope": false
+        }
+      ]
+    },
+    "type": "ia.container.coord"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "base": {
+    "style": {
+      "color": "#FF0000",
+      "fontFamily": "Arial",
+      "fontSize": "9px"
+    }
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\tdataList \u003d []\n\timport json\n\tdict\u003dself.params.rowData\n\n\tds\u003dself.params.value\n\tds \u003d json.loads(ds)\n\tfor i in ds:\n\t\tInstrumentType\u003dint(i[\u0027InstrumentType\u0027])\n\t\tInstrumentName\u003di[\u0027InstrumentName\u0027]\n\t\tmyList \u003d [InstrumentType,InstrumentName]\n\t\tdataList.append(myList)\n\theaders \u003d [\"InstrumentType\",\"InstrumentName\"]\n\t\n\t\n\tds \u003d system.dataset.toDataSet(headers,dataList)\t\n\tself.getChild(\"root\").getChild(\"Dropdown\").props.options  \u003d ds\n\t\n\tSelectedInstrument \u003d dict[\u0027SelectedInstrument\u0027]\n\tself.getChild(\"root\").getChild(\"Dropdown\").props.value\u003dSelectedInstrument\n\t"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "Column": "value",
+    "column": "value",
+    "rowData": "value",
+    "rowIndex": "value",
+    "value": "value"
+  },
+  "propConfig": {
+    "params.Column": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.column": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.value": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 32,
+      "width": 180
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tNo\u003dself.props.value\n\tds\u003dself.view.params.rowData\n\tSelctedRow\u003dself.view.params.rowIndex\n\tcolumnName\u003dself.view.params.column\n\t\n\tif No \u003e 0:\n\t\tmessageType \u003d \u0027QualityCharConsoleTable\u0027\n\t\tsystem.perspective.sendMessage(messageType, payload \u003d {\"columnName\":columnName,\"ChangeValue\":No,\"SelctedRow\":SelctedRow}, scope \u003d \"page\")\n\t\n\n\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Dropdown"
+        },
+        "position": {
+          "height": 1,
+          "width": 1
+        },
+        "props": {
+          "options": "value",
+          "placeholder": {
+            "text": "Select Instrument"
+          },
+          "style": {
+            "classes": "Common/TableDrpDwn"
+          },
+          "value": 0
+        },
+        "type": "ia.input.dropdown"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

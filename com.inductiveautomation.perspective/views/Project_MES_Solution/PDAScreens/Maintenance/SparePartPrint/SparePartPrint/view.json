@@ -1,0 +1,561 @@
+{
+  "custom": {
+    "Qty": 0,
+    "dsPrinter": "value",
+    "dsSpareParts": null,
+    "slotId": 0,
+    "sparePartId": 0,
+    "sparePartNumber": "",
+    "wareHouseId": ""
+  },
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\n#\twarehouseId\u003dself.params.wareHouseId\n#\tsystem.perspective.print(\"warehouseId \"+str(warehouseId))\n#\tdsSparePart\u003dPDASparePart.GetSparePartsName(warehouseId)\n#\tif len(dsSparePart) \u003e 0 :\n#\t\tself.getChild(\"root\").getChild(\"DrpDwnSelectSparePart\").props.options\u003ddsSparePart\n#\t\tself.getChild(\"root\").getChild(\"DrpDwnSelectSparePart\").props.value\u003d-1\n#\telse:\n#\t\tself.getChild(\"root\").getChild(\"DrpDwnSelectSparePart\").props.options\u003dNone\n#\t\tself.getChild(\"root\").getChild(\"DrpDwnSelectSparePart\").props.value\u003d\u0027\u0027\t\n\tif self.session.custom.UserId!\u003d\u0027\u0027:\n\t\tself.custom.slotId\u003d0\n\t\tSupermarketInfo\u003d[]\n\t\tself.custom.dsPrinter\u003dNone\n\t\tHeader\u003d[\"SupermarketID\",\"Supermarket\"]\n\t\tUserId \u003dself.session.custom.UserId\n\t\tGetSupermarket\u003d PDASparePart.GetWarehouseByUserId(UserId)\n\t\t\t\n\t\tif GetSupermarket\u003d\u003d[] or GetSupermarket \u003d\u003dNone :\n\t\t\tsystem.perspective.print(\"No data found\")\n\t\t\tself.getChild(\"root\").getChild(\"DrpDwnSelWarehouse\").props.options\u003dNone\n\t\t\tself.getChild(\"root\").getChild(\"DrpDwnSelWarehouse\").props.value\u003d-1\n\t\telse:\n\t\t\tself.getChild(\"root\").getChild(\"DrpDwnSelWarehouse\").props.options\u003dGetSupermarket\n\t\t\tself.getChild(\"root\").getChild(\"DrpDwnSelWarehouse\").props.value\u003d-1\n\t\tPrinterTypeId\u003d1\n\t\tprintds\u003dPDASparePart.GetPrinterDetails(PrinterTypeId)\n\t\tif len(printds) \u003e 0:\n\t\t\tself.custom.dsPrinter\u003dprintds[0]\n\t\t\tdsprint\u003dprintds[1]\n\t\t\tself.getChild(\"root\").getChild(\"ddlPrinter\").props.options\u003dprintds[1]\n\t\t\tself.getChild(\"root\").getChild(\"ddlPrinter\").props.value\u003ddsprint[0][0]\n\t\telse:\n\t\t\tself.getChild(\"root\").getChild(\"ddlPrinter\").props.options\u003dNone\n\t\t\tself.getChild(\"root\").getChild(\"ddlPrinter\").props.value\u003d-1"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "wareHouseId": 0
+  },
+  "propConfig": {
+    "custom.Qty": {
+      "persistent": true
+    },
+    "custom.dsPrinter": {
+      "persistent": true
+    },
+    "custom.dsSpareParts": {
+      "persistent": true
+    },
+    "custom.slotId": {
+      "persistent": true
+    },
+    "custom.sparePartId": {
+      "persistent": true
+    },
+    "custom.sparePartNumber": {
+      "persistent": true
+    },
+    "custom.wareHouseId": {
+      "persistent": true
+    },
+    "params.wareHouseId": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 464,
+      "width": 383
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "#\tsystem.perspective.closePopup(\u0027\u0027)\n\tsystem.perspective.navigate(\"/PDAAddSparePartReception\")\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "NavigateBackButton"
+        },
+        "position": {
+          "height": 22,
+          "width": 30,
+          "x": 6,
+          "y": 10
+        },
+        "props": {
+          "path": "material/arrow_back"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 22,
+          "width": 250,
+          "x": 41,
+          "y": 10
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDAHeader"
+          },
+          "text": "Spare Part Print\n"
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\twarehouseId\u003dself.props.value\n\tsystem.perspective.print(\"warehouseId \"+str(warehouseId))\n\tdsSparePart\u003dPDASparePart.GetSparePartsName(warehouseId)\n\tsystem.perspective.print(\"dsSparePart \"+str(len(dsSparePart)))\n#\tif len(dsSparePart) \u003e 0 :\n#\t\tsystem.perspective.print(\"dsSparePart Condition Tru3 \"+str(len(dsSparePart)))\n#\t\tself.getChild(\"root\").getChild(\"DrpDwnSelectSparePart\").props.options\u003ddsSparePart\n#\t\tself.getChild(\"root\").getChild(\"DrpDwnSelectSparePart\").props.value\u003ddsSparePart[0][0]\n#\telse:\n#\t\tsystem.perspective.print(\"dsSparePart Condition false  \"+str(len(dsSparePart)))\n#\t\tself.getChild(\"root\").getChild(\"DrpDwnSelectSparePart\").props.options\u003dNone\n#\t\tself.getChild(\"root\").getChild(\"DrpDwnSelectSparePart\").props.value\u003d\u0027\u0027\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          },
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tUserId \u003dself.session.custom.UserId\n\t\n\tGetSupermarket\u003d PDASparePart.GetWarehouseByUserId(UserId)\n\tif GetSupermarket\u003d\u003d[] or GetSupermarket\u003d\u003dNone:\n\t\tsystem.perspective.print(\"No data found\")\n\telse:\n\t\tself.props.options\u003dGetSupermarket\n\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "DrpDwnSelWarehouse"
+        },
+        "position": {
+          "height": 25,
+          "width": 340,
+          "x": 19,
+          "y": 89
+        },
+        "propConfig": {
+          "props.value": {
+            "onChange": {
+              "enabled": false,
+              "script": "\tpass"
+            }
+          }
+        },
+        "props": {
+          "placeholder": {
+            "color": "#AAAAAA",
+            "text": "Select Warehouse"
+          },
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "meta": {
+          "name": "LblWorkorderNo_3"
+        },
+        "position": {
+          "height": 21,
+          "width": 142,
+          "x": 19,
+          "y": 62.5
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Warehouse",
+          "textStyle": {
+            "classes": "PDA/PDALabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Label"
+        },
+        "position": {
+          "height": 23,
+          "width": 12,
+          "x": 88,
+          "y": 63
+        },
+        "props": {
+          "text": "*",
+          "textStyle": {
+            "color": "#FF0000"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblWorkorderNo_0"
+        },
+        "position": {
+          "height": 21,
+          "width": 32,
+          "x": 19,
+          "y": 206.5
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Slot",
+          "textStyle": {
+            "classes": "PDA/PDALabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tslotID\u003dself.props.value\n\tself.view.custom.slotId\u003dslotID\n\tsystem.perspective.print(\"slotID \"+str(slotID))"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Drpdslot",
+          "tooltip": {
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Select Operation/Machine"
+          }
+        },
+        "position": {
+          "height": 25,
+          "width": 340,
+          "x": 19,
+          "y": 233
+        },
+        "propConfig": {
+          "props.options": {
+            "binding": {
+              "config": {
+                "path": "../DrpDwnSelectSparePart.props.value"
+              },
+              "transforms": [
+                {
+                  "code": "\tsparePartId \u003d value\n\tdsSparePart\u003dNone\n\ttry:\n\t\tdsSparePart\u003dPDASparePart.GetSlotsForSpareParts(sparePartId)\n\t\tif len(dsSparePart)\u003e 0:\n\t\t\tself.props.options\u003ddsSparePart\n\t\t\tself.props.value\u003ddsSparePart[0][0]\n\t\t\tself.view.custom.slotId\u003ddsSparePart[0][0]\n\t\t\treturn dsSparePart\n\texcept Exception as e:\n\t\tvalue \u003d \u0027\u0027\n\t\tscriptName \u003d \"Operator Console:\"\n\t\terrorMessage\u003dscriptName  +\u0027 Exception - \u0027+  str(e)\n\t\tAuthentication.exceptionLogger(errorMessage)\n\t\treturn None\n",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "placeholder": {
+            "text": "Select Slot"
+          },
+          "style": {
+            "classes": "Common/TextBox"
+          },
+          "value": 1
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "meta": {
+          "name": "Label_2"
+        },
+        "position": {
+          "height": 23,
+          "width": 12,
+          "x": 47,
+          "y": 207
+        },
+        "props": {
+          "text": "*",
+          "textStyle": {
+            "color": "#FF0000"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblWorkorderNo_1"
+        },
+        "position": {
+          "height": 21,
+          "width": 193,
+          "x": 19,
+          "y": 138.5
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Spare Part",
+          "textStyle": {
+            "classes": "PDA/PDALabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tsparePartId\u003dself.props.value\n\tif sparePartId \u003e   0:\n\t\tresultData\u003dPDASparePart.GetSlotsForSpareParts(sparePartId)\n\t\tresultData\u003dsystem.dataset.toPyDataSet(resultData)\n\t\tif len(resultData)\u003e 0:\n\t\t\tself.getSibling(\"Drpdslot\").props.options\u003dresultData\n\t\t\tsystem.perspective.print(\"resultData[0][0] \u003d\u003d  \" +str(resultData))\n\t\t\tsystem.perspective.print(\"resultData[0][0] \" +str(resultData[0][0]))\n\t\t\tself.getSibling(\"Drpdslot\").props.value\u003dresultData[0][0]\n\n\t\t\n\t\telse:\t\t\t\n\t\t\tself.getSibling(\"Drpdslot\").props.options\u003dNone"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "DrpDwnSelectSparePart",
+          "tooltip": {
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Select Operation/Machine"
+          }
+        },
+        "position": {
+          "height": 25,
+          "width": 340,
+          "x": 19,
+          "y": 164
+        },
+        "propConfig": {
+          "props.options": {
+            "binding": {
+              "config": {
+                "path": "../DrpDwnSelWarehouse.props.value"
+              },
+              "transforms": [
+                {
+                  "code": "\twarehouseId \u003d value\n\tdsSparePart\u003dNone\n\ttry:\n\t\tdsSparePart\u003dPDASparePart.GetSparePartsName(warehouseId)\n\t\tif len(dsSparePart)\u003e 0:\n\t\t\tpass\n\t\t\tself.props.value\u003ddsSparePart[0][0]\n\texcept Exception as e:\n\t\tvalue \u003d \u0027\u0027\n\t\tscriptName \u003d \"Operator Console:\"\n\t\terrorMessage\u003dscriptName  +\u0027 Exception - \u0027+  str(e)\n\t\tAuthentication.exceptionLogger(errorMessage)\n\treturn dsSparePart",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "placeholder": {
+            "text": "Select Spare Part"
+          },
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "meta": {
+          "name": "Label_3"
+        },
+        "position": {
+          "height": 23,
+          "width": 12,
+          "x": 86,
+          "y": 139
+        },
+        "props": {
+          "text": "*",
+          "textStyle": {
+            "color": "#FF0000"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblWorkorderNo_2"
+        },
+        "position": {
+          "height": 21,
+          "width": 193,
+          "x": 19,
+          "y": 278.5
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Printer",
+          "textStyle": {
+            "classes": "PDA/PDALabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Label_4"
+        },
+        "position": {
+          "height": 23,
+          "width": 12,
+          "x": 62,
+          "y": 279
+        },
+        "props": {
+          "text": "*",
+          "textStyle": {
+            "color": "#FF0000"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "ddlPrinter",
+          "tooltip": {
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Select Printer"
+          }
+        },
+        "position": {
+          "height": 25,
+          "width": 340,
+          "x": 19,
+          "y": 305
+        },
+        "props": {
+          "options": null,
+          "placeholder": {
+            "text": "Select Print"
+          },
+          "style": {
+            "classes": "Common/TextBox"
+          },
+          "value": -1
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\tscriptName\u003d\u0027Spare Part Reception Print\u0027\n\t\tresultData  \u003d self.getSibling(\"DrpDwnSelectSparePart\").props.options\n\t\tsparePartId \u003d self.getSibling(\"DrpDwnSelectSparePart\").props.value\t\n\t\tSparePartNumber\u003d\u0027\u0027\n\t\tfor i in resultData:\t\n\t\t\tsparePID \u003d i[0]\n\t\t\tSparePartNumber \u003d i[1]\n\t\t\tif sparePID \u003d\u003d sparePartId:\n\t#\t\t\tself.getSibling(\"Drpdslot\").props.value\u003d sparePID\n\t\t\t\tSparePartNumber \u003d i[1]\n\t\t\t\tbreak\n\t\t\t\n\t\tSparePartNumber\u003dstr(SparePartNumber)\n\t\tSparePartNumber\u003dSparePartNumber.strip()\n\t\tsystem.perspective.print(\"SparePartNumber \"+str(SparePartNumber))\n\t\n\t\tSlotId\u003dself.view.custom.slotId\n\t\tsystem.perspective.print(\"SlotId \"+str(SlotId))\n\t\tprintFile\u003dPDASparePart.GetSparePartTemplate(SparePartNumber,SlotId)\n\t\tsystem.perspective.print(\"SparePartNumber \"+str(SparePartNumber))\n\t\t\n\t\tsystem.perspective.print(\"SlotId \"+str(SlotId))\n\t\tsystem.perspective.print(\"printFile  \"+str(printFile))\n\t\tNoOfPrint\u003d1\n\t\t\n\t\tfor i in self.view.custom.dsPrinter:\n\t\t\tif i[0]\u003d\u003dself.getSibling(\"ddlPrinter\").props.value:\n\t\t\t\tPrinterIP\u003d i[2]\n\t\t\t\tPort\u003d i[3]\n#\t\tPort\u003d9100\n#\t\tPrinterIP\u003d\u002710.252.140.67\u0027\n\t\tsystem.perspective.print(\"PrinterIP \"+str(PrinterIP))\n\t\tsystem.perspective.print(\"Port  \"+str(Port))\n\t\tprintResult\u003dPrint.printingServer(printFile,NoOfPrint,PrinterIP,Port)\n\t\tif printFile \u003d\u003dNone or str(printFile).strip()\u003d\u003d\u0027\u0027:\n\t\t\tMessageText\u003d\"PRN File Not Configure For Selected Spare Part \"+str(SparePartNumber)\n\t\t\tupdaateStatus\u003d0\n\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\telif printResult\u003d\u003d True or printResult\u003d\u003d1:\n\t\t\tMessageText\u003d\"Printed Successfully.\"\n\t\t\tMessageText\u003d\"Printed Successfully Spare Part  For Selected \"+str(SparePartNumber)\n\t\t\tupdaateStatus\u003d1\n\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\telse:\n\t\t\tMessageText\u003d\"Failed To Print The Spare Part For Selected \"+str(SparePartNumber)\n\t\t\tupdaateStatus\u003d0\n\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)\n\t\tsystem.perspective.print(errorMessage)\n"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnPrint"
+        },
+        "position": {
+          "height": 28,
+          "width": 80,
+          "x": 29,
+          "y": 371
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "expression": "if ((({../DrpDwnSelWarehouse.props.value}\u003e0) \u0026\u0026 ( {../Drpdslot.props.value}\u003e 0)   \u0026\u0026 ({../ddlPrinter.props.value} \u003e 0) \u0026\u0026 ( {../DrpDwnSelectSparePart.props.value}\u003e 0)),True,False)"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "image": {
+            "width": 45
+          },
+          "style": {
+            "classes": "PDA/PDAButton"
+          },
+          "text": "Print",
+          "textStyle": {
+            "fontSize": 10
+          }
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": [
+              {
+                "config": {
+                  "script": "\n\tSparePartNumber\u003dself.getSibling(\"TxtScanComponentQR\").props.text\n\tSparePartNumber\u003dSparePartNumber.strip()\n\tSlotId\u003dself.getSibling(\"Drpdslot\").props.value\n\tprintFile\u003dPDASparePart.GetSparePartTemplate(SparePartNumber,SlotId)\n\tsystem.perspective.print(\"SparePartNumber \"+str(SparePartNumber))\n\tsystem.perspective.print(\"SlotId \"+str(SlotId))\n\tsystem.perspective.print(\"printFile  \"+str(printFile))\n\tNoOfPrint\u003d1\n\tPort\u003d9100\n\tPrinterIP\u003d\u002710.252.140.67\u0027\n\tprintResult\u003dPrint.printingServer(printFile,NoOfPrint,PrinterIP,Port)\n\tif printFile \u003d\u003dNone or str(printFile).strip()\u003d\u003d\u0027\u0027:\n\t\tMessageText\u003d\"PRN File Not Configure For Selected Spare Part \"+str(SparePartNumber)\n\t\tupdaateStatus\u003d0\n\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\telif printResult\u003d\u003d True or printResult\u003d\u003d1:\n\t\tMessageText\u003d\"Printed Successfully.\"\n\t\tMessageText\u003d\"Printed Successfully Spare Part  For Selected \"+str(SparePartNumber)\n\t\tupdaateStatus\u003d1\n\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\telse:\n\t\tMessageText\u003d\"Failed To Print The Spare Part For Selected \"+str(SparePartNumber)\n\t\tupdaateStatus\u003d0\n\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)"
+                },
+                "enabled": false,
+                "scope": "G",
+                "type": "script"
+              },
+              {
+                "config": {
+                  "draggable": true,
+                  "id": "b5bwgOyE",
+                  "modal": false,
+                  "overlayDismiss": false,
+                  "position": {
+                    "left": 0,
+                    "top": 0
+                  },
+                  "positionType": "exact",
+                  "resizable": true,
+                  "showCloseIcon": false,
+                  "type": "open",
+                  "viewParams": {
+                    "wareHouseId": "{/root/DrpDwnSelWarehouse.props.value}"
+                  },
+                  "viewPath": "Project_MES_Solution/OperatorConsole/PDAScreen/SparePart/Popup/SparePartPrint",
+                  "viewportBound": false
+                },
+                "scope": "C",
+                "type": "popup"
+              }
+            ]
+          }
+        },
+        "meta": {
+          "name": "BtnHistory",
+          "visible": false
+        },
+        "position": {
+          "height": 28,
+          "rotate": {
+            "anchor": "25% 100%"
+          },
+          "width": 80,
+          "x": 207.5,
+          "y": 370
+        },
+        "props": {
+          "enabled": 0,
+          "image": {
+            "width": 45
+          },
+          "style": {
+            "classes": "PDA/PDAButton"
+          },
+          "text": "History",
+          "textStyle": {
+            "fontSize": 10
+          }
+        },
+        "type": "ia.input.button"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}

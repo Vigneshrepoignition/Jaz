@@ -1,0 +1,479 @@
+{
+  "custom": {},
+  "params": {
+    "LBLHoldCompletedDate": "",
+    "PreWoLoader": "",
+    "PrevCompletedQty": "",
+    "PrevHoldIngDate": "",
+    "PrevPartNo": "",
+    "PrevPlannedQty": "",
+    "PrevWorkorderNo": "",
+    "PrevWorkorderStatus": ""
+  },
+  "propConfig": {
+    "params.LBLHoldCompletedDate": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.PreWoLoader": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.PrevCompletedQty": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.PrevHoldIngDate": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.PrevPartNo": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.PrevPlannedQty": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.PrevWorkorderNo": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.PrevWorkorderStatus": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 181,
+      "width": 438
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblSWoName"
+        },
+        "position": {
+          "height": 0.1547,
+          "width": 0.2808,
+          "x": 0.02,
+          "y": 0.011
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Workorder Name",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground",
+            "fontFamily": "Arial",
+            "fontSize": 12
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblPartNo"
+        },
+        "position": {
+          "height": 0.1547,
+          "width": 0.224,
+          "x": 0.5155,
+          "y": 0.011
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Part No",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground",
+            "fontFamily": "Arial",
+            "fontSize": 12
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblPlannedQty"
+        },
+        "position": {
+          "height": 0.1547,
+          "width": 0.2808,
+          "x": 0.02,
+          "y": 0.6318
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Planned Quantity",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground",
+            "fontFamily": "Arial",
+            "fontSize": 12
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblWoStatus"
+        },
+        "position": {
+          "height": 0.1492,
+          "width": 0.2808,
+          "x": 0.02,
+          "y": 0.3331
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Status",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground",
+            "fontFamily": "Arial",
+            "fontSize": 12
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "lblDataWorkorderName",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 0.1492,
+          "width": 0.4452,
+          "x": 0.02,
+          "y": 0.1575
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.PrevWorkorderNo"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Common/TextBox_disabled",
+            "textAlign": "left"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "lblDataPartNo",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 0.1492,
+          "width": 0.4452,
+          "x": 0.5155,
+          "y": 0.1575
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.PrevPartNo"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Common/TextBox_disabled",
+            "textAlign": "left"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "lblDataPlannedQty",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 0.1492,
+          "width": 0.4452,
+          "x": 0.02,
+          "y": 0.7873
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.PrevPlannedQty"
+              },
+              "transforms": [
+                {
+                  "code": "\tif str(value).strip()\u003d\u003d\u0027\u0027 or str(value).strip()\u003d\u003d\u0027None\u0027 or str(value).strip()\u003d\u003d\u0027null\u0027:\n\t\tvalue\u003d0\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Common/TextBox_disabled",
+            "textAlign": "left"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "lblDataWoStatus",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 0.1492,
+          "width": 0.4452,
+          "x": 0.02,
+          "y": 0.478
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.PrevWorkorderStatus"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Common/TextBox_disabled",
+            "textAlign": "left"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblCompletionDate"
+        },
+        "position": {
+          "height": 0.1547,
+          "width": 0.2808,
+          "x": 0.5155,
+          "y": 0.3276
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.LBLHoldCompletedDate"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground",
+            "fontFamily": "Arial",
+            "fontSize": 12
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "lblDataCompletionDate",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 0.1492,
+          "width": 0.4452,
+          "x": 0.5155,
+          "y": 0.4561
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.PrevHoldIngDate"
+              },
+              "transforms": [
+                {
+                  "code": "\tif str(value).strip()\u003d\u003d\u0027\u0027 or str(value).strip()\u003d\u003d\u0027None\u0027 or str(value).strip()\u003d\u003d\u0027null\u0027:\n\t\tvalue\u003d\u0027\u0027\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Common/TextBox_disabled",
+            "textAlign": "left"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblCompletedQty"
+        },
+        "position": {
+          "height": 0.1547,
+          "width": 0.3744,
+          "x": 0.5155,
+          "y": 0.6317
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Completed Quantity",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground",
+            "fontFamily": "Arial",
+            "fontSize": 12
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "lblDataCompletedQty",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 0.1492,
+          "width": 0.4452,
+          "x": 0.5155,
+          "y": 0.7873
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.PrevCompletedQty"
+              },
+              "transforms": [
+                {
+                  "code": "\tif str(value).strip()\u003d\u003d\u0027\u0027 or str(value).strip()\u003d\u003d\u0027None\u0027 or str(value).strip()\u003d\u003d\u0027null\u0027:\n\t\tvalue\u003d0\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Common/TextBox_disabled",
+            "textAlign": "left"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "ImageLoader",
+          "visible": 0
+        },
+        "position": {
+          "height": 0.5028,
+          "width": 0.2534,
+          "x": 0.3733,
+          "y": 0.2486
+        },
+        "propConfig": {
+          "meta.visible": {
+            "binding": {
+              "config": {
+                "path": "view.params.PreWoLoader"
+              },
+              "enabled": false,
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "fit": {
+            "mode": "cover"
+          },
+          "source": "/system/images/Builtin/icons/32/giphy.gif"
+        },
+        "type": "ia.display.image"
+      }
+    ],
+    "events": {
+      "system": {
+        "onStartup": {
+          "config": {
+            "script": "\ttry:\n\t\tLineId\u003dself.session.custom.LineID\n\t\tmachineId\u003dself.view.params.MachineIdForPrevWos\n\t\tsystem.perspective.print(\"Prev Wos Machine ID : \"+str(machineId))\n\t\tuserId\u003dself.session.custom.UserId\n\t\tworkflowId\u003d241\n\t\tresultData\u003dProductionWorkorderStartReport.GetListofPreviousCompletedWorkorders(LineId,machineId,userId,workflowId)\n\t\tsystem.perspective.print(\"resultData: \"+str(resultData))\n\n\t\tfor i in (resultData):\t\t\t\t\n\t\t\tWorkorderName \u003d i.get(\u0027WorkorderName\u0027)\n\t\t\tworkorderStatusId \u003d i.get(\u0027WorkorderStatus\u0027)\n\t\t\tif workorderStatusId\u003d\u003d2:\n\t\t\t\tworkorderStatus\u003d\u0027On-Hold\u0027\n\t\t\t\tself.getChild(\"LblCompletionDate\").props.text\u003d\u0027Holding Date\u0027\n\t\t\telif workorderStatusId\u003d\u003d3:\n\t\t\t\tworkorderStatus\u003d\u0027Completed\u0027\n\t\t\t\tself.getChild(\"LblCompletionDate\").props.text\u003d\u0027Completion Date\u0027\n\t\t\telse:\n\t\t\t\tworkorderStatus\u003d\u0027\u0027\n\t\t\tCompletionDate \u003d i.get(\u0027ActualCompletionDate\u0027)\n\t\t\tPartNumber \u003d i.get(\u0027PartNumber\u0027)\n\t\t\tPartRevision \u003d i.get(\u0027PartRevision\u0027)\n\t\t\tFactoryName \u003d  i.get(\u0027FactoryName\u0027)\n\t\t\tPartWithRevision\u003dstr(PartNumber)+\u0027_\u0027+str(PartRevision)+\u0027_\u0027+str(FactoryName)\n\t\t\tPlannedQty \u003d i.get(\u0027PlannedQty\u0027)\n\t\t\tQtyCompleted \u003d i.get(\u0027QtyCompleted\u0027)\n\t\tself.getChild(\"lblDataWorkorderName\").props.text \u003d WorkorderName\n\t\tself.getChild(\"lblDataWoStatus\").props.text \u003d workorderStatus\n\t\tself.getChild(\"lblDataCompletionDate\").props.text \u003d CompletionDate\n\t\tself.getChild(\"lblDataPartNo\").props.text \u003d PartWithRevision\n\t\tself.getChild(\"lblDataPlannedQty\").props.text \u003d PlannedQty\n\t\tself.getChild(\"lblDataCompletedQty\").props.text \u003d QtyCompleted\n\t\t\n\texcept:\n\t\tsystem.perspective.print(\"Exception: Geting Previous Completd Workorders \")\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)\n\n\t\n\t\t\n\t\t\t\n\n\t\n"
+          },
+          "enabled": false,
+          "scope": "G",
+          "type": "script"
+        }
+      }
+    },
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": 0.0033,
+      "y": -0.0372
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

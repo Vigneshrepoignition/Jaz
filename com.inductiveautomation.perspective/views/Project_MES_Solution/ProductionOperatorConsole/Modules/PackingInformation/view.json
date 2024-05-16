@@ -1,0 +1,403 @@
+{
+  "custom": {},
+  "params": {
+    "ActualCompletedCont": "value",
+    "ActualCompletedLot": "value",
+    "ActualCompletedPallet": "value",
+    "ContSize": "value",
+    "ContainerNo": "value",
+    "LotNo": "value",
+    "LotSize": "value",
+    "PalletNo": "value",
+    "PalletSize": "value"
+  },
+  "propConfig": {
+    "params.ActualCompletedCont": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.ActualCompletedLot": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.ActualCompletedPallet": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.ContSize": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.ContainerNo": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.LotNo": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.LotSize": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.PalletNo": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.PalletSize": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 235,
+      "width": 294
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "GaugeContainer"
+        },
+        "position": {
+          "height": 0.5321,
+          "width": 0.4041,
+          "x": 0.5555,
+          "y": 0.052
+        },
+        "propConfig": {
+          "props.arc.color": {
+            "binding": {
+              "config": {
+                "path": "this.props.value"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003c\u003d50:\n\t\tbarColor\u003d \"#FF0000\"\n\telif value\u003e50 and value\u003c\u003d75:\n\t\tbarColor\u003d \"#798BF3\"\n\telif value\u003e75:\n\t\tbarColor\u003d \"#00AC00\"\n\telse:\n\t\tbarColor\u003d \"#000000\"\n\t\t\n\treturn \tbarColor\n\t\n\t",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "animate": true,
+          "arc": {
+            "cornerRadius": 30,
+            "width": 7
+          },
+          "arcBackground": {
+            "color": "#1C8BD5"
+          },
+          "endAngle": 270,
+          "label": {
+            "color": "#13161A",
+            "maxDecimal": 6,
+            "offsetY": 10,
+            "size": "12Px"
+          },
+          "maxValue": 2,
+          "startAngle": -90,
+          "style": {
+            "classes": [],
+            "fill": "#F71F1F"
+          },
+          "value": 1
+        },
+        "type": "ia.chart.simple-gauge"
+      },
+      {
+        "meta": {
+          "name": "LblContainerNo"
+        },
+        "position": {
+          "height": 0.0919,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.3527,
+          "x": 0.0762,
+          "y": 0.0757
+        },
+        "props": {
+          "text": "Container No:",
+          "textStyle": {
+            "classes": "Widgets/WidgetsLabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblPalletNo"
+        },
+        "position": {
+          "height": 0.0919,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.2663,
+          "x": 0.0864,
+          "y": 0.5349
+        },
+        "props": {
+          "text": "Pallet No:",
+          "textStyle": {
+            "classes": "Widgets/WidgetsLabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblPalletNoData",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 0.115,
+          "width": 0.4795,
+          "x": 0.0864,
+          "y": 0.6282
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.PalletNo"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "borderColor": "#C8BFBF",
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "classes": "Widgets/WidgetsData",
+            "paddingLeft": 5
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "GaugePallet"
+        },
+        "position": {
+          "height": 0.5321,
+          "width": 0.4041,
+          "x": 0.5555,
+          "y": 0.4094
+        },
+        "propConfig": {
+          "props.arc.color": {
+            "binding": {
+              "config": {
+                "path": "this.props.value"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003c\u003d50:\n\t\tbarColor\u003d \"#FF0000\"\n\telif value\u003e50 and value\u003c\u003d75:\n\t\tbarColor\u003d \"#798BF3\"\n\telif value\u003e75:\n\t\tbarColor\u003d \"#00AC00\"\n\telse:\n\t\tbarColor\u003d \"#000000\"\n\t\t\n\treturn \tbarColor\n\t\n\t",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "animate": true,
+          "arc": {
+            "cornerRadius": 10,
+            "width": 7
+          },
+          "arcBackground": {
+            "color": "#1C8BD5"
+          },
+          "endAngle": 270,
+          "label": {
+            "color": "#13161A",
+            "maxDecimal": 6,
+            "offsetY": 11,
+            "size": "12Px"
+          },
+          "maxValue": 4,
+          "startAngle": -90,
+          "style": {
+            "classes": []
+          },
+          "value": 1
+        },
+        "type": "ia.chart.simple-gauge"
+      },
+      {
+        "meta": {
+          "name": "LblLotNo_1"
+        },
+        "position": {
+          "height": 0.0919,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.3004,
+          "x": 0.0864,
+          "y": 0.3704
+        },
+        "props": {
+          "text": "Container Size:",
+          "textStyle": {
+            "classes": "Widgets/WidgetsLabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblLotNo_2"
+        },
+        "position": {
+          "height": 0.0919,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.2226,
+          "x": 0.0864,
+          "y": 0.8357
+        },
+        "props": {
+          "text": "Pallet Size:",
+          "textStyle": {
+            "classes": "Widgets/WidgetsLabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblStdHCValue_0",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 0.0834,
+          "width": 0.2262,
+          "x": 0.4088,
+          "y": 0.3767
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.ContSize"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "textStyle": {
+            "classes": "Widgets/WidgetsData"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblStdHCValue_1",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 0.0834,
+          "width": 0.2262,
+          "x": 0.3465,
+          "y": 0.8442
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.PalletSize"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "textStyle": {
+            "classes": "Widgets/WidgetsData"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblContainerNoData",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 0.1158,
+          "width": 0.4795,
+          "x": 0.0762,
+          "y": 0.1701
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.ContainerNo"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "borderColor": "#C8BFBF",
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "classes": "Widgets/WidgetsData",
+            "paddingLeft": 5
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "events": {
+      "system": {
+        "onStartup": {
+          "config": {
+            "script": "\ttry: \n\t\tself.getChild(\"LblLotNoData\").props.text\u003d\u0027Lot001\u0027\n\t\tself.getChild(\"LblContainerNoData\").props.text\u003d\u0027Container001\u0027\n\t\tself.getChild(\"LblPalletNoData\").props.text\u003d\u0027Pallet001\u0027\n\t#--------------------------Lot Parameter---------------------------------------------------------------\n\t\tself.getChild(\"GaugeLot\").props.minValue\u003d0\n\t\tself.getChild(\"GaugeLot\").props.value\u003d85\n\t\tself.getChild(\"GaugeLot\").props.maxValue\u003d100\n\t#--------------------------Container Parameter---------------------------------------------------------------\n\t\tself.getChild(\"GaugeContainer\").props.minValue\u003d0\n\t\tself.getChild(\"GaugeContainer\").props.value\u003d85\n\t\tself.getChild(\"GaugeContainer\").props.maxValue\u003d100\n\t#--------------------------Pallet Parameter---------------------------------------------------------------\n\t\tself.getChild(\"GaugePallet\").props.minValue\u003d0\n\t\tself.getChild(\"GaugePallet\").props.value\u003d85\n\t\tself.getChild(\"GaugePallet\").props.maxValue\u003d100\n\texcept:\n\t\tsyetm.perspective.print(\"Exception: Packaging Information\")"
+          },
+          "enabled": false,
+          "scope": "G",
+          "type": "script"
+        }
+      }
+    },
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -0.0216,
+      "y": 0.0091
+    },
+    "props": {
+      "mode": "percent",
+      "style": {
+        "classes": "Widgets/Widgets"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

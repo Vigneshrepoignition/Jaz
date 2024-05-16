@@ -1,0 +1,137 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\tassign\u003dself.params.value\n\tsystem.perspective.print(\"IS  assign \"+str(assign))"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "column": "value",
+    "columnIndex": "value",
+    "dataset": "value",
+    "row": "value",
+    "rowData": "value",
+    "rowIndex": "value",
+    "value": "value"
+  },
+  "propConfig": {
+    "params.column": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.columnIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.dataset": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.row": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.value": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 35,
+      "width": 84
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\tscriptName \u003d \"RMTC: Assign Button: OnClick\"\n\t\timport re\n\t\timport json\n\t\timport urllib2, urllib\n\t\tURLPath \u003d system.tag.read(\"[default]JMES_InternalTags/urlAPI\").value\n#\t\tURLPath \u003d system.tag.read(\"[default]JMES_InternalTags/urlSITAPI\").value\n\n\t\tUserID \u003d self.session.custom.UserId\n#\t\tmachineId\u003dself.session.custom.MachineID\n\t\tTabledata\u003dself.view.params.rowData\n\t\tmachineId\u003dTabledata.get(\"MachineId\")\n\t\tself.session.custom.MachineID\u003dmachineId\n\n#\t\tapiPath \u003d \"CLRIWorkFlow/GetCLRIWorkflowByMachine/\"+str(machineId)+\"/\"+str(UserID)+\"/\"+str(\u00270\u0027)\n\t\tsystem.perspective.print(\"machineId \u003d \"+str(machineId))\n\t\tsystem.perspective.print(\"UserID \u003d \"+str(UserID))\n\t\tapiPath \u003d \"CLRIWorkFlow/GetCLRIWorkflowByMachine/\"+str(machineId)+\"/\"+str(UserID)\n\t\turl \u003d URLPath + apiPath\n\t\tresultData\u003dNone\n\t\tclient \u003d system.net.httpClient()\n\t\tdata \u003d client.get(url)\n\t\tif data.good:    \n\t\t  resultData\u003ddata.json\n\t\tStatus \u003d Tabledata.get(\"Status\")\n\t\tAssignUserId  \u003d Tabledata.get(\"AssignUserId\")\n\t\tcurrentCLRIName  \u003d Tabledata.get(\"Name\")\n\t\tif  str(Status).strip().lower()\u003d\u003d\u0027Completed\u0027.strip().lower():\n\t\t  \t\tsystem.perspective.openPopup(\u0027myPopupId1\u0027,\u0027Project_MES_Solution/CLRI Console/Popup/MessageBox\u0027,params \u003d {\u0027rowData\u0027 :self.view.params.rowData},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\telse:  \n\t\t\tUserId\u003dself.session.custom.UserId\n\t\t\tdataList\u003dCLRIConsole.GetCLRIWorkflowByMachine(0,UserId)\n\t\t\tisAssign\u003d0\n\t\t\tdataList\u003dsystem.dataset.toPyDataSet(dataList)\n\t\t\tfor i in dataList:\n\t\t\t\tStatusId\u003d int(i[\u0027StatusId\u0027])\n\t\t\t\tAssignUserId\u003d int(i[\u0027AssignUserId\u0027])\n\t\t\t\tname\u003d i[\u0027Name\u0027]\n\t\t\t\tif StatusId \u003d\u003d1 or StatusId \u003d\u003d7:\n\t\t\t\t\tisAssign\u003d1\n\t\t\t\t\tbreak\n\t\t\t\t\t\n\t\t\tif isAssign\u003d\u003d1:\n\t\t\t\tif currentCLRIName.strip() \u003d\u003d name.strip():\n\t\t\t\t\tsystem.perspective.openPopup(\u0027myPopupId1\u0027,\u0027Project_MES_Solution/CLRI Console/Popup/AssignMessageBox\u0027,params \u003d {\u0027rowData\u0027 :self.view.params.rowData,\u0027name\u0027:name,\u0027CLRIName\u0027: currentCLRIName},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\telse:\n\t\t  \t\t\tsystem.perspective.openPopup(\u0027myPopupId1\u0027,\u0027Project_MES_Solution/CLRI Console/Popup/AssignMessageBox\u0027,params \u003d {\u0027rowData\u0027 :self.view.params.rowData,\u0027name\u0027:name},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\telse:\t\n\t\t\t\tTabledata\u003dself.view.params.rowData\n\t\t\t\tStatus \u003d Tabledata.get(\"Status\")\n\t\t\t\tAssignUserId  \u003d Tabledata.get(\"AssignUserId\")\n\t\t\t\tsystem.perspective.print(\"AssignUserId : \" + str(AssignUserId))\t\n\t\t\t\tsystem.perspective.print(\"Status : \" + str(Status))\t\n\t\t\t\tsystem.perspective.print(\"UserID : \" + str(UserID))\t\n\t\t\t\tif str(Status).strip() \u003d\u003d str(\"On-Hold\").strip() and str(AssignUserId).strip()\u003d\u003dstr(UserID).strip():\n#\t\t\t\t\tsystem.perspective.navigate(view \u003d \u0027Project_MES_Solution/CLRI Console/Popup/CLRIConsoleWOSel\u0027,params \u003d {\u0027rowData\u0027 :self.view.params.rowData})\n\t\t\t\t\tsystem.perspective.openPopup(\u0027myPopupId\u0027,\u0027Project_MES_Solution/CLRI Console/Popup/MessageBox\u0027,params \u003d {\u0027rowData\u0027 :self.view.params.rowData},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n#\t\t\t\t\tProject_MES_Solution/CLRI Console/Popup/MessageBox\n\t\t\t\telse:\n\t\t\t\t\tsystem.perspective.openPopup(\u0027myPopupId\u0027,\u0027Project_MES_Solution/CLRI Console/Popup/ConfirmationAssign\u0027,params \u003d {\u0027rowData\u0027 :self.view.params.rowData},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)\n\t\tsystem.perspective.print(\"errorMessage : \" + str(errorMessage))\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Button",
+          "tooltip": {
+            "enabled": true
+          }
+        },
+        "position": {
+          "height": 0.9714,
+          "rotate": {
+            "anchor": "-77% 12%"
+          },
+          "width": 0.9762,
+          "x": -0.0119,
+          "y": 0.0143
+        },
+        "propConfig": {
+          "meta.tooltip.text": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizeCLRIReadOnly"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d0:\n \t\tresult\u003d\u0027Read Only Access\u0027\n \telse :\n \t\tresult\u003d\u0027Click to Assign\u0027\n \treturn result",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizeCLRIReadOnly"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#FFFFFF",
+            "borderStyle": "none",
+            "fontFamily": "Arial"
+          },
+          "text": "Assign",
+          "textStyle": {
+            "color": "#4747FF",
+            "fontFamily": "Arial",
+            "fontSize": 12,
+            "fontWeight": "bold"
+          }
+        },
+        "type": "ia.input.button"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

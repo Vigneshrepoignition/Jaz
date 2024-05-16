@@ -1,0 +1,1932 @@
+{
+  "custom": {
+    "BobbinId": "",
+    "HeadName": "",
+    "RunningRawmaterialDetails": "",
+    "currentRunningWorkorderAgainstLine": "",
+    "scannedOperationId": "",
+    "scannedmachineId": "",
+    "scannedmachineLocator": "",
+    "selectedWorkorderPassforScanning": "",
+    "workorderType": ""
+  },
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\tself.session.custom.WoNumber \u003d \u0027\u0027\n\t\tself.session.custom.WorkflowId \u003d \u0027\u0027\n\t\tself.session.custom.WorkflowOperationsId \u003d \u0027\u0027\n\t\tself.session.custom.WorkOrderType \u003d \u0027\u0027\n\t\tself.session.custom.WOOperationStatus \u003d \u0027\u0027\n\t\tself.session.custom.Workflow \u003d \u0027\u0027\n\t\tself.session.custom.areaName \u003d \u0027\u0027\n\t\tself.session.custom.enterpriseName \u003d \u0027\u0027\n\t\tself.session.custom.lineName \u003d \u0027\u0027\n\t\tself.session.custom.machineName \u003d \u0027\u0027\n\t\tself.session.custom.plantName \u003d \u0027\u0027\n\t\tself.session.custom.WorkOrderQty \u003d \u0027\u0027\n\t\tself.session.custom.PDAOpValue \u003d \u0027\u0027\n\t\tself.custom.BobbinId \u003d \u0027\u0027\n\t\tself.custom.HeadName \u003d \u0027\u0027\n\t\tself.custom.workorderType \u003d \u0027\u0027\n\t#--------------------------------------End -------------------------------------------------\t\n\t\tuserId \u003d self.session.custom.UserId\n\t\tif self.session.custom.authorizePDAScanComponent !\u003d 1 :\n\t\t\tsystem.perspective.navigate(\u0027/LoginScreen\u0027)\n\t\telse:\n\t\t\tself.getChild(\"root\").getChild(\"DrpdwnAutoLines\").props.value \u003d \"\"\n\t\t\tself.getChild(\"root\").getChild(\"DrpdwnWorkorderNo\").props.value \u003d \"\"\n\t\t\tself.getChild(\"root\").getChild(\"TblComponent\").props.data\u003dNone\n\t\t\tself.getChild(\"root\").getChild(\"TxtScanMachine\").props.text \u003d \"\"\n\t\t\tself.getChild(\"root\").getChild(\"TxtScanComponentQR\").props.text\u003d\"\"\n\t\t\tself.custom.selectedWorkorderPassforScanning \u003d \u0027\u0027\n\t\t\tself.custom.workorderType \u003d \u0027\u0027\n\t\t\tself.custom.currentRunningWorkorderAgainstLine \u003d \u0027\u0027\n\t\t\tself.custom.RunningRawmaterialDetails \u003d \u0027\u0027\n\t\t\t\n\t\t\tself.getChild(\"root\").getChild(\"DrpdwnAutoLines\").focus()\n\t\t\t\n\t\t\ttry:\n\t\t\t\tdrpDwnDataAutoLineList \u003d WorkOrderDetailsAPI.getAutoLinesByUserID(userId)\t\n\t\t\t\tself.getChild(\"root\").getChild(\"DrpdwnAutoLines\").props.options \u003d drpDwnDataAutoLineList\n\t\t\t\tself.getChild(\"root\").getChild(\"DrpdwnAutoLines\").focus()\n\t\t\texcept:\n\t\t\t\tpass\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: PDA :: Component Scanning : On Startup\u0027:\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "propConfig": {
+    "custom.BobbinId": {
+      "persistent": true
+    },
+    "custom.HeadName": {
+      "persistent": true
+    },
+    "custom.RunningRawmaterialDetails": {
+      "persistent": true
+    },
+    "custom.currentRunningWorkorderAgainstLine": {
+      "persistent": true
+    },
+    "custom.scannedOperationId": {
+      "persistent": true
+    },
+    "custom.scannedmachineId": {
+      "persistent": true
+    },
+    "custom.scannedmachineLocator": {
+      "persistent": true
+    },
+    "custom.selectedWorkorderPassforScanning": {
+      "persistent": true
+    },
+    "custom.workorderType": {
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 497,
+      "width": 380
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 22,
+          "width": 221,
+          "x": 31,
+          "y": 4
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDAHeader"
+          },
+          "text": "Scan Components"
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblOprMachine"
+        },
+        "position": {
+          "height": 21,
+          "width": 173,
+          "x": 7.5,
+          "y": 27.5
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Line/Division: "
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\n\t\tself.session.custom.WOOperationStatus\u003d\u0027\u0027\n\t\tself.getSibling(\"TblComponent\").props.data \u003d []\n\t\tself.getSibling(\"TxtScanMachine\").props.text \u003d str(\"\")\n\t\tself.getSibling(\"DrpdwnWorkorderNo\").props.value \u003d \"\"\n\t\tself.getSibling(\"TxtScanComponentQR\").props.text \u003d str(\"\")\n\t\tself.getSibling(\"DrpdwnWorkorderNo\").props.enabled \u003d True\n\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \"\"\n\t\tself.view.custom.BobbinId \u003d \u0027\u0027\n\t\tself.view.custom.HeadName \u003d \u0027\u0027\n\t\tself.view.custom.workorderType \u003d \u0027\u0027\n\t\tself.view.custom.currentRunningWorkorderAgainstLine \u003d \u0027\u0027\n\t\tself.view.custom.selectedWorkorderPassforScanning \u003d \u0027\u0027\n\t\tself.view.custom.scannedmachineId \u003d \u0027\u0027\n\t\tself.view.custom.RunningRawmaterialDetails \u003d \u0027\u0027\n\t\t\n\t\tself.getSibling(\"DrpdwnWorkorderNo\").focus()\n\t\t\n\t\tuserId \u003d self.session.custom.UserId\n\t\tselectedLine \u003d self.props.value\n#\t\tdrpDwnWoNumberData \u003d WorkOrderDetailsAPI.getWoNumbersByLine(userId,selectedLine)\t\n\t\tdrpDwnWoNumberData \u003d PDAComponentScanning.getWoNumbersByLine(userId,selectedLine)\n\t\tself.getSibling(\"DrpdwnWorkorderNo\").props.options \u003d drpDwnWoNumberData\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: PDA :: Component Scanning : On LineDropdown\u0027:\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "DrpdwnAutoLines",
+          "tooltip": {
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Select Operation/Machine"
+          }
+        },
+        "position": {
+          "height": 24,
+          "width": 360,
+          "x": 8,
+          "y": 48.5
+        },
+        "props": {
+          "options": {
+            "$": [
+              "ds",
+              192,
+              1677811796310
+            ],
+            "$columns": [
+              {
+                "data": [
+                  1,
+                  2,
+                  4,
+                  8,
+                  9,
+                  10,
+                  1022,
+                  1031,
+                  1034
+                ],
+                "name": "LineId",
+                "type": "Integer"
+              },
+              {
+                "data": [
+                  "H21",
+                  "H013",
+                  "CB",
+                  "AA",
+                  "CE",
+                  "BA",
+                  "H01",
+                  "CH47",
+                  "KMLine"
+                ],
+                "name": "LineName",
+                "type": "String"
+              }
+            ]
+          },
+          "placeholder": {
+            "text": "Select Line/Division"
+          },
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "meta": {
+          "name": "LblWorkorderNo"
+        },
+        "position": {
+          "height": 21,
+          "width": 193,
+          "x": 7.5,
+          "y": 76.5
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Work-Order  No:",
+          "textStyle": {
+            "classes": "PDA/PDALabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onEditCellCommit": {
+              "config": {
+                "script": "\tsystem.perspective.print(\"After Cell Edit Component Table \")\n\tdefineKeyColumn \u003d \"Id\"\n\t#----------------- get selected cell value,row number,column number -----------------\t\n\tupdatedValue\u003devent.value\t\n\tselRow\u003devent.row\t\n\tselColumn\u003dself.props.selection.selectedColumn\n\tsystem.perspective.print(selColumn)\t\t\n\t#-------------------------------------- End ----------------------------------------\n\t\n\t#----------------- update data back in existing table dataset ----------------------\t\n\t\n\tdtSet\u003dself.props.data\t\n\tupdateRowResultDs \u003d {selColumn:updatedValue}\t\n\tresultpyData \u003d system.dataset.updateRow(dtSet,selRow,updateRowResultDs)\t\t\n\tds\u003d system.dataset.toPyDataSet(resultpyData)\t\n\tself.props.data\u003dds\t\n\ttabldata\u003dself.props.data\t\t\n\tval\u003dtabldata.getValueAt(selRow, selColumn)\t\n\t\n\tComponents\u003dtabldata.getValueAt(selRow,defineKeyColumn)\t\n\tcomponentData\u003d[val,Components]\t\n\tsystem.perspective.print(componentData)\n\tsystem.perspective.print(selColumn)\t\t\n\t\n\t#--------------------------------Post Component Data ----------------------------------\n\t\n\tWorkflowOperationsId \u003d self.session.custom.WorkflowOperationsId\t\n\tWoNumber \u003dself.session.custom.WoNumber\t\n\tWorkflowId \u003d self.session.custom.WorkflowId\t\t\t\t\n\t\t\t\n\toperatorConsoleComponentId \u003d 0\t\t\t\t\n\tuserId \u003d self.session.custom.UserId\n\ttry:\t\t\t\n\t\tselectedItemId \u003d tabldata.getValueAt(selRow,\"Id\")\t\t\t\t\n\texcept:\t\t\n\t\tsystem.perspective.print(\"Unable to read Parameter value\")\n\t\tpass\n\t\t\t\t\t\t\t\t\t\n\ttry:\n\t\tserialNo \u003d tabldata.getValueAt(selRow,\"SerialNumber\")\n\t\tsystem.perspective.print(\"SerialNo value\")\n\t\tsystem.perspective.print(serialNo)\n\texcept:\n\t\tsystem.perspective.print(\"Unable to read SerialNumber value\")\t\t\n\t\tpass\n\t\n\ttry:\n\t\tlotNo \u003d tabldata.getValueAt(selRow,\"LotNumber\")\t\n\t\tsystem.perspective.print(\"LotNumber value\")\n\t\tsystem.perspective.print(lotNo)\n\texcept:\n\t\tsystem.perspective.print(\"Unable to read LotNumber value\")\t\t\n\t\tpass\n\ttry:\n\t\tconsumeQty \u003d tabldata.getValueAt(selRow,\"ConsumeQty\")\t\n\t\tsystem.perspective.print(\"consumeQty value\")\n\t\tsystem.perspective.print(consumeQty)\n\texcept:\n\t\tsystem.perspective.print(\"Unable to read consumeQty value\")\t\t\n\t\tpass\n\t\t\t\n\tresult \u003d WorkOrderDetailsAPI.postComponentDetails(WorkflowOperationsId,WoNumber,WorkflowId,operatorConsoleComponentId,selectedItemId,serialNo,lotNo,consumeQty,userId)\t\n\tsystem.perspective.print(\"Post API values for Component...\")\n"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "TblComponent"
+        },
+        "position": {
+          "height": 249.00000000000003,
+          "width": 370,
+          "x": 5.52,
+          "y": 242.85
+        },
+        "props": {
+          "bodyStyle": {
+            "classes": "Table/RowsBorder"
+          },
+          "columns": [
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "SrNo",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 55
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "WorkOrderNo",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "PartNowithRevision",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Components"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "LotNo",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Lot No"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 100
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "consumeQty",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Lot Qty"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "string",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "bomdetailsId",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "ItemId",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "IsExpired",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "UnitUsage",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "BomId",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "MaterialAvailableWorkOrderID",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "RemainLotQuantity",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "CurrentRemainingQty",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Remaining LotQty"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": ""
+            }
+          ],
+          "dragOrderable": false,
+          "emptyMessage": {
+            "noData": {
+              "icon": {
+                "color": "#C0C0C0",
+                "path": "material/hourglass_empty"
+              },
+              "text": "Component are not available"
+            }
+          },
+          "headerStyle": {
+            "classes": "Table/Header"
+          },
+          "pager": {
+            "bottom": false
+          },
+          "rows": {
+            "subview": {
+              "viewPath": "Project_MES_Solution/OperatorConsole/PDAScreen/PDAPopups/ComponentSubview"
+            }
+          },
+          "selection": {
+            "enableColumnSelection": true
+          }
+        },
+        "type": "ia.display.table"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\n\t\tgreenColor\u003d\"#00AC00\"\n\t\tredColor\u003d\"#FF0000\"\n\t\tself.getSibling(\"TxtScanMachine\").props.text\u003d\"\"\n\t\tself.getSibling(\"TblComponent\").props.data\u003d[]\n\t\tself.getSibling(\"TxtScanComponentQR\").props.text \u003d str(\"\")\n\t\tself.view.custom.BobbinId \u003d \u0027\u0027\n\t\tself.view.custom.HeadName \u003d \u0027\u0027\n\t\tself.view.custom.workorderType \u003d \u0027\u0027\n\t\tself.view.custom.currentRunningWorkorderAgainstLine \u003d \u0027\u0027\n\t\tself.view.custom.selectedWorkorderPassforScanning \u003d \u0027\u0027\n\t\tself.view.custom.scannedmachineId \u003d \u0027\u0027\n\t\tself.view.custom.RunningRawmaterialDetails \u003d \u0027\u0027\n\t\tselectedWorkorderId \u003d self.props.value\n\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d False\n\t\tselectedLineId \u003d self.getSibling(\"DrpdwnAutoLines\").props.value\n\t\tuserId \u003d self.session.custom.UserId\n\t\t\n\t\tds \u003d self.props.options\n\t\tds \u003d system.dataset.toPyDataSet(ds)\t\n\t\tfor i in ds:\n\t\t\tworkorderId \u003d i[1]\n\t\t\tif workorderId \u003d\u003d selectedWorkorderId:\n\t\t\t\tWorkorderTypeId \u003d i[0]\n\t\t\t\tself.view.custom.workorderType \u003d WorkorderTypeId\n\t\t\t\tbreak\n\n#--------------------------------------- Takein -TakeOut Script START ---------------------------------------------------------------------\t\t\n\t\tisTakeInConfiguredForLine,isMachineConfigured \u003d TakeIn_TakeOut.isTakeinTakeoutConfigForLine(selectedWorkorderId)\n#\t\tisTakeInConfiguredForLine \u003d 0\n#\t\tisMachineConfigured \u003d 1\n\t\tif isTakeInConfiguredForLine \u003d\u003d 1:\t\t\t\n\t\t\tif isMachineConfigured \u003d\u003d 1:\n\t\t\t\tsystem.perspective.print(\"Takin is configured and Machines are Takein \") # Takin is configured for this line so can go ahead and let user feed material\n#--------------------TO BE EXECUTE THE SCRIPT HERE AFTER TAKE-IN/ TAKE-OUT IMPLEMENTATION.\n\t\t\t\tRunningWorkorderDetails  \u003d PDAComponentScanning.GetCurrentRuningWorkorderDetails(selectedLineId,selectedWorkorderId)\n\t\t\t\tRunningWoCount \u003d RunningWorkorderDetails.getRowCount()\t\t\t\n\t\t\t\tif WorkorderTypeId !\u003d 2:\n\t\t\t\t\tif RunningWoCount !\u003d 0:\n\t\t\t\t\t\trunningWorkorderId \u003d RunningWorkorderDetails.getValueAt(0,\u0027currentRunningWorkOrderID\u0027)\n\t\t\t\t\t\trunningWorkorderNumber \u003d RunningWorkorderDetails.getValueAt(0,\u0027currentRunningWorkorder\u0027)\n\t\t\t\t\t\tsystem.perspective.print(\u0027Running WO :\u0027 + str(runningWorkorderNumber))\n\t\t\t\t\t\tself.view.custom.currentRunningWorkorderAgainstLine\u003drunningWorkorderNumber\n\t\t\t\t\t\tif selectedWorkorderId \u003d\u003d runningWorkorderId:\n\t\t\t\t\t\t\tself.view.custom.selectedWorkorderPassforScanning \u003d True\n\t\t\t\t\t\telse:\n\t\t\t\t\t\t\tself.view.custom.selectedWorkorderPassforScanning \u003d False\n\t\t\t\t\telse:\n\t\t\t\t\t\tself.view.custom.selectedWorkorderPassforScanning \u003d True\n\t\t\t\t\t\t\n\t\t\t\t\tself.getSibling(\"TxtScanMachine\").props.enabled \u003d True\n\t\t\t\t\tself.getSibling(\"TxtScanComponentQR\").props.enabled \u003d True\n\t\t\t\t\tself.getSibling(\"TxtScanMachine\").focus()\n\n\t\t\t\telse:\n\t\t\t\t\tcnsClubbedWorkorderDetails \u003d MaterialRequestAPI.getCNSClubbedWorkorderDetailsbyworkorderId(selectedWorkorderId)\n\t\t\t\t\tClubbedRowCount \u003d cnsClubbedWorkorderDetails.getRowCount()\n\n\t\t\t\t\tif ClubbedRowCount \u003e\u003d 2:\n\t\t\t\t\t\tprimaryWorkorderId \u003d cnsClubbedWorkorderDetails.getValueAt(0,\u0027PrimaryWorkOrderId\u0027)\n\t\t\t\t\t\tif primaryWorkorderId \u003d\u003d selectedWorkorderId:\n\t\t\t\t\t\t\tif RunningWoCount \u003e 0:\n\t\t\t\t\t\t\t\tself.view.custom.selectedWorkorderPassforScanning \u003d False\n\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\tself.view.custom.selectedWorkorderPassforScanning \u003d True\n\t\t\t\t\t\t\tself.getSibling(\"TxtScanMachine\").props.enabled \u003d True\n\t\t\t\t\t\t\tself.getSibling(\"TxtScanComponentQR\").props.enabled \u003d True\n\t\t\t\t\t\telse:\n\t\t\t\t\t\t\tPrimaryWorkorderNo \u003d cnsClubbedWorkorderDetails.getValueAt(0,\u0027PrimaryWorkorderNo\u0027)\n\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d  str(redColor)\n\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \u0027Please select and feed the material against main workorder :\u0027 + str(PrimaryWorkorderNo)\n\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\t\t\tself.getSibling(\"TxtScanMachine\").props.enabled \u003d False\n\t\t\t\t\t\t\tself.getSibling(\"TxtScanComponentQR\").props.enabled \u003d False\n\n\t\t\t\t\telse:\n\t\t\t\t\t\tself.getSibling(\"TxtScanMachine\").props.enabled \u003d True\n\t\t\t\t\t\tself.getSibling(\"TxtScanComponentQR\").props.enabled \u003d True\n\t\t\t\t\t\tif RunningWoCount \u003e 0:\n\t\t\t\t\t\t\tself.view.custom.selectedWorkorderPassforScanning \u003d False\n\t\t\t\t\t\telse:\n\t\t\t\t\t\t\tself.view.custom.selectedWorkorderPassforScanning \u003d True\n\t\t\t\t\t\n\t\t\t\t\tself.getSibling(\"TxtScanMachine\").focus()\n#---------------------------------------------------------------------------------------------------------------------------------------\t\t\t\t\t\n\t\t\telse:\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \"Error: Please complete the takein process before component feeding.\"\t\n\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d redColor\t\n\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d 1\n\t\t\t\tself.getSibling(\"TxtScanMachine\").props.enabled \u003d 0\n\t\t\t\tself.getSibling(\"TxtScanComponentQR\").props.enabled \u003d 0\n\t\t\t\t\n\t\telse:\n\t\t\tRunningWorkorderDetails  \u003d PDAComponentScanning.GetCurrentRuningWorkorderDetails(selectedLineId,selectedWorkorderId)\n\t\t\tRunningWoCount \u003d RunningWorkorderDetails.getRowCount()\n\t\n\t\t\tif WorkorderTypeId !\u003d 2:\n\t\t\t\tif RunningWoCount !\u003d 0:\n\t\t\t\t\trunningWorkorderId \u003d RunningWorkorderDetails.getValueAt(0,\u0027currentRunningWorkOrderID\u0027)\n\t\t\t\t\trunningWorkorderNumber \u003d RunningWorkorderDetails.getValueAt(0,\u0027currentRunningWorkorder\u0027)\n\t\t\t\t\tsystem.perspective.print(\u0027Running WO :\u0027 + str(runningWorkorderNumber))\n\t\t\t\t\tself.view.custom.currentRunningWorkorderAgainstLine\u003drunningWorkorderNumber\n\t\t\t\t\tif selectedWorkorderId \u003d\u003d runningWorkorderId:\n\t\t\t\t\t\tself.view.custom.selectedWorkorderPassforScanning \u003d True\n\t\t\t\t\telse:\n\t\t\t\t\t\tself.view.custom.selectedWorkorderPassforScanning \u003d False\n\t\t\t\telse:\n\t\t\t\t\tself.view.custom.selectedWorkorderPassforScanning \u003d True\n\t\t\t\t\t\n\t\t\t\tself.getSibling(\"TxtScanMachine\").props.enabled \u003d True\n\t\t\t\tself.getSibling(\"TxtScanComponentQR\").props.enabled \u003d True\n\t\t\t\tself.getSibling(\"TxtScanMachine\").focus()\n\t\t\t\t\n\t\t\telse:\n\t\t\t\tcnsClubbedWorkorderDetails \u003d MaterialRequestAPI.getCNSClubbedWorkorderDetailsbyworkorderId(selectedWorkorderId)\n\t\t\t\tClubbedRowCount \u003d cnsClubbedWorkorderDetails.getRowCount()\n\t\t\t\t\n\t\t\t\tif ClubbedRowCount \u003e\u003d 2:\n\t\t\t\t\tprimaryWorkorderId \u003d cnsClubbedWorkorderDetails.getValueAt(0,\u0027PrimaryWorkOrderId\u0027)\n\t\t\t\t\tif primaryWorkorderId \u003d\u003d selectedWorkorderId:\n\t\t\t\t\t\tif RunningWoCount \u003e 0:\n\t\t\t\t\t\t\tself.view.custom.selectedWorkorderPassforScanning \u003d False\n\t\t\t\t\t\telse:\n\t\t\t\t\t\t\tself.view.custom.selectedWorkorderPassforScanning \u003d True\n\t\t\t\t\t\tself.getSibling(\"TxtScanMachine\").props.enabled \u003d True\n\t\t\t\t\t\tself.getSibling(\"TxtScanComponentQR\").props.enabled \u003d True\n\t\t\t\t\telse:\n\t\t\t\t\t\tPrimaryWorkorderNo \u003d cnsClubbedWorkorderDetails.getValueAt(0,\u0027PrimaryWorkorderNo\u0027)\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d  str(redColor)\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \u0027Please select and feed the material against main workorder :\u0027 + str(PrimaryWorkorderNo)\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\t\tself.getSibling(\"TxtScanMachine\").props.enabled \u003d False\n\t\t\t\t\t\tself.getSibling(\"TxtScanComponentQR\").props.enabled \u003d False\n\t\t\t\t\t\t\n\t\t\t\telse:\n\t\t\t\t\tself.getSibling(\"TxtScanMachine\").props.enabled \u003d True\n\t\t\t\t\tself.getSibling(\"TxtScanComponentQR\").props.enabled \u003d True\n\t\t\t\t\tif RunningWoCount \u003e 0:\n\t\t\t\t\t\tself.view.custom.selectedWorkorderPassforScanning \u003d False\n\t\t\t\t\telse:\n\t\t\t\t\t\tself.view.custom.selectedWorkorderPassforScanning \u003d True\n\t\t\t\t\n\t\t\t\tself.getSibling(\"TxtScanMachine\").focus()\n#-----------------------------------------Takein -TakeOut Script END -----------------------------------------------------------------------\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: PDA :: Component Scanning : On WorkOrder Dropdown\u0027:\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          },
+          "dom": {
+            "onFocus": {
+              "config": {
+                "script": "\tself.props.enabled\u003d1\n\tself.props.placeholder.text\u003dstr(\"Select Work Order Number\")"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "DrpdwnWorkorderNo",
+          "tooltip": {
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Select Operation/Machine"
+          }
+        },
+        "position": {
+          "height": 24,
+          "width": 360,
+          "x": 8,
+          "y": 98
+        },
+        "props": {
+          "enabled": 1,
+          "options": {
+            "$": [
+              "ds",
+              192,
+              1679659827619
+            ],
+            "$columns": [
+              {
+                "data": [],
+                "name": "WorkOrderId",
+                "type": "Integer"
+              },
+              {
+                "data": [],
+                "name": "WoNumber",
+                "type": "String"
+              }
+            ]
+          },
+          "placeholder": {
+            "text": "Select Work Order Number"
+          },
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "meta": {
+          "name": "LblMode",
+          "visible": false
+        },
+        "position": {
+          "height": 26,
+          "width": 77,
+          "x": 7.5,
+          "y": 143
+        },
+        "props": {
+          "style": {
+            "classes": "Common/Label_WithOutBackground"
+          },
+          "text": "Auto Mode:",
+          "textStyle": {
+            "classes": "PDA/PDALabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblCurrentStatus",
+          "visible": false
+        },
+        "position": {
+          "height": 11,
+          "width": 48,
+          "x": 238,
+          "y": 11
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Status: "
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblCurrentStatus_0",
+          "visible": false
+        },
+        "position": {
+          "height": 15,
+          "width": 79,
+          "x": 286,
+          "y": 9
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "session.custom.WOOperationStatus"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "textStyle": {
+            "color": "#D50E1B",
+            "fontSize": 11
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Green pilot light 2",
+          "visible": false
+        },
+        "position": {
+          "height": 17,
+          "width": 24,
+          "x": 74,
+          "y": 147
+        },
+        "props": {
+          "elements": [
+            {
+              "d": "M112.159,56.249c0-31.027-25.031-56.192-55.909-56.192  c-30.876,0-55.909,25.166-55.909,56.192c0,31.03,25.033,56.194,55.909,56.194C87.128,112.443,112.159,87.279,112.159,56.249z",
+              "fill": {
+                "paint": "#00FF00"
+              },
+              "name": "path",
+              "stroke": {
+                "paint": "#000000",
+                "width": "0.5"
+              },
+              "type": "path"
+            },
+            {
+              "cx": "38.993",
+              "cy": "43.266",
+              "fill": {
+                "paint": {
+                  "cx": "38.9932",
+                  "cy": "43.2661",
+                  "gradientUnits": "userSpaceOnUse",
+                  "r": "33.6479",
+                  "stops": [
+                    {
+                      "offset": "0",
+                      "style": {
+                        "stopColor": "#D9FFD9"
+                      }
+                    },
+                    {
+                      "offset": "1",
+                      "style": {
+                        "stopColor": "#00FF00"
+                      }
+                    }
+                  ],
+                  "type": "radial"
+                }
+              },
+              "name": "ellipse",
+              "rx": "35.114",
+              "ry": "32.115",
+              "type": "ellipse"
+            }
+          ],
+          "viewBox": "0 0 112.5 112.5"
+        },
+        "type": "ia.shapes.svg"
+      },
+      {
+        "meta": {
+          "name": "LblScanMchine"
+        },
+        "position": {
+          "height": 21,
+          "width": 298,
+          "x": 7.5,
+          "y": 126
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Scan Machine Code:",
+          "textStyle": {
+            "classes": "PDA/PDALabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tself.getSibling(\"LblErrorMessage\").props.text\u003dstr(\"\")\n\tself.getSibling(\"TxtScanComponentQR\").props.text \u003d str(\"\")\n"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "TxtScanMachine"
+        },
+        "position": {
+          "height": 24,
+          "width": 302,
+          "x": 8,
+          "y": 147
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizePDAScanComponentReadOnly"
+              },
+              "type": "property"
+            }
+          },
+          "props.style.backgroundColor": {
+            "binding": {
+              "config": {
+                "path": "this.props.enabled"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value \u003d\u003d True:\n\t\tvalue \u003d \u0027#FFFFFF\u0027\n\telse:\n\t\tvalue \u003d \u0027#D5D5D573\u0027\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.text": {
+            "onChange": {
+              "enabled": null,
+              "script": "\ttry:\n\t\tgreenColor\u003d\"#00AC00\"\n\t\tredColor\u003d\"#FF0000\"\n\t\tmachineTxt \u003d str(self.props.text)\n\t\tif machineTxt !\u003d str(\"\"):\n\t\t\tselectedLineId \u003d self.getSibling(\"DrpdwnAutoLines\").props.value\n\t\t\tselectedWorkorderId \u003d self.getSibling(\"DrpdwnWorkorderNo\").props.value\n\t\t\tif str(selectedLineId).strip() !\u003d str(\"\").strip():\n\t\t\t\tif str(selectedWorkorderId).strip() !\u003d str(\"\").strip():\n\t\t\t\t\tself.getSibling(\"TxtScanComponentQR\").props.text \u003d str(\"\")\n\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \"\"\n\t\t\t\t\tself.view.custom.BobbinId\u003d\u0027\u0027\n\t\t\t\t\tself.view.custom.HeadName \u003d \u0027\u0027\n\t\t\t\t\tself.view.custom.scannedmachineLocator \u003d \u0027\u0027\n\t\t\t\t\tselectedLineId \u003d self.getSibling(\"DrpdwnAutoLines\").props.value   \n\t\t\t\t\tselectedWoNumberId \u003d self.getSibling(\"DrpdwnWorkorderNo\").props.value\n\t\t\t\t\tuserId \u003d self.session.custom.UserId\n\t\t\t\t\tworkorderTypeId \u003d self.view.custom.workorderType\n\n\t\t\t\t\twoMachineCodeList \u003d WorkOrderDetailsAPI.getMachineListForSelectedWO(userId,selectedLineId,selectedWoNumberId)\n\t\t\t\t\tsystem.perspective.print(\"woMachineCodeList \"+str(woMachineCodeList))\n\t\t\t\t\t\n\t\t\t\t\tscannedString \u003d machineTxt\n\t\t\t\t\tscannedString \u003d str(scannedString).strip()\n\t\t\t\t\tscannedStrArray \u003d (scannedString.split(\"|\"))\n\t\t\t\t\t\n\t\t\t\t\ttry:\n\t\t\t\t\t\tscannedMachineCode \u003d str(scannedStrArray[0]).strip()\n\t\t\t\t\t\tscannedHeadName \u003d str(scannedStrArray[1]).strip()\n\t\t\t\t\texcept:\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d  str(redColor)\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \"Warning: Please scan correct machine barcode\"\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\n\t\t\t\t\ttry:\n\t\t\t\t\t\tscannedMachineLocator \u003d str(scannedStrArray[2]).strip()\n\t\t\t\t\texcept:\n\t\t\t\t\t\tscannedMachineLocator \u003d \"\"\n\t\t\t\t\tself.view.custom.scannedmachineLocator \u003d scannedMachineLocator\n\n\t\t\t\t\tif str(len(scannedStrArray)) \u003d\u003d str(\u00271\u0027) and str(workorderTypeId) \u003d\u003d str(\u00271\u0027):\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d  str(redColor)\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \"Warning: Please scan correct machine barcode in form of MachineName|Heads| \"\t\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\t\tself.getSibling(\"TblComponent\").props.data \u003d []\n\t\t\t\t\t\tself.props.text \u003d str(\"\")\n\t\t\t\t\telif (str(len(scannedStrArray)) \u003d\u003d str(\u00271\u0027) or str(len(scannedStrArray)) \u003d\u003d str(\u00272\u0027)) and str(workorderTypeId) \u003d\u003d str(\u00272\u0027):\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d  str(redColor)\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \"Warning: Please scan correct machine barcode in form of MachineName|Heads|CorrectMachineLocator \"\t\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\t\tself.getSibling(\"TblComponent\").props.data \u003d []\n\t\t\t\t\t\tself.props.text \u003d str(\"\")\n\t\t\t\t\telif str(scannedMachineCode).strip() not in woMachineCodeList:\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d  str(redColor)\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \"This operation is not linked to the part number\"\t\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\t\tself.getSibling(\"TblComponent\").props.data \u003d []\n\t\t\t\t\t\tself.props.text \u003d str(\"\")\n\t\t\t\t\t\tsystem.perspective.vibrateDevice(150)\n\t\t\t\t\telse:\n\t\t\t\t\t\tresultData \u003d WorkOrderDetailsAPI.getAllPDADetailsForSelMachine(userId,selectedLineId,selectedWoNumberId,scannedMachineCode)\n\t\t\t\t\t\tfor i in resultData:\t\t\t\n\t\t\t\t\t\t\twoNumber \u003d i.get(\"WorkOrderNo\")\t\n\t\t\t\t\t\t\tworkflowOperationsId \u003d i.get(\"WorkflowOperationsId\")\n\t\t\t\t\t\t\toperationId\u003di.get(\"OperationId\")\n\t\t\t\t\t\t\tprocess \u003d i.get(\"Process\")\n\t\t\t\t\t\t\toperation \u003d i.get(\"Operation\")\n\t\t\t\t\t\t\tmachineId \u003d str(i.get(\"MachineId\")).strip()\n\t\t\t\t\t\t\tmachineName \u003d i.get(\"MachineName\")\n\t\t\t\t\t\t\toprStatus \u003d i.get(\"Status\")\n\t\t\t\t\t\t\tworkOrderQty \u003d i.get(\"PlannedQty\")\n\t\t\t\t\t\t\tworkflowId \u003d i.get(\"WorkflowId\")\t\t\t\n\t\t\t\t\t\t\tlineName \u003d i.get(\"LineName\")\n\t\t\t\t\t\t\tareaName \u003d i.get(\"AreaName\")\t\t\t\n\t\t\t\t\t\tself.view.custom.scannedmachineId\u003dmachineId\n\t\t\t\t\t\t\n\t\t\t\t\t\tsystem.perspective.print(\u0027Scanned MachineId is :\u0027 + str(machineId))\n#\t\t\t\t\t\tsystem.perspective.print(\u0027Scanned operationId is :\u0027 + str(operationId) + str(\u0027 Operation Name --\u003e \u0027) + str(operation))\n#\t\t\t\t\t\tsystem.perspective.print(\u0027Selected Workorder is passed or not ?:\u0027 + str(self.view.custom.selectedWorkorderPassforScanning))\n\t\t\t\t\t\t\n\t\t\t\t\t\t#------------- Write values to Session Variables ----------------------------------------\n\t\t\t\t\t\tself.session.custom.WoNumber \u003d woNumber\t\n\t\t\t\t\t\tself.session.custom.WorkflowId \u003d workflowId\n\t\t\t\t\t\tself.session.custom.WorkflowOperationsId \u003d operationId\n\t\t\t\t\t\tself.session.custom.Process \u003d process\n\t\t\t\t\t\tself.session.custom.WorkOrderQty \u003d workOrderQty\n\t\t\t\t\t\tself.session.custom.Operation \u003d operation\n\t\t\t\t\t\tself.session.custom.LineID \u003d self.getSibling(\"DrpdwnAutoLines\").props.value\n\t\t\t\t\t\t\n\t\t\t\t\t\tself.session.custom.areaName \u003d areaName\n\t\t\t\t\t\tself.session.custom.lineName \u003d lineName\n\t\t\t\t\t\tself.session.custom.machineName \u003d machineName\n\t\t\t\t\t\tself.session.custom.MachineID \u003d machineId\n\t\t\t\t\t\tself.session.custom.WOOperationStatus \u003d oprStatus\n\n\t\t\t\t\t\t#------------- Fetch session variable values --------------\t\t\t\t\n\t\t\t\t\t\tWoNumber \u003d self.session.custom.WoNumber\n\t\t\t\t\t\tworkflowId \u003d self.session.custom.WorkflowId\n\t\t\t\t\t\toperation \u003d self.session.custom.Operation\n\t\t\t\t\t\toperation \u003d self.session.custom.WorkflowOperationsId\n\t\t\t\t\t\tprocess \u003d \"Not Linked\"\n\t\t\t\t\t\toperationStatus \u003d self.session.custom.WOOperationStatus\n\t\t\t\t\t\toperationStatus \u003d str(operationStatus).strip()\n\n\t\t\t\t\t\tHeadData\u003dPDAComponentScanning.getHeadDetailsbyMachineId(machineId)\n\t\t\t\t\t\tHeadRowCount\u003dHeadData.getRowCount()\n\t\t\t\t\t\t\n\t\t\t\t\t\tif HeadRowCount \u003e 0:\n\t\t\t\t\t\t\tHeadIndex \u003d HeadData.getColumnIndex(\u0027HeadsName\u0027)\n\t\t\t\t\t\t\tHeadsList \u003d HeadData.getColumnAsList(HeadIndex)\n\t\t\t\t\t\t\tif str(scannedHeadName).strip() \u003d\u003d str(\u0027\u0027).strip():\n\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d  str(redColor)\n\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \"Warning: Please scan correct machine barcode which contain machine heads\"\n\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\t\t\t\tself.props.text \u003d str(\"\")\n\t\t\t\t\t\t\telif str(scannedHeadName).strip() not in HeadsList:\n\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d  str(redColor)\n\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \"Warning: Please scan correct head of machine \"\t+ str(scannedMachineCode)\n\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\t\t\t\tself.getSibling(\"TblComponent\").props.data \u003d []\n\t\t\t\t\t\t\t\tself.props.text \u003d str(\"\")\n\t\t\t\t\t\t\t\tsystem.perspective.vibrateDevice(150)\n\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\tfor i in range(HeadData.getRowCount()):\n\t\t\t\t\t\t\t\t\tHeadName \u003d HeadData.getValueAt(i,\u0027HeadsName\u0027)\n\t\t\t\t\t\t\t\t\tif HeadName \u003d\u003d scannedHeadName:\n\t\t\t\t\t\t\t\t\t\tBobbinsId \u003d HeadData.getValueAt(i,\u0027BobbinsId\u0027)\n\t\t\t\t\t\t\t\t\t\tself.view.custom.BobbinId\u003dBobbinsId\n\t\t\t\t\t\t\t\t\t\tself.view.custom.HeadName \u003d scannedHeadName\n\t\t\t\t\t\t\t\t\t\theadName \u003d scannedHeadName\n\t\t\t\t\t\t\t\t\t\tmachineLocator \u003dself.view.custom.scannedmachineLocator\n\t\t\t\t\t\t\t\t\t\tself.getSibling(\"ImageLoader\").meta.visible \u003d True\n\t\t\t\t\t\t\t\t\t\t\n#\t\t\t\t\t\t\t\t\t\tsystem.perspective.print(\u0027selectedWoNumberId : \u0027 + str(selectedWoNumberId))\n#\t\t\t\t\t\t\t\t\t\tsystem.perspective.print(\u0027operationId : \u0027 + str(operationId))\n#\t\t\t\t\t\t\t\t\t\tsystem.perspective.print(\u0027machineId : \u0027 + str(machineId))\n#\t\t\t\t\t\t\t\t\t\tsystem.perspective.print(\u0027headName : \u0027 + str(headName))\n#\t\t\t\t\t\t\t\t\t\tsystem.perspective.print(\u0027machineLocator : \u0027 + str(machineLocator))\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\tcomponentsTableData \u003d PDAComponentScanning.getSubstitueComponentDetails(selectedWoNumberId,operationId,machineId,headName,machineLocator)\n\t\t\t\t\t\t\t\t\t\tisReadOnly \u003d self.session.custom.authorizePDAScanComponentReadOnly\n\t\t\t\t\t\t\t\t\t\tif str(isReadOnly) \u003d\u003d str(\u00270\u0027) or isReadOnly\u003d\u003d0 :\n\t\t\t\t\t\t\t\t\t\t\tscannedMachineId \u003d machineId\n\t\t\t\t\t\t\t\t\t\t\tRunningWorkorderDetails \u003d PDAComponentScanning.GetCurrentRuningWorkorderDetailsByMachineWise(selectedLineId,selectedWorkorderId,scannedMachineId)\n\t\t\t\t\t\t\t\t\t\t\tself.view.custom.RunningRawmaterialDetails \u003d RunningWorkorderDetails\n\t\t\t\t\t\t\t\t\t\t\tsystem.perspective.print(\u0027Running WO Details : \u0027 + str(RunningWorkorderDetails))\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"TxtScanComponentQR\").props.enabled \u003d True\n\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"TblComponent\").props.data \u003d componentsTableData\n\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"ImageLoader\").meta.visible \u003d False\n\t\t\t\t\t\t\t\t\t\t\ttry:\n\t\t\t\t\t\t\t\t\t\t\t\tMaterialAvailableWorkOrderID \u003d componentsTableData.getValueAt(0,\"MaterialAvailableWorkOrderID\")\n\t\t\t\t\t\t\t\t\t\t\texcept:\n\t\t\t\t\t\t\t\t\t\t\t\tMaterialAvailableWorkOrderID \u003d 0\n\n\t\t\t\t\t\t\t\t\t\t\tif int(MaterialAvailableWorkOrderID) \u003d\u003d int(selectedWoNumberId) or int(MaterialAvailableWorkOrderID)\u003d\u003dint(0):\n\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"TxtScanComponentQR\").focus()\n\t\t\t\t\t\t\t\t\t\t\t\tsystem.perspective.vibrateDevice(40)\n\t\t\t\t\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\t\t\t\t\tRemainLotQuantity \u003d componentsTableData.getValueAt(0,\"RemainLotQuantity\")\n\t\t\t\t\t\t\t\t\t\t\t\tMaterialAvailableWorkOrderNo \u003d componentsTableData.getValueAt(0,\"MaterialAvailableWorkOrderNo\")\n\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d  str(redColor)\n\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \"Warning: Please do change over to this workorder, machine already having remaining qty : \"+ str(RemainLotQuantity) +\" for : \" + str(MaterialAvailableWorkOrderNo)\t\n\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"TxtScanComponentQR\").props.enabled \u003d False\n\t\t\t\t\t\t\t\t\t\t\t\tsystem.perspective.vibrateDevice(150)\n\t\t\t\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"TblComponent\").props.data \u003d componentsTableData\n\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"TxtScanComponentQR\").props.enabled \u003d False\n\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d  str(redColor)\n\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \"Warning: Read Only Acess\"\t\n\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\t\t\t\t\t\tbreak\n\t\t\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\t\t\tpass\n\t\t\t\t\t\telse:\n\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d  str(redColor)\n\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \"Warning: Please configure heads for the scanned machine\"\t\n\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\n\n\t\t\t\telse:\n\t\t\t\t\tself.getSibling(\"TxtScanMachine\").focus()\n\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d  \"Warning: Please select the workorder from dropdown\"\n\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\tself.getSibling(\"DrpdwnWorkorderNo\").focus()\n\t\t\t\t\tself.props.text \u003d str(\"\")\n\t\t\t\t\tsystem.perspective.vibrateDevice(150)\n\t\t\telse:\n\t\t\t\tself.getSibling(\"TxtScanMachine\").focus()\n\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d  \"Warning: Please select the line from dropdown\"\n\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\tself.getSibling(\"DrpdwnAutoLines\").focus()\n\t\t\t\tself.props.text \u003d str(\"\")\n\t\t\t\tsystem.perspective.vibrateDevice(150)\n\t\telse:\n\t\t\tself.getSibling(\"TblComponent\").props.data \u003d []\n\t\t\tpass\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: PDA :: Component Scanning : On Machine Scanning Change\u0027:\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)\n\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d  str(redColor)\n\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \"Warning: Error in machine scanning, please contact system administrator for more details \"\t\n\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\tself.props.text \u003d str(\u0027\u0027)"
+            }
+          }
+        },
+        "props": {
+          "deferUpdates": false,
+          "placeholder": "Scan/Enter Machine Code",
+          "rejectUpdatesWhileFocused": false,
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "events": {
+          "dom": {
+            "onMouseOver": {
+              "config": {
+                "script": "\ttry:\n\t\tWoNumber\u003dself.session.custom.WoNumber\n\t\tworkflowId\u003dself.session.custom.WorkflowId\n\t\tworkflowOperationId\u003dself.session.custom.Process\n\t\tworkflowProcessId\u003dself.session.custom.ProcessID\t\n\t\tComponentsDetails\u003dWorkOrderDetailsAPI.getComponentDetails(WoNumber,workflowId,workflowOperationId,workflowProcessId)\n\t\tsystem.perspective.print(\"Components Details to be Binded are: \"+ str(ComponentsDetails))\n\t#-----------For Start Button Enable Validation\t\t\n\t\tComponents \u003d system.dataset.toPyDataSet(ComponentsDetails)\n\t\ti \u003d None\n\t\tdsData \u003d Components\n\t\theaders \u003d [dsData.getColumnName(c) for c in range(dsData.getColumnCount())]\n\t\tSerialNumberIndex \u003d headers.index(\"SerialNumber\")\n\t\tLotNumberIndex \u003d headers.index(\"LotNumber\")\n\t\tseriallist \u003d dsData.getColumnAsList(SerialNumberIndex)\n\t\tLotNolist \u003d dsData.getColumnAsList(LotNumberIndex)\n\t\tif i in seriallist and i in LotNolist:\n\t\t\tsystem.perspective.print(\"Null Values Preset in the Components\")\n\t\t\tself.getSibling(\"BtnStart\").props.enabled\u003d0\n\t\t\tself.getSibling(\"BtnStart\").meta.tooltip.text\u003d \"Not able to Start, All Components Details are not Filled\"\n\t\telse:\n\t\t\tself.getSibling(\"BtnStart\").props.enabled\u003d1\n\t\t\tsystem.perspective.print(\"Null Not Preset in the Components\")\n\texcept:\n\t\t system.perspective.print(\"Error in the Borcode MouseOver\")\n"
+              },
+              "enabled": false,
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Image_1"
+        },
+        "position": {
+          "height": 24,
+          "width": 26,
+          "x": 342,
+          "y": 147
+        },
+        "props": {
+          "fit": {
+            "mode": "fill"
+          },
+          "source": "/system/images/Builtin/icons/16/barcodesmall.png"
+        },
+        "type": "ia.display.image"
+      },
+      {
+        "meta": {
+          "name": "LblErrorMessage",
+          "visible": false
+        },
+        "position": {
+          "height": 25,
+          "width": 365,
+          "x": 11,
+          "y": 216
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Warning: Please scan the machine code first",
+          "textStyle": {
+            "classes": "PDA/lblWarning",
+            "color": "#FF0000"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tgreenColor\u003d\"#00AC00\"\n\tredColor\u003d\"#FF0000\"\n\t\n\tif str(self.session.custom.authorizePDAScanComponentReadOnly) \u003d\u003d str(\u00270\u0027) or  int(self.session.custom.authorizePDAScanComponentReadOnly) \u003d\u003d int(0):\n\t\tself.getSibling(\"LblErrorMessage\").props.text\u003dstr(\"\")\n\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d False\n\telse:\n\t\tself.props.enabled \u003d False\n\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \"Warning: Read Only Access\"\n"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "TxtScanComponentQR"
+        },
+        "position": {
+          "height": 24,
+          "width": 302,
+          "x": 8,
+          "y": 190
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizePDAScanComponentReadOnly"
+              },
+              "type": "property"
+            }
+          },
+          "props.style.backgroundColor": {
+            "binding": {
+              "config": {
+                "path": "this.props.enabled"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value \u003d\u003d True:\n\t\tvalue \u003d \u0027#FFFFFF\u0027\n\telse:\n\t\tvalue \u003d \u0027#D5D5D573\u0027\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.text": {
+            "onChange": {
+              "enabled": null,
+              "script": "\ttry:\n\t\tgreenColor\u003d\"#00AC00\"\n\t\tredColor\u003d\"#FF0000\"\n\t\tscannedcomp \u003d self.props.text\n\t\tscannedMachine \u003d self.getSibling(\"TxtScanMachine\").props.text\n\t\tselecteWorkOrderId \u003d self.getSibling(\"DrpdwnWorkorderNo\").props.value\n\t\tselectedLineId \u003d self.getSibling(\"DrpdwnAutoLines\").props.value\n\t\t\n\t\tif scannedcomp !\u003d str(\"\"):\n\t\t\tif str(selectedLineId).strip() !\u003d str(\"\").strip():\n\t\t\t\tif str(selecteWorkOrderId).strip() !\u003d str(\"\").strip():\n\t\t\t\t\tif str(scannedMachine).strip() !\u003d str(\"\").strip():\n\t\t\t\t\t\tif scannedcomp !\u003d str(\"\"):\n\t\t\t\t\t\t\tselectedLineId \u003d self.getSibling(\"DrpdwnAutoLines\").props.value\n\t\t\t\t\t\t\tselectedWorkorderId \u003d self.getSibling(\"DrpdwnWorkorderNo\").props.value\n\t\t\t\t\t\t\tselectedWoNumberId \u003d self.getSibling(\"DrpdwnWorkorderNo\").props.value\n\t\t\t\t\t\t\toperationId \u003d self.session.custom.WorkflowOperationsId\n\t\t\t\t\t\t\tuserId \u003d self.session.custom.UserId\n\t\t\t\t\t\t\tlineId \u003d self.getSibling(\"DrpdwnAutoLines\").props.value\n\n\t\t\t\t\t\t\ttry:\t\t\t\n\t\t\t\t\t\t\t\tcomponentsTableData \u003d self.getSibling(\"TblComponent\").props.data\n\t\t\t\t\t\t\texcept exception as e:\n\t\t\t\t\t\t\t\tscriptName \u003d \"OperatorConsole\"\t\t\n\t\t\t\t\t\t\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(e)\n\t\t\t\t\t\t\t\tAuthentication.exceptionLogger(errorMessage)\n\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\tcomponentList \u003d []\n\t\t\t\t\t\t\t\tsubComponentList \u003d []\t\n\t\t\t\t\t\t\t\tcomponentNameIndex \u003d componentsTableData.getColumnIndex(\"PartNowithRevision\")\t\t\n\t\t\t\t\t\t\t\tcomponentList \u003d componentsTableData.getColumnAsList(componentNameIndex)\n\t\t\t\t\t\t\t\tscannedString \u003d self.props.text\n\t\t\t\t\t\t\t\tscannedString \u003d str(scannedString).strip()\n\t\t\t\t\t\t\t\tscannedStrArray \u003d (scannedString.split(\"|\"))\n\t\t\t\t\t\t\t\tscannedBarcodeType \u003d str(scannedStrArray[0]).strip()\n\n\t\t\t\t\t\t\t\tif str(scannedBarcodeType).strip().lower() \u003d\u003d str(\u0027L0\u0027).lower():\n\t\t\t\t\t\t\t\t\tlabelType \u003d 1\n\t\t\t\t\t\t\t\t\tscannedpartNumber \u003d str(scannedStrArray[1]).strip()\n\t\t\t\t\t\t\t\t\tscannedpartRevision \u003d str(scannedStrArray[2]).strip()\n\t\t\t\t\t\t\t\t\tscannedLotNumber \u003d str(scannedStrArray[3]).strip()\n\t\t\t\t\t\t\t\t\tscannedLotQty \u003d str(scannedStrArray[4]).strip()\n\t\t\t\t\t\t\t\t\tscannedFactory \u003d str(scannedStrArray[5]).strip()\n\t\t\t\t\t\t\t\t\tscannedSubInventory \u003d str(scannedStrArray[6]).strip()\n\t\t\t\t\t\t\t\t\tscannedVendorLot \u003d str(scannedStrArray[8]).strip()\n\t\t\t\t\t\t\t\telse: #EO Label Scanning \n\t\t\t\t\t\t\t\t\tmovementTypeId \u003d 3\n\t\t\t\t\t\t\t\t\tlabelType \u003d 2\n\t\t\t\t\t\t\t\t\tscannedpartNumber \u003d str(scannedStrArray[1]).strip()\n\t\t\t\t\t\t\t\t\tscannedpartRevision \u003d str(scannedStrArray[2]).strip()\n\t\t\t\t\t\t\t\t\tscannedVendorLot \u003d str(scannedStrArray[3]).strip()\n\t\t\t\t\t\t\t\t\tscannedLotQty \u003d str(scannedStrArray[4]).strip()\n\t\t\t\t\t\t\t\t\tscannedComponent \u003d scannedpartNumber + \u0027_\u0027+ scannedpartRevision\n\t\t\t\t\t\t\t\t\tfor i in range(componentsTableData.getRowCount()):\n\t\t\t\t\t\t\t\t\t\trequestedComponentName \u003d componentsTableData.getValueAt(i,\"PartNowithRevision\")\n\t\t\t\t\t\t\t\t\t\tscannedStrArrayEO \u003d (requestedComponentName.split(\"_\"))\n\t\t\t\t\t\t\t\t\t\trequestedComponentNameTable \u003d str(scannedStrArrayEO[0]).strip()+\u0027_\u0027+str(scannedStrArrayEO[1]).strip()\n\t\t\t\t\t\t\t\t\t\tscannedFactory \u003d str(scannedStrArrayEO[2]).strip()\n\t\t\t\t\t\t\t\t\t\tbreak\n\n\t\t\t\t\t\t\t\t\t\tif str(requestedComponentNameTable).strip().upper() \u003d\u003d str(scannedComponent).strip().upper():\n\t\t\t\t\t\t\t\t\t\t\tselectedItemId \u003d  componentsTableData.getValueAt(i,\"ItemId\")\n\t\t\t\t\t\t\t\t\t\t\tbreak\n\n\t\t\t\t\t\t\t\t\tscannedLotNumber \u003d \u0027\u0027\n\t\t\t\t\t\t\t\t\tscannedSubInventory \u003d \u0027\u0027\n\n#\t\t\t\t\t\t\t\tsystem.perspective.print(\u0027scannedpartNumber : \u0027 + str(scannedpartNumber) + \u0027 || scannedpartRevision : \u0027 + str(scannedpartRevision) + \u0027 || scannedLotNumber : \u0027 + str(scannedLotNumber))\n#\t\t\t\t\t\t\t\tsystem.perspective.print(\u0027scannedLotQty : \u0027 + str(scannedLotQty) + \u0027 || scannedFactory : \u0027 + str(scannedFactory))\n#\t\t\t\t\t\t\t\tsystem.perspective.print(\u0027scannedLotNumber : \u0027 + str(scannedLotNumber) + \u0027 || scannedLotNumber : \u0027 + str(scannedLotNumber))\n\n\t\t\t\t\t\t\t\tpartName \u003d \tstr(scannedpartNumber)+\"_\"+str(scannedpartRevision)+\"_\"+str(scannedFactory)\n\n\t\t\t\t\t\t\t\trunningWOData \u003d self.view.custom.RunningRawmaterialDetails\n\t\t\t\t\t\t\t\trunningWODataCount\u003drunningWOData.getRowCount()\n\n\t\t\t\t\t\t\t\tif runningWODataCount \u003e0 :\n\t\t\t\t\t\t\t\t\tcurrentRunningWorkorder \u003d runningWOData.getValueAt(0,\"currentRunningWorkorder\")\n\t\t\t\t\t\t\t\t\trawcomponentNameIndex \u003d runningWOData.getColumnIndex(\"currentRunningworkordersRawMaterial\")\n\t\t\t\t\t\t\t\t\trawcomponentList \u003d runningWOData.getColumnAsList(rawcomponentNameIndex)\n\t\t\t\t\t\t\t\t\trawcomponentMachineIdIndex \u003d runningWOData.getColumnIndex(\"currentRunningworkordersMachineId\")\n\t\t\t\t\t\t\t\t\trawcomponentMachineIdList \u003d runningWOData.getColumnAsList(rawcomponentMachineIdIndex)\n\t\t\t\t\t\t\t\t\tscannedmachineId \u003d self.view.custom.scannedmachineId\n\t\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\t\trawcomponentList \u003d []\n\t\t\t\t\t\t\t\t\trawcomponentMachineIdList \u003d []\n\n\n\n\t\t\t\t\t\t\t\tif (runningWODataCount \u003e0  and (str(partName).upper().strip() not in rawcomponentList) and (str(partName).upper().strip() not in componentList) and (str(self.view.custom.selectedWorkorderPassforScanning).strip() \u003d\u003d str(\u0027False\u0027).strip())): #and str(self.view.custom.workorderType) \u003d\u003d str(\u00271\u0027):\n\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \"Warning: The scanned component is not allowed to feed as in this machine as another Workorder In-Progress for\" + str(currentRunningWorkorder)\n\t\t\t\t\t\t\t\t\tself.props.text \u003d str(\"\")\n\t\t\t\t\t\t\t\t\tsystem.perspective.vibrateDevice(150)\n\t\t\t\t\t\t\t\telif (runningWODataCount \u003e0  and (str(partName).upper().strip() not in rawcomponentList) and (str(partName).upper().strip()  in componentList) and (str(self.view.custom.selectedWorkorderPassforScanning).strip() \u003d\u003d str(\u0027False\u0027).strip())): #and str(self.view.custom.workorderType) \u003d\u003d str(\u00271\u0027):\n\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \"Warning: The scanned component is not allowed to feed as in this machine as another Workorder In-Progress for\" + str(currentRunningWorkorder)\n\t\t\t\t\t\t\t\t\tself.props.text \u003d str(\"\")\n\t\t\t\t\t\t\t\t\tsystem.perspective.vibrateDevice(150)\n\t\t\t\t\t\t\t\telif runningWODataCount \u003e0  and (str(partName).upper().strip() in rawcomponentList) and (str(partName).upper().strip() not in componentList) and str(self.view.custom.selectedWorkorderPassforScanning).strip() \u003d\u003d str(\u0027False\u0027).strip(): #and str(self.view.custom.workorderType) \u003d\u003d str(\u00271\u0027):\n\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \"Warning: The scanned component is not allowed to feed as in this machine as another Workorder In-Progress\" + str(currentRunningWorkorder)\n\t\t\t\t\t\t\t\t\tself.props.text \u003d str(\"\")\n\t\t\t\t\t\t\t\t\tsystem.perspective.vibrateDevice(150)\n#\t\t\t\t\t\t\t\telif str(self.view.custom.selectedWorkorderPassforScanning).strip() \u003d\u003d str(\u0027False\u0027).strip() and runningWODataCount \u003d\u003d 0: #and str(self.view.custom.workorderType) \u003d\u003d str(\u00271\u0027) :\n#\t\t\t\t\t\t\t\t\tcurrentRunningWorkorder \u003d self.view.custom.currentRunningWorkorderAgainstLine\n#\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n#\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n#\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \"Warning: Already workorder \"+str(currentRunningWorkorder) +\" is in progress not allowed to feed material against scanned machine\"\n#\t\t\t\t\t\t\t\t\tself.props.text \u003d str(\"\")\n#\t\t\t\t\t\t\t\t\tsystem.perspective.vibrateDevice(150)\n\t\t\t\t\t\t\t\telif (str(partName).upper().strip() not in componentList) and runningWODataCount \u003d\u003d 0: #and str(self.view.custom.workorderType) \u003d\u003d str(\u00271\u0027):\n\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \"Warning: The scanned component is not linked with above machine.\"\n\t\t\t\t\t\t\t\t\tself.props.text \u003d str(\"\")\n\t\t\t\t\t\t\t\t\tsystem.perspective.vibrateDevice(150)\n\t\t\t\t\t\t\t\telif (str(partName).upper().strip() not in componentList) and str(self.view.custom.workorderType) \u003d\u003d str(\u00272\u0027):\n\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \"Warning: The scanned component is not linked with above machine.\"\n\t\t\t\t\t\t\t\t\tself.props.text \u003d str(\"\")\n\t\t\t\t\t\t\t\t\tsystem.perspective.vibrateDevice(150)\n\t\t\t\t\t\t\t\telif (str(partName).upper().strip() not in componentList): #and str(self.view.custom.selectedWorkorderPassforScanning).strip() \u003d\u003d str(\u0027True\u0027).strip():\n\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \"Warning: The scanned component is not linked with above machine.\"\n\t\t\t\t\t\t\t\t\tself.props.text \u003d str(\"\")\n\t\t\t\t\t\t\t\t\tsystem.perspective.vibrateDevice(150)\n\t\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\t\tfor i in range(componentsTableData.getRowCount()):\n\t\t\t\t\t\t\t\t\t\tpartNameFromTbl \u003d componentsTableData.getValueAt(i,\"PartNowithRevision\")\n\n\t\t\t\t\t\t\t\t\t\tif str(partNameFromTbl).strip().lower()\u003d\u003dstr(partName).strip().lower():\n\t\t\t\t\t\t\t\t\t\t\tBomDetailsId \u003d componentsTableData.getValueAt(i,\"bomdetailsId\")\n\t\t\t\t\t\t\t\t\t\t\tselectedItemId \u003d  componentsTableData.getValueAt(i,\"ItemId\")\n\t\t\t\t\t\t\t\t\t\t\tscannedRMBomId \u003d componentsTableData.getValueAt(i,\"BomId\")\n\t\t\t\t\t\t\t\t\t\t\tscannedRMUnitUsage \u003d componentsTableData.getValueAt(i,\"UnitUsage\")\n\t\t\t\t\t\t\t\t\t\t\t\n\n\t\t\t\t\t\t\t\t\t\t\tmovementTypeId \u003d 3\n\t\t\t\t\t\t\t\t\t\t\tmachineLocator \u003d self.view.custom.scannedmachineLocator\n\n\n\t\t\t\t\t\t\t\t\t\t\ttry:\n\t\t\t\t\t\t\t\t\t\t\t\tcomponentValidation\u003dPDAComponentScanning.getValidationStatus(selectedItemId,scannedLotNumber,selectedLineId,scannedLotQty,movementTypeId,selectedWorkorderId,machineLocator,labelType,scannedVendorLot)\n\t\t\t\t\t\t\t\t\t\t\texcept:\n\t\t\t\t\t\t\t\t\t\t\t\tcomponentValidation \u003d []\n\n\t\t\t\t\t\t\t\t\t\t\tsystem.perspective.print(\u0027componentValidation Data: \u0027 + str(componentValidation))\n\n\t\t\t\t\t\t\t\t\t\t\ttry:\n\t\t\t\t\t\t\t\t\t\t\t\tIsLotAvailable\u003d componentValidation.getValueAt(0,\u0027AvailableLot\u0027)\n\t\t\t\t\t\t\t\t\t\t\texcept:\n\t\t\t\t\t\t\t\t\t\t\t\tIsLotAvailable \u003d 0\n\t\t\t\t\t\t\t\t\t\t\ttry:\n\t\t\t\t\t\t\t\t\t\t\t\tIsAvailableQty \u003d  componentValidation.getValueAt(0,\u0027AvailableQTY\u0027)\n\t\t\t\t\t\t\t\t\t\t\texcept:\n\t\t\t\t\t\t\t\t\t\t\t\tIsAvailableQty \u003d 0\n\n\t\t\t\t\t\t\t\t\t\t\ttry:\n\t\t\t\t\t\t\t\t\t\t\t\tIsExpired \u003d  componentValidation.getValueAt(0,\u0027IsExpired\u0027)\n\t\t\t\t\t\t\t\t\t\t\texcept:\n\t\t\t\t\t\t\t\t\t\t\t\tIsExpired \u003d 0\n\n\t\t\t\t\t\t\t\t\t\t\tsystem.perspective.print(\u0027IsLotAvailable : \u0027 + str(IsLotAvailable))\n\t\t\t\t\t\t\t\t\t\t\tsystem.perspective.print(\u0027IsAvailableQty Data: \u0027 + str(IsAvailableQty))\n\t\t\t\t\t\t\t\t\t\t\tsystem.perspective.print(\u0027IsExpired Data: \u0027 + str(IsExpired))\n\n\t\t\t\t\t\t\t\t\t\t\tif int(IsLotAvailable) \u003d\u003d int(1):\n\t\t\t\t\t\t\t\t\t\t\t\tif float(scannedLotQty) \u003e float(0):\n\t\t\t\t\t\t\t\t\t\t\t\t\tif (float(IsAvailableQty) \u003e\u003d float(scannedLotQty)) or (float(IsAvailableQty) \u003d\u003d float(scannedLotQty)):\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tif int(IsExpired) \u003d\u003d int(0):\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tBobbinId\u003dself.view.custom.BobbinId\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tscannedHeadName \u003d self.view.custom.HeadName\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\toperationId \u003d self.session.custom.WorkflowOperationsId \n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tmachineId \u003d self.session.custom.MachineID\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tmachineLocator \u003d self.view.custom.scannedmachineLocator\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tpostScannedComponents\u003dPDAComponentScanning.postScannedComponentDetails(selectedWorkorderId,selectedLineId,BomDetailsId,selectedItemId,scannedLotNumber,scannedLotQty,userId,BobbinId,scannedHeadName,operationId,machineId,machineLocator,labelType,scannedVendorLot,scannedRMBomId,scannedRMUnitUsage)\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tif int(postScannedComponents) \u003d\u003d int(1):\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tRemainingTotalQtyAgainstLot \u003d float(IsAvailableQty) - float(scannedLotQty)\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(greenColor)\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d  \"Success: Scanned Material is loaded successfully\"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.props.text \u003d str(\"\")\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\theadName \u003d scannedHeadName\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tcomponentsTableData \u003d PDAComponentScanning.getSubstitueComponentDetails(selectedWoNumberId,operationId,machineId,headName,machineLocator)\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"TblComponent\").props.data\u003dcomponentsTableData\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tsystem.perspective.vibrateDevice(40)\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tbreak\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d  \"Warning: Error material Loading to machine, Please contact system administrative\"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.props.text \u003d str(\"\")\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tsystem.perspective.vibrateDevice(150)\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tbreak\n\t\t\t\t\t\t\t\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d  \"Warning: Scanned component is expired\"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.props.text \u003d str(\"\")\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tsystem.perspective.vibrateDevice(150)\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tbreak\n\t\t\t\t\t\t\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d  \"Warning: Scanned Lot quantity is greater than available dispatched lot quantity (\"+ str(IsAvailableQty)+ \")\"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.props.text \u003d str(\"\")\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tsystem.perspective.vibrateDevice(150)\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tbreak\n\t\t\t\t\t\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d  \"Warning: Scanned lot quantity should be greater than zero\"\n\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\t\t\t\t\t\t\t\t\tself.props.text \u003d str(\"\")\n\t\t\t\t\t\t\t\t\t\t\t\t\tsystem.perspective.vibrateDevice(150)\n\t\t\t\t\t\t\t\t\t\t\t\t\tbreak\n\t\t\t\t\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d  \"Warning: Scanned component lot is not available\"\n\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\t\t\t\t\t\t\t\tself.props.text \u003d str(\"\")\n\t\t\t\t\t\t\t\t\t\t\t\tsystem.perspective.vibrateDevice(150)\n\t\t\t\t\t\t\t\t\t\t\t\tbreak\n\n\t\t\t\t\t\telse:\n\t\t\t\t\t\t\tpass\n\t\t\t\t\telse:\n\t\t\t\t\t\tself.getSibling(\"TxtScanMachine\").focus()\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d  \"Warning: Please scan the machine code first\"\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\t\tself.getSibling(\"TxtScanMachine\").focus()\n\t\t\t\t\t\tself.props.text \u003d str(\"\")\n\t\t\t\t\t\tsystem.perspective.vibrateDevice(150)\n\t\t\t\telse:\n\t\t\t\t\tself.getSibling(\"TxtScanMachine\").focus()\n\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d  \"Warning: Please select the workorder from dropdown\"\n\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\tself.getSibling(\"DrpdwnWorkorderNo\").focus()\n\t\t\t\t\tself.props.text \u003d str(\"\")\n\t\t\t\t\tsystem.perspective.vibrateDevice(150)\n\t\t\telse:\n\t\t\t\tself.getSibling(\"TxtScanMachine\").focus()\n\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d  \"Warning: Please select the line from dropdown\"\n\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\tself.getSibling(\"DrpdwnAutoLines\").focus()\n\t\t\t\tself.props.text \u003d str(\"\")\n\t\t\t\tsystem.perspective.vibrateDevice(150)\n\t\telse:\n\t\t\tpass\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: Component Scanning ::\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)\n\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d  \"Warning: Error in Component Scanning, Please contact system administrative\"\n\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\tself.props.text \u003d str(\"\")\n\t\tsystem.perspective.vibrateDevice(150)"
+            }
+          }
+        },
+        "props": {
+          "deferUpdates": false,
+          "placeholder": "Scan/Enter Component Lot",
+          "rejectUpdatesWhileFocused": false,
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "events": {
+          "dom": {
+            "onMouseOver": {
+              "config": {
+                "script": "\ttry:\n\t\tWoNumber\u003dself.session.custom.WoNumber\n\t\tworkflowId\u003dself.session.custom.WorkflowId\n\t\tworkflowOperationId\u003dself.session.custom.Process\n\t\tworkflowProcessId\u003dself.session.custom.ProcessID\t\n\t\tComponentsDetails\u003dWorkOrderDetailsAPI.getComponentDetails(WoNumber,workflowId,workflowOperationId,workflowProcessId)\n\t\tsystem.perspective.print(\"Components Details to be Binded are: \"+ str(ComponentsDetails))\n\t#-----------For Start Button Enable Validation\t\t\n\t\tComponents \u003d system.dataset.toPyDataSet(ComponentsDetails)\n\t\ti \u003d None\n\t\tdsData \u003d Components\n\t\theaders \u003d [dsData.getColumnName(c) for c in range(dsData.getColumnCount())]\n\t\tSerialNumberIndex \u003d headers.index(\"SerialNumber\")\n\t\tLotNumberIndex \u003d headers.index(\"LotNumber\")\n\t\tseriallist \u003d dsData.getColumnAsList(SerialNumberIndex)\n\t\tLotNolist \u003d dsData.getColumnAsList(LotNumberIndex)\n\t\tif i in seriallist and i in LotNolist:\n\t\t\tsystem.perspective.print(\"Null Values Preset in the Components\")\n\t\t\tself.getSibling(\"BtnStart\").props.enabled\u003d0\n\t\t\tself.getSibling(\"BtnStart\").meta.tooltip.text\u003d \"Not able to Start, All Components Details are not Filled\"\n\t\telse:\n\t\t\tself.getSibling(\"BtnStart\").props.enabled\u003d1\n\t\t\tsystem.perspective.print(\"Null Not Preset in the Components\")\n\texcept:\n\t\t system.perspective.print(\"Error in the Borcode MouseOver\")\n"
+              },
+              "enabled": false,
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Image_2"
+        },
+        "position": {
+          "height": 24,
+          "width": 25,
+          "x": 343,
+          "y": 190
+        },
+        "props": {
+          "fit": {
+            "mode": "fill"
+          },
+          "source": "/system/images/Builtin/icons/16/barcodesmall.png"
+        },
+        "type": "ia.display.image"
+      },
+      {
+        "meta": {
+          "name": "LblScanMchine_0"
+        },
+        "position": {
+          "height": 21,
+          "width": 193,
+          "x": 7.5,
+          "y": 171
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Scan Component Lot",
+          "textStyle": {
+            "classes": "PDA/PDALabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "page": "/PDADashboard"
+              },
+              "scope": "C",
+              "type": "nav"
+            }
+          }
+        },
+        "meta": {
+          "name": "NavigateBackButton"
+        },
+        "position": {
+          "height": 22,
+          "width": 30,
+          "x": 1,
+          "y": 4
+        },
+        "props": {
+          "path": "material/arrow_back"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\tselectedLineId\u003d self.getSibling(\"DrpdwnAutoLines\").props.value\n\t\tselectedWorkorderId\u003d self.getSibling(\"DrpdwnWorkorderNo\").props.value\n\t\tif str(selectedLineId).strip() !\u003d str(\"\").strip():\n\t\t\tif str(selectedLineId).strip() !\u003d str(\"\").strip() and str(selectedWorkorderId).strip() !\u003d str(\"\").strip():\n\t\t\t\tself.view.custom.HeadName \u003d \u0027\u0027\n\t\t\t\tself.view.custom.scannedmachineLocator \u003d \u0027\u0027\n\t\t\t\tself.view.custom.BobbinId \u003d \u0027\u0027\n\t\t\t\tself.getSibling(\"TxtScanMachine\").props.text \u003d str(\u0027\u0027).strip()\n\t\t\t\tself.getSibling(\"TxtScanMachine\").focus()\n\t\t\t\tself.getSibling(\"TblComponent\").props.data \u003d []\n\t\t\t\tself.getSibling(\"TxtScanComponentQR\").props.enabled \u003d True\n\t\t\t\tself.getSibling(\"TxtScanComponentQR\").props.text\u003d \u0027\u0027\n\t\t\telse:\n\t\t\t\tself.getSibling(\"DrpdwnWorkorderNo\").focus()\n\t\telse:\n\t\t\tself.getSibling(\"DrpdwnAutoLines\").focus()\n\texcept:\n\t\tpass"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Icon",
+          "tooltip": {
+            "text": "Click to clear machine"
+          }
+        },
+        "position": {
+          "height": 26,
+          "width": 32,
+          "x": 309,
+          "y": 146
+        },
+        "props": {
+          "path": "material/arrow_back"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "Icon_0",
+          "tooltip": {
+            "text": "Click to clear machine"
+          }
+        },
+        "position": {
+          "height": 26,
+          "width": 32,
+          "x": 309,
+          "y": 189
+        },
+        "props": {
+          "path": "material/arrow_back"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "ImageLoader",
+          "visible": 0
+        },
+        "position": {
+          "height": 108,
+          "width": 124.00000000000001,
+          "x": 128,
+          "y": 321.25
+        },
+        "props": {
+          "fit": {
+            "mode": "cover"
+          },
+          "source": "/system/images/Builtin/icons/32/giphy.gif"
+        },
+        "type": "ia.display.image"
+      }
+    ],
+    "meta": {
+      "name": "root",
+      "tooltip": {
+        "text": "Operation Already Started"
+      }
+    },
+    "position": {
+      "x": -9.5,
+      "y": -5.149993896484375
+    },
+    "type": "ia.container.coord"
+  }
+}

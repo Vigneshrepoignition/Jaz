@@ -1,0 +1,421 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\tWoNumber \u003dself.session.custom.WoNumber\n\t\tsystem.perspective.print(\u0027WoNumber :\u0027 + str(WoNumber))\n\t\tData\u003dProductionOperatorConsole.getAvailableComponents(WoNumber)\n\t\trowCount\u003dData.getRowCount()\n\t\tif rowCount \u003e 0:\n\t\t\tself.getChild(\"root\").getChild(\"TblViewComponents\").props.data \u003d Data\n\t\t\tself.getChild(\"root\").getChild(\"BtnExport\").props.enabled \u003d True\n\t\telse:\n\t\t\tself.getChild(\"root\").getChild(\"BtnExport\").props.enabled \u003d False\n\texcept:\n\t\tpass"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "Editable": "value",
+    "ID": "value"
+  },
+  "propConfig": {
+    "params.Editable": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.ID": {
+      "paramDirection": "output",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 647,
+      "width": 999
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "TblViewComponents"
+        },
+        "position": {
+          "height": 0.831,
+          "width": 0.9783,
+          "x": 0.0115,
+          "y": 0.1535
+        },
+        "props": {
+          "bodyStyle": {
+            "classes": "Table/RowsBorder"
+          },
+          "cells": {
+            "allowEditOn": "single-click"
+          },
+          "data": {
+            "$": [
+              "ds",
+              192,
+              1674194702376
+            ],
+            "$columns": [
+              {
+                "data": [],
+                "name": "SrNo",
+                "type": "Integer"
+              },
+              {
+                "data": [],
+                "name": "WorkorderNo",
+                "type": "String"
+              },
+              {
+                "data": [],
+                "name": "ComponentName",
+                "type": "String"
+              },
+              {
+                "data": [],
+                "name": "Description",
+                "type": "String"
+              },
+              {
+                "data": [],
+                "name": "UOMName",
+                "type": "String"
+              },
+              {
+                "data": [],
+                "name": "BOMQTY",
+                "type": "String"
+              },
+              {
+                "data": [],
+                "name": "SPQ",
+                "type": "Double"
+              },
+              {
+                "data": [],
+                "name": "SPQCount",
+                "type": "Integer"
+              },
+              {
+                "data": [],
+                "name": "IsSelected",
+                "type": "Boolean"
+              },
+              {
+                "data": [],
+                "name": "IsSubmit",
+                "type": "Boolean"
+              },
+              {
+                "data": [],
+                "name": "PartId",
+                "type": "Integer"
+              }
+            ]
+          },
+          "emptyMessage": {
+            "noData": {
+              "icon": {
+                "color": "#C0C0C0",
+                "path": "material/hourglass_empty"
+              },
+              "text": "Available material are not found"
+            }
+          },
+          "filter": {
+            "enabled": true
+          },
+          "headerStyle": {
+            "classes": "Table/Header"
+          },
+          "pager": {
+            "bottom": false,
+            "initialOption": 10,
+            "options": [
+              10,
+              15,
+              25,
+              50,
+              100
+            ]
+          },
+          "rows": {
+            "style": {
+              "classes": "Table/Rowsmiddle",
+              "lineHeight": 2
+            }
+          }
+        },
+        "type": "ia.display.table"
+      },
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 0.0588,
+          "width": 0.9983,
+          "x": 0.0009,
+          "y": 0.0016
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "View Available Material / Components",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 10,
+            "textAlign": "Center",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027AvailableComponents\u0027)\n\tsystem.perspective.closePopup(\u0027\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Icon"
+        },
+        "position": {
+          "height": 0.0531,
+          "width": 0.0351,
+          "x": 0.954,
+          "y": 0.0029
+        },
+        "props": {
+          "color": "#FFFFFF",
+          "path": "material/close"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttoday \u003d system.date.now()\n\tfileSuffix\u003dsystem.date.format(today, \"yyyyMMdd\")\n\tcomponentsAvailable\u003dself.getSibling(\"TblViewComponents\").props.data\n\tWorkorderNo \u003dself.session.custom.WoNumber\n\tcsv \u003d system.dataset.toCSV(componentsAvailable)\n\tsystem.perspective.download(\"componentsAvailable_\"+str(WorkorderNo)+\"_Date_\"+fileSuffix+\".csv\",csv)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnExport",
+          "tooltip": {
+            "enabled": true,
+            "location": "bottom-left",
+            "text": "Back"
+          }
+        },
+        "position": {
+          "height": 0.0651,
+          "rotate": {
+            "anchor": "50% -38%"
+          },
+          "width": 0.0863,
+          "x": 0.9012,
+          "y": 0.0712
+        },
+        "propConfig": {
+          "props.style.backgroundColor": {
+            "binding": {
+              "config": {
+                "path": "this.props.enabled"
+              },
+              "transforms": [
+                {
+                  "code": "\t\n\tif value \u003d\u003d True:\n\t\tvalue \u003d \u0027#3888CC\u0027\n\t\tself.props.style.borderColor \u003d \"#3888CC\"\n\telse:\n\t\tvalue \u003d str(self.session.custom.disableBtncolour)\n\t\tself.props.style.borderColor \u003d  str(self.session.custom.disableBtncolour)\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "enabled": 0,
+          "image": {
+            "height": 25,
+            "width": 35
+          },
+          "style": {
+            "borderColor": "value",
+            "classes": "Common/Button"
+          },
+          "text": "Export"
+        },
+        "type": "ia.input.button"
+      }
+    ],
+    "custom": {
+      "tblSparePart": {
+        "$": [
+          "ds",
+          192,
+          1663215693214
+        ],
+        "$columns": [
+          {
+            "data": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15"
+            ],
+            "name": "ID",
+            "type": "String"
+          },
+          {
+            "data": [
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            "name": "Material",
+            "type": "String"
+          },
+          {
+            "data": [
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            "name": "RequestQty",
+            "type": "String"
+          },
+          {
+            "data": [
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            "name": "UOM",
+            "type": "String"
+          },
+          {
+            "data": [
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            "name": "Action",
+            "type": "String"
+          },
+          {
+            "data": [
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            "name": "partID",
+            "type": "String"
+          }
+        ]
+      }
+    },
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": 438,
+      "y": 33
+    },
+    "props": {
+      "mode": "percent",
+      "style": {
+        "classes": "Panel/PopUp"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

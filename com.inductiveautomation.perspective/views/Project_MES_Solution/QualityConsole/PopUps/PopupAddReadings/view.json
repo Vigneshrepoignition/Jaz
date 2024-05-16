@@ -1,0 +1,1363 @@
+{
+  "custom": {
+    "InspectionProcessManagerId": "0",
+    "IsCavity": 0,
+    "characteristicType": "value",
+    "dsChar": null,
+    "dsLot": "None",
+    "dsMoldSam": "None",
+    "isSeleted": 0,
+    "key": "value",
+    "sampleSize": 0,
+    "workOrderType": 0
+  },
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\tQualityType\u003d self.params.QualityType\n\t\tif QualityType \u003d\u003d\u0027FQC\u0027:\n\t\t\tself.getChild(\"root\").getChild(\"lblSpec\").props.text\u003d\u0027\u0027\n\t\t\tself.getChild(\"root\").getChild(\"lblMin\").props.text\u003d\u0027\u0027\n\t\t\tself.getChild(\"root\").getChild(\"lblMax\").props.text\u003d\u0027\u0027\n\t\t\tself.getChild(\"root\").getChild(\"lblNominal\").props.text\u003d\u0027\u0027\n\t\t\tself.getChild(\"root\").getChild(\"lblUOM\").props.text\u003d\u0027\u0027\n\t\t\tself.getChild(\"root\").getChild(\"lblInstrTYpe\").props.text\u003d\u0027\u0027\n\t\t\tself.getChild(\"root\").getChild(\"lblSampleS\").props.text\u003d\u0027\u0027\n\t\t\tself.getChild(\"root\").getChild(\"txtInstrumentSerialNo\").props.text\u003d\u0027\u0027\n\t\t\tself.getChild(\"root\").getChild(\"lblSampleS_Completed\").props.text\u003d\u0027\u0027\n\t\t\tself.getChild(\"root\").getChild(\"txtValue\").props.value\u003d0\n\t\t\tself.getChild(\"root\").getChild(\"chkNo\").meta.visible\u003d0\n\t\t\tself.getChild(\"root\").getChild(\"chkYes\").meta.visible\u003d0\n\t\t\tself.getChild(\"root\").getChild(\"txtValue\").meta.visible\u003d1\n\t\t\tself.getChild(\"root\").getChild(\"lblOkNotOk\").meta.visible\u003d0\n\t\t\tself.custom.sampleSize\u003d0\n\t\t\tCharacteristicId\u003dself.params.CharacteristicId\n\t\t\tCharacteristicType\u003dself.params.CharacteristicType\n\t\t\tInspectionTypeId\u003dself.params.InspectionTypeId\n\t\t\toperationId\u003dself.params.operationId\n\t\t\tWoNumber\u003dself.session.custom.WoNumber\n\t\t\tQualityType\u003d self.params.QualityType\n#\t\t\tsystem.perspective.print(\"QualityType  \"+str(QualityType))\n\t\t\tif QualityType\u003d\u003d\u0027FQC\u0027:\n\t\t\t\tself.getChild(\"root\").getChild(\"ddlLot\").meta.visible\u003d1\n\t\t\t\tself.getChild(\"root\").getChild(\"lblLot\").meta.visible\u003d1\n\t\t\t\tself.getChild(\"root\").getChild(\"LblScanBadge_6\").meta.visible\u003d1\n\t\t\telse:\n\t\t\t\tself.getChild(\"root\").getChild(\"ddlLot\").meta.visible\u003d0\n\t\t\t\tself.getChild(\"root\").getChild(\"lblLot\").meta.visible\u003d0\n\t\t\t\tself.getChild(\"root\").getChild(\"LblScanBadge_6\").meta.visible\u003d0\n \n\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\tself.custom.dsChar\u003dNone\n\t\t\tself.getChild(\"root\").getChild(\"lblMessage\").props.text\u003d\u0027\u0027\n\t\t\titemId\u003dself.params.itemId\n#\t\t\tsystem.perspective.print(\"operationId \"+str(operationId))\n#\t\t\tsystem.perspective.print(\"InspectionTypeId \"+str(InspectionTypeId))\t\n#\t\t\tsystem.perspective.print(\"WoNumber \"+str(WoNumber))\t\n#\t\t\tsystem.perspective.print(\"itemId \"+str(itemId))\t\n#\t\t\tsystem.perspective.print(\"CharacteristicId \"+str(CharacteristicId))\t\n#\t\t\tsystem.perspective.print(\"CharacteristicType \"+str(CharacteristicType))\t\n\t\t\tsession \u003d self.session.custom\n\t\t\tresultDetails\u003dQualityOperatorConsole.GetCharacteristicsForInspectionProcessManager(operationId,InspectionTypeId,WoNumber,itemId,CharacteristicId,CharacteristicType,session)\t\t\n\t\t\tresultDetails\u003dsystem.dataset.toPyDataSet(resultDetails)\n\t\t\tif len(resultDetails)\u003e0:\n\t\t\t\tself.custom.dsChar\u003dresultDetails\n\t\t\t\t\t\t\t\t\t\n\t\t\t\theader\u003d[\u0027CharacteristicId\u0027,\u0027CharacteristicName\u0027]\n\t\t\t\tdatalist\u003d[]\n\t\t\t\tfor i in resultDetails:\n\t\t\t\t\tself.custom.workOrderType\u003dint(i[\u0027workOrderType\u0027])\n\t\t\t\t\t\n\t\t\t\t\tCharacteristicId\u003di[\u0027CharacteristicId\u0027]\n\t\t\t\t\tCharacteristicName\u003di[\u0027CharacteristicName\u0027]\n\t\t\t\t\tdatalist.append([CharacteristicId,CharacteristicName])\n\t\t\t\t\t\n\t\t\t\tds \u003d system.dataset.toDataSet(header, datalist)\n\t\t\t\tds\u003dsystem.dataset.toPyDataSet(ds)\n\t\t\t\tself.getChild(\"root\").getChild(\"ddlChar\").props.options\u003dds\n\t\t\t\tself.getChild(\"root\").getChild(\"ddlChar\").props.value\u003d-1\n\t\t\telse:\n\t\t\t\tself.getChild(\"root\").getChild(\"ddlChar\").props.options\u003dNone\n\t\t\t\tself.getChild(\"root\").getChild(\"ddlChar\").props.value\u003d\u0027\u0027\n\t\t\twotype \u003d self.custom.workOrderType\t\n\t\t\tsystem.perspective.print(\"QualityType  \"+str(QualityType))\n\t\t\tsystem.perspective.print(\"wotype  \"+str(wotype))\n\t\t\t\t\n\t\t\tif QualityType\u003d\u003d\u0027FQC\u0027 and wotype!\u003d2:\n\t\t\t\tself.getChild(\"root\").getChild(\"ddlMachine\").meta.visible \u003d 0\n\t\t\t\tself.getChild(\"root\").getChild(\"lblMAchineName\").meta.visible \u003d 0\n\t\t\telse:\n\t\t\t\tself.getChild(\"root\").getChild(\"ddlMachine\").meta.visible \u003d 1\n\t\t\t\tself.getChild(\"root\").getChild(\"lblMAchineName\").meta.visible \u003d 1\n\t\t\t\t\t\t\t\t\t\n\t\telse:\n\t\t\tself.getChild(\"root\").getChild(\"lblSpec\").props.text\u003d\u0027\u0027\n\t\t\tself.getChild(\"root\").getChild(\"lblMin\").props.text\u003d\u0027\u0027\n\t\t\tself.getChild(\"root\").getChild(\"lblMax\").props.text\u003d\u0027\u0027\n\t\t\tself.getChild(\"root\").getChild(\"lblNominal\").props.text\u003d\u0027\u0027\n\t\t\tself.getChild(\"root\").getChild(\"lblUOM\").props.text\u003d\u0027\u0027\n\t\t\tself.getChild(\"root\").getChild(\"lblInstrTYpe\").props.text\u003d\u0027\u0027\n\t\t\tself.getChild(\"root\").getChild(\"lblSampleS\").props.text\u003d\u0027\u0027\n\t\t\tself.getChild(\"root\").getChild(\"txtInstrumentSerialNo\").props.text\u003d\u0027\u0027\n\t\t\tself.getChild(\"root\").getChild(\"lblSampleS_Completed\").props.text\u003d\u0027\u0027\n\t\t\tself.getChild(\"root\").getChild(\"txtValue\").props.value\u003d0\n\t\t\tself.getChild(\"root\").getChild(\"chkNo\").meta.visible\u003d0\n\t\t\tself.getChild(\"root\").getChild(\"chkYes\").meta.visible\u003d0\n\t\t\tself.getChild(\"root\").getChild(\"txtValue\").meta.visible\u003d1\n\t\t\tself.getChild(\"root\").getChild(\"lblOkNotOk\").meta.visible\u003d0\n\t\t\tself.custom.sampleSize\u003d0\n\t\t\tCharacteristicId\u003dself.params.CharacteristicId\n\t\t\tCharacteristicType\u003dself.params.CharacteristicType\n\t\t\tInspectionTypeId\u003dself.params.InspectionTypeId\n\t\t\toperationId\u003dself.params.operationId\n\t\t\tWoNumber\u003dself.session.custom.WoNumber\n\t\t\tQualityType\u003d self.params.QualityType\n\t\t\tsystem.perspective.print(\"QualityType  \"+str(QualityType))\n\t\t\tif QualityType\u003d\u003d\u0027FQC\u0027:\n\t\t\t\tself.getChild(\"root\").getChild(\"ddlLot\").meta.visible\u003d1\n\t\t\t\tself.getChild(\"root\").getChild(\"lblLot\").meta.visible\u003d1\n\t\t\t\tself.getChild(\"root\").getChild(\"LblScanBadge_6\").meta.visible\u003d1\n\t\t\telse:\n\t\t\t\tself.getChild(\"root\").getChild(\"ddlLot\").meta.visible\u003d0\n\t\t\t\tself.getChild(\"root\").getChild(\"lblLot\").meta.visible\u003d0\n\t\t\t\tself.getChild(\"root\").getChild(\"LblScanBadge_6\").meta.visible\u003d0\n\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\tself.custom.dsChar\u003dNone\n\t\t\tself.getChild(\"root\").getChild(\"lblMessage\").props.text\u003d\u0027\u0027\n\t\t\titemId\u003dself.params.itemId\n\t\t\tsystem.perspective.print(\"operationId \"+str(operationId))\n\t\t\tsystem.perspective.print(\"InspectionTypeId \"+str(InspectionTypeId))\t\n\t\t\tsystem.perspective.print(\"WoNumber \"+str(WoNumber))\t\n\t\t\tsystem.perspective.print(\"itemId \"+str(itemId))\t\n\t\t\tsystem.perspective.print(\"CharacteristicId \"+str(CharacteristicId))\t\n\t\t\tsystem.perspective.print(\"CharacteristicType \"+str(CharacteristicType))\t\n\t\t\tsession \u003d self.session.custom\n\t\t\tresultDetails\u003dQualityOperatorConsole.GetCharacteristicsForInspectionProcessManager(operationId,InspectionTypeId,WoNumber,itemId,CharacteristicId,CharacteristicType,session)\t\t\n\t\t\tresultDetails\u003dsystem.dataset.toPyDataSet(resultDetails)\n\t\t\tif len(resultDetails)\u003e0:\n\t\t\t\tself.custom.dsChar\u003dresultDetails\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\theader\u003d[\u0027CharacteristicId\u0027,\u0027CharacteristicName\u0027]\n\t\t\t\tdatalist\u003d[]\n\t\t\t\tfor i in resultDetails:\n\t\t\t\t\tself.custom.workOrderType\u003dint(i[\u0027workOrderType\u0027])\n\t\t\t\t\t\n\t\t\t\t\tCharacteristicId\u003di[\u0027CharacteristicId\u0027]\n\t\t\t\t\tCharacteristicName\u003di[\u0027CharacteristicName\u0027]\n\t\t\t\t\tdatalist.append([CharacteristicId,CharacteristicName])\n\t\t\t\t\t\n\t\t\t\tds \u003d system.dataset.toDataSet(header, datalist)\n\t\t\t\tds\u003dsystem.dataset.toPyDataSet(ds)\n\t\t\t\tself.getChild(\"root\").getChild(\"ddlChar\").props.options\u003dds\n\t\t\t\tself.getChild(\"root\").getChild(\"ddlChar\").props.value\u003d-1\n\t\t\telse:\n\t\t\t\tself.getChild(\"root\").getChild(\"ddlChar\").props.options\u003dNone\n\t\t\t\tself.getChild(\"root\").getChild(\"ddlChar\").props.value\u003d\u0027\u0027\n\t\t\n\n\texcept:\n\t\timport os\n\t\terrorMessage\u003d\"Quality :getCharacteristicsDetails add reading function. Exception- \"+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)\n\t\tsystem.perspective.print(errorMessage)"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "CharacteristicId": "value",
+    "CharacteristicType": "value",
+    "InspectionTypeId": "value",
+    "QualityType": "None",
+    "WoNumber": "value",
+    "itemId": "value",
+    "operationId": "value"
+  },
+  "propConfig": {
+    "custom.InspectionProcessManagerId": {
+      "persistent": true
+    },
+    "custom.IsCavity": {
+      "persistent": true
+    },
+    "custom.characteristicType": {
+      "persistent": true
+    },
+    "custom.dsChar": {
+      "persistent": true
+    },
+    "custom.dsLot": {
+      "persistent": true
+    },
+    "custom.dsMoldSam": {
+      "persistent": true
+    },
+    "custom.isSeleted": {
+      "persistent": true
+    },
+    "custom.key": {
+      "persistent": true
+    },
+    "custom.sampleSize": {
+      "persistent": true
+    },
+    "custom.workOrderType": {
+      "persistent": true
+    },
+    "params.CharacteristicId": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.CharacteristicType": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.InspectionTypeId": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.QualityType": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.WoNumber": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.itemId": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.operationId": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 554,
+      "width": 959
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 0.074,
+          "width": 1
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Add Readings",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 10,
+            "textAlign": "left",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 0.0675,
+          "width": 0.0509,
+          "x": 0.947,
+          "y": 0.0012
+        },
+        "props": {
+          "color": "#FFFFFF",
+          "path": "material/close"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "LblQtyperLot"
+        },
+        "position": {
+          "height": 0.0582,
+          "width": 0.1,
+          "x": 0.0275,
+          "y": 0.1261
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Select Char",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblQtypercontainer"
+        },
+        "position": {
+          "height": 0.0582,
+          "width": 0.2236,
+          "x": 0.3586,
+          "y": 0.1261
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Spec",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblQtyperPallet"
+        },
+        "position": {
+          "height": 0.0582,
+          "width": 0.2309,
+          "x": 0.6836,
+          "y": 0.1261
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Min",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "lblMin",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 0.0504,
+          "width": 0.281,
+          "x": 0.683,
+          "y": 0.1891
+        },
+        "props": {
+          "style": {
+            "borderColor": "#C8BFBF",
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "classes": "Common/TextBox",
+            "paddingLeft": 5
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblPalletNo"
+        },
+        "position": {
+          "height": 0.0582,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.1683,
+          "x": 0.6836,
+          "y": 0.2753
+        },
+        "props": {
+          "text": "UOM",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblLotNo",
+          "visible": 1
+        },
+        "position": {
+          "height": 0.0582,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.1683,
+          "x": 0.0275,
+          "y": 0.2753
+        },
+        "props": {
+          "text": "Max",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblContainerNo"
+        },
+        "position": {
+          "height": 0.0582,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.2218,
+          "x": 0.3586,
+          "y": 0.2753
+        },
+        "props": {
+          "text": "Nominal",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "lblMax",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 0.0504,
+          "width": 0.303,
+          "x": 0.0275,
+          "y": 0.3357
+        },
+        "props": {
+          "style": {
+            "borderColor": "#C8BFBF",
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "classes": "Common/TextBox",
+            "paddingLeft": 5
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "lblUOM",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 0.0504,
+          "width": 0.2865,
+          "x": 0.683,
+          "y": 0.3357
+        },
+        "props": {
+          "style": {
+            "borderColor": "#C8BFBF",
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "classes": "Common/TextBox",
+            "paddingLeft": 5
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "lblNominal",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 0.0504,
+          "width": 0.3018,
+          "x": 0.3575,
+          "y": 0.3357
+        },
+        "props": {
+          "style": {
+            "borderColor": "#C8BFBF",
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "classes": "Common/TextBox",
+            "paddingLeft": 5
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "lblSpec",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 0.0504,
+          "width": 0.303,
+          "x": 0.3575,
+          "y": 0.1879
+        },
+        "props": {
+          "style": {
+            "borderColor": "#C8BFBF",
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "classes": "Common/TextBox",
+            "paddingLeft": 5
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "lblInstrumentType"
+        },
+        "position": {
+          "height": 0.0582,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.1683,
+          "x": 0.0275,
+          "y": 0.4276
+        },
+        "props": {
+          "text": "Instrument Type",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "lblInstrTYpe",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 0.1304,
+          "width": 0.9398,
+          "x": 0.0314,
+          "y": 0.4881
+        },
+        "props": {
+          "alignVertical": "top",
+          "style": {
+            "borderColor": "#C8BFBF",
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "classes": "Common/TextBox",
+            "paddingLeft": ""
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "lblSampleSize"
+        },
+        "position": {
+          "height": 0.0507,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.0961,
+          "x": 0.0324,
+          "y": 0.8232
+        },
+        "props": {
+          "text": "Sample Size",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "lblSampleS",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 0.0504,
+          "width": 0.1369,
+          "x": 0.0323,
+          "y": 0.8792
+        },
+        "props": {
+          "style": {
+            "borderColor": "#C8BFBF",
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "classes": "Common/TextBox",
+            "paddingLeft": 5
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "txtInstrumentSerialNo",
+          "visible": 1
+        },
+        "position": {
+          "height": 0.0543,
+          "width": 0.303,
+          "x": 0.3575,
+          "y": 0.8758
+        },
+        "props": {
+          "style": {
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "lblInstrumentSerialNo"
+        },
+        "position": {
+          "height": 0.0582,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.25,
+          "x": 0.3586,
+          "y": 0.817
+        },
+        "props": {
+          "text": "Instrument Serial No",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "lblActualValue"
+        },
+        "position": {
+          "height": 0.0582,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.0846,
+          "x": 0.6829,
+          "y": 0.817
+        },
+        "props": {
+          "text": "Actual Value",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "txtValue",
+          "visible": 1
+        },
+        "position": {
+          "height": 0.0543,
+          "rotate": {
+            "anchor": "384% 1243%"
+          },
+          "width": 0.1682,
+          "x": 0.683,
+          "y": 0.8758
+        },
+        "props": {
+          "align": "center",
+          "format": "none",
+          "spinner": {
+            "increment": 0.001
+          },
+          "style": {
+            "textAlign": "center"
+          },
+          "value": 0
+        },
+        "type": "ia.input.numeric-entry-field"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tisSelect\u003dself.props.selected\n\tif isSelect\u003d\u003dTrue:\n\t\tself.getSibling(\"chkYes\").props.selected\u003dFalse\n\t\tisSelect\u003d2\t\t\n\n\telse:\n\t\tself.getSibling(\"chkYes\").props.selected\u003dTrue\n\t\tisSelect\u003d1\n#\tself.getSibling(\"lblNominal\").props.text\u003dstr(isSelect)\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "chkNo",
+          "visible": 0
+        },
+        "position": {
+          "height": 0.0547,
+          "rotate": {
+            "anchor": "246% -41%"
+          },
+          "width": 0.0888,
+          "x": 0.7648,
+          "y": 0.8734
+        },
+        "props": {
+          "enabled": 1,
+          "text": "Not Ok"
+        },
+        "type": "ia.input.checkbox"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tisSelect\u003dself.props.selected\n\tif isSelect\u003d\u003dTrue:\n\t\tself.getSibling(\"chkNo\").props.selected\u003dFalse\n\t\tisSelect\u003d1\n\telse:\n\t\tself.getSibling(\"chkNo\").props.selected\u003dTrue\t\n\t\tisSelect\u003d2\n#\tself.getSibling(\"lblNominal\").props.text\u003dstr(isSelect)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "chkYes",
+          "visible": 0
+        },
+        "position": {
+          "height": 0.0547,
+          "width": 0.07,
+          "x": 0.6857,
+          "y": 0.8734
+        },
+        "props": {
+          "enabled": 1,
+          "text": "Ok"
+        },
+        "type": "ia.input.checkbox"
+      },
+      {
+        "meta": {
+          "name": "LblScanBadge_7"
+        },
+        "position": {
+          "height": 0.0511,
+          "width": 0.0104,
+          "x": 0.7677,
+          "y": 0.8158
+        },
+        "props": {
+          "text": "*",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground",
+            "color": "#FF0000"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblScanBadge_8"
+        },
+        "position": {
+          "height": 0.0511,
+          "width": 0.0104,
+          "x": 0.1075,
+          "y": 0.131
+        },
+        "props": {
+          "text": "*",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground",
+            "color": "#FF0000"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\tscriptName\u003d\u0027Quality Add Alert\u0027\n\t\t\n\t\tdictQ\u003dself.view.params.rowData\n\t\tSelctedRow\u003dself.view.params.rowIndex\n\t\tcolumnName\u003dself.view.params.column\n\t\t\n#\t\tif str(columnName).strip()\u003d\u003d\u0027AddAlert\u0027:\n\t\tsystem.perspective.print(\"dictQ \"+str(dictQ))\n\t\ttrnId\u003ddictQ[\u0027Id\u0027]\n\t\ttrnId \u003dint(trnId)\n\t\tsystem.perspective.print(\"trnId \u003d \"+str(trnId))\n\t\tuserID\u003dself.session.custom.UserId\n\t\tresult\u003dQualityOperatorConsole.AddQualityAlert(trnId,userID)\n\t\tsystem.perspective.print(\"res \"+str(result))\n\t\t\n\t\tif result\u003d\u003d1 or str(result)\u003d\u003d\u00271\u0027 or str(result).lower().strip()\u003d\u003d\u0027true\u0027:\n\t\t\tMessageText\u003d\"Mail Alert Send Succefully\"\n\t\t\tupdaateStatus\u003d1\n\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/QualityConsole/PopUps/QualityConsoleTabViews/ValidationPopup/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\telse:\n\t\t\tMessageText\u003d\"Mail Alert Failed to Send\"\n\t\t\tupdaateStatus\u003d0\n\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/QualityConsole/PopUps/QualityConsoleTabViews/ValidationPopup/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)\t\n\t\tsystem.perspective.print(\"errorMessage \"+str(errorMessage))"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "btnAlert",
+          "tooltip": {
+            "enabled": true,
+            "location": "bottom-left",
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Click to Search"
+          },
+          "visible": false
+        },
+        "position": {
+          "height": 0.0598,
+          "width": 0.0669,
+          "x": 0.8417,
+          "y": 0.8875
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "this.props.enabled"
+              },
+              "previewEnabled": false,
+              "transforms": [
+                {
+                  "code": "\tcharId\u003dself.getSibling(\"ddlChar\").props.value\n\tmachineId\u003dself.getSibling(\"ddlMachine\").props.value\n\tlotNo\u003dself.getSibling(\"ddlLot\").props.value\n\tmoldId\u003dself.getSibling(\"ddlMold\").props.value\n\tworkOrderType\u003dself.view.custom.workOrderType\n\tif charId \u003e 0 and machineId \u003e 0 and str(lotNo).strip()!\u003d\u0027\u0027 and str(lotNo).strip()!\u003dNone and (workOrderType\u003d\u003d1 or (workOrderType\u003d\u003d2 and moldId\u003e 0 and str(moldId).strip()!\u003d\u0027\u0027 and str(moldId).strip()!\u003dNone)):\n\t\tvalue\u003d 1\n\telse:\n\t\tvalue\u003d 0\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "classes": "Common/Button"
+          },
+          "text": "+Alert"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "lblMessage"
+        },
+        "position": {
+          "height": 0.0578,
+          "width": 0.2863,
+          "x": 0.6851,
+          "y": 0.9391
+        },
+        "props": {
+          "style": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\n\t\tlotNo\u003dself.props.value\n\t\tlotNo\u003dstr(lotNo).strip()\n\t\tsystem.perspective.print(\"lotNo \"+str(lotNo))\n\t\tif lotNo !\u003d\u0027\u0027 and  lotNo !\u003dNone  and lotNo !\u003d\u0027None\u0027:\n\t\t\twoNumber\u003dself.session.custom.WoNumber\n\t\t\tself.view.custom.LotNo\u003dlotNo\n\t\t\tmachineId\u003dself.getSibling(\"ddlMachine\").props.value\n\t\t\tCharacteristicId\u003dself.session.custom.CharacteristicId\n\t\t\tCharacteristicType\u003dself.session.custom.CharacteristicType\n\t\t\tInspectionTypeId\u003dself.view.params.InspectionTypeId\n\t\t\toperationId\u003dself.view.params.operationId\n\t\t\tWoNumber\u003dself.session.custom.WoNumber\n\t\t\titemId\u003dself.view.params.ItemId\t\t\n\t\t\tWoNumber\u003dself.session.custom.WoNumber\n\t\t\tCharacteristicType\u003dself.session.custom.CharacteristicType\n\t\t\tself.view.params.operationId\u003doperationId\n\t\t\tself.view.params.ItemId\u003ditemId\n\t\t\tself.view.params.InspectionTypeId\u003dInspectionTypeId\n\t\t\tmoldId\u003dself.getSibling(\"ddlMachine\").props.value\n\t\t\n\t\t\tresultDetails\u003dQualityOperatorConsole.GetCharacteristicsForInspectionProcessManagerParent(operationId,InspectionTypeId,WoNumber,itemId,CharacteristicId,CharacteristicType,machineId,moldId,lotNo)\n\t\t\t\n\t\t\tresultDetails\u003dsystem.dataset.toPyDataSet(resultDetails)\n\t\t\tsystem.perspective.print(\"call messahe Handler FirstArticleInspection ddl selection len\" + str(len(resultDetails)))\n\t\t\tif len(resultDetails)\u003e0:\n\t\t\t\tself.getSibling(\"Table\").props.data\u003dresultDetails\t\n\t\t\t\tfor  i in resultDetails:\n\t\t#\t\t\t\tself.view.params.InspectionProcessManagerId\n\t\t\t\t\tself.view.params.InspectionProcessManagerId\u003di[\u0027InspectionProcessManagerId\u0027]\n\t\t\t\t\tbreak\n\t\t\telse:\n\t\t#\tself.params.InspectionProcessManagerId\u003d\n\t\t\t\tself.getSibling(\"Table\").props.data\u003dresultDetails\t\n\t\telse:\n\t\t\tself.getSibling(\"Table\").props.data\u003dNone\t\n\t\tself.getSibling(\"lblMessage\").props.text\u003d\u0027\u0027\n\texcept:\n\t\timport os\n\t\terrorMessage\u003d\"Quality :getCharacteristicsDetails function. Exception ddl LOT selection  \u003d \"+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)\n\t\tsystem.perspective.print(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "ddlLot",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          },
+          "visible": 0
+        },
+        "position": {
+          "height": 0.0504,
+          "rotate": {
+            "anchor": "-225% 124%"
+          },
+          "width": 0.2565,
+          "x": 0.718,
+          "y": 0.7213
+        },
+        "props": {
+          "options": null,
+          "placeholder": {
+            "text": "Select Lot"
+          },
+          "style": {
+            "classes": "Common/TextBox"
+          },
+          "value": -1
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "meta": {
+          "name": "LblScanBadge_6",
+          "visible": 0
+        },
+        "position": {
+          "height": 0.0511,
+          "width": 0.0104,
+          "x": 0.7107,
+          "y": 0.6702
+        },
+        "props": {
+          "text": "*",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground",
+            "color": "#FF0000"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "lblLot",
+          "visible": 0
+        },
+        "position": {
+          "height": 0.0582,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.0261,
+          "x": 0.7192,
+          "y": 0.6618
+        },
+        "props": {
+          "text": "Lot",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\n\n\t\tmoldId\u003dself.props.value\n\t\tsystem.perspective.print(\u0027Trigger\u0027)\n\t\tif moldId \u003e 0:\n\t\t\tisCavity\u003dself.view.custom.IsCavity\n\t\t\tsystem.perspective.print(\"isCavity : \"+str(isCavity))\t\n\t\t\tdsMoldSam\u003dself.view.custom.dsMoldSam\n#\t\t\tif self.view.custom.workOrderType\u003d\u003d2 and self.view.custom.IsCavity\u003d\u003d1:\n\t\t\tif self.view.custom.workOrderType\u003d\u003d2 or self.view.custom.IsCavity\u003d\u003d1:\n\t\t\t\tcharacteristicId\u003dself.getSibling(\"ddlChar\").props.value\n\t\t\t\tWoNumber\u003dself.session.custom.WoNumber\n\t\t\t\t\n\t\t\t\tsystem.perspective.print(\"moldId \"+str(moldId))\n\t\t\t\tsystem.perspective.print(\"WoNumber \"+str(WoNumber))\n\t\t\t\tsystem.perspective.print(\"characteristicId \"+str(characteristicId))\n\t\t\t\tds\u003dQualityOperatorConsole.GetCollectedSampleSizeForCharacteristicsByMoldId(WoNumber,moldId,characteristicId)\n\t\t\t\tsystem.perspective.print(\u0027collect Sample: \u0027+str(ds))\n\t\t\t\tds\u003dsystem.dataset.toPyDataSet(ds)\n\t\t\t\tif len(ds) \u003e 0:\n\t\t\t\t\timport json\n\t\t\t\t\tlblSampleS_Completed\u003dds[0][\u0027collectedSample\u0027]\n\t\t\t\t\tself.getSibling(\"lblSampleS_Completed\").props.text\u003dlblSampleS_Completed\n\t\t\t\t\tdscavityNumbersjson\u003dds[0][\u0027cavityNumbers\u0027]\n\t\t\t\t\tdataList \u003d []\n\t\t\t\t\theaders \u003d [\"id\",\"value\"]\n\t\t\t\t\tdscavityNumbers\u003djson.loads(dscavityNumbersjson)\n\t\t\t\t\tif dscavityNumbers!\u003d[] and dscavityNumbers !\u003d\u0027\u0027:\n\t\t\t\t\t\tfor i in dscavityNumbers:\n\t\t\t\t\t\t\tidC \u003d i.get(\"id\")\n\t\t\t\t\t\t\tvalue \u003d i.get(\"value\")\n\t\t\t\t\t\t\tmyList \u003d [idC,value]\n\t\t\t\t\t\t\tdataList.append(myList)\t\t\t\n\t\t\t\t\t\theaders \u003d [\"id\",\"value\"]\n\t\t\t\t\t\tresultDetails \u003d system.dataset.toDataSet(headers,dataList)\n\t\t\t\t\t\tresultDetails\u003d system.dataset.toPyDataSet(resultDetails)\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\tif len(resultDetails)\u003e0:\n\t\t\t\t\t\t\tself.getSibling(\"ddlCavity\").props.options\u003dresultDetails\n\t\t\t\t\t\t\tself.getSibling(\"ddlCavity\").props.value\u003d-1\n\t\t\t\t\t\telse:\n\t\t\t\t\t\t\tself.getSibling(\"ddlCavity\").props.options\u003dNone\n\t\t\t\t\t\t\tself.getSibling(\"ddlCavity\").props.value\u003d-1\n\t\t\t\t\t\n\t\t\t\tfor i in dsMoldSam:\n\t\t\t\t\tsystem.perspective.print(\"i[0] \"+str(i[0]))\n\t\t\t\t\tif moldId\u003d\u003di[0]:\n\t\t\t\t\t\tsampleSize\u003di[2]\n\t\t\t\t\t\tsystem.perspective.print(\"sampleSize \"+str(sampleSize))\n\t\t\t\t\t\tMoldSampleSize\u003dself.view.custom.sampleSize*sampleSize\n\t\t\t\t\t\tsystem.perspective.print(\"MoldSampleSize  \"+str(MoldSampleSize ))\n\t\t\t\t\t\tself.getSibling(\"lblSampleS\").props.text\u003dMoldSampleSize\n#\t\t\t\t\t\tself.getSibling(\"lblSampleS\").props.text\n\t\t\t\t\t\tbreak\n\t\t\tself.getSibling(\"lblMessage\").props.text\u003d\u0027\u0027\n\texcept:\n\t\timport os\n\t\terrorMessage\u003d\"Quality :getCharacteristicsDetails function. Exception ddl selection \u003d \"+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)\n\t\tsystem.perspective.print(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "ddlMold",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 0.0504,
+          "rotate": {
+            "anchor": "-225% 124%"
+          },
+          "width": 0.203,
+          "x": 0.2615,
+          "y": 0.7213
+        },
+        "propConfig": {
+          "meta.visible": {
+            "binding": {
+              "config": {
+                "path": "view.custom.workOrderType"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d2 or str(value).strip()\u003d\u003d\u00272\u0027:\n\t\tvisible\u003d1\n\telse:\n\t\tvisible\u003d0\n\treturn visible",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "view.custom.workOrderType"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d2 or str(value).strip()\u003d\u003d\u00272\u0027:\n\t\tenable\u003d1\n\telse:\n\t\tenable\u003d0\n\treturn enable\n\t\t",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "options": null,
+          "placeholder": {
+            "text": "Select Mold"
+          },
+          "style": {
+            "classes": "Common/TextBox"
+          },
+          "value": -1
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "meta": {
+          "name": "lblMold"
+        },
+        "position": {
+          "height": 0.0582,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.139,
+          "x": 0.2629,
+          "y": 0.661
+        },
+        "propConfig": {
+          "meta.visible": {
+            "binding": {
+              "config": {
+                "path": "view.custom.workOrderType"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d2 or str(value).strip()\u003d\u003d\u00272\u0027:\n\t\tvisible\u003d1\n\telse:\n\t\tvisible\u003d0\n\treturn visible",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "text": "Mold (Only For CNS)",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblScanBadge_5"
+        },
+        "position": {
+          "height": 0.0511,
+          "width": 0.0104,
+          "x": 0.4077,
+          "y": 0.6594
+        },
+        "propConfig": {
+          "meta.visible": {
+            "binding": {
+              "config": {
+                "path": "view.custom.workOrderType"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d2 or str(value).strip()\u003d\u003d\u00272\u0027:\n\t\tvisible\u003d1\n\telse:\n\t\tvisible\u003d0\n\treturn visible",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "text": "*",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground",
+            "color": "#FF0000"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\n\tmachineId\u003dself.props.value\n\tif machineId\u003e 0:\n\t\tself.getSibling(\"ddlMold\").props.options\u003dNone\n\t\tself.getSibling(\"ddlMold\").props.value\u003d\u0027\u0027\n\t\tself.getSibling(\"ddlCavity\").props.options\u003dNone\n\t\tself.getSibling(\"ddlCavity\").props.value\u003d\u0027\u0027\n\t\twoNumber\u003dself.session.custom.WoNumber\n\t\tLotNumbers\u003d[]\n\t\t\n\t\tif self.view.params.QualityType\u003d\u003d\u0027FQC\u0027:\n\t\t\tfor i in self.view.custom.dsLot:\n\t\t\t\tif i[0]\u003d\u003dmachineId:\n\t\t\t\t\tLotNumbers\u003di[2]\n\t\t\t\t\tif LotNumbers!\u003d[] and LotNumbers!\u003dNone:\n\t\t\t\t\t\timport json\n\t\t\t\t\t\theader\u003d[\u0027lotId\u0027,\u0027lotName\u0027]\n\t\t\t\t\t\tdatalist\u003d[]\n\t\t\t\t\t\tLotNumbers \u003d json.loads(LotNumbers)\n\t\t\t\t\t\tfor i in LotNumbers:\n\t\t\t\t\t\t\tlotId\u003d i[\u0027lotId\u0027]\n\t\t\t\t\t\t\tlotName\u003d i[\u0027lotName\u0027]\n\t\t\t\t\t\t\tdatalist.append([lotId,lotName])\n\t\t\t\t\t\t\t\n\t\t\t\t\t\tds \u003d system.dataset.toDataSet(header, datalist)\n\t\t\t\t\t\tds\u003dsystem.dataset.toPyDataSet(ds)\n\t\t\t\t\t\tif len(ds) \u003e 0:\n\t\t\t\t\t\t\tself.getSibling(\"ddlLot\").props.options\u003dds\n\t\t\t\t\t\telse:\n\t\t\t\t\t\t\tself.getSibling(\"ddlLot\").props.options\u003dNone\n\t\t\t\t\t\tbreak\n\t\tsystem.perspective.print(\"machineId \"+str(machineId))\n\t\tsystem.perspective.print(\"woNumber \"+str(woNumber))\n\t\tdsMold\u003dQualityOperatorConsole.GetMoldDataByMachine(machineId,woNumber)\n\t\tsystem.perspective.print(\"dsMold [0]\"+str(dsMold[0]))\n\t\tsystem.perspective.print(\"dsMold [1]\"+str(dsMold[1]))\n\t\tif dsMold[0]!\u003dNone and dsMold[0]!\u003d[]:\n\t\t\tself.getSibling(\"ddlMold\").props.options\u003ddsMold[0]\n\t\t\tself.view.custom.dsMoldSam\u003dsystem.dataset.toPyDataSet(dsMold[1])\n#\t\t\tself.view.custom.dsMoldSam\u003ddsMold[1]\n\t\t\t\n\t\telse:\n\t\t\tself.getSibling(\"ddlMold\").props.options\u003dNone\n\t\t\tself.view.custom.dsMoldSam\u003dNone\n\t\t\t\n"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "ddlMachine",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 0.0504,
+          "rotate": {
+            "anchor": "-225% 124%"
+          },
+          "width": 0.203,
+          "x": 0.0275,
+          "y": 0.7213
+        },
+        "props": {
+          "options": null,
+          "placeholder": {
+            "text": "Select Machine"
+          },
+          "style": {
+            "classes": "Common/TextBox"
+          },
+          "value": -1
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "meta": {
+          "name": "lblMAchineName"
+        },
+        "position": {
+          "height": 0.0582,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.1014,
+          "x": 0.0284,
+          "y": 0.661
+        },
+        "props": {
+          "text": "Machine Name",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblScanBadge_4"
+        },
+        "position": {
+          "height": 0.0511,
+          "width": 0.0104,
+          "x": 0.1367,
+          "y": 0.663
+        },
+        "propConfig": {
+          "meta.visible": {
+            "binding": {
+              "config": {
+                "path": "../lblMAchineName.meta.visible"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "text": "*",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground",
+            "color": "#FF0000"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "lblOkNotOk",
+          "visible": 0
+        },
+        "position": {
+          "height": 0.0578,
+          "width": 0.396,
+          "x": 0.031,
+          "y": 0.9358
+        },
+        "props": {
+          "text": "Note :- Nominal value 1 \u003d Ok , 2 \u003d Not Ok",
+          "textStyle": {
+            "classes": "Common/OprConsoleLabelText",
+            "textAlign": "left"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "lblSampleS_Completed",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 0.0504,
+          "width": 0.1369,
+          "x": 0.1934,
+          "y": 0.8792
+        },
+        "props": {
+          "style": {
+            "borderColor": "#C8BFBF",
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "classes": "Common/TextBox",
+            "paddingLeft": 5
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "lblSampleSizeC"
+        },
+        "position": {
+          "height": 0.0507,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.139,
+          "x": 0.1925,
+          "y": 0.8232
+        },
+        "props": {
+          "text": "Sample Completed",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\n\t\t\n\t\tselectedTab \u003d self.view.params.QualityType\n\t\tif selectedTab \u003d\u003d \u0027FQC\u0027:\n\t\t\tscriptName\u003d\"Char Selected Add reading\"\n\t\t\tCharacteristicId\u003dself.props.value\n\t\t\tself.getSibling(\"ddlLot\").props.options\u003dNone\n\t\t\tself.getSibling(\"txtInstrumentSerialNo\").props.text\u003d\u0027\u0027\n\t\t\tself.getSibling(\"ddlMold\").props.options\u003dNone\n\t\t\tself.getSibling(\"ddlMold\").props.value\u003d\u0027\u0027\n\t\t\tself.getSibling(\"ddlCavity\").props.options\u003dNone\n\t\t\tself.getSibling(\"ddlCavity\").props.value\u003d\u0027\u0027\n\t\t\t\n\t\t\tself.getSibling(\"ddlLot\").props.value\u003d-1\n\t\t\tself.getSibling(\"lblMessage\").props.text\u003d\u0027\u0027\n\t\t\tif CharacteristicId \u003e 0:\n\t\t\t\tsystem.perspective.print(\"CharacteristicId \"+str(CharacteristicId))\n\t\t\t\tCharacteristicType\u003dself.view.params.CharacteristicType\n\t\t\t\tInspectionTypeId\u003dself.view.params.InspectionTypeId\n#\t\t\t\toperationId\u003dself.view.params.operationId\n\t\t\t\toperationId\u003d0\n\t\t\t\tWoNumber\u003dself.session.custom.WoNumber\n\t\t\t\t\n\t\t\t\titemId\u003dself.view.params.itemId\n\t\t\t\tLotNumbers\u003d[]\n\t\t\t\tcharacteristicType\u003d1\n\t\t\t\tsession \u003d self.session.custom\n\t\t\t\tresultDetailsComp\u003dQualityOperatorConsole.GetCharacteristicsForInspectionProcessManager(operationId,InspectionTypeId,WoNumber,itemId,CharacteristicId,CharacteristicType,session)\t\t\n\t\t\t\tresultDetailsComp\u003dsystem.dataset.toPyDataSet(resultDetailsComp)\n\t\t\t\tsampleComplted\u003dlen(resultDetailsComp)\n\t\t\t\tself.getSibling(\"lblSampleS_Completed\").props.text\u003dstr(sampleComplted)\n\t\t\t\tsystem.perspective.print(\"self.view.custom.dsChar \"+str(self.view.custom.dsChar ))\n\t\t\t\tresultDetails\u003dself.view.custom.dsChar\n\t\t\t\t\n\t\t\t\tif len(resultDetails)\u003e0:\n\t\t\t\t\tsystem.perspective.print(\"resultDetails \"+str(len(resultDetails)))\n\t\n\t\t\t\t\tfor i in resultDetails:\n\t\t\t\t\t\t\n\t\t\t\t\t\tCharacteristicIdSeleted\u003di[\u0027CharacteristicId\u0027]\n\t\t\t\t\t\tif CharacteristicId \u003d\u003dCharacteristicIdSeleted:\n\t\t\t\t\t\t\tSpec\u003di[\u0027Spec\u0027]\n\t\t\t\t\t\t\tself.getSibling(\"lblSpec\").props.text\u003dSpec\n\t\t\t\t\t\t\tMinimumLimit\u003di[\u0027MinimumLimit\u0027]\n\t\t\t\t\t\t\tself.getSibling(\"lblMin\").props.text\u003dMinimumLimit\n\t\t\t\t\t\t\tMaximumLimit\u003di[\u0027MaximumLimit\u0027]\n\t\t\t\t\t\t\tself.getSibling(\"lblMax\").props.text\u003dMaximumLimit\n\t\t\t\t\t\t\tNominalValue\u003di[\u0027NominalValue\u0027]\n\t\t\t\t\t\t\tself.getSibling(\"lblNominal\").props.text\u003dNominalValue\t\t\n\t\t\t\t\t\t\tUOM\u003di[\u0027UOM\u0027]\n\t\t\t\t\t\t\tself.getSibling(\"lblUOM\").props.text\u003dUOM\n\t\t\t\t\t\t\tInstrumentType\u003di[\u0027InstrumentType\u0027]\n\t\t\t\t\t\t\tself.getSibling(\"lblInstrTYpe\").props.text\u003dInstrumentType\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\tActualValue\u003di[\u0027ActualValue\u0027]\n\t\t\t\t\t\t\tself.getSibling(\"txtValue\").props.value\u003dActualValue\n\t\t\t\t\t\t\tSampleSize\u003di[\u0027SampleSize\u0027]\n\t\t\t\t\t\t\tself.getSibling(\"lblSampleS\").props.text\u003dSampleSize\n\t\t\t\t\t\t\tself.view.custom.sampleSize\u003dSampleSize\n\t\t\t\t\t\t\tLotNumber\u003di[\u0027LotNumber\u0027]\n\t\t\t\t\t\t\tLotNumbers\u003di[\u0027LotNumbers\u0027]\n\t\t\t\t\t\t\tcharacteristicType\u003di[\u0027characteristicType\u0027]\n\t\t\t\t\t\t\tself.view.custom.IsCavity\u003di[\u0027IsCavity\u0027]\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\tself.view.custom.InspectionProcessManagerId\u003di[\u0027InspectionProcessManagerId\u0027]\n\t\t\t\t\t\t\tself.view.custom.workOrderType\u003di[\u0027workOrderType\u0027]\n\t\t\t\t\t\t\tself.view.custom.characteristicType\u003dcharacteristicType\n\t\t\t\t\t\t\tif i[\u0027workOrderType\u0027]\u003d\u003d1:\n\t\t\t\t\t\t\t\tself.getSibling(\"ddlMold\").props.enabled\u003d0\n\t\t\t\t\t\t\tif i[\u0027workOrderType\u0027]\u003d\u003d2:\n\t\t\t\t\t\t\t\tself.getSibling(\"ddlMold\").props.enabled\u003d1\t\n\t\t\t\t\t\t\t\tself.getSibling(\"ddlMachine\").meta.visible \u003d 1\n\t\t\t\t\t\t\t\tself.getSibling(\"lblMAchineName\").meta.visible \u003d 1\n\t\t\t\t\t\t\tbreak\n\t\t\t\t\t\t\n\t\t\t\t\tif characteristicType\u003d\u003d2 or str(characteristicType)\u003d\u003d\u00272\u0027:\n\t\t\t\t\t\tself.getSibling(\"chkNo\").meta.visible\u003d1\n\t\t\t\t\t\tself.getSibling(\"chkYes\").meta.visible\u003d1\n\t\t\t\t\t\tself.getSibling(\"txtValue\").meta.visible\u003d0\n\t\t\t\t\t\tself.getSibling(\"lblOkNotOk\").meta.visible\u003d1\n\t#\t\t\t\t\tsystem.perspective.print(\u0027 || ActualValue :\u0027 + str(ActualValue))\n\t\t\t\t\t\tActualValue\u003di[\u0027NominalValue\u0027]\n\t\t\t\t\t\tsystem.perspective.print(\u0027 || ActualValue NominalValue :\u0027 + str(ActualValue))\n\t\t\t\t\t\n\t\t\t\t\t\tif str(ActualValue).strip()\u003d\u003d\u0027\u0027 or str(ActualValue).strip()\u003d\u003d\u0027None\u0027 or str(ActualValue).strip()\u003d\u003d\u00270.0\u0027 or  ActualValue \u003c\u003d 0 :\n\t\t\t\t\t\t\tActualValue\u003d2\n\t\t\t\t\t\tActualuValue\u003dint(ActualValue)\n\t\t\t\t\t\tif str(ActualuValue).lower()\u003d\u003d\u00272\u0027 or  ActualuValue\u003d\u003d2:\n\t\t\t\t\t\t\tself.getSibling(\"chkYes\").props.selected\u003dFalse\n\t\t\t\t\t\t\tself.getSibling(\"chkNo\").props.selected\u003dTrue\n\t\n\t\t\t\t\t\telif  str(ActualuValue).lower()\u003d\u003d\u00271\u0027 or  ActualuValue \u003d\u003d1 :\n\t\t\t\t\t\t\t\tself.getSibling(\"chkNo\").props.selected\u003dFalse\t\n\t\t\t\t\t\t\t\tself.getSibling(\"chkYes\").props.selected\u003dTrue\n\t\n\t#\t\t\t\t\tself.getSibling(\"lblNominal\").props.text\u003dActualuValue\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\telse:\n\t\t\t\t\t\tself.getSibling(\"chkNo\").meta.visible\u003d0\n\t\t\t\t\t\tself.getSibling(\"chkYes\").meta.visible\u003d0\n\t\t\t\t\t\tself.getSibling(\"lblOkNotOk\").meta.visible\u003d0\n\t\t\t\t\t\tself.getSibling(\"txtValue\").meta.visible\u003d1\n\t#\t\t\t\tif LotNumbers!\u003d[] and LotNumbers!\u003dNone:\n\t#\t\t\t\t\timport json\n\t#\t\t\t\t\theader\u003d[\u0027lotId\u0027,\u0027lotName\u0027]\n\t#\t\t\t\t\tdatalist\u003d[]\n\t#\t\t\t\t\tLotNumbers \u003d json.loads(LotNumbers)\n\t#\t\t\t\t\tfor i in LotNumbers:\n\t#\t\t\t\t\t\tlotId\u003d i[\u0027lotId\u0027]\n\t#\t\t\t\t\t\tlotName\u003d i[\u0027lotName\u0027]\n\t#\t\t\t\t\t\tdatalist.append([lotId,lotName])\n\t#\t\t\t\t\t\t\n\t#\t\t\t\t\tds \u003d system.dataset.toDataSet(header, datalist)\n\t#\t\t\t\t\tds\u003dsystem.dataset.toPyDataSet(ds)\n\t#\t\t\t\t\tif len(ds) \u003e 0:\n\t#\t\t\t\t\t\tself.getSibling(\"ddlLot\").props.options\u003dds\n\t#\t\t\t\t\telse:\n\t#\t\t\t\t\t\tself.getSibling(\"ddlLot\").props.options\u003dNone\n\t\t\t\t\tsystem.perspective.print(\"operationId \"+str(operationId ))\n\t\t\t\t\tsystem.perspective.print(\"WoNumber \"+str(WoNumber ))\n\t\t\t\t\t\n\t\t\t\t\tdsResult\u003dQualityOperatorConsole.GetMachinesByOperationForQuality(operationId ,WoNumber)\n\t\t\t\t\tsystem.perspective.print(\"Lot API Result \"+str(dsResult ))\n\t\t\t\t\tds\u003ddsResult[0]\n\t\t\t\t\tdsLot\u003ddsResult[1]\n\t\t\t\t\t\n\t\t\t\t\tds\u003dsystem.dataset.toPyDataSet(ds)\n\t\t\t\t\tdsLot\u003dsystem.dataset.toPyDataSet(dsLot)\n\t\t\t\t\tif len(ds)\u003e0:\t\t\n\t\t\t\t\t\tself.getSibling(\"ddlMachine\").props.options\u003dds\n\t\t\t\t\t\tself.getSibling(\"ddlMachine\").props.value\u003d-1\n\t#\t\t\t\t\t------------------------------------------\n\t\t\t\t\t\tsystem.perspective.print(\"dsLot: \"+str(dsLot))\n\t\t\t\t\t\tself.view.custom.dsLot\u003ddsLot\n#---------------------Code Added By Hari as Per Deffect 116--------------------------------\t\t\t\t\t\t\n\t\t\t\t\t\tfor i in self.view.custom.dsLot:\n\t\t\t\t\t\t\tif i[0]\u003d\u003d-1:\n\t\t\t\t\t\t\t\tLotNumbers\u003di[2]\n\t\t\t\t\t\t\t\tif LotNumbers!\u003d[] and LotNumbers!\u003dNone:\n\t\t\t\t\t\t\t\t\timport json\n\t\t\t\t\t\t\t\t\theader\u003d[\u0027lotId\u0027,\u0027lotName\u0027]\n\t\t\t\t\t\t\t\t\tdatalist\u003d[]\n\t\t\t\t\t\t\t\t\tLotNumbers \u003d json.loads(LotNumbers)\n\t\t\t\t\t\t\t\t\tfor i in LotNumbers:\n\t\t\t\t\t\t\t\t\t\tlotId\u003d i[\u0027lotId\u0027]\n\t\t\t\t\t\t\t\t\t\tlotName\u003d i[\u0027lotName\u0027]\n\t\t\t\t\t\t\t\t\t\tdatalist.append([lotId,lotName])\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\tds \u003d system.dataset.toDataSet(header, datalist)\n\t\t\t\t\t\t\t\t\tds\u003dsystem.dataset.toPyDataSet(ds)\n\t\t\t\t\t\t\t\t\tif len(ds) \u003e 0:\n\t\t\t\t\t\t\t\t\t\tself.getSibling(\"ddlLot\").props.options\u003dds\n\t\t\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\t\t\tself.getSibling(\"ddlLot\").props.options\u003dNone\n\t\t\t\t\t\t\t\t\tbreak\n\t\t\t\t\t\t\n\t\t\t\t\telse:\n\t\t\t\t\t\tself.getSibling(\"ddlMachine\").props.options\u003dNone\n\t\t\t\t\t\tself.getSibling(\"ddlMachine\").props.value\u003d\u0027\u0027\n\t\t\t\t\t\tself.view.custom.dsLot\u003dNone\n\t\t\t\t\tif characteristicType\u003d\u003d1 or str(characteristicType).strip()\u003d\u003d1:\n\t\t\t\t\t\tself.getSibling(\"txtValue\").meta.visible\u003d1\n\t\t\t\t\telse:\n\t\t\t\t\t\tself.getSibling(\"txtValue\").meta.visible\u003d0\n\t\t\n\t\telse:\n\t\t\t\n\t\t\tscriptName\u003d\"Char Selected Add reading\"\n\t\t\tCharacteristicId\u003dself.props.value\n\t\t\tself.getSibling(\"ddlLot\").props.options\u003dNone\n\t\t\tself.getSibling(\"txtInstrumentSerialNo\").props.text\u003d\u0027\u0027\n\t\t\tself.getSibling(\"ddlMold\").props.options\u003dNone\n\t\t\tself.getSibling(\"ddlMold\").props.value\u003d\u0027\u0027\n\t\t\tself.getSibling(\"ddlCavity\").props.options\u003dNone\n\t\t\tself.getSibling(\"ddlCavity\").props.value\u003d\u0027\u0027\n\t\t\t\n\t\t\tself.getSibling(\"ddlLot\").props.value\u003d-1\n\t\t\tself.getSibling(\"lblMessage\").props.text\u003d\u0027\u0027\n\t\t\tif CharacteristicId \u003e 0:\n\t\t\t\tsystem.perspective.print(\"CharacteristicId \"+str(CharacteristicId))\n\t\t\t\tCharacteristicType\u003dself.view.params.CharacteristicType\n\t\t\t\tInspectionTypeId\u003dself.view.params.InspectionTypeId\n\t\t\t\toperationId\u003dself.view.params.operationId\n\t\t\t\tWoNumber\u003dself.session.custom.WoNumber\t\t\t\t\n\t\t\t\titemId\u003dself.view.params.itemId\n\t\t\t\tLotNumbers\u003d[]\n\t\t\t\tcharacteristicType\u003d1\n\t\t\t\tsession \u003d self.session.custom\n\t\t\t\tresultDetailsComp\u003dQualityOperatorConsole.GetCharacteristicsForInspectionProcessManager(operationId,InspectionTypeId,WoNumber,itemId,CharacteristicId,CharacteristicType,session)\t\t\n\t\t\t\tresultDetailsComp\u003dsystem.dataset.toPyDataSet(resultDetailsComp)\n\t\t\t\tsampleComplted\u003dlen(resultDetailsComp)\n\t\t\t\tself.getSibling(\"lblSampleS_Completed\").props.text\u003dstr(sampleComplted)\n\t\t\t\tsystem.perspective.print(\"self.view.custom.dsChar \"+str(self.view.custom.dsChar ))\n\t\t\t\tresultDetails\u003dself.view.custom.dsChar\n\t\t\t\t\n\t\t\t\tif len(resultDetails)\u003e0:\n\t\t\t\t\tsystem.perspective.print(\"resultDetails \"+str(len(resultDetails)))\n\t\n\t\t\t\t\tfor i in resultDetails:\n\t\t\t\t\t\t\n\t\t\t\t\t\tCharacteristicIdSeleted\u003di[\u0027CharacteristicId\u0027]\n\t\t\t\t\t\tif CharacteristicId \u003d\u003dCharacteristicIdSeleted:\n\t\t\t\t\t\t\tSpec\u003di[\u0027Spec\u0027]\n\t\t\t\t\t\t\tself.getSibling(\"lblSpec\").props.text\u003dSpec\n\t\t\t\t\t\t\tMinimumLimit\u003di[\u0027MinimumLimit\u0027]\n\t\t\t\t\t\t\tself.getSibling(\"lblMin\").props.text\u003dMinimumLimit\n\t\t\t\t\t\t\tMaximumLimit\u003di[\u0027MaximumLimit\u0027]\n\t\t\t\t\t\t\tself.getSibling(\"lblMax\").props.text\u003dMaximumLimit\n\t\t\t\t\t\t\tNominalValue\u003di[\u0027NominalValue\u0027]\n\t\t\t\t\t\t\tself.getSibling(\"lblNominal\").props.text\u003dNominalValue\t\t\n\t\t\t\t\t\t\tUOM\u003di[\u0027UOM\u0027]\n\t\t\t\t\t\t\tself.getSibling(\"lblUOM\").props.text\u003dUOM\n\t\t\t\t\t\t\tInstrumentType\u003di[\u0027InstrumentType\u0027]\n\t\t\t\t\t\t\tself.getSibling(\"lblInstrTYpe\").props.text\u003dInstrumentType\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\tActualValue\u003di[\u0027ActualValue\u0027]\n\t\t\t\t\t\t\tself.getSibling(\"txtValue\").props.value\u003dActualValue\n\t\t\t\t\t\t\tSampleSize\u003di[\u0027SampleSize\u0027]\n\t\t\t\t\t\t\tself.getSibling(\"lblSampleS\").props.text\u003dSampleSize\n\t\t\t\t\t\t\tself.view.custom.sampleSize\u003dSampleSize\n\t\t\t\t\t\t\tLotNumber\u003di[\u0027LotNumber\u0027]\n\t\t\t\t\t\t\tLotNumbers\u003di[\u0027LotNumbers\u0027]\n\t\t\t\t\t\t\tcharacteristicType\u003di[\u0027characteristicType\u0027]\n\t\t\t\t\t\t\tself.view.custom.IsCavity\u003di[\u0027IsCavity\u0027]\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\tself.view.custom.InspectionProcessManagerId\u003di[\u0027InspectionProcessManagerId\u0027]\n\t\t\t\t\t\t\tself.view.custom.workOrderType\u003di[\u0027workOrderType\u0027]\n\t\t\t\t\t\t\tself.view.custom.characteristicType\u003dcharacteristicType\n\t\t\t\t\t\t\tif i[\u0027workOrderType\u0027]\u003d\u003d1:\n\t\t\t\t\t\t\t\tself.getSibling(\"ddlMold\").props.enabled\u003d0\n\t\t\t\t\t\t\tif i[\u0027workOrderType\u0027]\u003d\u003d2:\n\t\t\t\t\t\t\t\tself.getSibling(\"ddlMold\").props.enabled\u003d1\t\n\t\t\t\t\t\t\tbreak\n\t\t\t\t\t\t\n\t\t\t\t\tif characteristicType\u003d\u003d2 or str(characteristicType)\u003d\u003d\u00272\u0027:\n\t\t\t\t\t\tself.getSibling(\"chkNo\").meta.visible\u003d1\n\t\t\t\t\t\tself.getSibling(\"chkYes\").meta.visible\u003d1\n\t\t\t\t\t\tself.getSibling(\"txtValue\").meta.visible\u003d0\n\t\t\t\t\t\tself.getSibling(\"lblOkNotOk\").meta.visible\u003d1\n\t#\t\t\t\t\tsystem.perspective.print(\u0027 || ActualValue :\u0027 + str(ActualValue))\n\t\t\t\t\t\tActualValue\u003di[\u0027NominalValue\u0027]\n\t\t\t\t\t\tsystem.perspective.print(\u0027 || ActualValue NominalValue :\u0027 + str(ActualValue))\n\t\t\t\t\t\n\t\t\t\t\t\tif str(ActualValue).strip()\u003d\u003d\u0027\u0027 or str(ActualValue).strip()\u003d\u003d\u0027None\u0027 or str(ActualValue).strip()\u003d\u003d\u00270.0\u0027 or  ActualValue \u003c\u003d 0 :\n\t\t\t\t\t\t\tActualValue\u003d2\n\t\t\t\t\t\tActualuValue\u003dint(ActualValue)\n\t\t\t\t\t\tif str(ActualuValue).lower()\u003d\u003d\u00272\u0027 or  ActualuValue\u003d\u003d2:\n\t\t\t\t\t\t\tself.getSibling(\"chkYes\").props.selected\u003dFalse\n\t\t\t\t\t\t\tself.getSibling(\"chkNo\").props.selected\u003dTrue\n\t\n\t\t\t\t\t\telif  str(ActualuValue).lower()\u003d\u003d\u00271\u0027 or  ActualuValue \u003d\u003d1 :\n\t\t\t\t\t\t\t\tself.getSibling(\"chkNo\").props.selected\u003dFalse\t\n\t\t\t\t\t\t\t\tself.getSibling(\"chkYes\").props.selected\u003dTrue\n\t\n\t#\t\t\t\t\tself.getSibling(\"lblNominal\").props.text\u003dActualuValue\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\telse:\n\t\t\t\t\t\tself.getSibling(\"chkNo\").meta.visible\u003d0\n\t\t\t\t\t\tself.getSibling(\"chkYes\").meta.visible\u003d0\n\t\t\t\t\t\tself.getSibling(\"lblOkNotOk\").meta.visible\u003d0\n\t\t\t\t\t\tself.getSibling(\"txtValue\").meta.visible\u003d1\n\t#\t\t\t\tif LotNumbers!\u003d[] and LotNumbers!\u003dNone:\n\t#\t\t\t\t\timport json\n\t#\t\t\t\t\theader\u003d[\u0027lotId\u0027,\u0027lotName\u0027]\n\t#\t\t\t\t\tdatalist\u003d[]\n\t#\t\t\t\t\tLotNumbers \u003d json.loads(LotNumbers)\n\t#\t\t\t\t\tfor i in LotNumbers:\n\t#\t\t\t\t\t\tlotId\u003d i[\u0027lotId\u0027]\n\t#\t\t\t\t\t\tlotName\u003d i[\u0027lotName\u0027]\n\t#\t\t\t\t\t\tdatalist.append([lotId,lotName])\n\t#\t\t\t\t\t\t\n\t#\t\t\t\t\tds \u003d system.dataset.toDataSet(header, datalist)\n\t#\t\t\t\t\tds\u003dsystem.dataset.toPyDataSet(ds)\n\t#\t\t\t\t\tif len(ds) \u003e 0:\n\t#\t\t\t\t\t\tself.getSibling(\"ddlLot\").props.options\u003dds\n\t#\t\t\t\t\telse:\n\t#\t\t\t\t\t\tself.getSibling(\"ddlLot\").props.options\u003dNone\n\t\t\t\t\tsystem.perspective.print(\"operationId \"+str(operationId ))\n\t\t\t\t\tsystem.perspective.print(\"WoNumber \"+str(WoNumber ))\n\t\t\t\t\tdsResult\u003dQualityOperatorConsole.GetMachinesByOperationForQuality(operationId ,WoNumber)\n\t\t\t\t\tds\u003ddsResult[0]\n\t\t\t\t\tdsLot\u003ddsResult[1]\n\t\t\t\t\t\n\t\t\t\t\tds\u003dsystem.dataset.toPyDataSet(ds)\n\t\t\t\t\tdsLot\u003dsystem.dataset.toPyDataSet(dsLot)\n\t\t\t\t\tif len(ds)\u003e0:\t\t\n\t\t\t\t\t\tself.getSibling(\"ddlMachine\").props.options\u003dds\n\t\t\t\t\t\tself.getSibling(\"ddlMachine\").props.value\u003d-1\n\t#\t\t\t\t\t------------------------------------------\n#\t\t\t\t\t\tif selectedTab \u003d\u003d \"\":\n#\t\t\t\t\t\t\tpass\n#\t\t\t\t\t\telse:\n#\t\t\t\t\t\t\tself.view.custom.dsLot\u003ddsLot\n\t\t\t\t\telse:\n\t\t\t\t\t\tself.getSibling(\"ddlMachine\").props.options\u003dNone\n\t\t\t\t\t\tself.getSibling(\"ddlMachine\").props.value\u003d\u0027\u0027\n\t\t\t\t\t\tself.view.custom.dsLot\u003dNone\n\t\t\t\t\tif characteristicType\u003d\u003d1 or str(characteristicType).strip()\u003d\u003d1:\n\t\t\t\t\t\tself.getSibling(\"txtValue\").meta.visible\u003d1\n\t\t\t\t\telse:\n\t\t\t\t\t\tself.getSibling(\"txtValue\").meta.visible\u003d0\n\texcept:\t\t\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\tsampleComplted\u003d0\n\t\tself.getSibling(\"lblSampleS_Completed\").props.text\u003dstr(sampleComplted)\n\t\terrorMessage \u003d \"\u0027Exception :: Quality reading opopup Page :\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "ddlChar",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 0.0504,
+          "rotate": {
+            "anchor": "-225% 124%"
+          },
+          "width": 0.303,
+          "x": 0.0275,
+          "y": 0.1879
+        },
+        "props": {
+          "options": null,
+          "placeholder": {
+            "text": "Select Char"
+          },
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "custom": {
+          "InspectionProcessManagerId": "value"
+        },
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\timport os\n\timport sys\n\timport re\n\timport json\n\timport urllib2, urllib\n\timport base64\n\timport json\n\ttry:\n\t\tselectedTab \u003d self.view.params.QualityType\n\t\tInspectionTypeId\u003dself.view.params.InspectionTypeId\n\t\toperationId\u003dself.view.params.operationId\n\t\tWoNumber\u003dself.session.custom.WoNumber\n\t\t\n\t\tWorkorderType \u003d self.view.custom.workOrderType\n\t\t\n\t\tsystem.perspective.print(\"WorkorderType1: \"+str(WorkorderType))\n\t\tgreenColor\u003d\"#00AC00\"\n\t\tredColor\u003d\"#FF0000\"\n\t\tcavity\u003d0\n\t\tisMachineFlag\u003d1\n\t\tisMoldFlag\u003d1\n\t\tisCavityFlag\u003d1\n\t\tif selectedTab !\u003d \u0027FQC\u0027:\n\t\t\t\n\t\t\tif self.getSibling(\"ddlMachine\").meta.visible\u003d\u003d1:\n\t\t\t\tmachineId\u003dself.getSibling(\"ddlMachine\").props.value\n\t\t\t\tsystem.perspective.print(\"machineId \"+str(machineId))\n\t\t\t\tif machineId \u003c  1 or  str(machineId).strip()\u003d\u003d\u0027\u0027 :\n\t\t\t\t\tMessageText\u003d\"Please Select Machine\"\n\t\t\t\t\tself.getSibling(\"lblMessage\").props.text\u003dMessageText\n\t\t\t\t\tself.getSibling(\"lblMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\t\t\tisMachineFlag\u003d0\n\t\t\tif self.getSibling(\"ddlMold\").meta.visible\u003d\u003d1 and isMachineFlag\u003d\u003d1:\n\t\t\t\tMoldId\u003dself.getSibling(\"ddlMold\").props.value\t\n\t\t\t\tsystem.perspective.print(\"MoldId \"+str(MoldId))\n\t\t\t\tif MoldId \u003c  1   or  str(MoldId).strip()\u003d\u003d\u0027\u0027 :\n\t\t\t\t\tMessageText\u003d\"Please Select Mold\"\n\t\t\t\t\tself.getSibling(\"lblMessage\").props.text\u003dMessageText\n\t\t\t\t\tself.getSibling(\"lblMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\t\t\tisMoldFlag\u003d0\n\t\t\n#\t\t\tcavityField \u003d self.getSibling(\"ddlCavity\").meta.visible\n\t\t\n\t\t\tif self.getSibling(\"ddlCavity\").meta.visible\u003d\u003d1 and isMoldFlag\u003d\u003d1:\n\t\t\t\tcavity\u003dself.getSibling(\"ddlCavity\").props.value\n\t\t\t\tsystem.perspective.print(\"cavity \"+str(cavity))\n\t\t\t\tif cavity \u003c  1 or  str(cavity).strip()\u003d\u003d\u0027\u0027:\n\t\t\t\t\tMessageText\u003d\"Please Select Cavity Number\"\n\t\t\t\t\tself.getSibling(\"lblMessage\").props.text\u003dMessageText\n\t\t\t\t\tself.getSibling(\"lblMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\t\t\tisCavityFlag\u003d0\n\t\tif isCavityFlag\u003d\u003d1 and isMoldFlag\u003d\u003d1 and isMachineFlag\u003d\u003d1 :\t\t\n\t\t\tInstrumentSerialNumber\u003dself.getSibling(\"txtInstrumentSerialNo\").props.text\n#----------------------------------------------- #------Added By Hari M. As Cavity showing 0 in FQC------------------\t\n\t\t\n\t\t\tif self.getSibling(\"ddlCavity\").meta.visible\u003d\u003d1 and isMoldFlag\u003d\u003d1:\n\t\t\t\tcavity\u003dself.getSibling(\"ddlCavity\").props.value\n\t\t\t\tsystem.perspective.print(\"cavity \"+str(cavity))\n\t\t\t\tif cavity \u003c  1 or  str(cavity).strip()\u003d\u003d\u0027\u0027:\n\t\t\t\t\tMessageText\u003d\"Please Select Cavity Number\"\n\t\t\t\t\tself.getSibling(\"lblMessage\").props.text\u003dMessageText\n\t\t\t\t\tself.getSibling(\"lblMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\t\t\tcavity \u003d 0\n\t\t\t\t\tisCavityFlag\u003d0  \n\t\t\t\t\t\n#----------------------------------------------------------------------------------------------------------------------------\t\t\t\t\t  \n\t\t\tif str(InstrumentSerialNumber).strip()\u003d\u003d\u0027\u0027 or str(InstrumentSerialNumber)\u003d\u003dNone:\n\t\t\t\tInstrumentSerialNumber\u003d\u0027\u0027\n\t\t\t\n\t\t\tscriptName\u003d\"Quality add reading press add\"\n\t\t\tcharacteristicId\u003dself.getSibling(\"ddlChar\").props.value\n\t\t\tInspectionProcessManagerId\u003dself.view.custom.InspectionProcessManagerId\n\t\t\tActualuValue\u003dself.getSibling(\"txtValue\").props.value\n\t\t\tinstrumentId\u003dself.getSibling(\"lblSampleS\").props.text\n\t\t\tsystem.perspective.print(\"instrumentId \u003d \"+str(instrumentId))\n\t\t\tid\u003d0\n\t\t\tuserID\u003dself.session.custom.UserId\n\t\t\tif self.getSibling(\"ddlLot\").meta.visible\u003d\u003d1:\n\t\t\t\tLotNumber\u003dself.getSibling(\"ddlLot\").props.value\n\t\t\telse:\n\t\t\t\tLotNumber\u003d\u0027\u0027\n\t\t\t\n\t\t\tif selectedTab \u003d\u003d \u0027FQC\u0027:\n\t\t\t\tif (WorkorderType\u003d\u003d2 or \u00272\u0027):\n\t\t\t\t\tmachineId\u003dself.getSibling(\"ddlMachine\").props.value\n\t\t\t\telse:\n\t\t\t\t\tmachineId \u003d -1\n\t\t\telse:\n\t\t\t\tmachineId\u003dself.getSibling(\"ddlMachine\").props.value\n\t\t\t\t\n\t\t\t\n\t\t\tMoldId\u003dself.getSibling(\"ddlMold\").props.value\n\t\t\tif self.view.custom.workOrderType\u003d\u003d1:\n\t\t\t\tMoldId\u003d0\n\t\t\tif self.view.custom.characteristicType\u003d\u003d2:\n\t\t\t\tself.view.custom.isSeleted\u003d2\n\t\t\t\tif self.getSibling(\"chkYes\").props.selected:\n\t\t\t\t\tself.view.custom.isSeleted\u003d1\n\t\t\t\tActualuValue\u003dself.view.custom.isSeleted\n\t\t\t\t\n\t\t\t\t\t\t\n\t\t\tfrom threading import Timer\n\t\t\tdef runThisLater():\n\t\t\t\tself.getSibling(\"lblMessage\").props.text\u003d\u0027\u0027\n\t\t\t\tsystem.perspective.print(\"LABEL CLEAR  \")\n\t\t\tTimer(5.0, runThisLater).start()\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\tresult\u003dQualityOperatorConsole.UpdateRecordCharacteristicValuesFromOperator(WoNumber,characteristicId,InspectionProcessManagerId,ActualuValue,instrumentId,InstrumentSerialNumber,id,userID,LotNumber,machineId,MoldId,operationId,cavity)\n\t\t\tsystem.perspective.print(\"result \"+str(result))\n\t\t\t\n\t\t\tif result\u003d\u003d1 or str(result)\u003d\u003d\u00271\u0027:\n\t\n\t\t\t\tMessageText\u003d\"Readings Added Succefully\"\n\t\t\t\tself.getSibling(\"lblMessage\").props.text\u003dMessageText\n\t\t\t\tself.getSibling(\"lblMessage\").props.textStyle.color \u003d str(greenColor)\n\t\t\t\tsample_Completed\u003dself.getSibling(\"lblSampleS_Completed\").props.text\n\t\t\t\tsample_Completed\u003dint(sample_Completed)\n\t\t\t\tsample_Completed\u003dsample_Completed+1\n\t\t\t\tself.getSibling(\"lblSampleS_Completed\").props.text\u003dstr(sample_Completed)\n\t#\t\t\tupdaateStatus\u003d1\n\t#\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/QualityConsole/PopUps/QualityConsoleTabViews/ValidationPopup/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\telse:\n\t\t\t\tMessageText\u003d\"Readings Failed to Add\"\n\t\t\t\tself.getSibling(\"lblMessage\").props.text\u003dMessageText\n\t\t\t\tself.getSibling(\"lblMessage\").props.textStyle.color \u003d str(redColor)\n\t#\t\t\tupdaateStatus\u003d0\n\t#\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/QualityConsole/PopUps/QualityConsoleTabViews/ValidationPopup/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\n\t\n\t\n\t#\t\tsystem.perspective.closePopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/QualityConsole/PopUps/QualityConsoleTabViews/ValidationPopup/SaveUpdatePopup\u0027)\t\t\n\t\t\t\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)\t\n\t\tsystem.perspective.print(\"errorMessage \"+str(errorMessage))"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "btnAdd",
+          "tooltip": {
+            "enabled": true,
+            "location": "bottom-left",
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Click to Add"
+          }
+        },
+        "position": {
+          "height": 0.0598,
+          "width": 0.1055,
+          "x": 0.8653,
+          "y": 0.8758
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "this.props.enabled"
+              },
+              "enabled": false,
+              "transforms": [
+                {
+                  "code": "\tcharId\u003dself.getSibling(\"ddlChar\").props.value\n\tmachineId\u003dself.getSibling(\"ddlMachine\").props.value\n\tlotNo\u003dself.getSibling(\"ddlLot\").props.value\n\tif self.view.params.QualityType!\u003d\u0027FQC\u0027:\n\t\tlotNo\u003d1\n\tmoldId\u003dself.getSibling(\"ddlMold\").props.value\n\tworkOrderType\u003dself.view.custom.workOrderType\n\tif charId \u003e 0 and machineId \u003e 0 and str(lotNo).strip()!\u003d\u0027\u0027 and str(lotNo).strip()!\u003d\u0027-1\u0027 and str(lotNo).strip()!\u003dNone and (workOrderType\u003d\u003d1 or (workOrderType\u003d\u003d2 and moldId\u003e 0 and str(moldId).strip()!\u003d\u0027\u0027 and str(moldId).strip()!\u003dNone)):\n\t\tvalue\u003d 1\n\telse:\n\t\tvalue\u003d 0\n\treturn value\n\t\t\n\t",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "enabled": 1,
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "classes": "PDA/PDAButton"
+          },
+          "text": "+Add"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "lblCavity"
+        },
+        "position": {
+          "height": 0.0582,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.1964,
+          "x": 0.4889,
+          "y": 0.6605
+        },
+        "propConfig": {
+          "meta.visible": {
+            "binding": {
+              "config": {
+                "path": "view.custom.workOrderType"
+              },
+              "transforms": [
+                {
+                  "code": "\tIsCavity\u003dself.view.custom.IsCavity\n#\tif value\u003d\u003d2 or str(value).strip()\u003d\u003d\u00272\u0027:\n\tif (value\u003d\u003d2 or str(value).strip()\u003d\u003d\u00272\u0027) and (IsCavity\u003d\u003d1 or str(IsCavity)\u003d\u003d\u00271\u0027):\n\t\tvisible\u003d1\n\telse:\n\t\tvisible\u003d0\n\treturn visible",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "text": "Cavity No(Only For CNS)",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\n\n\t\tcavityNo\u003dself.props.value\n\t\tif cavityNo \u003e 0:\n\t\t\tcavityNo\u003dcavityNo\n\t\n\t\t\t\n\t\t\t\n\t\t\t\n\texcept:\n\t\timport os\n\t\terrorMessage\u003d\"Quality :cavityNo function. Exception ddl selection \u003d \"+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)\n\t\tsystem.perspective.print(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "ddlCavity",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 0.0504,
+          "rotate": {
+            "anchor": "-225% 124%"
+          },
+          "width": 0.203,
+          "x": 0.4875,
+          "y": 0.7213
+        },
+        "propConfig": {
+          "meta.visible": {
+            "binding": {
+              "config": {
+                "path": "view.custom.workOrderType"
+              },
+              "transforms": [
+                {
+                  "code": "\tIsCavity\u003dself.view.custom.IsCavity\n\tif (value\u003d\u003d2 or str(value).strip()\u003d\u003d\u00272\u0027) and (IsCavity\u003d\u003d1 or str(IsCavity)\u003d\u003d\u00271\u0027):\n\t\tvisible\u003d1\n\telse:\n\t\tvisible\u003d0\n\treturn visible",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "view.custom.workOrderType"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d2 or str(value).strip()\u003d\u003d\u00272\u0027:\n\t\tenable\u003d1\n\telse:\n\t\tenable\u003d0\n\treturn enable\n\t\t",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "options": null,
+          "placeholder": {
+            "text": "Select Cavity"
+          },
+          "style": {
+            "classes": "Common/TextBox"
+          },
+          "value": -1
+        },
+        "type": "ia.input.dropdown"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent",
+      "style": {
+        "classes": "Common/TextBox"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

@@ -1,0 +1,161 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\tscriptName\u003d \"MessageBox\"\n\t\tTabledata\u003dself.params.rowData\n\t\tsystem.perspective.print(\"Table Data on Top: \" + str(Tabledata))\n\t\torderId \u003d Tabledata.get(\"RMOrderID\")\n\t\tuserId\u003dself.session.custom.UserId\n\t\tmaintenanceTypeId \u003d 2 #Reactive Maintenenact Type\n\t\tresult\u003dMaintenanceOCAPI.GetIsOperatorActive(userId,orderId,maintenanceTypeId)\n\t\tIsScreenActive \u003d result[0]\n\t\tsystem.perspective.print(\"IsScreenActive \" + str(IsScreenActive))\n\t\t\n\t\tif IsScreenActive \u003d\u003d int(1) or IsScreenActive \u003d\u003d str(\"1\"):\n\t\t\tself.getChild(\"root\").getChild(\"ViewbtnLblMsg\").props.text \u003d\"Screen is being used by \" + str(result[1]) \n\t\telse:\n\t\t\tRMNumber \u003d Tabledata.get(\"WoNumber\")\n\t\t\tself.getChild(\"root\").getChild(\"ViewbtnLblMsg\").props.text \u003d str(RMNumber)+\" is not asssigned\"\n\t\t\tpass\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)\n\t\n\t\n\t\n#\ttry:\n#\t\tscriptName\u003d \"MessageBox\"\n#\t\tTabledata\u003dself.params.rowData\n#\t\tPMNumber \u003d Tabledata.get(\"PMNumber\")\n#\t\tself.getChild(\"root\").getChild(\"ViewBtnRMNumber\").props.text \u003d PMNumber\n#\texcept:\n#\t\timport sys, os\n#\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n#\t\tAuthentication.exceptionLogger(errorMessage)"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "rowData": "value"
+  },
+  "propConfig": {
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 195,
+      "width": 334
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)\n"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnNo",
+          "tooltip": {
+            "enabled": true,
+            "text": "Click to Cancel"
+          }
+        },
+        "position": {
+          "height": 0.1762,
+          "width": 0.3313,
+          "x": 0.3334,
+          "y": 0.7694
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "classes": "Common/Button"
+          },
+          "text": "OK"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 0.1658,
+          "width": 1
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Message",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 20,
+            "fontWeight": "bold",
+            "margin": 10,
+            "textAlign": "Center",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tself.session.custom.WoNumber \u003d \"\"\n\tself.session.custom.RMOrderID \u003d \"\"\n\tself.session.custom.Line \u003d \"\"\n\tself.session.custom.Machine \u003d \"\"\t\t\n\tself.session.custom.WOOperationStatus \u003d \"\"\n\tself.session.custom.ActualStartDate \u003d \"\"\n\tself.session.custom.ActualCmpDateTime \u003d \"\"\t\n\tself.session.custom.AreaID \u003d \"\"\n\tself.session.custom.areaName \u003d \"\"\n\tself.session.custom.lineName \u003d \"\"\n\tself.session.custom.MachineID \u003d \"\"\n\tself.session.custom.enterpriseName\u003d \"\"\n\tself.session.custom.plantName \u003d \"\"\n\tsystem.perspective.print(\"Session Tags Cleared Successfully on Close\")\n\tsystem.perspective.closePopup(\"\")"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 0.1554,
+          "width": 0.0904,
+          "x": 0.9064
+        },
+        "props": {
+          "path": "material/close",
+          "style": {
+            "color": "#FFFFFF",
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "ViewbtnLblMsg"
+        },
+        "position": {
+          "height": 0.4663,
+          "width": 0.6024,
+          "x": 0.1964,
+          "y": 0.2306
+        },
+        "props": {
+          "textStyle": {
+            "fontFamily": "Arial",
+            "fontSize": 28,
+            "textAlign": "center",
+            "textTransform": "full-width"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -176,
+      "y": 35
+    },
+    "props": {
+      "mode": "percent",
+      "style": {
+        "classes": "Panel/PopUp"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

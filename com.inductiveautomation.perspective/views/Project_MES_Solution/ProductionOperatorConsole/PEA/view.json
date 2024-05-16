@@ -1,0 +1,2178 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\tuserId \u003d self.session.custom.UserId\t\n\tsystem.perspective.print(\"My User Id is : \"+str(userId))\t\t\n\ttry:\n\t\tassignedDetails \u003dProductionOperatorConsole.getAllWOdiffectList()\n\t\tsystem.perspective.print(\"Production API Result--\u003e\"+str(assignedDetails))\n\texcept Exception as e:\n\t\tsystem.perspective.print(\u0027Exception:: Main landing Page loading\u0027+str(e))\n\t\tscriptName \u003d \"Operator Console:\"\n\t\terrorMessage\u003dscriptName  +\u0027 Exception - \u0027+  str(e)\n\t\tAuthentication.exceptionLogger(errorMessage)\n\telse:\t\n\t\tif assignedDetails.getRowCount() \u003e\u003d 0:\t\t\t\t\t\t\n\t\t\tself.getChild(\"root\").getChild(\"ColumnCont_PEA\").getChild(\"TablePEA\").props.data\u003d assignedDetails\t\n\t\telse:\n\t\t\tsystem.perspective.print(\"Data is not available\")\t\t\n\tfinally:\t\t\n\t\tpass\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 900,
+      "width": 1348
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "EnterpriseLbl"
+                },
+                "position": {
+                  "height": 0.6522,
+                  "width": 0.0506,
+                  "x": 0.0103,
+                  "y": 0.1739
+                },
+                "props": {
+                  "style": {
+                    "backgroundColor": "#EDF0F0",
+                    "classes": "Common/Label"
+                  },
+                  "text": "Enterprise",
+                  "textStyle": {
+                    "classes": "Common/OprConsoleLabelText"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "custom": {
+                  "entID": "value",
+                  "entName": "value"
+                },
+                "events": {
+                  "component": {
+                    "onActionPerformed": {
+                      "config": {
+                        "script": "\ttry:\n\t\tself.getSibling(\"PlantDrpDwn\").props.value \u003d \u0027\u0027\n\t\tself.getSibling(\"AreaDrpDwn\").props.value \u003d \u0027\u0027\n\t\tself.getSibling(\"LineDrpDwn\").props.value \u003d \u0027\u0027\n\t\tuserID \u003d self.session.custom.UserId\n\t\tentId\u003dself.props.value\n\t\tplantId\u003d0\n\t\tareaId\u003d0\n\t\tlineId\u003d0\n\t\tuserId\u003dself.session.custom.UserId\n#\t\twoNo\u003d\n\t\tsystem.perspective.print(\"entId--\u003e \"+str(entId))\t\t\n\t\tassignedDetails \u003dProductionOperatorConsole.getUserAssignedWOList(entId,plantId,areaId,lineId,userId)\n\t\tself.parent.parent.parent.getChild(\"ColumnContainer_1\").getChild(\"Table\").props.data\u003dassignedDetails\n\texcept:\n\t\tsystem.perspective.print(\u0027Exception :: Ent Filter\u0027)\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)\t\t\n\n"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "EnterpriseDrpDwn",
+                  "tooltip": {
+                    "location": "bottom-right",
+                    "style": {
+                      "classes": "Common/ToolTip"
+                    }
+                  }
+                },
+                "position": {
+                  "height": 0.6522,
+                  "width": 0.0906,
+                  "x": 0.0676,
+                  "y": 0.1731
+                },
+                "propConfig": {
+                  "props.options": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.UserId"
+                      },
+                      "transforms": [
+                        {
+                          "code": "\tuserID \u003d value \n\ttry:\n\t\tvalue  \u003d PlantHirarchyAPI.getEnterpriseList(userID)\t\n\texcept:\n\t\tvalue \u003d \u0027\u0027\t\n\treturn value",
+                          "type": "script"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "showClearIcon": true,
+                  "style": {
+                    "classes": "Common/TextBox"
+                  },
+                  "value": 3
+                },
+                "type": "ia.input.dropdown"
+              },
+              {
+                "meta": {
+                  "name": "PlantLbl"
+                },
+                "position": {
+                  "height": 0.6522,
+                  "width": 0.0551,
+                  "x": 0.1657,
+                  "y": 0.1731
+                },
+                "props": {
+                  "style": {
+                    "backgroundColor": "#EDF0F0",
+                    "classes": "Common/Label"
+                  },
+                  "text": "Plant",
+                  "textStyle": {
+                    "classes": "Common/OprConsoleLabelText"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "events": {
+                  "component": {
+                    "onActionPerformed": {
+                      "config": {
+                        "script": "\ttry:\n\t\tself.getSibling(\"AreaDrpDwn\").props.value \u003d \u0027\u0027\n\t\tself.getSibling(\"LineDrpDwn\").props.value \u003d \u0027\u0027\n\t\n\t\tentId\u003dself.getSibling(\"EnterpriseDrpDwn\").props.value\n\t\tplantId\u003dself.props.value\n\t\tareaId\u003d0\n\t\tlineId\u003d0\n\t\tuserId\u003dself.session.custom.UserId\n#\t\twoNo\u003d-1\n\t\tsystem.perspective.print(\"plantId--\u003e \"+str(plantId))\t\t\n\t\tassignedDetails \u003dProductionOperatorConsole.getUserAssignedWOList(entId,plantId,areaId,lineId,userId)\n\t\tself.parent.parent.parent.getChild(\"ColumnContainer_1\").getChild(\"Table\").props.data\u003dassignedDetails\n\texcept:\n\t\tsystem.perspective.print(\u0027Exception :: Ent Filter\u0027)\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "PlantDrpDwn",
+                  "tooltip": {
+                    "style": {
+                      "classes": "Common/ToolTip"
+                    }
+                  }
+                },
+                "position": {
+                  "height": 0.6522,
+                  "rotate": {
+                    "anchor": "25% 50%"
+                  },
+                  "width": 0.0906,
+                  "x": 0.2284,
+                  "y": 0.1731
+                },
+                "propConfig": {
+                  "props.options": {
+                    "binding": {
+                      "config": {
+                        "expression": "{../EnterpriseDrpDwn.props.value}"
+                      },
+                      "transforms": [
+                        {
+                          "code": "\tenterpriseID \u003d value\n\tuserID \u003d self.session.custom.UserId\n\ttry:\n\t\tvalue \u003d PlantHirarchyAPI.getPlantList(enterpriseID,userID)\n\texcept Exception as e:\n\t\tvalue \u003d \u0027\u0027\n\t\tscriptName \u003d \"Operator Console:\"\n\t\terrorMessage\u003dscriptName  +\u0027 Exception - \u0027+  str(e)\n\t\tAuthentication.exceptionLogger(errorMessage)\n\treturn value",
+                          "type": "script"
+                        }
+                      ],
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "placeholder": {
+                    "text": "Select Plant"
+                  },
+                  "showClearIcon": true,
+                  "style": {
+                    "classes": "Common/TextBox"
+                  }
+                },
+                "type": "ia.input.dropdown"
+              },
+              {
+                "meta": {
+                  "name": "AreaLbl"
+                },
+                "position": {
+                  "height": 0.6522,
+                  "rotate": {
+                    "anchor": "-167% 39%"
+                  },
+                  "width": 0.048,
+                  "x": 0.3265,
+                  "y": 0.1731
+                },
+                "props": {
+                  "style": {
+                    "backgroundColor": "#EDF0F0",
+                    "classes": "Common/Label"
+                  },
+                  "text": "Area",
+                  "textStyle": {
+                    "classes": "Common/OprConsoleLabelText"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "events": {
+                  "component": {
+                    "onActionPerformed": {
+                      "config": {
+                        "script": "\ttry:\t\n\t\tself.getSibling(\"LineDrpDwn\").props.value \u003d \u0027\u0027\n\t\t\n\t\tentId\u003dself.getSibling(\"EnterpriseDrpDwn\").props.value\n\t\tplantId\u003dself.getSibling(\"PlantDrpDwn\").props.value\n\t\tareaId\u003dself.props.value\n\t\tlineId\u003d0\n\t\tuserId\u003dself.session.custom.UserId\n#\t\twoNo\u003d-1\n\t\tsystem.perspective.print(\"areaId--\u003e \"+str(areaId))\t\t\n\t\tassignedDetails \u003dProductionOperatorConsole.getUserAssignedWOList(entId,plantId,areaId,lineId,userId)\n\t\tself.parent.parent.parent.getChild(\"ColumnContainer_1\").getChild(\"Table\").props.data\u003dassignedDetails\n\texcept:\n\t\tsystem.perspective.print(\u0027Exception :: Area Filter\u0027)\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "AreaDrpDwn",
+                  "tooltip": {
+                    "location": "bottom-right",
+                    "style": {
+                      "classes": "Common/ToolTip"
+                    }
+                  }
+                },
+                "position": {
+                  "height": 0.6522,
+                  "rotate": {
+                    "anchor": "450% 50%"
+                  },
+                  "width": 0.0906,
+                  "x": 0.3816,
+                  "y": 0.1731
+                },
+                "propConfig": {
+                  "props.options": {
+                    "binding": {
+                      "config": {
+                        "expression": "{../PlantDrpDwn.props.value}"
+                      },
+                      "transforms": [
+                        {
+                          "code": "\tplantID \u003d value\n\tenterpriseID \u003d self.getSibling(\"EnterpriseDrpDwn\").props.value\n\tuserID \u003d self.session.custom.UserId\n\ttry:\n\t\tvalue \u003d PlantHirarchyAPI.getAreaList(enterpriseID,plantID,userID)\n\texcept Exception as e:\n\t\tvalue \u003d \u0027\u0027\t\n\t\tscriptName \u003d \"Operator Console:\"\n\t\terrorMessage\u003dscriptName  +\u0027 Exception - \u0027+  str(e)\n\t\tAuthentication.exceptionLogger(errorMessage)\n\treturn value",
+                          "type": "script"
+                        }
+                      ],
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "multiSelect": "",
+                  "showClearIcon": true,
+                  "style": {
+                    "classes": "Common/TextBox"
+                  }
+                },
+                "type": "ia.input.dropdown"
+              },
+              {
+                "meta": {
+                  "name": "LineLbl"
+                },
+                "position": {
+                  "height": 0.6522,
+                  "width": 0.048,
+                  "x": 0.4797,
+                  "y": 0.1731
+                },
+                "props": {
+                  "style": {
+                    "backgroundColor": "#EDF0F0",
+                    "classes": "Common/Label"
+                  },
+                  "text": "Line",
+                  "textStyle": {
+                    "classes": "Common/OprConsoleLabelText"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "events": {
+                  "component": {
+                    "onActionPerformed": {
+                      "config": {
+                        "script": "\ttry:\n\t\tselectedLine\u003dself.props.value\n\t\tuserId\u003dself.session.custom.UserId\n#-----------------------------Load wo List to the Dropdown------------------------------------\t\t\n\t\tListOfWOAgainstLineId\u003dProductionOperatorConsole.getWoNumbersByLine(userId,selectedLine)\n\t\tsystem.perspective.print(\"ListOfWOAgainstLineId--\u003e\"+ str(ListOfWOAgainstLineId))\n\t\tself.getSibling(\"DropDwnWO\").props.options\u003dListOfWOAgainstLineId\n\t\tSelectedWONo\u003dself.getSibling(\"DropDwnWO\").props.value\n\t\tsystem.perspective.print(\"SelectedWONo--\u003e\"+ str(SelectedWONo))\n\t\tif SelectedWONo\u003d\u003d\u0027\u0027 or SelectedWONo\u003d\u003dNone or SelectedWONo\u003d\u003d\u0027SelectedWONo\u0027:\n\t\t\tassignedDetails \u003d ProductionOperatorConsole.getUserAssignedWOList(0,0,0,0,userId)\n\t\t\tsystem.perspective.print(\"List Of Wo agains UserId--\u003e\"+str(assignedDetails))\n\t\tself.parent.parent.parent.getChild(\"ColumnContainer_1\").getChild(\"Table\").props.data\u003dassignedDetails\n#-------------------------------Filter for Line Selection-------------------------------------------------\t\t\n\t\tentId\u003dself.getSibling(\"EnterpriseDrpDwn\").props.value\n\t\tplantId\u003dself.getSibling(\"PlantDrpDwn\").props.value\n\t\tareaId\u003dself.getSibling(\"AreaDrpDwn\").props.value\n\t\tlineId\u003dself.props.value\n\t\tuserId\u003dself.session.custom.UserId\n#\t\twoNo\u003d-1\n\t\tsystem.perspective.print(\"areaId--\u003e \"+str(areaId))\t\t\n\t\tassignedDetails \u003dProductionOperatorConsole.getUserAssignedWOList(entId,plantId,areaId,lineId,userId)\n\t\tself.parent.parent.parent.getChild(\"ColumnContainer_1\").getChild(\"Table\").props.data\u003dassignedDetails\n\texcept:\n\t\tsystem.perspective.print(\u0027Exception :: Area Filter\u0027)\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "LineDrpDwn",
+                  "tooltip": {
+                    "location": "bottom-right",
+                    "style": {
+                      "classes": "Common/ToolTip"
+                    }
+                  }
+                },
+                "position": {
+                  "height": 0.6522,
+                  "width": 0.0906,
+                  "x": 0.5348,
+                  "y": 0.1731
+                },
+                "propConfig": {
+                  "props.options": {
+                    "binding": {
+                      "config": {
+                        "expression": "{../AreaDrpDwn.props.value}"
+                      },
+                      "transforms": [
+                        {
+                          "code": "\tareaID \u003d value\n\tplantID \u003d self.getSibling(\"PlantDrpDwn\").props.value\n\tenterpriseID \u003d self.getSibling(\"EnterpriseDrpDwn\").props.value\n\tuserID \u003d self.session.custom.UserId\n\ttry:\n\t\tvalue \u003d PlantHirarchyAPI.getLineList(enterpriseID,plantID,areaID,userID)\t\t\n\texcept Exception as e:\n\t\tvalue \u003d \u0027\u0027\n\t\tscriptName \u003d \"Operator Console:\"\n\t\terrorMessage\u003dscriptName  +\u0027 Exception - \u0027+  str(e)\n\t\tAuthentication.exceptionLogger(errorMessage)\n\treturn value",
+                          "type": "script"
+                        }
+                      ],
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "showClearIcon": true,
+                  "style": {
+                    "classes": "Common/TextBox"
+                  }
+                },
+                "type": "ia.input.dropdown"
+              },
+              {
+                "meta": {
+                  "name": "ShiftLbl",
+                  "visible": false
+                },
+                "position": {
+                  "height": 0.6296,
+                  "width": 0.0482,
+                  "x": 0.6444,
+                  "y": 0.1973
+                },
+                "props": {
+                  "style": {
+                    "backgroundColor": "#EDF0F0",
+                    "classes": "Common/Label"
+                  },
+                  "text": "WorkOrder",
+                  "textStyle": {
+                    "classes": "Common/OprConsoleLabelText"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "events": {
+                  "component": {
+                    "onActionPerformed": {
+                      "config": {
+                        "script": "\n\tSelectedWONo\u003dself.getSibling(\"DropDwnWO\").props.value\n\tsystem.perspective.print(\"SelectedWONo--\u003e\"+str(SelectedWONo))\n\tuserId \u003d self.session.custom.UserId\n\tuserID\u003duserId\n\tif SelectedWONo\u003d\u003d\u0027\u0027 or SelectedWONo\u003d\u003dNone or SelectedWONo\u003d\u003d\u0027SelectedWONo\u0027:\n\t\tassignedDetails \u003d WorkOrderDetailsAPI.getUserAssignedWOList(0,0,0,0,0,userID)\n\t\tsystem.perspective.print(\"List Of Wo agains UserId--\u003e\"+str(assignedDetails))\n\telse:\n\t\tassignedDetails \u003d ProductionOperatorConsole.getUserAssignedWOList(SelectedWONo,userId)\n\t\tsystem.perspective.print(\"List Of Wo --\u003e\"+str(assignedDetails))\n\tself.parent.parent.parent.getChild(\"ColumnContainer_1\").getChild(\"Table\").props.data\u003dassignedDetails\n\t\n\t"
+                      },
+                      "enabled": false,
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "DropDwnWO",
+                  "tooltip": {
+                    "location": "bottom-right",
+                    "style": {
+                      "classes": "Common/ToolTip"
+                    }
+                  },
+                  "visible": false
+                },
+                "position": {
+                  "height": 0.6296,
+                  "width": 0.1147,
+                  "x": 0.6991,
+                  "y": 0.1973
+                },
+                "props": {
+                  "options": {
+                    "$": [
+                      "ds",
+                      192,
+                      1671439020691
+                    ],
+                    "$columns": [
+                      {
+                        "data": [],
+                        "name": "ShiftId",
+                        "type": "String"
+                      },
+                      {
+                        "data": [],
+                        "name": "Shift Name",
+                        "type": "String"
+                      }
+                    ]
+                  },
+                  "placeholder": {
+                    "text": "Select WorkOrder"
+                  },
+                  "showClearIcon": true,
+                  "style": {
+                    "classes": "Common/TextBox"
+                  }
+                },
+                "type": "ia.input.dropdown"
+              }
+            ],
+            "meta": {
+              "name": "CoordinateContainer",
+              "visible": false
+            },
+            "position": {
+              "height": 0.4,
+              "width": 0.99,
+              "x": 0.0055,
+              "y": 0.4351
+            },
+            "props": {
+              "mode": "percent",
+              "style": {
+                "classes": "Basic/OprConsoleHirarchy"
+              }
+            },
+            "type": "ia.container.coord"
+          },
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "height": 0.4625,
+              "width": 0.2597,
+              "x": 0.0146,
+              "y": 0.1688
+            },
+            "props": {
+              "text": "PEA Console",
+              "textStyle": {
+                "classes": "Common/Label_Header"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "CoordinateContainer"
+        },
+        "position": {
+          "height": 0.0889,
+          "width": 0.9941
+        },
+        "props": {
+          "mode": "percent",
+          "style": {
+            "backgroundColor": "#EDF0F0"
+          }
+        },
+        "type": "ia.container.coord"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "TablePEA"
+            },
+            "position": {
+              "breakpoints": [
+                {
+                  "colIndex": 0,
+                  "name": "sm",
+                  "order": 1,
+                  "rowIndex": 0,
+                  "span": 12
+                },
+                {
+                  "colIndex": 0,
+                  "name": "md",
+                  "order": 0,
+                  "rowIndex": 0,
+                  "span": 12
+                },
+                {
+                  "colIndex": 0,
+                  "name": "lg",
+                  "order": 1,
+                  "rowIndex": 0,
+                  "span": 12
+                }
+              ],
+              "height": 708
+            },
+            "props": {
+              "bodyStyle": {
+                "classes": "Table/RowsBorder"
+              },
+              "columns": [
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "SrNo",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "center",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Sr No"
+                  },
+                  "justify": "center",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": false,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": 40
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "DefectId",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "center",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Defect Id"
+                  },
+                  "justify": "center",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": false,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": 100
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "Workorder Name",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "center",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Workorder No"
+                  },
+                  "justify": "center",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": false,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": ""
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "Part No",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "center",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Part No"
+                  },
+                  "justify": "center",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": false,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": 140
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "PartNoRev",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "center",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Revision"
+                  },
+                  "justify": "center",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": false,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": false,
+                  "width": 140
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "Workorder Qty",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "center",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "WO Qty"
+                  },
+                  "justify": "center",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": false,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": 90
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "Defect Qty",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "center",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Defected Qty"
+                  },
+                  "justify": "center",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": false,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": 90
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "Workorder Status",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "center",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Workorder Status"
+                  },
+                  "justify": "center",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": false,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": ""
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "Line Name",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Line Name"
+                  },
+                  "justify": "auto",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": false,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": false,
+                  "width": ""
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "Line Id",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Line Id"
+                  },
+                  "justify": "auto",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": false,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": false,
+                  "width": ""
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "Raised On",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Raised On"
+                  },
+                  "justify": "auto",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": false,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": ""
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "Raised By",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Raised By"
+                  },
+                  "justify": "auto",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": false,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": ""
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "Comment",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "center",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Comment"
+                  },
+                  "justify": "center",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": false,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": ""
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "View Details",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "center",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "View Details"
+                  },
+                  "justify": "center",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "view",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": false,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "Project_MES_Solution/ProductionOperatorConsole/Templates/ViewPEAViewButton",
+                  "visible": true,
+                  "width": ""
+                }
+              ],
+              "data": {
+                "$": [
+                  "ds",
+                  192,
+                  1704879455958
+                ],
+                "$columns": [
+                  {
+                    "data": [
+                      1,
+                      2,
+                      3,
+                      4,
+                      5,
+                      6,
+                      7,
+                      8,
+                      9,
+                      10,
+                      11,
+                      12,
+                      13,
+                      14,
+                      15,
+                      16
+                    ],
+                    "name": "SrNo",
+                    "type": "Integer"
+                  },
+                  {
+                    "data": [
+                      "WOD00000001",
+                      "WOD00000003",
+                      "WOD00000004",
+                      "WOD00000009",
+                      "WOD00000010",
+                      "WOD00000011",
+                      "WOD00000012",
+                      "WOD00000013",
+                      "WOD00000014",
+                      "WOD00000018",
+                      "WOD00000019",
+                      "WOD00000020",
+                      "WOD00000021",
+                      "WOD00000022",
+                      "WOD00000023",
+                      "WOD00000024"
+                    ],
+                    "name": "DefectId",
+                    "type": "String"
+                  },
+                  {
+                    "data": [
+                      "CL14141926",
+                      "CL14136449",
+                      "CL14136449",
+                      "56451356",
+                      "CL14141926",
+                      "CL14141926",
+                      "CL14141926",
+                      "CL14141926",
+                      "CL14141926",
+                      "14144476",
+                      "14144476",
+                      "14144476",
+                      "14144476",
+                      "14144476",
+                      "14144476",
+                      "14144475"
+                    ],
+                    "name": "Workorder Name",
+                    "type": "String"
+                  },
+                  {
+                    "data": [
+                      "1102-1020156_C_JCL",
+                      "1102-1020156_C_JCL",
+                      "1102-1020156_C_JCL",
+                      "1999-1010454EN_E_JPD",
+                      "1102-1020156_C_JCL",
+                      "1102-1020156_C_JCL",
+                      "1102-1020156_C_JCL",
+                      "1102-1020156_C_JCL",
+                      "1102-1020156_C_JCL",
+                      "1121-1010251_C_JPD",
+                      "1121-1010251_C_JPD",
+                      "1121-1010251_C_JPD",
+                      "1121-1010251_C_JPD",
+                      "1121-1010251_C_JPD",
+                      "1121-1010251_C_JPD",
+                      "1121-1010251_C_JPD"
+                    ],
+                    "name": "Part No",
+                    "type": "String"
+                  },
+                  {
+                    "data": [
+                      "C",
+                      "C",
+                      "C",
+                      "E",
+                      "C",
+                      "C",
+                      "C",
+                      "C",
+                      "C",
+                      "C",
+                      "C",
+                      "C",
+                      "C",
+                      "C",
+                      "C",
+                      "C"
+                    ],
+                    "name": "PartNoRev",
+                    "type": "String"
+                  },
+                  {
+                    "data": [
+                      24120000,
+                      38880000,
+                      38880000,
+                      8752,
+                      24120000,
+                      24120000,
+                      24120000,
+                      24120000,
+                      24120000,
+                      20443,
+                      20443,
+                      20443,
+                      20443,
+                      20443,
+                      20443,
+                      48428
+                    ],
+                    "name": "Workorder Qty",
+                    "type": "Long"
+                  },
+                  {
+                    "data": [
+                      18,
+                      3,
+                      8,
+                      80,
+                      2,
+                      2,
+                      4,
+                      2,
+                      2,
+                      5,
+                      3,
+                      2,
+                      5,
+                      2,
+                      4,
+                      1
+                    ],
+                    "name": "Defect Qty",
+                    "type": "Long"
+                  },
+                  {
+                    "data": [
+                      "Completed",
+                      "Completed",
+                      "Completed",
+                      "Completed",
+                      "Completed",
+                      "Completed",
+                      "Completed",
+                      "Completed",
+                      "Completed",
+                      "Completed",
+                      "Completed",
+                      "Completed",
+                      "Completed",
+                      "Completed",
+                      "Completed",
+                      "In-Progress"
+                    ],
+                    "name": "Workorder Status",
+                    "type": "String"
+                  },
+                  {
+                    "data": [
+                      "BA1",
+                      "BA1",
+                      "BA1",
+                      "H35",
+                      "BA1",
+                      "BA1",
+                      "BA1",
+                      "BA1",
+                      "BA1",
+                      "5S101",
+                      "5S101",
+                      "5S101",
+                      "5S101",
+                      "5S101",
+                      "5S101",
+                      "5S101"
+                    ],
+                    "name": "Line Name",
+                    "type": "String"
+                  },
+                  {
+                    "data": [
+                      2,
+                      2,
+                      2,
+                      1,
+                      2,
+                      2,
+                      2,
+                      2,
+                      2,
+                      3,
+                      3,
+                      3,
+                      3,
+                      3,
+                      3,
+                      3
+                    ],
+                    "name": "LineId",
+                    "type": "Long"
+                  },
+                  {
+                    "data": [
+                      "25.10.2023 10:04:44",
+                      "26.10.2023 10:20:05",
+                      "26.10.2023 10:29:24",
+                      "27.10.2023 10:14:47",
+                      "30.10.2023 17:03:30",
+                      "30.10.2023 17:06:29",
+                      "30.10.2023 17:06:36",
+                      "30.10.2023 17:06:44",
+                      "30.10.2023 17:06:52",
+                      "30.10.2023 20:25:58",
+                      "31.10.2023 01:37:37",
+                      "31.10.2023 01:37:45",
+                      "31.10.2023 01:37:52",
+                      "31.10.2023 01:38:00",
+                      "31.10.2023 01:38:10",
+                      "31.10.2023 01:56:11"
+                    ],
+                    "name": "Raised On",
+                    "type": "String"
+                  },
+                  {
+                    "data": [
+                      "Selladurai",
+                      "Jack",
+                      "Jack",
+                      "Jack",
+                      "Super",
+                      "Super",
+                      "Super",
+                      "Super",
+                      "Super",
+                      "Super",
+                      "Super",
+                      "Super",
+                      "Super",
+                      "Super",
+                      "Super",
+                      "Super"
+                    ],
+                    "name": "Raised By",
+                    "type": "String"
+                  },
+                  {
+                    "data": [
+                      "",
+                      "",
+                      "",
+                      "",
+                      "PEA SCRAP",
+                      "PEA SCRAP 01",
+                      "",
+                      "",
+                      "",
+                      "",
+                      "",
+                      "",
+                      "",
+                      "",
+                      "",
+                      "New Workorder"
+                    ],
+                    "name": "Comment",
+                    "type": "String"
+                  },
+                  {
+                    "data": [
+                      "",
+                      "",
+                      "",
+                      "",
+                      "",
+                      "",
+                      "",
+                      "",
+                      "",
+                      "",
+                      "",
+                      "",
+                      "",
+                      "",
+                      "",
+                      ""
+                    ],
+                    "name": "View Details",
+                    "type": "String"
+                  }
+                ]
+              },
+              "dragOrderable": false,
+              "emptyMessage": {
+                "noData": {
+                  "text": "Workorders are not available "
+                }
+              },
+              "filter": {
+                "enabled": true
+              },
+              "headerStyle": {
+                "classes": "Table/Header"
+              },
+              "pager": {
+                "initialOption": 15,
+                "options": [
+                  15,
+                  20,
+                  25,
+                  50,
+                  100
+                ]
+              },
+              "rows": {
+                "style": {
+                  "classes": "Table/Rowsmiddle"
+                },
+                "subviewExpansionMode": "single"
+              },
+              "selection": {
+                "enableRowSelection": false
+              }
+            },
+            "scripts": {
+              "customMethods": [],
+              "extensionFunctions": null,
+              "messageHandlers": [
+                {
+                  "messageType": "RefreshunclubWOList",
+                  "pageScope": true,
+                  "script": "\ttry:\n\t\tuserId \u003d self.session.custom.UserId\n\t\tentId\u003d0\n\t\tplantId\u003d0\n\t\tareaId\u003d0\n\t\tlineId\u003d0\n\t#\tuserId\u003d0\n\t\twoNo\u003d-1\n\t\tsystem.perspective.print(\"My User Id is : \"+str(userId))\t\t\n\t\ttry:\n\t#\t\tassignedDetails \u003d WorkOrderDetailsAPI.getUserAssignedWOList(0,0,0,0,0,userID)\n\t\t\tassignedDetails \u003dProductionOperatorConsole.getUserAssignedWOList(entId,plantId,areaId,lineId,userId)\n\t\t\tsystem.perspective.print(\"Production API Result--\u003e\"+str(assignedDetails))\n\t\texcept Exception as e:\n\t\t\tsystem.perspective.print(\u0027Exception:: Main landing Page loading\u0027+str(e))\n\t\t\tscriptName \u003d \"Operator Console:\"\n\t\t\terrorMessage\u003dscriptName  +\u0027 Exception - \u0027+  str(e)\n\t\t\tAuthentication.exceptionLogger(errorMessage)\n\t\telse:\t\n\t\t\tif assignedDetails.getRowCount() \u003e 0:\t\t\t\t\t\t\n\t\t\t\tself.props.data \u003d assignedDetails\n\t\t\t\t\n\t\t\telse:\n\t\t\t\tsystem.perspective.print(\"Data is not available\")\n\texcept:\n\t\tsystem.perspective.print(\"Exception::MSG Handler Refresh club WO List\")\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)",
+                  "sessionScope": false,
+                  "viewScope": false
+                }
+              ]
+            },
+            "type": "ia.display.table"
+          }
+        ],
+        "meta": {
+          "name": "ColumnCont_PEA"
+        },
+        "position": {
+          "height": 0.8411,
+          "width": 0.9999,
+          "y": 0.1089
+        },
+        "props": {
+          "breakpoints": [
+            {
+              "minWidth": 0,
+              "name": "sm"
+            },
+            {
+              "minWidth": 675,
+              "name": "md"
+            },
+            {
+              "minWidth": 1350,
+              "name": "lg"
+            }
+          ],
+          "style": {
+            "backgroundColor": "#E0E3E4"
+          }
+        },
+        "type": "ia.container.column"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "page": "/BaseScreen"
+              },
+              "scope": "C",
+              "type": "nav"
+            }
+          }
+        },
+        "meta": {
+          "name": "BackBtn_0",
+          "tooltip": {
+            "enabled": true,
+            "location": "bottom-left",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 0.0456,
+          "width": 0.089,
+          "x": 0.8961,
+          "y": 0.0211
+        },
+        "props": {
+          "image": {
+            "height": 15,
+            "width": 45
+          },
+          "style": {
+            "classes": "Common/Button"
+          },
+          "text": "Back",
+          "textStyle": {
+            "fontFamily": "Arial",
+            "fontSize": 11
+          }
+        },
+        "type": "ia.input.button"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -140,
+      "y": 39
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

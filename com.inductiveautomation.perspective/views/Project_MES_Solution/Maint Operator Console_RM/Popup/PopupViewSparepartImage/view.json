@@ -1,0 +1,123 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\trowData \u003d self.params.rowData\n\t\tsystem.perspective.print(\u0027Row DAta on Pop: \u0027 + str(rowData))\n\t\tImageFilePath \u003d rowData[\u0027ImagePath\u0027]\n\t\tsparePartName \u003d rowData[\u0027sparePartName\u0027]\n\t\tself.getChild(\"root\").getChild(\"LblTitle\").props.text \u003d \"View Sparepart Image : \"+(sparePartName)\n\t\tsystem.perspective.print(\u0027sparePartName on Pop: \u0027 + str(sparePartName))\n\t\topeningUrl \u003d system.tag.read(\"[default]JMES_InternalTags/AttachmentUrl\").value\t\n\t\tname \u003d str(ImageFilePath).strip()\n\t\tif name !\u003d str(\"\"):\n\t\t\tname \u003dname.replace(\u0027\\\\\u0027,\u0027/\u0027)\n\t\t\turl \u003d openingUrl+name\n\t\t\tsystem.perspective.print(\u0027Opening URL is:\u0027 +  str(url) )\n\t\t\tself.getChild(\"root\").getChild(\"IFrame\").props.src \u003d url\n\t\t\tsystem.perspective.print(\u0027Image View url :\u0027 + str(url))\n\t\telse:\n\t\t\tself.getChild(\"root\").getChild(\"IFrame\").props.src  \u003d \u0027\u0027\n\texcept:\n\t\tpass"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "rowData": "value"
+  },
+  "propConfig": {
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 519,
+      "width": 802
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 32,
+          "width": 798,
+          "x": 0.99,
+          "y": 0.99
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 10,
+            "textAlign": "Center",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 30,
+          "width": 30,
+          "x": 759.877583,
+          "y": 2.9205662500000003
+        },
+        "props": {
+          "path": "material/close",
+          "style": {
+            "color": "#FFFFFF",
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "IFrame"
+        },
+        "position": {
+          "height": 483,
+          "width": 799,
+          "x": -1.02,
+          "y": 32.98
+        },
+        "props": {
+          "style": {
+            "borderImageRepeat": "round"
+          }
+        },
+        "type": "ia.display.iframe"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -176,
+      "y": 35
+    },
+    "props": {
+      "style": {
+        "classes": "Panel/PopUp"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

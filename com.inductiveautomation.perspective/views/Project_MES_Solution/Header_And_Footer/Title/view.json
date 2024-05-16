@@ -1,0 +1,940 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\t#Added to through the page to Login Screen when there is no any Admin Details ---\u003e \n\tusername \u003d self.session.custom.Username\n\tLoginID \u003d self.session.custom.LoginID\n\t#system.perspective.print(\"UserNAme on Header\")\n\t#system.perspective.print(username)\n\tself.getChild(\"root\").getChild(\"root\").getChild(\"ContnrDetails\").getChild(\"loginId\").props.text\u003dstr(LoginID)\n\tUserText \u003d str(self.getChild(\"root\").getChild(\"root\").getChild(\"ContnrDetails\").getChild(\"loginId\").props.text)\n\t\n\tif username.strip() \u003d\u003d \"\" or UserText.strip()\u003d\u003d\"\" or  username \u003d\u003d None:\n#\t\tsystem.perspective.logout()\n\t\tsystem.perspective.navigate(\"/LoginScreen\")\n#\t\tsystem.perspective.closeSession()\n\telse:\n\t\tpass"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 50,
+      "width": 1220
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "draggable": false,
+                    "id": "2V4yTcdY",
+                    "modal": true,
+                    "overlayDismiss": true,
+                    "position": {
+                      "left": 0,
+                      "top": 50
+                    },
+                    "positionType": "exact",
+                    "resizable": false,
+                    "showCloseIcon": false,
+                    "type": "open",
+                    "viewPath": "Project_MES_Solution/MenuTree/MenuList",
+                    "viewportBound": false
+                  },
+                  "scope": "C",
+                  "type": "popup"
+                }
+              }
+            },
+            "meta": {
+              "name": "Icon",
+              "tooltip": {
+                "enabled": true,
+                "location": "bottom-left",
+                "style": {
+                  "classes": "Common/ToolTip"
+                },
+                "text": "Click To Open Menu"
+              }
+            },
+            "position": {
+              "height": 0.8511,
+              "width": 0.0279,
+              "x": -0.0008,
+              "y": 0.0896
+            },
+            "props": {
+              "color": "#FFFFFF",
+              "path": "material/menu"
+            },
+            "type": "ia.display.icon"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "lblFactoryMgx"
+                },
+                "position": {
+                  "height": 32,
+                  "width": 131,
+                  "x": 5,
+                  "y": 5
+                },
+                "props": {
+                  "style": {
+                    "color": "#FFFFFF",
+                    "fontSize": "calc(0.4vw + 0.4vh + 0.4vmin + 0.4em)",
+                    "fontWeight": "normal"
+                  },
+                  "text": "Factory Magix",
+                  "textStyle": {
+                    "fontSize": 18,
+                    "fontWeight": "900",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "lblBuild"
+                },
+                "position": {
+                  "height": 32,
+                  "width": 62.999999999999986,
+                  "x": 144.54,
+                  "y": 7.3802
+                },
+                "props": {
+                  "text": "Build 3.0.0",
+                  "textStyle": {
+                    "classes": "Login/ButtonText",
+                    "fontFamily": "Arial",
+                    "fontSize": 12,
+                    "fontStyle": "italic",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "ContnrFactoryMagix"
+            },
+            "position": {
+              "height": 0.84,
+              "width": 0.2975,
+              "x": 0.1127,
+              "y": 0.0519
+            },
+            "type": "ia.container.coord"
+          },
+          {
+            "meta": {
+              "name": "ContnrDateLng",
+              "visible": false
+            },
+            "position": {
+              "height": 0.875,
+              "width": 0.227,
+              "x": 0.613,
+              "y": 0.0806
+            },
+            "props": {
+              "mode": "percent"
+            },
+            "type": "ia.container.coord"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "loginId",
+                  "tooltip": {
+                    "enabled": true,
+                    "location": "bottom-right",
+                    "style": {
+                      "classes": "Common/ToolTip"
+                    },
+                    "text": "User Details"
+                  }
+                },
+                "position": {
+                  "height": 0.4049,
+                  "width": 0.2403,
+                  "x": 0.6445,
+                  "y": 0.3248
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.Username"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "alignItems": "stretch",
+                    "color": "#FFFFFF",
+                    "fontSize": 16,
+                    "fontStretch": "expanded",
+                    "fontWeight": "normal",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {},
+                      "scope": "C",
+                      "type": "refresh"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "Icon_1",
+                  "tooltip": {
+                    "enabled": true,
+                    "location": "bottom-left",
+                    "style": {
+                      "classes": "Common/ToolTip"
+                    },
+                    "text": "Refresh"
+                  },
+                  "visible": false
+                },
+                "position": {
+                  "height": 0.6426,
+                  "rotate": {
+                    "anchor": "50% 25%"
+                  },
+                  "width": 0.1169,
+                  "x": 0.2889,
+                  "y": 0.2263
+                },
+                "props": {
+                  "color": "#FFFFFF",
+                  "path": "material/access_time",
+                  "style": {
+                    "fontFamily": "Arial",
+                    "fontSize": 10
+                  }
+                },
+                "type": "ia.display.icon"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\tscreenFlag \u003d self.session.custom.screenNavigateFlag\n\toperatorConsoleScreenPath \u003d \"/OperatorConsole\"\n\toperatorConsoleScreenPath1 \u003d \"/Maintenence Operator Console - RM\"\n\toperatorConsoleScreenPath2 \u003d \"/WarehouseOperatorConsole\"\n\toperatorConsoleScreenPath3 \u003d \"/MaintenanceOperatorConsole\"\n\tif screenFlag\u003d\u003d1:\n\t\tsystem.perspective.navigate(operatorConsoleScreenPath)\t\t\n\telif screenFlag\u003d\u003d2:\n\t\tsystem.perspective.navigate(operatorConsoleScreenPath1)\n\telif screenFlag\u003d\u003d3:\n\t\tsystem.perspective.navigate(operatorConsoleScreenPath2)\n\telif screenFlag\u003d\u003d4:\n\t\tsystem.perspective.navigate(operatorConsoleScreenPath3)\t\n\telse:\n\t\tsystem.perspective.navigateBack()\n\t\n\t\n\t"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "Icon_2",
+                  "tooltip": {
+                    "enabled": true,
+                    "location": "bottom-left",
+                    "style": {
+                      "classes": "Common/ToolTip"
+                    },
+                    "text": "Previous Page"
+                  },
+                  "visible": false
+                },
+                "position": {
+                  "height": 0.6664,
+                  "width": 0.1327,
+                  "x": 0.0014,
+                  "y": 0.2024
+                },
+                "props": {
+                  "color": "#FFFFFF",
+                  "path": "material/reply",
+                  "style": {
+                    "fontFamily": "Arial",
+                    "fontSize": 10
+                  }
+                },
+                "type": "ia.display.icon"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "page": "/BaseScreen"
+                      },
+                      "scope": "C",
+                      "type": "nav"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "ImgHome",
+                  "tooltip": {
+                    "enabled": true,
+                    "location": "bottom-left",
+                    "style": {
+                      "classes": "Common/ToolTip"
+                    },
+                    "text": "Home"
+                  }
+                },
+                "position": {
+                  "height": 0.8608,
+                  "width": 0.0984,
+                  "x": 0.5372,
+                  "y": 0.0826
+                },
+                "props": {
+                  "fit": {
+                    "height": 160,
+                    "mode": "contain",
+                    "width": 160
+                  },
+                  "source": "/system/images/HomeNew.png",
+                  "style": {
+                    "padding": 5
+                  }
+                },
+                "type": "ia.display.image"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": [
+                      {
+                        "config": {
+                          "page": "/LoginScreen"
+                        },
+                        "scope": "C",
+                        "type": "nav"
+                      },
+                      {
+                        "config": {
+                          "script": "#\tself.getSibling(\"Label_3\").props.text\u003d\u0027\u0027\n\tself.session.custom.Username\u003d\u0027\u0027"
+                        },
+                        "scope": "G",
+                        "type": "script"
+                      }
+                    ]
+                  }
+                },
+                "meta": {
+                  "name": "ImgLogout",
+                  "tooltip": {
+                    "enabled": true,
+                    "location": "bottom-left",
+                    "style": {
+                      "classes": "Common/ToolTip"
+                    },
+                    "text": "Logout"
+                  }
+                },
+                "position": {
+                  "height": 0.8608,
+                  "width": 0.1287,
+                  "x": 0.8637,
+                  "y": 0.0831
+                },
+                "props": {
+                  "fit": {
+                    "height": 160,
+                    "mode": "contain",
+                    "width": 160
+                  },
+                  "source": "/system/images/PersonIcon.PNG",
+                  "style": {
+                    "padding": 2
+                  }
+                },
+                "type": "ia.display.image"
+              },
+              {
+                "meta": {
+                  "name": "Label_2"
+                },
+                "position": {
+                  "height": 0.5714,
+                  "width": 0.3547,
+                  "x": 0.204,
+                  "y": 0.3314
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "expression": "now(1000)"
+                      },
+                      "transforms": [
+                        {
+                          "formatType": "datetime",
+                          "formatValue": "dd/MM/YY hh:mm:ss aa",
+                          "type": "format"
+                        }
+                      ],
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "alignVertical": "top",
+                  "style": {
+                    "color": "#FFFFFF",
+                    "fontSize": "14px",
+                    "fontStyle": "italic",
+                    "fontWeight": "normal",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "draggable": false,
+                        "id": "abXpOJVB",
+                        "modal": false,
+                        "overlayDismiss": false,
+                        "resizable": false,
+                        "showCloseIcon": false,
+                        "type": "open",
+                        "viewPath": "Project_MES_Solution/Setting/ChangeLanuage",
+                        "viewportBound": false
+                      },
+                      "scope": "C",
+                      "type": "popup"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "ImgLanguage",
+                  "tooltip": {
+                    "enabled": true,
+                    "location": "bottom-left",
+                    "style": {
+                      "classes": "Common/ToolTip"
+                    },
+                    "text": "Select Language"
+                  }
+                },
+                "position": {
+                  "height": 0.9286,
+                  "rotate": {
+                    "anchor": "0% 50%"
+                  },
+                  "width": 0.1579,
+                  "x": 0.0786,
+                  "y": 0.0693
+                },
+                "props": {
+                  "fit": {
+                    "height": 125,
+                    "mode": "contain",
+                    "width": 125
+                  },
+                  "source": "/system/images/LanguageNew.png",
+                  "style": {
+                    "padding": 6
+                  }
+                },
+                "type": "ia.display.image"
+              }
+            ],
+            "meta": {
+              "name": "ContnrDetails",
+              "visible": false
+            },
+            "position": {
+              "height": 0.875,
+              "width": 0.3582,
+              "x": 0.3401,
+              "y": 0.0502
+            },
+            "props": {
+              "mode": "percent"
+            },
+            "type": "ia.container.coord"
+          },
+          {
+            "children": [
+              {
+                "events": {
+                  "dom": {
+                    "onClick": [
+                      {
+                        "config": {
+                          "script": "\tscreenFlag \u003dself.session.custom.screenNavigateFlag\n\tsystem.perspective.print(\u0027ON Click HOme ICON Script: \u0027 + str(screenFlag))\n\tif screenFlag \u003d\u003d int(5):\n\t\tuserId \u003d self.session.custom.UserId\n\t\torderId \u003d self.session.custom.RMOrderID\n\t\tmaintenanceTypeId \u003d 2\n\t\treleaseActiveScreen\u003d MaintenanceOCAPI.ReleaseOperatorActiveScreen(userId,orderId,maintenanceTypeId)\n\t\tsystem.perspective.print(\u0027Screen Released for RM\u0027)\n\telif screenFlag \u003d\u003d int(6) or screenFlag \u003d\u003d int(7):\n\t\tuserId \u003d self.session.custom.UserId\n\t\torderId \u003d self.session.custom.PMOrderID\n\t\tmaintenanceTypeId \u003d 1\n\t\treleaseActiveScreen\u003d MaintenanceOCAPI.ReleaseOperatorActiveScreen(userId,orderId,maintenanceTypeId)\n\t\tsystem.perspective.print(\u0027Screen Released for PM\u0027)\n\telse:\n\t\tpass\n\tself.session.custom.LineLeadCBackBtnH\u003d0\n\tself.session.custom.LineLeadCIsFilterSelectedBackBtn\u003d0\n\tself.session.custom.UserId \u003d \u0027\u0027\n\tself.session.custom.Username \u003d \u0027\u0027\n\tself.session.custom.WoNumber\u003d\"\"\n\tself.session.custom.WorkflowOperationsId\u003d\"\"\n\tself.session.custom.WorkflowId\u003d\"\"\n\tself.session.custom.Workflow\u003d\"\"\n\tself.session.custom.WOValue\u003d\"\"\n\tself.session.custom.plantName\u003d\"\"\n\tself.session.custom.EnterpriseId\u003d\"\"\n\tself.session.custom.enterpriseName\u003d\"\"\n\tself.session.custom.areaName\u003d\"\"\n\tself.session.custom.Item\u003d\"\"\n\tself.session.custom.LineID\u003d\"\"\n\tself.session.custom.MachineID\u003d\"\"\n\tself.session.custom.Operation\u003d\"\"\n\tself.session.custom.PlantID\u003d\"\"\n\tself.session.custom.plantNames\u003d\"\"\n\tself.session.custom.ProcessID\u003d\"\"\n\tself.session.custom.InspectionId \u003d 0\n\tself.session.custom.CharacteristicId \u003d 0\n\tself.session.custom.WOOperationStatus \u003d \"\"\n\tself.session.custom.PMType \u003d \"\"\n\tself.session.custom.screenNavigateFlag \u003d \u0027\u0027\n\tsystem.perspective.navigate(\u0027/LoginScreen\u0027)"
+                        },
+                        "scope": "G",
+                        "type": "script"
+                      },
+                      {
+                        "config": {
+                          "page": "/LoginScreen"
+                        },
+                        "enabled": false,
+                        "scope": "C",
+                        "type": "nav"
+                      }
+                    ]
+                  }
+                },
+                "meta": {
+                  "name": "ImgLogout",
+                  "tooltip": {
+                    "enabled": true,
+                    "location": "bottom-left",
+                    "style": {
+                      "classes": "Common/ToolTip"
+                    },
+                    "text": "Logout"
+                  }
+                },
+                "position": {
+                  "breakpoints": [
+                    {
+                      "colIndex": 11,
+                      "name": "sm",
+                      "order": 4,
+                      "rowIndex": 0,
+                      "span": 1
+                    },
+                    {
+                      "colIndex": 11,
+                      "name": "md",
+                      "order": 4,
+                      "rowIndex": 0,
+                      "span": 1
+                    },
+                    {
+                      "colIndex": 11,
+                      "name": "lg",
+                      "order": 4,
+                      "rowIndex": 0,
+                      "span": 1
+                    }
+                  ],
+                  "height": 40
+                },
+                "props": {
+                  "fit": {
+                    "height": 160,
+                    "mode": "contain",
+                    "width": 160
+                  },
+                  "source": "/system/images/PersonIcon.PNG",
+                  "style": {
+                    "padding": 3
+                  }
+                },
+                "scripts": {
+                  "customMethods": [],
+                  "extensionFunctions": null,
+                  "messageHandlers": [
+                    {
+                      "messageType": "AutoLogout",
+                      "pageScope": true,
+                      "script": "\tsystem.perspective.closePopup(\u0027\u0027)\n\tscreenFlag \u003dself.session.custom.screenNavigateFlag\n#\tsystem.perspective.print(\u0027ON Click HOme ICON Script: \u0027 + str(screenFlag))\n\tif screenFlag \u003d\u003d int(5):\n\t\tuserId \u003d self.session.custom.UserId\n\t\torderId \u003d self.session.custom.RMOrderID\n\t\tmaintenanceTypeId \u003d 2\n\t\treleaseActiveScreen\u003d MaintenanceOCAPI.ReleaseOperatorActiveScreen(userId,orderId,maintenanceTypeId)\n#\t\tsystem.perspective.print(\u0027Screen Released for RM\u0027)\n\telif screenFlag \u003d\u003d int(6) or screenFlag \u003d\u003d int(7):\n\t\tuserId \u003d self.session.custom.UserId\n\t\torderId \u003d self.session.custom.PMOrderID\n\t\tmaintenanceTypeId \u003d 1\n\t\treleaseActiveScreen\u003d MaintenanceOCAPI.ReleaseOperatorActiveScreen(userId,orderId,maintenanceTypeId)\n#\t\tsystem.perspective.print(\u0027Screen Released for PM\u0027)\n\telse:\n\t\tpass\n\n\tself.session.custom.UserId \u003d \u0027\u0027\n\tself.session.custom.Username \u003d \u0027\u0027\n\tself.session.custom.WoNumber\u003d\"\"\n\tself.session.custom.WorkflowOperationsId\u003d\"\"\n\tself.session.custom.WorkflowId\u003d\"\"\n\tself.session.custom.Workflow\u003d\"\"\n\tself.session.custom.WOValue\u003d\"\"\n\tself.session.custom.plantName\u003d\"\"\n\tself.session.custom.EnterpriseId\u003d\"\"\n\tself.session.custom.enterpriseName\u003d\"\"\n\tself.session.custom.areaName\u003d\"\"\n\tself.session.custom.Item\u003d\"\"\n\tself.session.custom.LineID\u003d\"\"\n\tself.session.custom.MachineID\u003d\"\"\n\tself.session.custom.Operation\u003d\"\"\n\tself.session.custom.PlantID\u003d\"\"\n\tself.session.custom.plantNames\u003d\"\"\n\tself.session.custom.ProcessID\u003d\"\"\n\tself.session.custom.InspectionId \u003d 0\n\tself.session.custom.CharacteristicId \u003d 0\n\tself.session.custom.WOOperationStatus \u003d \"\"\n\tself.session.custom.PMType \u003d \"\"\n\tself.session.custom.screenNavigateFlag \u003d \u0027\u0027\n\tsystem.perspective.navigate(\u0027/LoginScreen\u0027)\n\tsystem.perspective.print(\u0027Auto Logout Successfully....!\u0027)",
+                      "sessionScope": false,
+                      "viewScope": false
+                    }
+                  ]
+                },
+                "type": "ia.display.image"
+              },
+              {
+                "meta": {
+                  "name": "loginId",
+                  "tooltip": {
+                    "enabled": true,
+                    "location": "bottom-right",
+                    "style": {
+                      "classes": "Common/ToolTip"
+                    },
+                    "text": "User Details"
+                  }
+                },
+                "position": {
+                  "breakpoints": [
+                    {
+                      "colIndex": 8,
+                      "name": "sm",
+                      "order": 3,
+                      "rowIndex": 0,
+                      "span": 3
+                    },
+                    {
+                      "colIndex": 9,
+                      "name": "md",
+                      "order": 3,
+                      "rowIndex": 0,
+                      "span": 2
+                    },
+                    {
+                      "colIndex": 8,
+                      "name": "lg",
+                      "order": 3,
+                      "rowIndex": 0,
+                      "span": 3
+                    }
+                  ],
+                  "height": 40,
+                  "width": 0.2403,
+                  "x": 0.6445,
+                  "y": 0.3248
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.Username"
+                      },
+                      "previewEnabled": false,
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "alignItems": "flex-start",
+                    "color": "#FFFFFF",
+                    "fontSize": 15,
+                    "fontStretch": "normal",
+                    "fontWeight": "normal",
+                    "textAlign": "justify-all"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": [
+                      {
+                        "config": {
+                          "script": "\tscreenFlag \u003dself.session.custom.screenNavigateFlag\n\tsystem.perspective.print(\u0027ON Click HOme ICON Script: \u0027 + str(screenFlag))\n\tif screenFlag \u003d\u003d int(5):\n\t\tuserId \u003d self.session.custom.UserId\n\t\torderId \u003d self.session.custom.RMOrderID\n\t\tmaintenanceTypeId \u003d 2\n\t\treleaseActiveScreen\u003d MaintenanceOCAPI.ReleaseOperatorActiveScreen(userId,orderId,maintenanceTypeId)\n\t\tsystem.perspective.print(\u0027Screen Released for RM\u0027)\n\telif screenFlag \u003d\u003d int(6) or screenFlag \u003d\u003d int(7):\n\t\tuserId \u003d self.session.custom.UserId\n\t\torderId \u003d self.session.custom.PMOrderID\n\t\tmaintenanceTypeId \u003d 1\n\t\treleaseActiveScreen\u003d MaintenanceOCAPI.ReleaseOperatorActiveScreen(userId,orderId,maintenanceTypeId)\n\t\tsystem.perspective.print(\u0027Screen Released for PM\u0027)\n\telse:\n\t\tpass\n\tself.session.custom.LineLeadOCBackBtnH\u003d0\n\tself.session.custom.LineLeadOCIsFilterSelectedBackBtn\u003d0\n\tself.session.custom.WoNumber\u003d\"\"\n\tself.session.custom.WorkflowOperationsId\u003d\"\"\n\tself.session.custom.WorkflowId\u003d\"\"\n\tself.session.custom.Workflow\u003d\"\"\n\tself.session.custom.WOValue\u003d\"\"\n\tself.session.custom.plantName\u003d\"\"\n\tself.session.custom.EnterpriseId\u003d\"\"\n\tself.session.custom.enterpriseName\u003d\"\"\n\tself.session.custom.areaName\u003d\"\"\n\tself.session.custom.Item\u003d\"\"\n\tself.session.custom.LineID\u003d\"\"\n\tself.session.custom.MachineID\u003d\"\"\n\tself.session.custom.Operation\u003d\"\"\n\tself.session.custom.PlantID\u003d\"\"\n\tself.session.custom.plantNames\u003d\"\"\n\tself.session.custom.ProcessID\u003d\"\"\n\tself.session.custom.InspectionId \u003d 0\n\tself.session.custom.CharacteristicId \u003d 0\n\tself.session.custom.WOOperationStatus \u003d \"\"\n\tself.session.custom.PMType \u003d \"\"\n\tself.session.custom.screenNavigateFlag \u003d \u0027\u0027\n\t\n\tsystem.perspective.navigate(\u0027/BaseScreen\u0027)"
+                        },
+                        "scope": "G",
+                        "type": "script"
+                      },
+                      {
+                        "config": {
+                          "page": "/BaseScreen"
+                        },
+                        "enabled": false,
+                        "scope": "C",
+                        "type": "nav"
+                      }
+                    ]
+                  }
+                },
+                "meta": {
+                  "name": "ImgHome",
+                  "tooltip": {
+                    "enabled": true,
+                    "location": "bottom-left",
+                    "style": {
+                      "classes": "Common/ToolTip"
+                    },
+                    "text": "Home"
+                  }
+                },
+                "position": {
+                  "breakpoints": [
+                    {
+                      "colIndex": 7,
+                      "name": "sm",
+                      "order": 2,
+                      "rowIndex": 0,
+                      "span": 1
+                    },
+                    {
+                      "colIndex": 8,
+                      "name": "md",
+                      "order": 2,
+                      "rowIndex": 0,
+                      "span": 1
+                    },
+                    {
+                      "colIndex": 7,
+                      "name": "lg",
+                      "order": 2,
+                      "rowIndex": 0,
+                      "span": 1
+                    }
+                  ],
+                  "height": 41
+                },
+                "props": {
+                  "fit": {
+                    "height": 160,
+                    "mode": "contain",
+                    "width": 160
+                  },
+                  "source": "/system/images/HomeNew.png",
+                  "style": {
+                    "padding": 7
+                  }
+                },
+                "type": "ia.display.image"
+              },
+              {
+                "meta": {
+                  "name": "Label_2"
+                },
+                "position": {
+                  "breakpoints": [
+                    {
+                      "colIndex": 2,
+                      "name": "sm",
+                      "order": 1,
+                      "rowIndex": 0,
+                      "span": 5
+                    },
+                    {
+                      "colIndex": 5,
+                      "name": "md",
+                      "order": 1,
+                      "rowIndex": 0,
+                      "span": 3
+                    },
+                    {
+                      "colIndex": 2,
+                      "name": "lg",
+                      "order": 1,
+                      "rowIndex": 0,
+                      "span": 5
+                    }
+                  ],
+                  "height": 40
+                },
+                "propConfig": {
+                  "custom.AutoLogout": {
+                    "binding": {
+                      "config": {
+                        "aggregate": "MinMax",
+                        "avoidScanClassValidation": true,
+                        "dateRange": {
+                          "mostRecent": "1",
+                          "mostRecentUnits": "HOUR"
+                        },
+                        "enableValueCache": true,
+                        "ignoreBadQuality": false,
+                        "polling": {
+                          "enabled": true,
+                          "rate": "5"
+                        },
+                        "preventInterpolation": false,
+                        "returnFormat": "Wide",
+                        "returnSize": {
+                          "numRows": "100",
+                          "type": "FIXED"
+                        },
+                        "tags": [],
+                        "valueFormat": "DATASET"
+                      },
+                      "transforms": [
+                        {
+                          "code": "\ttry:\n#\t\tloginUser\u003dself.session.props.auth.user.id\n\t\tcurrenttime\u003dsystem.date.now()\n\t\tlastactivit\u003dself.session.props.lastActivity\t\n\t\tminbet\u003dsystem.date.minutesBetween(currenttime, lastactivit)\n\t\tinactiveTime\u003dsystem.date.secondsBetween(lastactivit, currenttime)\n#\t\tsystem.perspective.print(\"inactiveTime:\"+str(inactiveTime))\n\t\tif inactiveTime\u003e\u003d216000:\t\t\t\n\t\t\tmessageType1 \u003d \u0027AutoLogout\u0027\n\t\t\tsystem.perspective.sendMessage(messageType1, payload \u003d {\"value\":0,\"SelctedRowIndex\":0}, scope \u003d \"page\")\n\t\telse:\n\t\t\tpass\n\n\t\treturn 0\n\texcept:\n\t\tsystem.perspective.print(\u0027Exception :: Auto Log Out\u0027)\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno) \n\t",
+                          "type": "script"
+                        }
+                      ],
+                      "type": "tag-history"
+                    }
+                  },
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "expression": "now(1000)"
+                      },
+                      "transforms": [
+                        {
+                          "formatType": "datetime",
+                          "formatValue": "dd-MM-yyyy HH:mm:ss",
+                          "type": "format"
+                        }
+                      ],
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "color": "#FFFFFF",
+                    "fontSize": "14px",
+                    "fontStyle": "italic",
+                    "fontWeight": "normal",
+                    "textAlign": "right"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "draggable": false,
+                        "id": "abXpOJVB",
+                        "modal": true,
+                        "overlayDismiss": false,
+                        "resizable": false,
+                        "showCloseIcon": false,
+                        "type": "open",
+                        "viewPath": "Project_MES_Solution/Setting/ChangeLanuage",
+                        "viewportBound": false
+                      },
+                      "scope": "C",
+                      "type": "popup"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "ImgLanguage",
+                  "tooltip": {
+                    "enabled": true,
+                    "location": "bottom-left",
+                    "style": {
+                      "classes": "Common/ToolTip"
+                    },
+                    "text": "Select Language"
+                  }
+                },
+                "position": {
+                  "breakpoints": [
+                    {
+                      "colIndex": 1,
+                      "name": "sm",
+                      "order": 0,
+                      "rowIndex": 0,
+                      "span": 1
+                    },
+                    {
+                      "colIndex": 4,
+                      "name": "md",
+                      "order": 0,
+                      "rowIndex": 0,
+                      "span": 1
+                    },
+                    {
+                      "colIndex": 1,
+                      "name": "lg",
+                      "order": 0,
+                      "rowIndex": 0,
+                      "span": 1
+                    }
+                  ],
+                  "height": 41,
+                  "rotate": {
+                    "anchor": "0% 50%"
+                  },
+                  "width": 0.1579,
+                  "x": 0.0786,
+                  "y": 0.0693
+                },
+                "props": {
+                  "fit": {
+                    "height": 125,
+                    "mode": "contain",
+                    "width": 125
+                  },
+                  "source": "/system/images/LanguageNew.png",
+                  "style": {
+                    "padding": 5
+                  }
+                },
+                "type": "ia.display.image"
+              }
+            ],
+            "meta": {
+              "name": "cntColumnHeader"
+            },
+            "position": {
+              "height": 0.875,
+              "width": 0.3328,
+              "x": 0.6646,
+              "y": 0.0502
+            },
+            "props": {
+              "gutters": {
+                "horizontal": 3,
+                "vertical": 1
+              }
+            },
+            "type": "ia.container.column"
+          },
+          {
+            "meta": {
+              "name": "Image"
+            },
+            "position": {
+              "height": 0.5746,
+              "width": 0.0666,
+              "x": 0.0354,
+              "y": 0.2477
+            },
+            "props": {
+              "fit": {
+                "mode": "fill"
+              },
+              "source": "/system/images/Builtin/icons/16/JELogo.png"
+            },
+            "type": "ia.display.image"
+          }
+        ],
+        "meta": {
+          "name": "root",
+          "tooltip": {}
+        },
+        "position": {
+          "height": 0.9599,
+          "width": 1,
+          "x": 0.0001,
+          "y": 0.012
+        },
+        "propConfig": {
+          "meta.tooltip.width": {
+            "binding": {
+              "config": {
+                "path": "session.custom.ScreenWidth"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "mode": "percent",
+          "style": {
+            "alignSelf": "auto",
+            "backgroundColor": "#307492",
+            "resize": "both"
+          }
+        },
+        "type": "ia.container.coord"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

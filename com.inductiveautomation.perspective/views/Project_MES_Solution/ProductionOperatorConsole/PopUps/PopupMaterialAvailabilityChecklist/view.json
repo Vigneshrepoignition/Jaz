@@ -1,0 +1,566 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\t\n\t\tWorkOrderNo \u003dself.session.custom.WoNumber\n\t\tItem \u003d self.session.custom.Item\n\t\tRevision \u003d self.session.custom.Revision\n\t\tsystem.perspective.print(\u0027WorkOrderNo :\u0027 + str(WorkOrderNo))\n\t\tsystem.perspective.print(\u0027Item :\u0027 + str(Item))\n\t\tsystem.perspective.print(\u0027Revision :\u0027 + str(Revision))\n\t\tresultData \u003d WorkOrderDetailsAPI.getChecklistMaterialAvailabilityDetails(WorkOrderNo,Item,Revision)\t\t\n\t\tself.getChild(\"root\").getChild(\"TblMaterialAvailabilty\").props.data \u003d resultData\t\n\texcept:\n\t\tpass"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 500,
+      "width": 948
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 31.8,
+          "width": 946.96
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "View Material Availability Checklist",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 10,
+            "textAlign": "Center",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "draggable": false,
+                "id": "materialChecklistpopup",
+                "modal": false,
+                "overlayDismiss": false,
+                "resizable": false,
+                "showCloseIcon": false,
+                "type": "close",
+                "viewPath": "Project_MES_Solution/ProductionOperatorConsole/PopUps/PopupMaterialAvailabilityChecklist",
+                "viewportBound": false
+              },
+              "scope": "C",
+              "type": "popup"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 29,
+          "width": 36.78,
+          "x": 904.39,
+          "y": 0.5
+        },
+        "props": {
+          "color": "#FFFFFF",
+          "path": "material/close"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "LblAttachment"
+        },
+        "position": {
+          "height": 32,
+          "width": 240.98,
+          "x": 13.46,
+          "y": 36
+        },
+        "props": {
+          "text": "View Material Availability Checklist:",
+          "textStyle": {
+            "classes": "Basic/OprLabels"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onEditCellCommit": {
+              "config": {
+                "script": "#\ttry:\t\n#\t\tsystem.perspective.print(\"Material Availability Checklist Function start \")\n#\t\tdefineKeyColumn \u003d \"componentName\"\n#\t#----------------- get selected cell value,row number,column number -----------------\t\n#\t\tupdatedValue\u003devent.value\t\n#\t\tselRow\u003devent.row\t\n#\t\tselColumn\u003dself.props.selection.selectedColumn\n#\t#-------------------------------------- End ----------------------------------------\n#\t\t\n#\t#----------------- update data back in existing table dataset ----------------------\t\n#\t\tdtSet\u003dself.props.data\n#\t\tupdateRowResultDs \u003d {selColumn:updatedValue}\n#\t\tresultpyData \u003d system.dataset.updateRow(dtSet,selRow,updateRowResultDs)\t\n#\t\tds\u003d system.dataset.toPyDataSet(resultpyData)\n#\t\tself.props.data\u003dds\n#\t#-------------------------------------- End -----------------------------------------\t\t\n#\t\ttabldata\u003dself.props.data\t\n#\t\tval\u003dtabldata.getValueAt(selRow, selColumn)\n#\t\tComponents\u003dtabldata.getValueAt(selRow,defineKeyColumn)\n#\t\tcomponentData\u003d[val,Components]\n#\t\tsystem.perspective.print(componentData)\t\t\t\n#\t#--------------------------------------------------------------------------------------\t\n#\t\tWoNumber \u003dself.session.custom.WoNumber\t\n#\t\tItem \u003d self.session.custom.Item\n#\t\tRevision \u003d self.session.custom.Revision\t\t\t\t\t\t\t\t\t\t\n#\t\ttry:\n#\t\t\tpartName \u003d tabldata.getValueAt(selRow,\"componentName\")\n#\t\texcept:\n#\t\t\tsystem.perspective.print(\"Unable to read selectedParameter\")\n#\t\t\tpass\t\t\n#\t\ttry:\n#\t\t\tisChecked \u003d tabldata.getValueAt(selRow,\"isChecked\")\t\n#\t\texcept:\n#\t\t\tsystem.perspective.print(\"Unable to read selectedTypeId\")\n#\t\t\tpass\t\n#\t\tuserId \u003d self.session.custom.UserId\n#\t\tresult \u003d WorkOrderDetailsAPI.postChecklistDetailsForMaterialAvailability(WoNumber,Item,Revision,partName,isChecked,userId)\t\t\n#\t#-------------------------------------Validation Check --------------\t\t\t\t\n#\t\tisTableEmpty \u003d tabldata.getRowCount()\t\n#\t\tif isTableEmpty\u003e0:\t\t\n#\t\t\tcolNameForMaterialCheckList \u003d tabldata.getColumnIndex(\"isChecked\")\t\n#\t\t\tcheckList \u003d tabldata.getColumnAsList(colNameForMaterialCheckList)\n#\t\t\tsystem.perspective.print(\"Material Availablity Checklist Data Null Check: \"+str(checkList))\n#\t\t\tchecklistFalseCount \u003d checkList.count(\"false\")\n#\t\t\tchecklistNullCount \u003d checkList.count(\"\")\n#\t\t\tchecklistZeroCount \u003d checkList.count(0)\n#\t\t\tsystem.perspective.print(\"Count Values: \"+str(checklistFalseCount)+\"|\"+str(checklistNullCount)+\"|\"+str(checklistZeroCount))\n#\t\t\tif checklistNullCount\u003e0 or checklistFalseCount\u003e0 or checklistZeroCount\u003e0:\n#\t\t\t\tself.session.custom.ChecklistMaterialValidation \u003d 0\n#\t\t\telse:\n#\t\t\t\tself.session.custom.ChecklistMaterialValidation \u003d 1\n#\t\telse:\n#\t\t\tself.session.custom.ChecklistMaterialValidation \u003d 1\t\n#\texcept:\n#\t\tpass"
+              },
+              "enabled": false,
+              "scope": "G",
+              "type": "script"
+            },
+            "onRowClick": {
+              "config": {
+                "script": "\ttry:\n\t\tif self.props.selection.selectedColumn\u003d\u003d\u0027isChecked\u0027:\n\t\t\tselColumn\u003dself.props.selection.selectedColumn\n\t\t\tselRow\u003dself.props.selection.selectedRow\n\t\t\trowValues\u003devent.value\n\t\t\tdefineKeyColumn \u003d \"componentName\"\n\t\t\t#----------------- get selected cell value,row number,column number -----------------  \n\t\t\tupdatedValue\u003drowValues[\u0027isChecked\u0027]\n\t\t\tif updatedValue\u003d\u003dTrue or updatedValue\u003d\u003d1:\n\t\t\t\tupdatedValue\u003d0\n\t\t\telse:\n\t\t\t\tupdatedValue\u003d1\t\n\t\t\tselRow\u003devent.row \n\t\t\t\n\t\t\n\t\t#----------------- update data back in existing table dataset ----------------------\t\n\t\t\tdtSet\u003dself.props.data\n\t\t\tupdateRowResultDs \u003d {selColumn:updatedValue}\n\t\t\tresultpyData \u003d system.dataset.updateRow(dtSet,selRow,updateRowResultDs)\t\n\t\t\tds\u003d system.dataset.toPyDataSet(resultpyData)\n\t\t\tself.props.data\u003dds\n\t\t\tself.props.selection.selectedColumn\u003dNone\n\t\t#-------------------------------------- End -----------------------------------------\t\t\n\n\t\t\ttabldata\u003dself.props.data\t\n\t\t\tval\u003dtabldata.getValueAt(selRow, selColumn)\n\t\t\tComponents\u003dtabldata.getValueAt(selRow,defineKeyColumn)\n\t\t\tcomponentData\u003d[val,Components]\n\n\t\t#--------------------------------------------------------------------------------------\t\n\t\t\tWoNumber \u003dself.session.custom.WoNumber\t\n\t\t\tItem \u003d self.session.custom.Item\n\t\t\tRevision \u003d self.session.custom.Revision\t\t\t\t\t\t\t\t\n\t\t\ttry:\n\t\t\t\tpartName \u003d tabldata.getValueAt(selRow,\"componentName\")\n\t\t\texcept:\n\t\t\t\tsystem.perspective.print(\"Unable to read selectedParameter\")\n\t\t\t\tpass\t\t\n\t\t\ttry:\n\t\t\t\tisChecked \u003d tabldata.getValueAt(selRow,\"isChecked\")\t\n\t\t\texcept:\n\t\t\t\tsystem.perspective.print(\"Unable to read selectedTypeId\")\n\t\t\t\tpass\t\n\t\t\tuserId \u003d self.session.custom.UserId\n\t\t\tresult \u003d WorkOrderDetailsAPI.postChecklistDetailsForMaterialAvailability(WoNumber,Item,Revision,partName,isChecked,userId)\n\t\t\tsystem.perspective.print(\"post checklist details material availability Result: \" + str(result))\n\t\t#-------------------------------------Validation Check --------------\t\t\t\t\n\t\t\ttabldata\u003dself.props.data\t\n\t\t\tisTableEmpty \u003d tabldata.getRowCount()\t\n\t\t\tif isTableEmpty\u003e0:\t\t\n\t\t\t\tcolNameForMaterialCheckList \u003d tabldata.getColumnIndex(\"isChecked\")\t\n\t\t\t\tcheckList \u003d tabldata.getColumnAsList(colNameForMaterialCheckList)\n\n\t\t\t\tchecklistFalseCount \u003d checkList.count(\"false\")\n\t\t\t\tchecklistNullCount \u003d checkList.count(\"\")\n\t\t\t\tchecklistZeroCount \u003d checkList.count(0)\n#\t\t\t\tsystem.perspective.print(\"Count Values: \"+str(checklistFalseCount)+\"|\"+str(checklistNullCount)+\"|\"+str(checklistZeroCount))\n\t\t\t\tif checklistNullCount\u003e0 or checklistFalseCount\u003e0 or checklistZeroCount\u003e0:\n\t\t\t\t\tself.session.custom.ChecklistMaterialValidation \u003d False\n\t\t\t\telse:\n\t\t\t\t\tself.session.custom.ChecklistMaterialValidation \u003d True\n\t\t\telse:\n\t\t\t\tself.session.custom.ChecklistMaterialValidation \u003d True\t\n\n\texcept:\t\t\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          },
+          "dom": {
+            "onMouseOver": {
+              "config": {
+                "script": "\tif self.props.selection.selectedColumn\u003d\u003d\u0027isChecked\u0027:\n\t\tself.props.columns[3].editable\u003d0\n\telse:\n\t\tself.props.columns[3].editable\u003d1"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "TblMaterialAvailabilty"
+        },
+        "position": {
+          "height": 410,
+          "width": 918.99,
+          "x": 14.41,
+          "y": 70.25
+        },
+        "propConfig": {
+          "props.columns[3].editable": {
+            "binding": {
+              "config": {
+                "path": "session.custom.WOOperationStatus"
+              },
+              "transforms": [
+                {
+                  "code": "\tif (value\u003d\u003d\u0027Not-Started\u0027 or value\u003d\u003d\u0027Not Started\u0027):\n\t\tvalue\u003d True\n\telse:\n\t\tvalue\u003d False\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "bodyStyle": {
+            "classes": "Table/RowsBorder"
+          },
+          "cells": {
+            "allowEditOn": "single-click"
+          },
+          "columns": [
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "SrNo",
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": "Basic/ShortTableHeader"
+                },
+                "title": "Sr No"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": true,
+              "style": {
+                "classes": "Basic/ShortTableEntries",
+                "paddingLeft": 5
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 70
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": true,
+              "field": "componentName",
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": "Basic/ShortTableHeader"
+                },
+                "title": "Component Name"
+              },
+              "justify": "left",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": "Basic/ShortTableEntries"
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "Project_MES_Solution/OperatorConsole/PopUps/OprConsoleTabViews/ComponentTextField",
+              "visible": true,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "bomQty",
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": "Basic/ShortTableHeader"
+                },
+                "title": "Bom Qty"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": "Basic/ShortTableEntries"
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "field": "isChecked",
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": "Basic/ShortTableHeader"
+                },
+                "title": "Yes/No"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "boolean",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": "Basic/ShortTableEntries"
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": ""
+            }
+          ],
+          "data": {
+            "$": [
+              "ds",
+              192,
+              1671448904135
+            ],
+            "$columns": [
+              {
+                "data": [],
+                "name": "SrNo",
+                "type": "String"
+              },
+              {
+                "data": [],
+                "name": "componentName",
+                "type": "String"
+              },
+              {
+                "data": [],
+                "name": "bomQty",
+                "type": "String"
+              },
+              {
+                "data": [],
+                "name": "isChecked",
+                "type": "String"
+              }
+            ]
+          },
+          "dragOrderable": false,
+          "emptyMessage": {
+            "noData": {
+              "icon": {
+                "color": "#C0C0C0",
+                "path": "material/fact_check"
+              },
+              "text": "Material availability checklist is not available"
+            }
+          },
+          "headerStyle": {
+            "classes": "Table/Header"
+          },
+          "pager": {
+            "bottom": false
+          },
+          "rows": {
+            "style": {
+              "classes": "Table/Rowsmiddle"
+            }
+          }
+        },
+        "type": "ia.display.table"
+      },
+      {
+        "events": {
+          "system": {
+            "onStartup": {
+              "config": {
+                "script": "\tValidation\u003dself.session.custom.ChecklistMaterialValidation\n\tsystem.perspective.print(\"Validation--\u003e\"+str(Validation))\n\tself.props.selected\u003dTrue"
+              },
+              "enabled": false,
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Checkbox"
+        },
+        "position": {
+          "height": 36,
+          "width": 199,
+          "x": 733,
+          "y": 32.05
+        },
+        "propConfig": {
+          "props.selected": {
+            "binding": {
+              "config": {
+                "path": "session.custom.ChecklistMaterialValidation"
+              },
+              "type": "property"
+            }
+          },
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "session.custom.ChecklistMaterialValidation"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003dFalse:\n\t\tTextVal\u003d\u0027Not Verified\u0027\n\telif value\u003d\u003dTrue:\n\t\tTextVal\u003d\u0027Verified\u0027\n\telse:\n\t\tpass\n\treturn TextVal",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "checkedIcon": {
+            "color": {
+              "disabled": "#008000",
+              "enabled": "#008000"
+            }
+          },
+          "enabled": false,
+          "indeterminateIcon": {
+            "style": {
+              "cursor": "none"
+            }
+          },
+          "style": {
+            "color": "#251414",
+            "fontFamily": "Arial",
+            "fontSize": 14
+          },
+          "textPosition": "left"
+        },
+        "type": "ia.input.checkbox"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}

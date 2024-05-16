@@ -1,0 +1,16 @@
+{
+  "scope": "G",
+  "version": 1,
+  "restricted": false,
+  "overridable": true,
+  "files": [
+    "data.bin"
+  ],
+  "attributes": {
+    "lastModification": {
+      "actor": "Omkar",
+      "timestamp": "2023-10-18T13:03:06Z"
+    },
+    "lastModificationSignature": "cced5436bf143ec2fc7c3fc9a0f21d77f1fc83decc31582d4d9253ceb483f62a"
+  }
+}

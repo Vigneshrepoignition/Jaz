@@ -1,0 +1,583 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\tUserId\u003dself.session.custom.UserId\n\tif UserId\u003d\u003dNone or str(UserId)\u003d\u003d\u0027None\u0027 or str(UserId).strip()\u003d\u003d\u0027\u0027  or str(UserId).lower().strip()\u003d\u003d\u0027null\u0027:\n\t\tsystem.perspective.navigate(\u0027/LoginScreen\u0027)\n#\ttemp\u003d1\n#\tself.getChild(\"root\").getChild(\"CntDashBoard_0\").getChild(\"BtnSettings\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoardPlantHierarchy\").getChild(\"BtnDiagnostics\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoardPlantHierarchy\").getChild(\"BtnMachineMonitor\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoardPlanning\").getChild(\"BtnNotifications\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoardOrderExe\").getChild(\"tnDashboardOrderExe\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnOperatorConsole\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnDashRoleMaster\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnDashMaintOptrConsole\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnDashMaintOptrConsole_RM\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnDashWarehouseOptrConsole\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnQualityConsole\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnOperatorConsole_0\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnPEA\").meta.visible\u003dtemp\n#\troleId\u003d1\n#\tds\u003dAuthentication.GetModulesForRole(roleId)\n#\tfor i in ds:\n#\t\tmoduleName\u003d\tstr(i[\u0027moduleName\u0027]).lower().strip()\n#\t\tif \tmoduleName\u003d\u003d\u0027production\u0027:\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnOperatorConsole\").meta.visible\u003d1\t\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnPEA\").meta.visible\u003d1\n#\t\tif \tmoduleName\u003d\u003d\u0027Quality\u0027.lower():\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnDashRoleMaster\").meta.visible\u003d1\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnQualityConsole\").meta.visible\u003d1\n#\t\tif \tmoduleName\u003d\u003d\u0027Maintenance\u0027.lower():\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnDashMaintOptrConsole\").meta.visible\u003d1\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnDashMaintOptrConsole_RM\").meta.visible\u003d1\n#\t\tif \tmoduleName\u003d\u003d\u0027Warehouse\u0027.lower():\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnDashWarehouseOptrConsole\").meta.visible\u003d1\n#\t\tif \tmoduleName\u003d\u003d\u0027Administration\u0027.lower():\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoard_0\").getChild(\"BtnSettings\").meta.visible\u003d1\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoardPlantHierarchy\").getChild(\"BtnDiagnostics\").meta.visible\u003d1\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoardPlanning\").getChild(\"BtnNotifications\").meta.visible\u003d1\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoardPlantHierarchy\").getChild(\"BtnMachineMonitor\").meta.visible\u003d1\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoardOrderExe\").getChild(\"tnDashboardOrderExe\").meta.visible\u003d1"
+        },
+        "enabled": false,
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "propConfig": {
+    "props.defaultSize.height": {
+      "binding": {
+        "config": {
+          "path": "session.custom.ScreenHeight"
+        },
+        "type": "property"
+      }
+    },
+    "props.defaultSize.width": {
+      "binding": {
+        "config": {
+          "path": "session.custom.ScreenWidth"
+        },
+        "type": "property"
+      }
+    }
+  },
+  "props": {
+    "defaultSize": {}
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": [
+                  {
+                    "config": {
+                      "script": "\tsystem.perspective.navigate(\u0027/MainPage\u0027)\n\tself.session.custom.MainMenuScreenNavigation\u003d1\n\tself.session.custom.SubMenuActiveTab1_Name\u003d\u0027User\u0027\n\tself.session.custom.SubMenuActiveTab2_Name\u003d\u0027Role Master\u0027\n\tself.session.custom.SubMenuActiveTab3_Name\u003d\u0027Skill Master\u0027\n\tself.session.custom.SubMenuActiveTab4_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab5_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab6_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab7_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab8_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab9_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab10_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab11_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab12_Name\u003d\u0027\u0027\n\tself.session.custom.Submenu\u003d2"
+                    },
+                    "scope": "G",
+                    "type": "script"
+                  },
+                  {
+                    "config": {
+                      "page": "/Maintenence Operator Console - RM"
+                    },
+                    "scope": "C",
+                    "type": "nav"
+                  }
+                ],
+                "onMouseLeave": {
+                  "config": {
+                    "script": "\tself.props.style.backgroundColor \u003d \u0027#FFFFFF\u0027"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                },
+                "onMouseOver": {
+                  "config": {
+                    "script": "\tself.props.style.backgroundColor \u003d \u0027#CCFFFF9C\u0027"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "BtnDashMaintOptrConsole_RM",
+              "tooltip": {
+                "enabled": true
+              },
+              "visible": 1
+            },
+            "position": {
+              "height": 0.6499,
+              "width": 0.1355,
+              "x": 0.4261,
+              "y": 0.174
+            },
+            "propConfig": {
+              "meta.tooltip.text": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.authorizeMaintenanceRMMachine"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tif value\u003d\u003d0:\n\t\tresult\u003d\u0027Access Denied\u0027\n\telse :\n\t\tresult\u003d\u0027\u0027\n\treturn result",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.enabled": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.authorizeMaintenanceRMMachine"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "image": {
+                "height": 40,
+                "icon": {
+                  "color": "#555555",
+                  "path": "material/home_repair_service"
+                },
+                "position": "top",
+                "style": {
+                  "backgroundColor": "#FFFFFF"
+                },
+                "width": 40
+              },
+              "style": {
+                "classes": "Ref_MES/Common/ButtonDashboard"
+              },
+              "text": "RM Technician Console - Machines"
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": [
+                  {
+                    "config": {
+                      "script": "\tsystem.perspective.navigate(\u0027/MainPage\u0027)\n\tself.session.custom.MainMenuScreenNavigation\u003d1\n\tself.session.custom.SubMenuActiveTab1_Name\u003d\u0027User\u0027\n\tself.session.custom.SubMenuActiveTab2_Name\u003d\u0027Role Master\u0027\n\tself.session.custom.SubMenuActiveTab3_Name\u003d\u0027Skill Master\u0027\n\tself.session.custom.SubMenuActiveTab4_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab5_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab6_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab7_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab8_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab9_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab10_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab11_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab12_Name\u003d\u0027\u0027\n\tself.session.custom.Submenu\u003d2"
+                    },
+                    "enabled": false,
+                    "scope": "G",
+                    "type": "script"
+                  },
+                  {
+                    "config": {
+                      "page": "/MaintenanceOperatorConsole"
+                    },
+                    "enabled": false,
+                    "scope": "C",
+                    "type": "nav"
+                  },
+                  {
+                    "config": {
+                      "draggable": false,
+                      "id": "cSlyE0OA",
+                      "modal": true,
+                      "overlayDismiss": false,
+                      "resizable": false,
+                      "showCloseIcon": false,
+                      "type": "open",
+                      "viewPath": "Project_MES_Solution/Maint Operator Console/Popup/PopupSelectType",
+                      "viewportBound": false
+                    },
+                    "enabled": false,
+                    "scope": "C",
+                    "type": "popup"
+                  },
+                  {
+                    "config": {
+                      "script": "\t\n\tself.session.custom.PMType \u003d 1\n\tsystem.perspective.navigate(\u0027/MaintenanceOperatorConsole\u0027)"
+                    },
+                    "scope": "G",
+                    "type": "script"
+                  }
+                ],
+                "onMouseLeave": {
+                  "config": {
+                    "script": "\tself.props.style.backgroundColor \u003d \u0027#FFFFFF\u0027"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                },
+                "onMouseOver": {
+                  "config": {
+                    "script": "\tself.props.style.backgroundColor \u003d \u0027#CCFFFF9C\u0027"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "BtnDashMaintOptrConsole",
+              "tooltip": {},
+              "visible": 1
+            },
+            "position": {
+              "height": 0.65,
+              "width": 0.1355,
+              "x": 0.0271,
+              "y": 0.174
+            },
+            "propConfig": {
+              "meta.tooltip.text": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.authorizeMaintenancePMMachine"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tif value\u003d\u003d0:\n\t\tresult\u003d\u0027Access Denied\u0027\n\telse :\n\t\tresult\u003d\u0027\u0027\n\treturn result",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.enabled": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.authorizeMaintenancePMMachine"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "image": {
+                "height": 40,
+                "icon": {
+                  "color": "#555555",
+                  "path": "material/home_repair_service"
+                },
+                "position": "top",
+                "style": {
+                  "backgroundColor": "#FFFFFF"
+                },
+                "width": 40
+              },
+              "style": {
+                "classes": "Ref_MES/Common/ButtonDashboard"
+              },
+              "text": "PM Technician Console - Machines"
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": [
+                  {
+                    "config": {
+                      "script": "\tsystem.perspective.navigate(\u0027/MainPage\u0027)\n\tself.session.custom.MainMenuScreenNavigation\u003d1\n\tself.session.custom.SubMenuActiveTab1_Name\u003d\u0027User\u0027\n\tself.session.custom.SubMenuActiveTab2_Name\u003d\u0027Role Master\u0027\n\tself.session.custom.SubMenuActiveTab3_Name\u003d\u0027Skill Master\u0027\n\tself.session.custom.SubMenuActiveTab4_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab5_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab6_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab7_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab8_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab9_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab10_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab11_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab12_Name\u003d\u0027\u0027\n\tself.session.custom.Submenu\u003d2"
+                    },
+                    "enabled": false,
+                    "scope": "G",
+                    "type": "script"
+                  },
+                  {
+                    "config": {
+                      "page": "/MaintenanceOperatorConsole"
+                    },
+                    "enabled": false,
+                    "scope": "C",
+                    "type": "nav"
+                  },
+                  {
+                    "config": {
+                      "draggable": false,
+                      "id": "cSlyE0OA",
+                      "modal": true,
+                      "overlayDismiss": false,
+                      "resizable": false,
+                      "showCloseIcon": false,
+                      "type": "open",
+                      "viewPath": "Project_MES_Solution/Maint Operator Console/Popup/PopupSelectType",
+                      "viewportBound": false
+                    },
+                    "enabled": false,
+                    "scope": "C",
+                    "type": "popup"
+                  },
+                  {
+                    "config": {
+                      "script": "\tself.session.custom.PMType \u003d 2\n\tsystem.perspective.navigate(\u0027/MaintenanceTechnicianConsole-Tools\u0027)"
+                    },
+                    "scope": "G",
+                    "type": "script"
+                  }
+                ],
+                "onMouseLeave": {
+                  "config": {
+                    "script": "\tself.props.style.backgroundColor \u003d \u0027#FFFFFF\u0027"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                },
+                "onMouseOver": {
+                  "config": {
+                    "script": "\tself.props.style.backgroundColor \u003d \u0027#CCFFFF9C\u0027"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "BtnDashMaintOptrConsole_0",
+              "tooltip": {
+                "enabled": true
+              },
+              "visible": 1
+            },
+            "position": {
+              "height": 0.65,
+              "width": 0.1355,
+              "x": 0.2241,
+              "y": 0.174
+            },
+            "propConfig": {
+              "meta.tooltip.text": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.authorizeMaintenancePMTools"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tif value\u003d\u003d0:\n\t\tresult\u003d\u0027Access Denied\u0027\n\telse :\n\t\tresult\u003d\u0027\u0027\n\treturn result",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.enabled": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.authorizeMaintenancePMTools"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "image": {
+                "height": 40,
+                "icon": {
+                  "color": "#555555",
+                  "path": "material/home_repair_service"
+                },
+                "position": "top",
+                "style": {
+                  "backgroundColor": "#FFFFFF"
+                },
+                "width": 40
+              },
+              "style": {
+                "classes": "Ref_MES/Common/ButtonDashboard"
+              },
+              "text": "PM Technician Console - Tools"
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": [
+                  {
+                    "config": {
+                      "script": "\tsystem.perspective.navigate(\u0027/MainPage\u0027)\n\tself.session.custom.MainMenuScreenNavigation\u003d1\n\tself.session.custom.SubMenuActiveTab1_Name\u003d\u0027User\u0027\n\tself.session.custom.SubMenuActiveTab2_Name\u003d\u0027Role Master\u0027\n\tself.session.custom.SubMenuActiveTab3_Name\u003d\u0027Skill Master\u0027\n\tself.session.custom.SubMenuActiveTab4_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab5_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab6_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab7_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab8_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab9_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab10_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab11_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab12_Name\u003d\u0027\u0027\n\tself.session.custom.Submenu\u003d2"
+                    },
+                    "scope": "G",
+                    "type": "script"
+                  },
+                  {
+                    "config": {
+                      "page": "/Maintenence Operator Console - RMTools"
+                    },
+                    "scope": "C",
+                    "type": "nav"
+                  }
+                ],
+                "onMouseLeave": {
+                  "config": {
+                    "script": "\tself.props.style.backgroundColor \u003d \u0027#FFFFFF\u0027"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                },
+                "onMouseOver": {
+                  "config": {
+                    "script": "\tself.props.style.backgroundColor \u003d \u0027#CCFFFF9C\u0027"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "BtnDashMaintOptrConsole_RM_0",
+              "tooltip": {
+                "enabled": true
+              },
+              "visible": 1
+            },
+            "position": {
+              "height": 0.6499,
+              "width": 0.1355,
+              "x": 0.6176,
+              "y": 0.174
+            },
+            "propConfig": {
+              "meta.tooltip.text": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.authorizeMaintenanceRMTools"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tif value\u003d\u003d0:\n\t\tresult\u003d\u0027Access Denied\u0027\n\telse :\n\t\tresult\u003d\u0027\u0027\n\treturn result",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.enabled": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.authorizeMaintenanceRMTools"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "image": {
+                "height": 40,
+                "icon": {
+                  "color": "#555555",
+                  "path": "material/home_repair_service"
+                },
+                "position": "top",
+                "style": {
+                  "backgroundColor": "#FFFFFF"
+                },
+                "width": 40
+              },
+              "style": {
+                "classes": "Ref_MES/Common/ButtonDashboard"
+              },
+              "text": "RM Technician Console - Tools"
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": [
+                  {
+                    "config": {
+                      "script": "\tsystem.perspective.navigate(\u0027/MainPage\u0027)\n\tself.session.custom.MainMenuScreenNavigation\u003d1\n\tself.session.custom.SubMenuActiveTab1_Name\u003d\u0027User\u0027\n\tself.session.custom.SubMenuActiveTab2_Name\u003d\u0027Role Master\u0027\n\tself.session.custom.SubMenuActiveTab3_Name\u003d\u0027Skill Master\u0027\n\tself.session.custom.SubMenuActiveTab4_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab5_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab6_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab7_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab8_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab9_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab10_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab11_Name\u003d\u0027\u0027\n\tself.session.custom.SubMenuActiveTab12_Name\u003d\u0027\u0027\n\tself.session.custom.Submenu\u003d2"
+                    },
+                    "scope": "G",
+                    "type": "script"
+                  },
+                  {
+                    "config": {
+                      "page": "/MoldReport"
+                    },
+                    "scope": "C",
+                    "type": "nav"
+                  }
+                ],
+                "onMouseLeave": {
+                  "config": {
+                    "script": "\tself.props.style.backgroundColor \u003d \u0027#FFFFFF\u0027"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                },
+                "onMouseOver": {
+                  "config": {
+                    "script": "\tself.props.style.backgroundColor \u003d \u0027#CCFFFF9C\u0027"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "BtnDashMaintOptrConsole_RM_1",
+              "tooltip": {
+                "enabled": true
+              },
+              "visible": 0
+            },
+            "position": {
+              "height": 0.649,
+              "width": 0.1348,
+              "x": 0.8152,
+              "y": 0.1754
+            },
+            "propConfig": {
+              "meta.tooltip.text": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.authorizeMaintenanceMold"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tif value\u003d\u003d0:\n\t\tresult\u003d\u0027Access Denied\u0027\n\telse :\n\t\tresult\u003d\u0027\u0027\n\treturn result",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.enabled": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.authorizeMaintenanceMold"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "image": {
+                "height": 40,
+                "icon": {
+                  "color": "#555555",
+                  "path": "material/home_repair_service"
+                },
+                "position": "top",
+                "style": {
+                  "backgroundColor": "#FFFFFF"
+                },
+                "width": 40
+              },
+              "style": {
+                "classes": "Ref_MES/Common/ButtonDashboard"
+              },
+              "text": "Mold Details"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "CntDashBoard_0"
+        },
+        "position": {
+          "height": 0.9245,
+          "width": 0.7788,
+          "x": 0.0014,
+          "y": 0.0115
+        },
+        "props": {
+          "mode": "percent",
+          "style": {
+            "backgroundColor": "#E0E3E4"
+          }
+        },
+        "type": "ia.container.coord"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -98,
+      "y": 5
+    },
+    "props": {
+      "mode": "percent",
+      "style": {
+        "backgroundColor": "#E0E3E4"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "custom": {},
+  "params": {
+    "rowData": "",
+    "rowIndex": "",
+    "value": ""
+  },
+  "propConfig": {
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.value": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 29,
+      "width": 27
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\t\t\t\n\t\tisChecked1 \u003d self.props.selected\n\t\tif isChecked1 \u003d\u003d True:\n\t\t\tisChecked \u003d\u0027true\u0027\n\t\telse:\n\t\t\tisChecked\u003d\u0027false\u0027\n\t\trowindex \u003d self.view.params.rowIndex\n\t\trowData \u003d self.view.params.rowData\n\t\tSelctedRow \u003d rowData[\u0027Sr No\u0027]\n\t\tSelctedRow \u003d rowindex\t\t\t\n\t\tmessageType \u003d \u0027ColumnUpdateMachineDiagn\u0027\n\t\tsystem.perspective.sendMessage(messageType, payload \u003d {\"isChecked\":isChecked,\"SelctedRowIndex\":rowindex}, scope \u003d \"page\")\n\n\texcept:\n\t\tsystem.perspective.print(\u0027Exception:WO club CheckBox\u0027)\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)\n\t\tsys.exit()\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Checkbox"
+        },
+        "position": {
+          "height": 0.8276,
+          "width": 0.7767,
+          "x": 0.0393,
+          "y": 0.069
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "session.custom.TakinTableEnbDsb"
+              },
+              "transforms": [
+                {
+                  "code": "\n\treturn value\n\t",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.selected": {
+            "binding": {
+              "config": {
+                "path": "view.params.value"
+              },
+              "transforms": [
+                {
+                  "code": "\tsystem.perspective.print(\"Selection Val \"+str(value))\n\tif value\u003d\u003d1:\n\t\treturn True\n\telse:\n\t\treturn \u0027false\u0027",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "text": "",
+          "textPosition": "Center"
+        },
+        "type": "ia.input.checkbox"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

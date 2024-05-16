@@ -1,0 +1,155 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\tds\u003dself.view.params.rowData\n\t\tSelctedRow\u003dself.view.params.rowIndex\n\t\tcolumnName\u003dself.view.params.column\n\t\t\n\t\tif str(columnName).strip()\u003d\u003d\u0027RequestedQty\u0027:\n\t\t\tself.getChild(\"root\").getChild(\"txtValue\").meta.visible\u003d1\n\t\t\tself.getChild(\"root\").getChild(\"txtInstrumentSerialNo\").meta.visible\u003d0\n\t\t\trequestQty\u003dds[\u0027RequestedQty\u0027]\n\t\t\tself.getChild(\"root\").getChild(\"txtValue\").props.value\u003drequestQty\n\t\t\t\n\t\telif str(columnName).strip()\u003d\u003d\u0027ConsumedQty\u0027:\n\t\t\tself.getChild(\"root\").getChild(\"txtValue\").meta.visible\u003d1\n\t\t\tself.getChild(\"root\").getChild(\"txtInstrumentSerialNo\").meta.visible\u003d0\n\t\t\tConsumedQty\u003dds[\u0027ConsumedQty\u0027]\n\t\t\tself.getChild(\"root\").getChild(\"txtValue\").props.value\u003dConsumedQty\n\t\t\t\n\t\telif str(columnName).strip()\u003d\u003d\u0027SerialNo\u0027:\n\t\t\tself.getChild(\"root\").getChild(\"txtValue\").meta.visible\u003d0\n\t\t\tself.getChild(\"root\").getChild(\"txtInstrumentSerialNo\").meta.visible\u003d1\n\t\t\tSerialNo\u003dds[\u0027SerialNo\u0027]\n\t\t\tself.getChild(\"root\").getChild(\"txtInstrumentSerialNo\").props.text\u003dSerialNo\n\t\t\t\n\t\telif str(columnName).strip()\u003d\u003d\u0027LotNo\u0027:\n\t\t\tself.getChild(\"root\").getChild(\"txtValue\").meta.visible\u003d0\n\t\t\tself.getChild(\"root\").getChild(\"txtInstrumentSerialNo\").meta.visible\u003d1\n\t\t\tLotNo\u003dds[\u0027LotNo\u0027]\n\t\t\tself.getChild(\"root\").getChild(\"txtInstrumentSerialNo\").props.text\u003dLotNo\n\t\t\t\n\t\telse:\n\t\t\tpass\n\texcept:\n\t\tpass"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "column": "value",
+    "columnIndex": "value",
+    "row": "value",
+    "rowData": "value",
+    "rowIndex": "value"
+  },
+  "propConfig": {
+    "params.column": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.columnIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.row": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 34,
+      "width": 128
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\n\t\tSelctedRow\u003dself.view.params.rowIndex\n\t\tcolumnName\u003dself.view.params.column\t\n\t\n\t\tif columnName \u003d\u003d \"RequestedQty\":\n\t\t\tds\u003dself.view.params.rowData\n\t\t\trequestQty\u003dself.props.value\n\t\t\treqQty\u003dds[\u0027RequestedQty\u0027]\n\t\t\tonHandQty\u003dds[\u0027onHandQty\u0027]\n\t\t\tif int(requestQty) \u003e int(0):\n\t\t\t\tif int(requestQty) \u003c\u003d int(onHandQty):\n\t\t\t\t\tmessageType \u003d \u0027updateRequestTable\u0027\n\t\t\t\t\tsystem.perspective.sendMessage(messageType, payload \u003d {\"columnName\":columnName,\"requestQty\":requestQty,\"SelctedRow\":SelctedRow}, scope \u003d \"page\")\n\t\t\t\telse:\n\t\t\t\t\tself.props.value\u003dreqQty\n\t\t\t\t\tmessageType \u003d \"ErrorMessage\"\n\t\t\t\t\tsystem.perspective.sendMessage(messageType,scope \u003d \"page\")\n\t\t\telse:\n\t\t\t\tself.props.value\u003d0\n\t\telif columnName \u003d\u003d \"ConsumedQty\":\n\t\t\tds\u003dself.view.params.rowData\n\t\t\tconsumeQty\u003dself.props.value\n\t\t\tserialNo\u003dds[\u0027SerialNo\u0027]\n\t\t\tlotNo\u003dds[\u0027LotNo\u0027]\n\t\t\tTotalConsumedQty \u003d ds[\u0027TotalConsumedQty\u0027]\n\t\t\tConsumedQty \u003d ds[\u0027ConsumedQty\u0027]\n\t\t\tAllocatedQty \u003d ds[\u0027AllocatedQty\u0027]\n\t\t\tmessageType \u003d \"UpdateConsumeTable\"\n\t\t\t\n\t\t\tif serialNo !\u003d str(\"\").strip():\n\t\t\t\tif lotNo !\u003d str(\"\").strip():\n\t\t\t\t\tDifferenceQty \u003d AllocatedQty - TotalConsumedQty\n\t\t\t\t\tif int(consumeQty) \u003e int(0):\n\t\t\t\t\t\tif int(consumeQty) \u003c\u003d (int(AllocatedQty)):\n\t\t\t\t\t\t\tif int(consumeQty) \u003c\u003d (int(DifferenceQty)):\n\t\t\t\t\t\t\t\tsystem.perspective.sendMessage(messageType,payload \u003d {\"columnName\":columnName,\"consumeQty\":consumeQty,\"SelctedRow\":SelctedRow},scope \u003d \"page\")\n\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\tself.props.value\u003d ConsumedQty\n\t\t\t\t\t\t\t\tsystem.perspective.sendMessage(messageType,payload \u003d {\"columnName\":columnName,\"consumeQty\":consumeQty,\"SelctedRow\":SelctedRow},scope \u003d \"page\")\n\t\t\t\t\t\telse:\n\t\t\t\t\t\t\tself.props.value\u003d ConsumedQty\n\t\t\t\t\t\t\tsystem.perspective.sendMessage(messageType,payload \u003d {\"columnName\":columnName,\"consumeQty\":consumeQty,\"SelctedRow\":SelctedRow},scope \u003d \"page\")\n\t\t\t\t\telse:\n\t\t\t\t\t\tself.props.value\u003d ConsumedQty\n\t\t\t\t\t\tsystem.perspective.sendMessage(messageType,payload \u003d {\"columnName\":columnName,\"consumeQty\":consumeQty,\"SelctedRow\":SelctedRow},scope \u003d \"page\")\n\t\t\t\telse:\n\t\t\t\t\tself.props.value\u003d ConsumedQty\n\t\t\t\t\tsystem.perspective.sendMessage(messageType,payload \u003d {\"columnName\":columnName,\"consumeQty\":consumeQty,\"SelctedRow\":SelctedRow},scope \u003d \"page\")\n\t\t\telse:\n\t\t\t\tself.props.value\u003d ConsumedQty\n\t\t\t\tsystem.perspective.sendMessage(messageType,payload \u003d {\"columnName\":columnName,\"consumeQty\":consumeQty,\"SelctedRow\":SelctedRow},scope \u003d \"page\")\n\t\t\t\n\t\telse:\n\t\t\tpass\n\texcept:\n\t\tpass"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          },
+          "dom": {
+            "onMouseOver": {
+              "config": {
+                "script": "\ttry:\n\t\tstatus\u003d self.session.custom.WOOperationStatus\n\t\trowData\u003dself.view.params.rowData\n\t\tcolumnName\u003dself.view.params.column\t\n\t\n\t\tif columnName \u003d\u003d \"RequestedQty\":\n\t\t\tif status \u003d\u003d \"Assigned\" or status \u003d\u003d \"On-Hold\":\n\t\t\t\tself.props.enabled\u003d0\n\t\t\t\tself.props.style.backgroundColor \u003d \"#E2EEFB\"\n\t\t\telse:\n\t\t\t\tWoNumber \u003d self.session.custom.WoNumber\n\t\t\t\tgetRequestedSpareParts \u003d MaintenanceRMAPI.getRequestedSparePartsByWoNumber(WoNumber)\n\t\t\t\tif getRequestedSpareParts.getRowCount()\u003e0:\n\t\t\t\t\tself.props.enabled\u003d0\n\t\t\t\t\tself.props.style.backgroundColor \u003d \"#E2EEFB\"\n\t\t\t\telse:\n\t\t\t\t\tself.props.enabled\u003d1\n\t\t\t\t\tself.props.style.backgroundColor \u003d \"#FFFFF\"\n\n\t\telse:\n\t\t\tIsHistory\u003drowData[\u0027IsHistory\u0027]\n\t\t\tsystem.perspective.print(\"status is: \"+ str(status))\n\t\t\t\n\t\t\tif status \u003d\u003d \"Assigned\":\n\t\t\t\tself.props.enabled\u003d0\n\t\t\t\tself.props.style.backgroundColor \u003d \"#E2EEFB\"\n\t\t\telif status \u003d\u003d \"On-Hold\":\n\t\t\t\tself.props.enabled\u003d0\n\t\t\t\tself.props.style.backgroundColor \u003d \"#E2EEFB\"\n\t\t\telse:\n\t\t\t\tif IsHistory \u003d\u003d 1:\n\t\t\t\t\tself.props.enabled\u003d0\n\t\t\t\t\tself.props.style.backgroundColor \u003d \"#E2EEFB\"\n\t\t\t\telse:\n\t\t\t\t\tself.props.enabled\u003d1\n\t\t\t\t\tself.props.style.backgroundColor \u003d \"#FFFFF\"\n\n\texcept:\n\t\tpass"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          },
+          "system": {
+            "onStartup": {
+              "config": {
+                "script": "\ttry:\n\t\tstatus\u003d self.session.custom.WOOperationStatus\n\t\trowData\u003dself.view.params.rowData\n\t\tcolumnName\u003dself.view.params.column\t\n\t\n\t\tif columnName \u003d\u003d \"RequestedQty\":\n\t\t\tif status \u003d\u003d \"Assigned\" or status \u003d\u003d \"On-Hold\":\n\t\t\t\tself.props.enabled\u003d0\n\t\t\t\tself.props.style.backgroundColor \u003d \"#E2EEFB\"\n\t\t\telse:\n\t\t\t\tWoNumber \u003d self.session.custom.WoNumber\n\t\t\t\tgetRequestedSpareParts \u003d MaintenanceRMAPI.getRequestedSparePartsByWoNumber(WoNumber)\n\t\t\t\tif getRequestedSpareParts.getRowCount()\u003e0:\n\t\t\t\t\tself.props.enabled\u003d0\n\t\t\t\t\tself.props.style.backgroundColor \u003d \"#E2EEFB\"\n\t\t\t\telse:\n\t\t\t\t\tself.props.enabled\u003d1\n\t\t\t\t\tself.props.style.backgroundColor \u003d \"#FFFFF\"\n\n\t\telse:\n\t\t\tIsHistory\u003drowData[\u0027IsHistory\u0027]\n\t\t\tsystem.perspective.print(\"status is: \"+ str(status))\n\t\t\t\n\t\t\tif status \u003d\u003d \"Assigned\":\n\t\t\t\tself.props.enabled\u003d0\n\t\t\t\tself.props.style.backgroundColor \u003d \"#E2EEFB\"\n\t\t\telif status \u003d\u003d \"On-Hold\":\n\t\t\t\tself.props.enabled\u003d0\n\t\t\t\tself.props.style.backgroundColor \u003d \"#E2EEFB\"\n\t\t\telse:\n\t\t\t\tif IsHistory \u003d\u003d 1:\n\t\t\t\t\tself.props.enabled\u003d0\n\t\t\t\t\tself.props.style.backgroundColor \u003d \"#E2EEFB\"\n\t\t\t\telse:\n\t\t\t\t\tself.props.enabled\u003d1\n\t\t\t\t\tself.props.style.backgroundColor \u003d \"#FFFFF\"\n\n\texcept:\n\t\tpass"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "txtValue",
+          "visible": 1
+        },
+        "position": {
+          "height": 30,
+          "width": 120,
+          "x": 3
+        },
+        "props": {
+          "align": "center",
+          "format": "none",
+          "spinner": {
+            "enabled": false
+          },
+          "style": {
+            "backgroundColor": "",
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.input.numeric-entry-field"
+      },
+      {
+        "events": {
+          "dom": {
+            "onMouseOver": {
+              "config": {
+                "script": "\ttry:\n\t\tstatus\u003d self.session.custom.WOOperationStatus\n\t\trowData\u003dself.view.params.rowData\n\t\tcolumnName\u003dself.view.params.column\t\n\t\t\t\t\t\n\t\tIsHistory\u003drowData[\u0027IsHistory\u0027]\n\t\tsystem.perspective.print(\"status is: \"+ str(status))\n\t\t\n\t\tif status \u003d\u003d \"Assigned\":\n\t\t\tself.props.enabled\u003d0\n\t\t\tself.props.style.backgroundColor \u003d \"#E2EEFB\"\n\t\telif status \u003d\u003d \"On-Hold\":\n\t\t\tself.props.enabled\u003d0\n\t\t\tself.props.style.backgroundColor \u003d \"#E2EEFB\"\n\t\telse:\n\t\t\tif IsHistory \u003d\u003d 1:\n\t\t\t\tself.props.enabled\u003d0\n\t\t\t\tself.props.style.backgroundColor \u003d \"#E2EEFB\"\n\t\t\telse:\n\t\t\t\tself.props.enabled\u003d1\n\t\t\t\tself.props.style.backgroundColor \u003d \"#FFFFFF\"\n\n\texcept:\n\t\tpass"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          },
+          "system": {
+            "onStartup": {
+              "config": {
+                "script": "\ttry:\n\t\tstatus\u003d self.session.custom.WOOperationStatus\n\t\trowData\u003dself.view.params.rowData\n\t\tcolumnName\u003dself.view.params.column\t\n\t\t\t\t\t\n\t\tIsHistory\u003drowData[\u0027IsHistory\u0027]\n\t\tsystem.perspective.print(\"status is: \"+ str(status))\n\t\t\n\t\tif status \u003d\u003d \"Assigned\":\n\t\t\tself.props.enabled\u003d0\n\t\t\tself.props.style.backgroundColor \u003d \"#E2EEFB\"\n\t\telif status \u003d\u003d \"On-Hold\":\n\t\t\tself.props.enabled\u003d0\n\t\t\tself.props.style.backgroundColor \u003d \"#E2EEFB\"\n\t\telse:\n\t\t\tif IsHistory \u003d\u003d 1:\n\t\t\t\tself.props.enabled\u003d0\n\t\t\t\tself.props.style.backgroundColor \u003d \"#E2EEFB\"\n\t\t\telse:\n\t\t\t\tself.props.enabled\u003d1\n\t\t\t\tself.props.style.backgroundColor \u003d \"#FFFFFF\"\n\n\texcept:\n\t\tpass"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "txtInstrumentSerialNo",
+          "visible": 0
+        },
+        "position": {
+          "height": 30,
+          "width": 120,
+          "x": 3
+        },
+        "propConfig": {
+          "props.text": {
+            "onChange": {
+              "enabled": null,
+              "script": "\tsystem.perspective.print(\"Text Field On Change Script------START---------\u003e\")\n\ttext\u003dself.props.text\n\trowData\u003dself.view.params.rowData\n\tSelctedRow\u003dself.view.params.rowIndex\n\tcolumnName\u003dself.view.params.column\n\n\tif text !\u003d str(\"\"):\n\t\tif columnName \u003d\u003d \"SerialNo\" or columnName \u003d\u003d \"LotNo\":\n\t\t\tmessageType \u003d \"UpdateConsumeTable\"\n\t\t\tsystem.perspective.sendMessage(messageType,payload \u003d {\"columnName\":columnName,\"updatedText\":text,\"SelctedRow\":SelctedRow},scope \u003d \"page\")\n\t\t\tsystem.perspective.print(\"Messge Sent to Table From Text Feild\")\n\telse:\n\t\tmessageType \u003d \"UpdateConsumeTable\"\n\t\tsystem.perspective.sendMessage(messageType,payload \u003d {\"columnName\":columnName,\"updatedText\":text,\"SelctedRow\":SelctedRow},scope \u003d \"page\")\n\t\tsystem.perspective.print(\"Messge Sent to Table From Text Feild\")\t"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#FFFFFF",
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.input.text-field"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}

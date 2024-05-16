@@ -1,0 +1,93 @@
+{
+  "custom": {},
+  "params": {
+    "Status": "",
+    "WOQty": "",
+    "WoorkorderNo": ""
+  },
+  "propConfig": {
+    "params.Status": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.WOQty": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.WoorkorderNo": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 239,
+      "width": 327
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Carousel"
+        },
+        "position": {
+          "height": 1,
+          "width": 1
+        },
+        "props": {
+          "appearance": {
+            "arrows": {
+              "enabled": false,
+              "next": {
+                "iconPath": "material/keyboard_arrow_right"
+              },
+              "previous": {
+                "iconPath": "material/keyboard_arrow_left"
+              }
+            },
+            "slidePadding": 0,
+            "slidesToShow": 0
+          },
+          "lazyLoad": false
+        },
+        "type": "ia.display.carousel"
+      }
+    ],
+    "events": {
+      "dom": {
+        "onClick": {
+          "config": {
+            "script": "\ttry:\n\t\tmessageType1 \u003d \u0027RefreshRunningWo\u0027\n\t\tsystem.perspective.sendMessage(messageType1, payload \u003d {\"value\":0,\"SelctedRowIndex\":0}, scope \u003d \"page\")\t\t\n\t\tsystem.perspective.print(\"On Click Data Loading to Running WO swipe Done\")\n\texcept:\n\t\tsystem.perspective.print(\"Exception::Click Refresh\")\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)"
+          },
+          "scope": "G",
+          "type": "script"
+        }
+      },
+      "system": {
+        "onStartup": {
+          "config": {
+            "script": "\ttry:\n#\t\tself.getChild(\"ImageLoader\").meta.visible \u003d 1\n\t\tuserId\u003dself.session.custom.UserId\n\t\tentId\u003d0\n\t\tplantId\u003d0\n\t\tareaId\u003d0\n\t\tlineId\u003dself.session.custom.LineID\n\t\twoNo \u003dself.session.custom.WoNumber\n\t\tRunningWos\u003dProductionOperatorConsole.getProductionRunningWos(entId,plantId,areaId,lineId,userId)\n\t\n\t\tNoOfRunnigWo\u003dRunningWos.getRowCount()\n#\t\tsystem.perspective.print(\u0027NoOfRunnigWo: \u0027+str(NoOfRunnigWo))\t\n\t\tMachineDynamicViewElements\u003d[]\t\t\t\t\n\t\tMachineviewElements\u003d{\u0027alignItems\u0027: \u0027flex-start\u0027, \u0027justify\u0027: \u0027flex-start\u0027, \u0027viewParams\u0027: {\u0027WoorkorderNo\u0027: \u0027value\u0027, \u0027Status\u0027: \u0027value\u0027, \u0027WOQty\u0027: \u0027value\u0027}, \u0027direction\u0027: \u0027row\u0027, \u0027viewPath\u0027: \u0027Project_MES_Solution/ProductionOperatorConsole/Modules/RunningWOs\u0027}\n\t\tfor i in range(NoOfRunnigWo):\n\t\t\t\n#-------------Create carasoul view for each machine-----------------------------------------------------------\n\t\t\tMachineDynamicViewElements.append(MachineviewElements)\t\n\t\tsystem.perspective.print(\u0027MachineDynamicViewElements:\u0027+str(len(MachineDynamicViewElements)))\t\t\n\t\tself.getChild(\"Carousel\").props.views\u003dMachineDynamicViewElements\t\t\t\t\t\n#\t\tmachineDetails\u003d[{\"MachineCode\":machineName,\"Cavity\":8,\"Pieces\":4,\"Machineshots\":1500},{\"MachineCode\":machineName,\"Cavity\":16,\"Pieces\":8,\"Machineshots\":1800}]\t\t\t\t\t\t\t\t\t\t\n#----------------------Load parameter against machine  no--------------------------\t\t\t\t\t\n\t\t\n\t\tfor i in range(NoOfRunnigWo):\t\t\t\n\t\t\tWoorkorderNo\u003dRunningWos.getValueAt(i, \u0027WONo\u0027)\n\t\t\twoNo\u003dWoorkorderNo\n\t\t\tWoStatus\u003dRunningWos.getValueAt(i, \u0027WoStatus\u0027)\n\t\t\tWorkOrderId\u003dRunningWos.getValueAt(i, \u0027WorkOrderId\u0027)\n\t\t\tsystem.perspective.print(\u0027WoId: \u0027+str(WorkOrderId))\n\t\t\tgoodQtyWO\u003dProductionOperatorConsole.getGoodQty(WorkOrderId)\t\t\t\n\t\t\tfor j in (goodQtyWO):\n\t\t\t\tWOQty\u003dj.get(\u0027GoodQTY\u0027)\n#\t\t\t\tsystem.perspective.print(\"GoodQty--\u003e\"+str(WOQty))\n\t\t\t\n\t\t\ttry:\n\t\t\t\tif WOQty\u003e\u003d0:\n\t\t\t\t\tpass\n\t\t\t\telse:\n\t\t\t\t\tWOQty\u003d0\t\n\t\t\texcept:\n\t\t\t\tWOQty\u003d0\t\t\t\t\t\t\t\n\t\t\tself.getChild(\"Carousel\").props.views[i].viewParams.WoorkorderNo\u003dWoorkorderNo\n\t\t\tself.getChild(\"Carousel\").props.views[i].viewParams.Status\u003dWoStatus\n\t\t\tself.getChild(\"Carousel\").props.views[i].viewParams.WOQty\u003dWOQty\n#\t\t\tsystem.perspective.print(\u0027Swipe WoorkorderNo: \u0027+str(WoorkorderNo))\t\n\t\tmessageType1 \u003d \u0027RefreshRunningWo\u0027\n\t\tsystem.perspective.sendMessage(messageType1, payload \u003d {\"value\":0,\"SelctedRowIndex\":0}, scope \u003d \"page\")\t\t\n\t\tsystem.perspective.print(\"Data Loading to Running WO swipe Done\")\n#\t\tself.getChild(\"ImageLoader\").meta.visible \u003d 0\n\n\texcept:\n\t\tsystem.perspective.print(\"Exception::Running Workorder Swipe\")\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\n\t"
+          },
+          "enabled": false,
+          "scope": "G",
+          "type": "script"
+        }
+      }
+    },
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -0.1835,
+      "y": 0.0042
+    },
+    "props": {
+      "mode": "percent",
+      "style": {
+        "classes": "Widgets/Widgets"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

@@ -1,0 +1,152 @@
+{
+  "custom": {},
+  "params": {
+    "value": ""
+  },
+  "propConfig": {
+    "params.value": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 24,
+      "width": 493
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblPieceValue",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 14,
+          "width": 119,
+          "x": 32.49,
+          "y": 4.7
+        },
+        "props": {
+          "style": {
+            "color": "#FFFFFF"
+          },
+          "text": "Availability",
+          "textStyle": {
+            "classes": "Widgets/WidgetsData"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Button"
+        },
+        "position": {
+          "height": 10,
+          "width": 48,
+          "x": 103.762,
+          "y": 7.699999999999999
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#00D900"
+          },
+          "text": ""
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "LblPieceValue_0",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 14,
+          "width": 80,
+          "x": 188.49,
+          "y": 4.7
+        },
+        "props": {
+          "style": {
+            "color": "#FFFFFF"
+          },
+          "text": "Capacity",
+          "textStyle": {
+            "classes": "Widgets/WidgetsData"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Button_0"
+        },
+        "position": {
+          "height": 10.01,
+          "width": 48.44999999999999,
+          "x": 244.31,
+          "y": 7.7
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#FF8A8A"
+          },
+          "text": ""
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "LblPieceValue_1",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 14,
+          "width": 105,
+          "x": 328.49,
+          "y": 4.7
+        },
+        "props": {
+          "style": {
+            "color": "#FFFFFF"
+          },
+          "text": "Performance",
+          "textStyle": {
+            "classes": "Widgets/WidgetsData"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Button_1"
+        },
+        "position": {
+          "height": 10,
+          "width": 48,
+          "x": 406.762,
+          "y": 7.7
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#D5D5D5"
+          },
+          "text": ""
+        },
+        "type": "ia.input.button"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}

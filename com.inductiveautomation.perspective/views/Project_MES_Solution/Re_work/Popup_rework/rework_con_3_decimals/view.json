@@ -1,0 +1,58 @@
+{
+  "custom": {},
+  "params": {
+    "rowData": "value"
+  },
+  "propConfig": {
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 43,
+      "width": 137
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "NumericEntryField"
+        },
+        "position": {
+          "height": 27,
+          "width": 104,
+          "x": 20.6,
+          "y": 6.79
+        },
+        "propConfig": {
+          "props.value": {
+            "binding": {
+              "config": {
+                "path": "view.params.rowData[\"actualQty\"]"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "align": "left",
+          "enabled": false,
+          "format": "0,0.00",
+          "style": {
+            "backgroundColor": "#FFFFFF",
+            "borderColor": "#FFFFFF",
+            "borderStyle": "none"
+          }
+        },
+        "type": "ia.input.numeric-entry-field"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}

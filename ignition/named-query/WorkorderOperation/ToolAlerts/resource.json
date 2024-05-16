@@ -1,0 +1,40 @@
+{
+  "scope": "DG",
+  "version": 2,
+  "restricted": false,
+  "overridable": true,
+  "files": [
+    "query.sql"
+  ],
+  "attributes": {
+    "useMaxReturnSize": false,
+    "autoBatchEnabled": false,
+    "fallbackValue": "",
+    "maxReturnSize": 100,
+    "cacheUnit": "SEC",
+    "type": "Query",
+    "enabled": true,
+    "cacheAmount": 1,
+    "cacheEnabled": false,
+    "database": "JeMES_QA",
+    "fallbackEnabled": false,
+    "lastModificationSignature": "3b3ff9d6c9b7fcf77056a7926bf77220595701936d4cde4209af4ba9303518ce",
+    "permissions": [
+      {
+        "zone": "",
+        "role": ""
+      }
+    ],
+    "lastModification": {
+      "actor": "Hari",
+      "timestamp": "2023-06-02T17:49:40Z"
+    },
+    "parameters": [
+      {
+        "type": "Parameter",
+        "identifier": "AreaId",
+        "sqlType": 2
+      }
+    ]
+  }
+}

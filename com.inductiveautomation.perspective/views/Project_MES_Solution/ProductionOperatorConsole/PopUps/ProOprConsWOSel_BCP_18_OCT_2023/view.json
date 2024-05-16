@@ -1,0 +1,1207 @@
+{
+  "custom": {
+    "CurrentShiftId": 0,
+    "checklistValidation": "",
+    "componentValidation": "",
+    "materialChecklistValidation": ""
+  },
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\tscriptName \u003d \"Operator Console:\"\n\t\tuserId \u003d UserID \u003d self.session.custom.UserId\n\t\tself.session.custom.isAcknowledged \u003d False\t\n\t\tself.custom.CurrentShiftId  \u003d 0\n\t\tif self.session.custom.authorizeProduction !\u003d 1 :\n\t\t\tsystem.perspective.navigate(\u0027/LoginScreen\u0027)\n\t\telse:\n\t\t\ttry:\n\t\t\t\tTabledata \u003d self.params.rowData\n\t\t\t\tsystem.perspective.print(\"RowData:--\"+str(Tabledata))\n\t\t\t\tself.session.custom.WorkflowOperationsId \u003d Tabledata.get(\u0027WorkFlowOperationsId\u0027)\n\t\t\t\tself.session.custom.WoNumber \u003d Tabledata.get(\u0027WONo\u0027)\n\t\t\t\tself.session.custom.WorkorderID \u003d Tabledata.get(\u0027WorkorderID\u0027)\n\t\t\t\tsystem.perspective.print(\"workorderId---\u003e\u003e\"+str(self.session.custom.WorkorderID))\n\t\t\t\tself.session.custom.woStatus\u003dTabledata.get(\u0027WoStatus\u0027)\t\n\t\t\t\tself.session.custom.Workflow \u003d Tabledata.get(\u0027WorkFlow\u0027)\t\t\t\n\t\t\t\tself.session.custom.WorkflowId \u003d Tabledata.get(\u0027WorkFlowId\u0027)\n\t\t\t\tself.session.custom.WorkOrderQty\u003dTabledata.get(\u0027WOQty\u0027)\n\t\t\t\tself.session.custom.woStartDate\u003dTabledata.get(\u0027StartDate\u0027)\n\t\t\t\tself.session.custom.woEndDate\u003dTabledata.get(\u0027EndDate\u0027)\n\t\t\t\tself.session.custom.woActualStartDate\u003dTabledata.get(\u0027ActualStartDate\u0027)\n\t\t\t\tself.session.custom.woActualEndDate\u003dTabledata.get(\u0027ActualEndDate\u0027)\n\t\t\t\tself.session.custom.enterpriseName\u003dTabledata.get(\u0027EntName\u0027)\t\t\t \t\t\n\t\t\t\tself.session.custom.plantName\u003dTabledata.get(\u0027PlantName\u0027) \t\n\t\t\t\tself.session.custom.CycleTime\u003dTabledata.get(\u0027CycleTime\u0027)\n\t\t\t\tself.session.custom.Factory\u003dTabledata.get(\u0027Factory\u0027)\n\t\t\t\tself.session.custom.WOType\u003dTabledata.get(\u0027WOType\u0027)\n\t\t\t\tWOType\u003dTabledata.get(\u0027WOType\u0027)\n\t\t\t\tsystem.perspective.print(\"shift Capacity:--\"+str(Tabledata.get(\u0027ShiftCapacity\u0027)))\n\t\t\t\tself.session.custom.ShiftCapacity\u003dTabledata.get(\u0027ShiftCapacity\u0027)\n\t#\t\t\tsession.custom.CycleTime\u003dTabledata.get(\u0027CycleTime\u0027)\n\t\t\t\t\n\t\t\t\tself.session.custom.ShiftName\u003dTabledata.get(\u0027shift\u0027)\t\n\t\t\t\tself.session.custom.shiftId\u003dTabledata.get(\u0027shiftId\u0027)\n\t\t\t\tself.session.custom.AreaID \u003d Tabledata.get(\u0027AreaId\u0027)\t\t\n\t\t\t\tself.session.custom.areaName \u003d Tabledata.get(\u0027AreaName\u0027) \n\t\t\t\tself.session.custom.LineID \u003d Tabledata.get(\u0027LineId\u0027)\n\t\t\t\tsystem.perspective.print(\"LineID----\u003e\"+str(self.session.custom.LineID))\n\t\t\t\tself.session.custom.lineName \u003d Tabledata.get(\u0027LineName\u0027)\n\t\t\t\tself.session.custom.Revision \u003d Tabledata.get(\u0027Revision\u0027)\n\t\t\t\tself.session.custom.Item \u003d Tabledata.get(\u0027PartNo\u0027)\n\t\t\t\tself.session.custom.UOM \u003d Tabledata.get(\u0027UOM\u0027)\t\t\t\n\t\t\t\tstdHC \u003d Tabledata.get(\u0027stdHC\u0027)\n\t\t\t\tstdHC \u003d (\u0027{:.2f}\u0027.format(stdHC))\n\t\t\t\tself.session.custom.stdHC \u003d stdHC\n\t\t\t\tactHC \u003d Tabledata.get(\u0027actHC\u0027)\n\t\t\t\tactHC \u003d (\u0027{:.2f}\u0027.format(actHC))\n#\t\t\t\tself.session.custom.actHC \u003d actHC\n\t\t\t\tsystem.perspective.print(\"actHC WR To Session: \"+str(actHC))\n\t\t\t\tself.session.custom.salesOrder\u003d Tabledata.get(\u0027salesOrder\u0027)\n\n#\t\t\t\tself.custom.CurrentShiftId \u003d Tabledata.get(\u0027shiftId\u0027)\n\n\n\t\t\t\tworkflowId\u003dself.session.custom.WorkflowId\n\t\t\t\tItem\u003dself.session.custom.Item\n\t\t\t\tRevision\u003dself.session.custom.Revision\n\t\t\t\tWoNumber \u003d self.session.custom.WoNumber\t\t\t\n\t\t\t\tAreaName \u003d str(Tabledata.get(\u0027AreaName\u0027))\n\t\t\t\tsystem.perspective.print(\"WOType--\u003e\"+str(WOType))\t\t\t\t\t \t\t\t\t\t\t \t\t\t\t\t\t \t\t\t\t\t\t \t\t\t\t\t\t \t\t\t\t\t \t\t\t\t\t\t \t\t\t\t\t\t \t\t\t\t\t\t \t\t\t\t\t\t \t\t\t\t\t\t \t\t\t\t\t\t \t\t\t\t\t\t \t\t\t\n\t#-----------------------------------------Loading Main view Path Based On Area --------------------------------------\n\t\t\t\tif WOType\u003d\u003d\u00271\u0027or WOType\u003d\u003d1:\n\t\t\t\t\tself.getChild(\"root\").getChild(\"MainViewContainer\").getChild(\"EmbeddedView\").props.path\u003d\u0027Project_MES_Solution/ProductionOperatorConsole/MainViews/ProductionMainView\u0027\n\t\t\t\t\tself.getChild(\"root\").getChild(\"HeaderContainer\").getChild(\"FlexContainer\").getChild(\"HorizontalMenu\").props.items[13].label \u003d \"Tool Details\"\n\t\t\t\telif WOType\u003d\u003d\u00272\u0027or WOType\u003d\u003d2:\n\t\t\t\t\tself.getChild(\"root\").getChild(\"MainViewContainer\").getChild(\"EmbeddedView\").props.path\u003d\u0027Project_MES_Solution/ProductionOperatorConsole/MainViews/CNSView\u0027\n\t\t\t\t\tself.session.custom.moldValidation \u003d True\n\t\t\t\t\tself.getChild(\"root\").getChild(\"HeaderContainer\").getChild(\"FlexContainer\").getChild(\"HorizontalMenu\").props.items[13].label \u003d \"\"\n\t\n\t\t\t\telse:\n\t\t\t\t\tself.getChild(\"root\").getChild(\"MainViewContainer\").getChild(\"EmbeddedView\").props.path\u003d\u0027Project_MES_Solution/ProductionOperatorConsole/MainViews/ProductionMainView\u0027\n\t\t\t\t\tsystem.perspective.print(\"Not valid Screen Data\")\n\t\t\t\t\t\t\t\n\t\t\t\tstatus \u003d Tabledata.get(\u0027WoStatus\u0027)\t\t\n\t\t\t\tif status \u003d\u003d \"On-Hold\":\n\t\t\t\t\tself.getChild(\"root\").getChild(\"HeaderContainer\").getChild(\"FlexContainer\").getChild(\"HorizontalMenu\").props.items[4].label \u003d \"Resume WO\"\n\t\t\t\telse:\n\t\t\t\t\tself.getChild(\"root\").getChild(\"HeaderContainer\").getChild(\"FlexContainer\").getChild(\"HorizontalMenu\").props.items[4].label \u003d \"Hold WO\"\n\t\t\t\t\t\n\t\t\t\tworkorderName \u003d self.session.custom.WoNumber\n\t\t\t\tlineId \u003d self.session.custom.LineID\n\t\t\t\tshiftId \u003d Authentication.getshiftId(lineId)\t\t\t\t\n\t\t\t\tself.custom.CurrentShiftId \u003d shiftId\n\t\t\t\toperatorInfo \u003d ProductionOperatorConsole.getdirectIndirectLabour(workorderName,shiftId,lineId)\n\t\t\t\tsystem.perspective.print(\"OperatorInfo; \"+str(operatorInfo))\n\t\t\t\tfor i in operatorInfo:\t\t\t\n\t\t\t\t\tDirectUserCount \u003d i.get(\"DirectUserCount\")\n\t\t\t\t\t\n#\t\t\t\t\tDirectUserCount\n\t\t\t\t\tIndirectUserCount \u003d i.get(\"INDirectUserCount\")\n\t\t\t\t\tIndirectUserCount \u003d (\u0027{:.2f}\u0027.format(IndirectUserCount))\n\t\t\t\t\tDirectUserCount \u003d (\u0027{:.2f}\u0027.format(DirectUserCount))\n\t\t\t\t\tactHeadCount \u003d  float(DirectUserCount)+float(IndirectUserCount)\n\t\t\t\tactHeadCount \u003d (\u0027{:.2f}\u0027.format(actHeadCount))\n#\t\t\t\tself.session.custom.actHC\n\t\t\t\tsystem.perspective.print(\u0027On Startup HC: \u0027+str(actHeadCount))\n\t\t\t\tself.session.custom.actHC \u003d actHeadCount\n\t#-----------------------------------------------------------------------------------------------------------------------------------\t\t\n\t\t\texcept Exception as e:\n\t\t\t\tscriptName \u003d \"Operator Console:\"\n\t\t\t\terrorMessage \u003d scriptName  +\u0027 Exception : \u0027+  str(e)\n\t\t\t\tAuthentication.exceptionLogger(errorMessage)\n\t\t\t\t\n\t\t\t#----------------------------------------- Update All Table Validations ---------------------------------------------------------------------------------\n\t\t\t# Application use: Below code is updated code for Workorder Start Stop Validation\t\n\t\t\t# Developer Name: Sushant Chavan\n\t\t\t# Created On: 18-03-2023\n\t\t\t# Updated By : Sushant --\u003e Removed old validations and kept latest only\n\t\t\t# Updated On : 20-03-2023\n\t\t\ttry:\n\t\t\t\tIsMachineRunning,ComponentValidation,ChecklistValidation,IsMoldValidation \u003d ProductionOperatorConsole.validateWorkorderParameters(WorkorderId)\n\t\t\texcept:\n\t\t\t\tsystem.perspective.print(\"Error while fetching validation details at Landing page to main view transition.\")\n\t\t\telse:\t\t\n\t\t\t\tself.session.custom.ComponentValidation \u003d ComponentValidation\n\t\t\t\tself.session.custom.ChecklistValidation \u003d ChecklistValidation\t\t\t\n\t\t\t\tself.session.custom.ChecklistMaterialValidation \u003d True\t\n\t\t\t\n\t#\t\tsystem.perspective.print(\u0027IsMachineRunning :\u0027 +str(IsMachineRunning))\n\t#\t\tsystem.perspective.print(\u0027ComponentValidation :\u0027 +str(ComponentValidation))\n\t#\t\tsystem.perspective.print(\u0027ChecklistValidation :\u0027 +str(ChecklistValidation))\n\t\t\t\t\t\t\t\t\t\t\n\texcept:\n\t\t\tsystem.perspective.print(\"Exception:: Production Operaton console Main Loading Page\")\n\t\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\t\tsystem.perspective.print(errorMessage)\n\t\t\tlineno \u003d tb.tb_lineno\n\t\t\tsystem.perspective.print(lineno)\n"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "IsDeffectOpen": "",
+    "dsTbloptr": "value",
+    "rowData": ""
+  },
+  "propConfig": {
+    "custom.CurrentShiftId": {
+      "persistent": true
+    },
+    "custom.checklistValidation": {
+      "persistent": true
+    },
+    "custom.componentValidation": {
+      "persistent": true
+    },
+    "custom.materialChecklistValidation": {
+      "persistent": true
+    },
+    "params.IsDeffectOpen": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.dsTbloptr": {
+      "paramDirection": "output",
+      "persistent": true
+    },
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 768,
+      "width": 1690
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "EnterpriseLbl"
+                },
+                "position": {
+                  "height": 0.7222,
+                  "width": 0.0506,
+                  "x": 0.0041,
+                  "y": 0.1563
+                },
+                "props": {
+                  "style": {
+                    "backgroundColor": "#EDF0F0",
+                    "classes": "Common/Label"
+                  },
+                  "text": "Enterprise",
+                  "textStyle": {
+                    "classes": "Common/OprConsoleLabelText"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "PlantLbl"
+                },
+                "position": {
+                  "height": 0.7222,
+                  "width": 0.0551,
+                  "x": 0.1521,
+                  "y": 0.1681
+                },
+                "props": {
+                  "style": {
+                    "backgroundColor": "#EDF0F0",
+                    "classes": "Common/Label"
+                  },
+                  "text": "Plant",
+                  "textStyle": {
+                    "classes": "Common/OprConsoleLabelText"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "AreaLbl"
+                },
+                "position": {
+                  "height": 0.7222,
+                  "rotate": {
+                    "anchor": "-167% 39%"
+                  },
+                  "width": 0.048,
+                  "x": 0.3061,
+                  "y": 0.1681
+                },
+                "props": {
+                  "style": {
+                    "backgroundColor": "#EDF0F0",
+                    "classes": "Common/Label"
+                  },
+                  "text": "Area",
+                  "textStyle": {
+                    "classes": "Common/OprConsoleLabelText"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "LineLbl"
+                },
+                "position": {
+                  "height": 0.7222,
+                  "width": 0.048,
+                  "x": 0.4525,
+                  "y": 0.1681
+                },
+                "props": {
+                  "style": {
+                    "backgroundColor": "#EDF0F0",
+                    "classes": "Common/Label"
+                  },
+                  "text": "Line",
+                  "textStyle": {
+                    "classes": "Common/OprConsoleLabelText"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "SearchBtn",
+                  "visible": false
+                },
+                "position": {
+                  "height": 0.7222,
+                  "width": 0.0755,
+                  "x": 0.9057,
+                  "y": 0.1531
+                },
+                "props": {
+                  "image": {
+                    "width": 50
+                  },
+                  "style": {
+                    "classes": "Common/Button"
+                  },
+                  "text": "Search"
+                },
+                "type": "ia.input.button"
+              },
+              {
+                "meta": {
+                  "name": "LblSelEnterprise",
+                  "tooltip": {
+                    "location": "bottom-right"
+                  }
+                },
+                "position": {
+                  "height": 0.7222,
+                  "width": 0.0906,
+                  "x": 0.0579,
+                  "y": 0.1574
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.enterpriseName"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "backgroundColor": "#D5D5D5",
+                    "classes": "Common/TextBox",
+                    "paddingLeft": 5
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "LblSelPlant",
+                  "tooltip": {
+                    "location": "bottom-right"
+                  }
+                },
+                "position": {
+                  "height": 0.7222,
+                  "width": 0.0906,
+                  "x": 0.2111,
+                  "y": 0.1574
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.plantName"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "backgroundColor": "#D5D5D5",
+                    "classes": "Common/TextBox",
+                    "paddingLeft": 5
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "LblSelArea",
+                  "tooltip": {
+                    "location": "bottom-right"
+                  }
+                },
+                "position": {
+                  "height": 0.6939,
+                  "width": 0.0903,
+                  "x": 0.3582,
+                  "y": 0.1787
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.areaName"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "backgroundColor": "#D5D5D5",
+                    "classes": "Common/TextBox",
+                    "paddingLeft": 5
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "LblSelLine",
+                  "tooltip": {
+                    "location": "bottom-right"
+                  }
+                },
+                "position": {
+                  "height": 0.6735,
+                  "width": 0.0903,
+                  "x": 0.5046,
+                  "y": 0.1787
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.lineName"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "backgroundColor": "#D5D5D5",
+                    "classes": "Common/TextBox",
+                    "paddingLeft": 5
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": [
+                      {
+                        "config": {
+                          "script": "\tself.session.custom.WoNumber\u003d\u0027\u0027\n\n\tTabledata\u003dself.view.params.rowData\n\tself.session.custom.LineID \u003d Tabledata.get(\u0027LineId\u0027)\n\tself.session.custom.PlantID\u003d Tabledata.get(\u0027PlantId\u0027)\n\n\tself.session.custom.ProductionOCBackBtnH\u003d1\n\tproductionOperatorConsoleScreenPath \u003d \"/ProductionOperatorConsole\"\n\tsystem.perspective.navigate(productionOperatorConsoleScreenPath)"
+                        },
+                        "scope": "G",
+                        "type": "script"
+                      },
+                      {
+                        "config": {
+                          "page": "/ProductionOperatorConsole"
+                        },
+                        "enabled": false,
+                        "scope": "C",
+                        "type": "nav"
+                      }
+                    ]
+                  }
+                },
+                "meta": {
+                  "name": "BackBtn",
+                  "tooltip": {
+                    "enabled": true,
+                    "location": "bottom-left",
+                    "style": {
+                      "classes": "Common/ToolTip"
+                    }
+                  }
+                },
+                "position": {
+                  "height": 0.6735,
+                  "width": 0.0644,
+                  "x": 0.9298,
+                  "y": 0.1646
+                },
+                "props": {
+                  "image": {
+                    "height": 15,
+                    "width": 45
+                  },
+                  "style": {
+                    "classes": "Common/Button"
+                  },
+                  "text": "Back",
+                  "textStyle": {
+                    "fontFamily": "Arial",
+                    "fontSize": 11
+                  }
+                },
+                "type": "ia.input.button"
+              },
+              {
+                "meta": {
+                  "name": "LineLbl_0"
+                },
+                "position": {
+                  "height": 0.6939,
+                  "width": 0.0482,
+                  "x": 0.5989,
+                  "y": 0.1787
+                },
+                "props": {
+                  "style": {
+                    "backgroundColor": "#EDF0F0",
+                    "classes": "Common/Label"
+                  },
+                  "text": "Shift",
+                  "textStyle": {
+                    "classes": "Common/OprConsoleLabelText"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "LblShiftName",
+                  "tooltip": {
+                    "location": "bottom-right"
+                  }
+                },
+                "position": {
+                  "height": 0.6735,
+                  "width": 0.0903,
+                  "x": 0.651,
+                  "y": 0.1787
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.ShiftName"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "backgroundColor": "#D5D5D5",
+                    "classes": "Common/TextBox",
+                    "paddingLeft": 5
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "Status"
+                },
+                "position": {
+                  "height": 0.6939,
+                  "width": 0.0552,
+                  "x": 0.7527,
+                  "y": 0.1798
+                },
+                "props": {
+                  "style": {
+                    "backgroundColor": "#EDF0F0",
+                    "classes": "Common/Label"
+                  },
+                  "text": "WO Status",
+                  "textStyle": {
+                    "classes": "Common/OprConsoleLabelText"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "LblWOStatus",
+                  "tooltip": {
+                    "location": "bottom-right"
+                  }
+                },
+                "position": {
+                  "height": 0.6596,
+                  "width": 0.108,
+                  "x": 0.8125,
+                  "y": 0.1798
+                },
+                "propConfig": {
+                  "props.style.backgroundColor": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.WOOperationStatus"
+                      },
+                      "transforms": [
+                        {
+                          "code": "\tif str(value).lower() \u003d\u003d str(\u0027In-Progress\u0027).lower():\n\t\tvalue \u003d \u002700FF00\u0027\n\telif str(value).lower() \u003d\u003d str(\u0027On-Hold\u0027).lower():\n\t\tvalue \u003d \u0027FF8C00\u0027\n\telif str(value).lower() \u003d\u003d str(\u0027Not-Started\u0027).lower():\n\t\tvalue \u003d \u0027FF4747\u0027\n\telse:\n\t\tpass\n\treturn value",
+                          "type": "script"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  },
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.woStatus"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "Common/TextBox",
+                    "paddingLeft": 5
+                  },
+                  "textStyle": {
+                    "color": "#000000",
+                    "fontWeight": "bold"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "CoordinateContainer"
+            },
+            "position": {
+              "height": 0.2873,
+              "width": 0.99,
+              "x": 0.0055,
+              "y": 0.2778
+            },
+            "props": {
+              "mode": "percent",
+              "style": {
+                "classes": "Basic/OprConsoleHirarchy"
+              }
+            },
+            "type": "ia.container.coord"
+          },
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "height": 0.1532,
+              "width": 0.2265,
+              "x": 0.0153,
+              "y": 0.0518
+            },
+            "props": {
+              "text": "Production Operator Console",
+              "textStyle": {
+                "classes": "Common/Label_Header"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "children": [
+              {
+                "events": {
+                  "component": {
+                    "onItemClicked": {
+                      "config": {
+                        "script": "\ttry:\n\t\tself.parent.parent.parent.getChild(\"MainViewContainer\").getChild(\"ImageLoader\").meta.visible \u003d True\n#\t\tsystem.perspective.openPopup(\u0027LoaderPopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/Loader/LoaderPopup\u0027,draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\tWOType\u003dself.session.custom.WOType\n\t\tworkflowId \u003d self.session.custom.WorkflowId\n\t\tWoNumber \u003d self.session.custom.WoNumber\n\t\tuserId \u003dself.session.custom.UserId\t\t\n\t\tworkorderId \u003d selectedWorkorderId \u003dself.session.custom.WorkorderID\n\t\ttry:\n\t\t\tProductionOperatorConsole.updateMESControls(workorderId)\n\t\texcept:\n\t\t\tpass\n\t\tlineId \u003d self.session.custom.LineID\t\n\t\tstatus \u003d self.session.custom.woStatus\n\t\tActionCode \u003d 0   #--------------------------Not Needed------------------------\t\n\t\t\n\t\ttry:\n\t\t\tActualShiftId \u003d Authentication.getshiftId(lineId)\n\t\t\tsystem.perspective.print(\u0027Actual Shift Id Print 01 \u0027 + str(ActualShiftId))\n\t\t\tsystem.perspective.print(\u0027Current Shift Id Print 01 \u0027 + str(self.view.custom.CurrentShiftId))\n\t\texcept:\n\t\t\tActualShiftId \u003d self.view.custom.CurrentShiftId\n\t\tsystem.perspective.print(\u0027Actual Shift Id Print 02 \u0027 + str(ActualShiftId))\n\t\t#-------------------------------------------------------------------------------------------------------------\t\t\n\t\t# Application use: Below code is updated code for Workorder Start Stop Validation\t\n\t\t# Developer Name: Sushant Chavan\n\t\t# Created On: 18-03-2023\n\t\t# Updated By : Sagar\n\t\t# Updated On :24-03-2023\n\t\t# Comment : \n\t\ttry:\n\t\t\tisTakeInConfiguredForLine,isMachineConfigured \u003d TakeIn_TakeOut.isTakeinTakeoutConfigForLine(workorderId)\n\t\t\tResult \u003d ProductionOperatorConsole.validateWorkorderParameters(workorderId)\n\t\t\tMachineValidation\u003dResult[0]\n\t\t\tComponentValidation\u003d Result[1]\n\t\t\tChecklistValidation \u003dResult[2]\n\t\t\tIsMoldLoadedValidation \u003d Result[3]\t\t\t\n\t\texcept:\n\t\t\tsystem.perspective.print(\"Error while fetching validation details at Landing page to main view transition.\")\n\t\telse:\n\t\t\tself.session.custom.ComponentValidation \u003d ComponentValidation\n\t\t\tself.session.custom.ChecklistValidation \u003d ChecklistValidation\t\n\t\t\t\n\t\tsystem.perspective.print(\"ComponentValidation Status----\"+str(ComponentValidation))\n\t\tsystem.perspective.print(\"ChecklistValidation Status----\"+str(ChecklistValidation))\n\t\tsystem.perspective.print(\"IsMoldLoadedValidation Status----\"+str(IsMoldLoadedValidation))\n\t\t#-------------------------------------------------------------------------------------------------------------\t\t\n\t\tselectedMenu\u003devent.label\n\t\tif selectedMenu\u003d\u003d\u0027Down Time\u0027:\n\t\t\tif self.session.custom.authorizeProductionReadOnly\u003d\u003d1:\n\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\"Read Only Access\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\telse:\n\t\t\t\tself.parent.parent.getChild(\"MainViewContainer\").getChild(\"EmbeddedView\").props.path\u003d\u0027Project_MES_Solution/ProductionOperatorConsole/MainViews/DownTimeMainView\u0027\n\t\telif selectedMenu \u003d\u003d\"Work Instruction\":\n#\t\t\tsystem.perspective.openPopup(\u0027MyPopWIA\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/PopupWorkInstructions\u0026Attachment\u0027,draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\tself.parent.parent.parent.getChild(\"MainViewContainer\").getChild(\"EmbeddedView\").props.path\u003d\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/PopupWorkInstructions\u0026Attachment\u0027\n\t\telif selectedMenu \u003d\u003d\"Packing Details\":\n\t\t\tself.parent.parent.parent.getChild(\"MainViewContainer\").getChild(\"EmbeddedView\").props.path\u003d\u0027Project_MES_Solution/ProductionOperatorConsole/MainViews/PackingDetailsView\u0027\n\t\telif selectedMenu \u003d\u003d\"Characteristics\":\n\t\t\tself.parent.parent.parent.getChild(\"MainViewContainer\").getChild(\"EmbeddedView\").props.path\u003d\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/QualityConsWOSel\u0027\n\t\telif selectedMenu \u003d\u003d\"Component Details\":\n\t\t\tself.parent.parent.parent.getChild(\"MainViewContainer\").getChild(\"EmbeddedView\").props.path\u003d\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/OprConsoleTabViews/Components\u0027\n#\t\t\tsystem.perspective.openPopup(\u0027ComponentScanPopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/OprConsoleTabViews/Components\u0027,draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\telif selectedMenu \u003d\u003d  \"Checklist\":\n#\t\t\tif self.session.custom.authorizeProductionReadOnly\u003d\u003d1:\n#\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\"Read Only Access\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n#\t\t\telse:\n\t\t\tself.parent.parent.parent.getChild(\"MainViewContainer\").getChild(\"EmbeddedView\").props.path\u003d\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/PopupSafetyChecklist\u0027\n\t\telif selectedMenu \u003d\u003d  \"Material Availability Checklist\":\n\t\t\tsystem.perspective.openPopup(\u0027materialChecklistpopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/PopupMaterialAvailabilityChecklist\u0027,draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t#------------------ Start Workorder ------------------------------------\t\n\t\telif selectedMenu \u003d\u003d \"Start WO\":\n\t\t\tif int(self.view.custom.CurrentShiftId) !\u003d int(ActualShiftId) or self.view.custom.CurrentShiftId !\u003d ActualShiftId:\n\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\"Shift is changed please logout\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\telif self.session.custom.authorizeProductionReadOnly \u003d\u003d 1:\n\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\"Read Only Access\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\telse:\n\t\t\t\tif (isTakeInConfiguredForLine \u003d\u003d 1 and isMachineConfigured \u003d\u003d 1) or (isTakeInConfiguredForLine \u003d\u003d 0):\t\t\t\t\t\n\t\t\t\t\tWoIsinProgress\u003d0\n\t\t\t\t\tClubbedWoFlag\u003d 0\n\t\t\t\t\tClubbedWorkorderList \u003d MaterialRequestAPI.getCNSClubbedWorkorderDetailsbyworkorderId(selectedWorkorderId)\n\t\t\t\t\tIsWorkOrderClubbed \u003d ClubbedWorkorderList.getValueAt(0,\u0027IsWorkOrderClubbed\u0027)\n\n\t\t\t\t\tif str(WOType)\u003d\u003dstr(\u00271\u0027) or str(WOType)\u003d\u003dstr(\u00273\u0027):\t\n\t\t\t\t\t\tSelectedLineName \u003d self.session.custom.lineName\t\t\t\t\t\n\t\t\t\t\t\tRunningWos\u003dProductionOperatorConsole.getProductionRunningWos(0,0,0,0,userId)\n\t\t\t\t\t\tlistofrunningWO\u003dRunningWos.getRowCount()\n\t\t\t\t\t\tfor i in range(listofrunningWO):\n\t\t\t\t\t\t\twoNo\u003dRunningWos.getValueAt(i, \u0027WONo\u0027)\n\t\t\t\t\t\t\tWoStatus\u003dRunningWos.getValueAt(i, \u0027WoStatus\u0027)\n\t\t\t\t\t\t\tLineName\u003dRunningWos.getValueAt(i, \u0027LineName\u0027)\n\t\t\t\t\t\t\tif SelectedLineName \u003d\u003d LineName:\n\t\t\t\t\t\t\t\tif str(WoStatus).lower()\u003d\u003dstr(\u0027In-Progress\u0027).lower() and str(woNo) !\u003d str(WoNumber):\n\t\t\t\t\t\t\t\t\tWoIsinProgress \u003d 1\n\t\t\t\t\t\t\t\t\tMessageText\u003d\u0027On Line: \u0027+str(SelectedLineName)+\u0027, Already workorder is In-Progress, Can Not Start New Workorder\u0027\n\t\t\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":MessageText},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\t\t\t\t\tbreak\n\n\t\t\t\t\tif WoIsinProgress!\u003d1:\n\t\t\t\t\t\tif status\u003d\u003d\u0027In-Progress\u0027:\n\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\" is already In-Progress\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\t\telif status\u003d\u003d\u0027On-Hold\u0027:\n\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\" is already On-Hold\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\t\telse:\n\t\t\t\t\t\t\tClubbedWoFlag\u003d 0\n\t\t\t\t\t\t\tIsWorkOrderClubbed \u003d ClubbedWorkorderList.getValueAt(0,\u0027IsWorkOrderClubbed\u0027)\n\t\t\t\t\t\t\tsystem.perspective.print(\u0027IsWorkOrderClubbed Resume Op : \u0027 + str(IsWorkOrderClubbed))\n\n\t\t\t\t\t\t\tif IsWorkOrderClubbed \u003d\u003d True or str(IsWorkOrderClubbed).lower() \u003d\u003d str(\"true\").lower():\n\t\t\t\t\t\t\t\tsystem.perspective.print(\"Print 1: CNS : In Clubbed Workorder\")\n\t\t\t\t\t\t\t\tprimaryWorkorderId \u003d ClubbedWorkorderList.getValueAt(0,\u0027PrimaryWorkOrderId\u0027)\n\t\t\t\t\t\t\t\tif workorderId\u003d\u003dprimaryWorkorderId:\n\t\t\t\t\t\t\t\t\tClubbedWoFlag\u003d 1\n\t\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\t\tClubbedWoFlag\u003d 0\n\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\tClubbedWoFlag\u003d 1\n\t\n\t#\t\t\t\t\t\tResult \u003d ProductionOperatorConsole.validateWorkorderParameters(workorderId)\n\t#\t\t\t\t\t\tComponentValidation\u003d Result[1]\n\t\t\t\t\t\t\tif ClubbedWoFlag \u003d\u003d 0:\n\t\t\t\t\t\t\t\tPrimaryWorkorderNo \u003d ClubbedWorkorderList.getValueAt(0,\u0027PrimaryWorkorderNo\u0027)\n\t\t\t\t\t\t\t\tmessageText \u003d \u0027Please select and start WO against main workorder :\u0027 + str(PrimaryWorkorderNo)\n\t\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":messageText},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\tAcknowledgement \u003d False  #----False for Validation of changeover True for Acknowledement for changeover\n\t\t\t\t\t\t\t\tuserId\u003dself.session.custom.UserId\n\t\t\n\t\t\t\t\t\t\t\ttry:\n\t\t\t\t\t\t\t\t\tResultData\u003dPDAComponentScanning.getChangeoverDetails(workorderId,lineId,Acknowledgement,userId)\n\t\t\t\t\t\t\t\texcept:\n\t\t\t\t\t\t\t\t\tResultData \u003d []\n\t\n\t\t\t\t\t\t\t\tsystem.perspective.print(\u0027ResultData :\u0027 + str(ResultData))\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\tsystem.perspective.print(\"ResultData----\"+str(ResultData))\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\ttry:\n\t\t\t\t\t\t\t\t\tValidateMFGLine \u003d ResultData.getValueAt(0,\u0027ValidateMFGLine\u0027)\n\t\t\t\t\t\t\t\texcept:\n\t\t\t\t\t\t\t\t\tValidateMFGLine \u003d \u0027\u0027\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\ttry:\n\t\t\t\t\t\t\t\t\tMFGLineDifferent \u003d ResultData.getValueAt(0,\u0027MFGLineDifferent\u0027)\n\t\t\t\t\t\t\t\texcept:\n\t\t\t\t\t\t\t\t\tMFGLineDifferent \u003d \u0027\u0027\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\ttry:\n\t\t\t\t\t\t\t\t\tPrevMFGLine \u003d ResultData.getValueAt(0,\u0027PrevMFGLine\u0027)\n\t\t\t\t\t\t\t\texcept:\n\t\t\t\t\t\t\t\t\tPrevMFGLine \u003d \u0027\u0027\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\ttry:\n\t\t\t\t\t\t\t\t\tCurrentMFGLine \u003d ResultData.getValueAt(0,\u0027CurrentMFGLine\u0027)\n\t\t\t\t\t\t\t\texcept:\n\t\t\t\t\t\t\t\t\tCurrentMFGLine \u003d \u0027\u0027\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\ttry:\n\t\t\t\t\t\t\t\t\tPartNumberChanged \u003d ResultData.getValueAt(0,\u0027PartNumberChanged\u0027)\n\t\t\t\t\t\t\t\texcept:\n\t\t\t\t\t\t\t\t\tPartNumberChanged \u003d \u0027\u0027\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\ttry:\n\t\t\t\t\t\t\t\t\tCurrentPartNumber \u003d ResultData.getValueAt(0,\u0027CurrentPartNumber\u0027)\n\t\t\t\t\t\t\t\texcept:\n\t\t\t\t\t\t\t\t\tCurrentPartNumber \u003d \u0027\u0027\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\ttry:\n\t\t\t\t\t\t\t\t\tworkflowChanged \u003d ResultData.getValueAt(0,\u0027WorkFlowChanged\u0027)\n\t\t\t\t\t\t\t\texcept:\n\t\t\t\t\t\t\t\t\tworkflowChanged \u003d \u0027\u0027\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\ttry:\n\t\t\t\t\t\t\t\t\tAcknowledgement \u003d ResultData.getValueAt(0,\u0027Acknowledgement\u0027)\n\t\t\t\t\t\t\t\texcept:\n\t\t\t\t\t\t\t\t\tAcknowledgement \u003d \u0027\u0027\n\t\n\t\n\t\t\t\t\t\t\t\tif (str(ValidateMFGLine) \u003d\u003d str(\u00271\u0027) or ValidateMFGLine \u003d\u003d True)  and str(MFGLineDifferent) \u003d\u003d str(\u00271\u0027):\n\t\t\t\t\t\t\t\t\tself.parent.parent.parent.getChild(\"MainViewContainer\").getChild(\"EmbeddedView\").props.path\u003d\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/OprConsoleTabViews/ChangeOver\u0027\n\t\t\t\t\t\t\t\telif str(PartNumberChanged) \u003d\u003d str(\u00271\u0027) and str(workflowChanged) \u003d\u003d str(\u00270\u0027):\n\t\t\t\t\t\t\t\t\tself.parent.parent.parent.getChild(\"MainViewContainer\").getChild(\"EmbeddedView\").props.path\u003d\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/OprConsoleTabViews/ChangeOver\u0027\n\t\t\t\t\t\t\t\telif str(PartNumberChanged) \u003d\u003d str(\u00270\u0027) and str(workflowChanged) \u003d\u003d str(\u00271\u0027)  and str(Acknowledgement) !\u003d str(\u00274\u0027) : #Factory Same but some Components are same returnunmatched components.\n\t\t\t\t\t\t\t\t\tself.parent.parent.parent.getChild(\"MainViewContainer\").getChild(\"EmbeddedView\").props.path\u003d\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/OprConsoleTabViews/ChangeOver\u0027\n\t\t\t\t\t\t\t\t#------------------------------------- Checklist and Component Validation Check ------------------------------------------------------\n\t\t\t\t\t\t\t\telif str(PartNumberChanged) \u003d\u003d str(\u00270\u0027) and str(workflowChanged) \u003d\u003d str(\u00270\u0027) and str(Acknowledgement) \u003d\u003d str(\u00270\u0027):\n\t\t\t\t\t\t\t\t\tself.parent.parent.parent.getChild(\"MainViewContainer\").getChild(\"EmbeddedView\").props.path\u003d\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/OprConsoleTabViews/ChangeOver\u0027\n\t\t\t\t\t\t\t\telif str(PartNumberChanged) \u003d\u003d str(\u00270\u0027) and str(workflowChanged) \u003d\u003d str(\u00270\u0027) and str(Acknowledgement) \u003d\u003d str(\u00274\u0027): #and isAcknowledged \u003d\u003d False:\n\t\t\t\t\t\t\t\t\tMessageText \u003d \"Please do changeover for this workorder using change over tab\"\n\t\t\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":MessageText},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\tself.parent.parent.parent.getChild(\"MainViewContainer\").getChild(\"EmbeddedView\").props.path\u003d\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/OprConsoleTabViews/ChangeOver\u0027\n\t\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\t\tsystem.perspective.print(\"MachineValidation : \"+str(MachineValidation))\n\t\n\t\t\t\t\t\t\t\t\tif MachineValidation \u003d\u003d False or str(MachineValidation) \u003d\u003d \u0027False\u0027:\t\t\t\t\n\t\t\t\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\" Linked machines are running in other Workorder.\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\t\t\t\t\telse:\n\t#\t\t\t\t\t\t\t\t\tClubbedWorkorderList \u003d MaterialRequestAPI.getCNSClubbedWorkorderDetailsbyworkorderId(selectedWorkorderId)\n\t#\t\t\t\t\t\t\t\t\tIsWorkOrderClubbed \u003d ClubbedWorkorderList.getValueAt(0,\u0027IsWorkOrderClubbed\u0027)\n\t#\t\t\t\t\t\t\t\t\tsystem.perspective.print(\u0027ClubbedWorkorderList : \u0027 + str(ClubbedWorkorderList))\n\t\n\t\t\t\t\t\t\t\t\t\tif ChecklistValidation\u003d\u003d False or str(ChecklistValidation).lower() \u003d\u003d \u0027false\u0027:\n\t\t\t\t\t\t\t\t\t\t\tif IsWorkOrderClubbed \u003d\u003d True or str(IsWorkOrderClubbed).lower()\u003d\u003d\u0027true\u0027:\n\t\t\t\t\t\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\" Please fill safety checklist for Clubbed Workorder before start\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\" Please fill safety checklist before start\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\t\t\t\t\t\telif ComponentValidation\u003d\u003dFalse or str(ComponentValidation).lower() \u003d\u003d \u0027false\u0027:\n\t\t\t\t\t\t\t\t\t\t\tif IsWorkOrderClubbed \u003d\u003d True or str(IsWorkOrderClubbed).lower()\u003d\u003d\u0027true\u0027:\n\t\t\t\t\t\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\" Please scan all components for Clubbed Workorder before start\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\telse:\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\" Please scan all components before start\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\telif IsMoldLoadedValidation\u003d\u003dFalse or str(IsMoldLoadedValidation).lower() \u003d\u003d \u0027false\u0027:\n\t\t\t\t\t\t\t\t\t\t\tif IsWorkOrderClubbed \u003d\u003d True or str(IsWorkOrderClubbed).lower()\u003d\u003d\u0027true\u0027:\n\t\t\t\t\t\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\" Please Load the Mold in Machine for Clubbed Workorders before start\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\telse:\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\" Please Load the Mold in Machine before start\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\t\t\t\t\t\telif str(ChecklistValidation).lower() \u003d\u003d  \u0027true\u0027 and str(ComponentValidation).lower() \u003d\u003d  \u0027true\u0027:\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027StartOpPopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/PopupStartOP\u0027,draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\t\t\t\t\t\t\n\n\t\t\t\t\t\t\t\t\t\telif str(ChecklistValidation).lower() !\u003d  \u0027false\u0027 and str(ComponentValidation).lower() !\u003d  \u0027false\u0027:\n\t\t\t\t\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027StartOpPopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/PopupStartOP\u0027,draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\telse:\n\t\t\t\t\t\tpass\n\t\t\t\telse:\n\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\"Please takein atleast one machine before starting the workorder.\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t#------------------ Hold Workorder ------------------------------------\n\t\telif selectedMenu \u003d\u003d \"Hold WO\":\t\n\t\t\tif int(self.view.custom.CurrentShiftId) !\u003d int(ActualShiftId) or self.view.custom.CurrentShiftId !\u003d ActualShiftId:\n\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\"Shift is changed please logout\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\telif self.session.custom.authorizeProductionReadOnly\u003d\u003d1:\n\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\"Read Only Access\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\telse:\n\t\t\t\tif status\u003d\u003d\u0027Not-Started\u0027:\n\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\" is not started for Hold\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\telse:\n\t\t\t\t\tClubbedWoFlag\u003d 0\n\t\t\t\t\tClubbedWorkorderList \u003d MaterialRequestAPI.getCNSClubbedWorkorderDetailsbyworkorderId(selectedWorkorderId)\n\t\t\t\t\tIsWorkOrderClubbed \u003d ClubbedWorkorderList.getValueAt(0,\u0027IsWorkOrderClubbed\u0027)\n\n\t\t\t\t\tif IsWorkOrderClubbed \u003d\u003d True or str(IsWorkOrderClubbed).lower() \u003d\u003d str(\"true\").lower():\n\t\t\t\t\t\tsystem.perspective.print(\"Print 1: CNS : In Clubbed Workorder\")\n\t\t\t\t\t\tprimaryWorkorderId \u003d ClubbedWorkorderList.getValueAt(0,\u0027PrimaryWorkOrderId\u0027)\n\t\t\t\t\t\tif workorderId\u003d\u003dprimaryWorkorderId:\n\t\t\t\t\t\t\tClubbedWoFlag\u003d 1\n\t\t\t\t\t\telse:\n\t\t\t\t\t\t\tClubbedWoFlag\u003d 0\n\t\t\t\t\telse:\n\t\t\t\t\t\tClubbedWoFlag\u003d 1\n\n\t\t\t\t\tif ClubbedWoFlag \u003d\u003d 0:\n\t\t\t\t\t\tPrimaryWorkorderNo \u003d ClubbedWorkorderList.getValueAt(0,\u0027PrimaryWorkorderNo\u0027)\n\t\t\t\t\t\tmessageText \u003d \u0027Please select and Hold Wo against main workorder :\u0027 + str(PrimaryWorkorderNo)\n\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":messageText},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\telse:\n\t\t\t\t\t\tselectedWorkorderId \u003d self.session.custom.WorkorderID\n\t\t\t\t\t\tselectedLineId \u003d self.session.custom.LineID\n\t\t\t\t\t\tActualRunningWOQty \u003d int(self.session.custom.actualWoQty)\n\t\n\t\t\t\t\t\tCompleteActualQtyData \u003dPDAComponentScanning.IsAllowToCompleteWorkOrder(selectedWorkorderId,selectedLineId,ActualRunningWOQty)\n\t\t\t\t\t\ttry:\n\t\t\t\t\t\t\tIsallowtoComplete \u003dCompleteActualQtyData.getValueAt(0,\u0027IsValid\u0027)\n\t\t\t\t\t\texcept:\n\t\t\t\t\t\t\tIsallowtoComplete \u003d 1\n\t\t\t\t\t\tsystem.perspective.print(\u0027IsallowtoHold :\u0027 + str(IsallowtoComplete))\n\t\n#\t\t\t\t\t\tif str(IsallowtoComplete) !\u003d str(\u00270\u0027):\n\t\t\t\t\t\tif IsallowtoComplete !\u003d False:\n\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027HoldOpPopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ConfirmationOpHold\u0027,draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\t\telif  str(IsallowtoComplete) \u003d\u003d str(\u00270\u0027) or IsallowtoComplete \u003d\u003d False:\n\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/PopupWorkorderCompletionByActualQty\u0027,draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\t\telse:\n\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027HoldOpPopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ConfirmationOpHold\u0027,draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\n\t#------------------ Resume Workorder ------------------------------------\t\n\t\telif selectedMenu \u003d\u003d \"Resume WO\":\n\t\t\tsystem.perspective.print(\u0027self.view.custom.CurrentShiftId : \u0027 + str(self.view.custom.CurrentShiftId))\n\t\t\tsystem.perspective.print(\u0027ActualShiftId: \u0027 + str(ActualShiftId))\n\n\t\t\tif int(self.view.custom.CurrentShiftId) !\u003d int(ActualShiftId) or self.view.custom.CurrentShiftId !\u003d ActualShiftId:\n\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\"Shift is changed please logout\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\telif self.session.custom.authorizeProductionReadOnly\u003d\u003d1:\n\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\"Read Only Access\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\telse:\n\t\t\t\tif (isTakeInConfiguredForLine \u003d\u003d 1 and isMachineConfigured \u003d\u003d 1) or (isTakeInConfiguredForLine \u003d\u003d 0):\n\t\t\t\t\tWoIsinProgress1 \u003d 0\n\t\t\t\t\tClubbedWoFlag\u003d 0\n\t\t\t\t\tClubbedWorkorderList \u003d MaterialRequestAPI.getCNSClubbedWorkorderDetailsbyworkorderId(selectedWorkorderId)\n\t\t\t\t\tIsWorkOrderClubbed \u003d ClubbedWorkorderList.getValueAt(0,\u0027IsWorkOrderClubbed\u0027)\n\n\t\t\t\t\tif str(WOType)\u003d\u003dstr(\u00271\u0027) or str(WOType) \u003d\u003d str(\u00273\u0027):\n\t\t\t\t\t\tuserId\u003dself.session.custom.UserId\t\t\t\n\t\t\t\t\t\tselectedwoNo \u003d self.session.custom.WoNumber\n\t\t\t\t\t\tSelectedLineName \u003d self.session.custom.lineName\n\t\t\t\t\t\tRunningWos \u003d ProductionOperatorConsole.getProductionRunningWos(0,0,0,0,userId)\n\t\t\t\t\t\tlistofrunningWO \u003d RunningWos.getRowCount()\n\t\t\t\t\t\tfor i in range(listofrunningWO):\n\t\t\t\t\t\t\twoNo\u003dRunningWos.getValueAt(i, \u0027WONo\u0027)\n\t\t\t\t\t\t\tWoStatus\u003dRunningWos.getValueAt(i, \u0027WoStatus\u0027)\n\t\t\t\t\t\t\tLineName\u003dRunningWos.getValueAt(i, \u0027LineName\u0027)\n\t\t\t\t\t\t\tif SelectedLineName\u003d\u003dLineName:\n\t\t\t\t\t\t\t\tif str(WoStatus).lower()\u003d\u003dstr(\u0027In-Progress\u0027).lower() and str(woNo) !\u003d str(WoNumber):\n\t\t\t\t\t\t\t\t\tWoIsinProgress1\u003d1\n\t\t\t\t\t\t\t\t\tMessageText\u003d\u0027On Line: \u0027+str(SelectedLineName)+\u0027, Already workorder is In-Progress, Can Not Resume Workorder\u0027\n\t\t\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":MessageText},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\t\t\t\t\tbreak\n\t\t\t\t\tif WoIsinProgress1!\u003d1:\n\t\t\t\t\t\tif MachineValidation \u003d\u003d False or str(MachineValidation) \u003d\u003d \u0027False\u0027:\t\t\t\t\n\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\" Linked machines are running in other Workorder.\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\t\telif IsMoldLoadedValidation\u003d\u003dFalse or str(IsMoldLoadedValidation).lower() \u003d\u003d \u0027false\u0027:\n\t\t\t\t\t\t\tif IsWorkOrderClubbed \u003d\u003d True or str(IsWorkOrderClubbed).lower()\u003d\u003d\u0027true\u0027:\n\t\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\" Please Load the Mold in Machine for Clubbed Workorders before start\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\t\t\t\t\t\t\n\t\t\t\t\t\t\telse:\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\" Please Load the Mold in Machine before start\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\t\telse:\n\t\t\t\t\t\t\tClubbedWoFlag\u003d 0\n\t\t\t\t\t\t\tIsWorkOrderClubbed \u003d ClubbedWorkorderList.getValueAt(0,\u0027IsWorkOrderClubbed\u0027)\n\t\t\t\t\t\t\tsystem.perspective.print(\u0027IsWorkOrderClubbed Resume Op : \u0027 + str(IsWorkOrderClubbed))\n\t\n\t\t\t\t\t\t\tif IsWorkOrderClubbed \u003d\u003d True or str(IsWorkOrderClubbed).lower() \u003d\u003d str(\"true\").lower():\n\t\t\t\t\t\t\t\tsystem.perspective.print(\"Print 1: CNS : In Clubbed Workorder\")\n\t\t\t\t\t\t\t\tprimaryWorkorderId \u003d ClubbedWorkorderList.getValueAt(0,\u0027PrimaryWorkOrderId\u0027)\n\t\t\t\t\t\t\t\tif workorderId\u003d\u003dprimaryWorkorderId:\n\t\t\t\t\t\t\t\t\tClubbedWoFlag\u003d 1\n\t\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\t\tClubbedWoFlag\u003d 0\n\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\tClubbedWoFlag\u003d 1\n\n\t\t\t\t\t\t\tif ClubbedWoFlag \u003d\u003d 0:\n\t\t\t\t\t\t\t\tPrimaryWorkorderNo \u003d ClubbedWorkorderList.getValueAt(0,\u0027PrimaryWorkorderNo\u0027)\n\t\t\t\t\t\t\t\tmessageText \u003d \u0027Please select and Resume Wo against main workorder :\u0027 + str(PrimaryWorkorderNo)\n\t\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":messageText},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\tAcknowledgement \u003d False  #----False for Validation of changeover True for Acknowledement for changeover\n\t\t\t\t\t\t\t\ttry:\n\t\t\t\t\t\t\t\t\tResultData\u003dPDAComponentScanning.getChangeoverDetails(workorderId,lineId,Acknowledgement,userId)\n\t\t\t\t\t\t\t\texcept:\n\t\t\t\t\t\t\t\t\tResultData \u003d []\n\t\t\n\t\t\t\t\t\t\t\ttry:\n\t\t\t\t\t\t\t\t\tValidateMFGLine \u003d ResultData.getValueAt(0,\u0027ValidateMFGLine\u0027)\n\t\t\t\t\t\t\t\texcept:\n\t\t\t\t\t\t\t\t\tValidateMFGLine \u003d \u0027\u0027\n\t\t\n\t\t\t\t\t\t\t\ttry:\n\t\t\t\t\t\t\t\t\tMFGLineDifferent \u003d ResultData.getValueAt(0,\u0027MFGLineDifferent\u0027)\n\t\t\t\t\t\t\t\texcept:\n\t\t\t\t\t\t\t\t\tMFGLineDifferent \u003d \u0027\u0027\n\t\t\n\t\t\t\t\t\t\t\ttry:\n\t\t\t\t\t\t\t\t\tPrevMFGLine \u003d ResultData.getValueAt(0,\u0027PrevMFGLine\u0027)\n\t\t\t\t\t\t\t\texcept:\n\t\t\t\t\t\t\t\t\tPrevMFGLine \u003d \u0027\u0027\n\t\t\n\t\t\t\t\t\t\t\ttry:\n\t\t\t\t\t\t\t\t\tCurrentMFGLine \u003d ResultData.getValueAt(0,\u0027CurrentMFGLine\u0027)\n\t\t\t\t\t\t\t\texcept:\n\t\t\t\t\t\t\t\t\tCurrentMFGLine \u003d \u0027\u0027\n\t\t\n\t\t\t\t\t\t\t\ttry:\n\t\t\t\t\t\t\t\t\tPartNumberChanged \u003d ResultData.getValueAt(0,\u0027PartNumberChanged\u0027)\n\t\t\t\t\t\t\t\texcept:\n\t\t\t\t\t\t\t\t\tPartNumberChanged \u003d \u0027\u0027\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\ttry:\n\t\t\t\t\t\t\t\t\tCurrentPartNumber \u003d ResultData.getValueAt(0,\u0027CurrentPartNumber\u0027)\n\t\t\t\t\t\t\t\texcept:\n\t\t\t\t\t\t\t\t\tCurrentPartNumber \u003d \u0027\u0027\n\t\t\n\t\t\t\t\t\t\t\ttry:\n\t\t\t\t\t\t\t\t\tworkflowChanged \u003d ResultData.getValueAt(0,\u0027WorkFlowChanged\u0027)\n\t\t\t\t\t\t\t\texcept:\n\t\t\t\t\t\t\t\t\tworkflowChanged \u003d \u0027\u0027\n\t\t\n\t\t\t\t\t\t\t\ttry:\n\t\t\t\t\t\t\t\t\tAcknowledgement \u003d ResultData.getValueAt(0,\u0027Acknowledgement\u0027)\n\t\t\t\t\t\t\t\texcept:\n\t\t\t\t\t\t\t\t\tAcknowledgement \u003d \u0027\u0027\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\ttry:\n\t\t\t\t\t\t\t\t\tIsDataProcessed \u003d ResultData.getValueAt(0,\u0027DataProcessing\u0027)\n\t\t\t\t\t\t\t\texcept:\n\t\t\t\t\t\t\t\t\tIsDataProcessed \u003d 0\n\t\t\n\t\t\t\t\t\t\t\ttry:\n\t\t\t\t\t\t\t\t\tIsScrapBackflushed \u003d ResultData.getValueAt(0,\u0027IsScrapBackflushed\u0027)\n\t\t\t\t\t\t\t\texcept:\n\t\t\t\t\t\t\t\t\tIsScrapBackflushed \u003d 0\n\n\t\t\t\t\t\t\t\tif str(IsDataProcessed) \u003d\u003d str(\u00271\u0027):\n\t\t\t\t\t\t\t\t\tself.parent.parent.parent.getChild(\"MainViewContainer\").getChild(\"EmbeddedView\").props.path\u003d\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/OprConsoleTabViews/ChangeOver\u0027\n\t\t\t\t\t\t\t\telif str(IsScrapBackflushed) \u003d\u003d str(\u00271\u0027):\n\t\t\t\t\t\t\t\t\tself.parent.parent.parent.getChild(\"MainViewContainer\").getChild(\"EmbeddedView\").props.path\u003d\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/OprConsoleTabViews/ChangeOver\u0027\n\t\t\t\t\t\t\t\telif (str(ValidateMFGLine) \u003d\u003d str(\u00271\u0027) or ValidateMFGLine \u003d\u003d True)  and (str(MFGLineDifferent) \u003d\u003d str(\u00271\u0027) or str(MFGLineDifferent) !\u003d str(\u00270\u0027)):\n\t\t\t\t\t\t\t\t\tself.parent.parent.parent.getChild(\"MainViewContainer\").getChild(\"EmbeddedView\").props.path\u003d\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/OprConsoleTabViews/ChangeOver\u0027\n\t\t\t\t\t\t\t\telif str(PartNumberChanged) \u003d\u003d str(\u00271\u0027) and str(workflowChanged) \u003d\u003d str(\u00270\u0027):\n\t\t\t\t\t\t\t\t\tself.parent.parent.parent.getChild(\"MainViewContainer\").getChild(\"EmbeddedView\").props.path\u003d\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/OprConsoleTabViews/ChangeOver\u0027\n\t\t\t\t\t\t\t\telif str(PartNumberChanged) \u003d\u003d str(\u00270\u0027) and str(workflowChanged) \u003d\u003d str(\u00271\u0027)  and str(Acknowledgement) !\u003d str(\u00274\u0027): #Factory Same but some Components are same returnunmatched components.\n\t\t\t\t\t\t\t\t\tself.parent.parent.parent.getChild(\"MainViewContainer\").getChild(\"EmbeddedView\").props.path\u003d\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/OprConsoleTabViews/ChangeOver\u0027\n\t\t\t\t\t\t\t\telif str(PartNumberChanged) \u003d\u003d str(\u00270\u0027) and str(workflowChanged) \u003d\u003d str(\u00270\u0027) and str(Acknowledgement) \u003d\u003d str(\u00274\u0027): #and isAcknowledged \u003d\u003d False:\n\t\t\t\t\t\t\t\t\tMessageText \u003d \"Please do changeover for this workorder using change over tab\"\n\t\t\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":MessageText},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\tself.parent.parent.parent.getChild(\"MainViewContainer\").getChild(\"EmbeddedView\").props.path\u003d\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/OprConsoleTabViews/ChangeOver\u0027\n\t\t\t\t\t\t\t\telif ComponentValidation\u003d\u003dFalse or str(ComponentValidation).lower() \u003d\u003d \u0027false\u0027:\n\t\t\t\t\t\t\t\t\tif IsWorkOrderClubbed \u003d\u003d True or str(IsWorkOrderClubbed).lower()\u003d\u003d\u0027true\u0027:\n\t\t\t\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\" Please scan all components for Clubbed Workorder before resume\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\telse:\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\" Please scan all components before resume\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\t\n\t\t\t\t\t\t\t\telif str(PartNumberChanged) \u003d\u003d str(\u00270\u0027) and str(workflowChanged) \u003d\u003d str(\u00270\u0027) and str(Acknowledgement) \u003d\u003d str(\u00270\u0027):\n\t\t\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ResumeOpPopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ResumeOpsPopup\u0027,draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ResumeOpPopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ResumeOpsPopup\u0027,draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\n\t\t\t\telse:\n\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\"Please takein atleast one machine before starting the workorder.\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\t\t\n\n\t#------------------ Complete  Workorder ------------------------------------\t\n\t\telif selectedMenu \u003d\u003d \"Complete Production\":\n\t\t\tLineId \u003d self.session.custom.LineID\n\t\t\tIsQtyValidationSelected \u003d ProductionOperatorConsole.QtyValidation(LineId)\n\t\t\tsystem.perspective.print(\"IsQtyValidationSelected Validation: \"+str(IsQtyValidationSelected))\n\n\t\t\tif int(self.view.custom.CurrentShiftId) !\u003d int(ActualShiftId) or self.view.custom.CurrentShiftId !\u003d ActualShiftId:\n\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\"Shift is changed please logout\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\telif self.session.custom.authorizeProductionReadOnly\u003d\u003d1:\n\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\"Read Only Access\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\telse:\n\t\t\t\twoNo\u003dself.session.custom.WoNumber\n\t\t\t\tpartNO\u003dself.session.custom.Item\n\t\t\t\tdeffectList\u003dProductionOperatorConsole.getdiffectList(woNo,partNO)\t\n\t\t\t\ttotalDefects\u003d deffectList.getRowCount()\n\t\t\t\tIsDeffectOpen\u003d0\n\t\t\t\tfor i in range (totalDefects):\n\t\t\t\t\tisClosed\u003ddeffectList.getValueAt(i, \u0027ACK By PEA\u0027)\n\t\t\t\t\tif isClosed\u003d\u003dTrue or isClosed\u003d\u003d\u0027true\u0027:\n\t\t\t\t\t\tpass\n\t\t\t\t\telse:\n\t\t\t\t\t\tIsDeffectOpen\u003d1\t\t\t\t\n\t\t\t\t\t\n\t#\t\t\tif IsDeffectOpen!\u003d1:\t\t\t\t\n\t\t\t\tif status\u003d\u003d\u0027Not-Started\u0027:\n\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\" is Not-started to complete\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\telif status\u003d\u003d\u0027On-Hold\u0027:\n\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\" is On-Hold\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\telse:\n\t\t\t\t\tClubbedWoFlag\u003d 0\n\t\t\t\t\tClubbedWorkorderList \u003d MaterialRequestAPI.getCNSClubbedWorkorderDetailsbyworkorderId(selectedWorkorderId)\n\t\t\t\t\tIsWorkOrderClubbed \u003d ClubbedWorkorderList.getValueAt(0,\u0027IsWorkOrderClubbed\u0027)\n\n\t\t\t\t\tif IsWorkOrderClubbed \u003d\u003d True or str(IsWorkOrderClubbed).lower() \u003d\u003d str(\"true\").lower():\n\t\t\t\t\t\tsystem.perspective.print(\"Print 1: CNS : In Clubbed Workorder\")\n\t\t\t\t\t\tprimaryWorkorderId \u003d ClubbedWorkorderList.getValueAt(0,\u0027PrimaryWorkOrderId\u0027)\n\t\t\t\t\t\tif workorderId\u003d\u003dprimaryWorkorderId:\n\t\t\t\t\t\t\tClubbedWoFlag\u003d 1\n\t\t\t\t\t\telse:\n\t\t\t\t\t\t\tClubbedWoFlag\u003d 0\n\t\t\t\t\telse:\n\t\t\t\t\t\tClubbedWoFlag\u003d 1\n\n\t\t\t\t\tif ClubbedWoFlag \u003d\u003d 0:\n\t\t\t\t\t\tPrimaryWorkorderNo \u003d ClubbedWorkorderList.getValueAt(0,\u0027PrimaryWorkorderNo\u0027)\n\t\t\t\t\t\tmessageText \u003d \u0027Please select and Complete Wo against main workorder :\u0027 + str(PrimaryWorkorderNo)\n\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":messageText},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\telse:\n\t\t\t\t\t\tAllowToComplete \u003d 1\n\t\t\t\t\t\tif IsQtyValidationSelected \u003d\u003d1:\n\t\t\t\t\t\t\tActualQty \u003d self.session.custom.actualWoQty\n\t\t\t\t\t\t\tPlannedQty \u003d self.session.custom.WorkOrderQty\n\t\t\t\t\t\t\tsystem.perspective.print(\"PlannedQty: \"+str(PlannedQty))\n\t\t\t\t\t\t\tsystem.perspective.print(\"ActualQty: \"+str(ActualQty))\n\t\t\t\t\t\t\tsystem.perspective.print(\"WOType: \"+str(WOType))\n\t\n\t\t\t\t\t\t\tif ActualQty\u003cPlannedQty:\n\t\t\t\t\t\t\t\tAllowToComplete \u003d 0\n\n\t\t\t\t\t\tif AllowToComplete \u003d\u003d1:\n\t\t\t\t\t\t\tselectedWorkorderId \u003d self.session.custom.WorkorderID\n\t\t\t\t\t\t\tselectedLineId \u003d self.session.custom.LineID\n\t\t\t\t\t\t\tActualRunningWOQty \u003d int(self.session.custom.actualWoQty)\n\t\n\t\t\t\t\t\t\tCompleteActualQtyData \u003dPDAComponentScanning.IsAllowToCompleteWorkOrder(selectedWorkorderId,selectedLineId,ActualRunningWOQty)\n\t\t\t\t\t\t\ttry:\n\t\t\t\t\t\t\t\tIsallowtoComplete \u003dCompleteActualQtyData.getValueAt(0,\u0027IsValid\u0027)\n\t\t\t\t\t\t\texcept:\n\t\t\t\t\t\t\t\tIsallowtoComplete \u003d 1\n\t\t\t\t\t\t\tsystem.perspective.print(\u0027IsallowtoComplete :\u0027 + str(IsallowtoComplete))\n\t\n#\t\t\t\t\t\t\tif str(IsallowtoComplete) !\u003d str(\u00270\u0027):\n\t\t\t\t\t\t\tIsAllowtoComplete\u003dProductionOperatorConsole.getProductionQualityCheck(selectedWorkorderId)\n\t\t\t\t\t\t\tif IsAllowtoComplete \u003d\u003d 0 or int(IsAllowtoComplete) \u003d\u003d int(0):\n\t\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\"Please fill production related quality characterstics\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\t\t\telif IsallowtoComplete !\u003d False:\n\t\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027CompleteOpPopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/CompleteOperation\u0027,draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\t\t\telif  str(IsallowtoComplete) \u003d\u003d str(\u00270\u0027) or IsallowtoComplete \u003d\u003d False:\n\t#\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\" Feeded Raw Material Qty is less than actual produced required Qty. Please feed the Raw Material\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/PopupWorkorderCompletionByActualQty\u0027,draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027CompleteOpPopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/CompleteOperation\u0027,draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\t\telse:\n\t\t\t\t\t\t\tsystem.perspective.print(\u0027Can Not Complete the Workorder As Actual Production is Less than Planned Production.\u0027)\n\t\t\t\t\t\t\tMessageText\u003d\u0027Can not complete the production, Actual Production is less than planned Quantity. \u0027\n\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":MessageText},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\t\t\t\n\t\n\t\telif selectedMenu \u003d\u003d \"Operator Info\":\n\t\t\tsystem.perspective.openPopup(\u0027UserWOAssignment\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/PopupUserAssignment\u0027,draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\telif selectedMenu \u003d\u003d \"Add Notes\":\n\t\t\tif self.session.custom.authorizeProductionReadOnly\u003d\u003d1:\n\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\"Read Only Access\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\telse:\n\t\t\t\tsystem.perspective.openPopup(\u0027shopNotesPopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/AddShopNotes\u0027,draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\n\t\telif selectedMenu \u003d\u003d \"Email Alerts\":\n\t\t\tif self.session.custom.authorizeProductionReadOnly\u003d\u003d1:\n\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\"Read Only Access\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\telse:\n\t\t\t\tsystem.perspective.openPopup(\u0027createAlertPopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/CreateAlert\u0027,draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\n\t\telif selectedMenu \u003d\u003d \"Machine Details\":\n\t\t\tself.parent.parent.parent.getChild(\"MainViewContainer\").getChild(\"EmbeddedView\").props.path\u003d \u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/OprConsoleTabViews/MachineDetails\u0027\n#\t\t\tsystem.perspective.openPopup(\u0027MachineDetails\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/OprConsoleTabViews/MachineDetails\u0027,draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\n\t\telif selectedMenu \u003d\u003d \"Change Over\":\n\t\t\tif self.session.custom.authorizeProductionReadOnly\u003d\u003d1:\n\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\"Read Only Access\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\telse:\n\t\t\t\tWoIsinProgress\u003d0\n\t\t\t\tClubbedWoFlag\u003d 0\n\t\t\t\tClubbedWorkorderList \u003d MaterialRequestAPI.getCNSClubbedWorkorderDetailsbyworkorderId(selectedWorkorderId)\n\t\t\t\tIsWorkOrderClubbed \u003d ClubbedWorkorderList.getValueAt(0,\u0027IsWorkOrderClubbed\u0027)\n\t\t\t\t\n\t\t\t\tif str(WOType)\u003d\u003dstr(\u00271\u0027) or str(WOType)\u003d\u003dstr(\u00273\u0027):\t\n\t\t\t\t\tSelectedLineName \u003d self.session.custom.lineName\t\t\t\t\t\n\t\t\t\t\tRunningWos\u003dProductionOperatorConsole.getProductionRunningWos(0,0,0,0,userId)\n\t\t\t\t\tlistofrunningWO\u003dRunningWos.getRowCount()\n\t\t\t\t\tfor i in range(listofrunningWO):\n\t\t\t\t\t\twoNo\u003dRunningWos.getValueAt(i, \u0027WONo\u0027)\n\t\t\t\t\t\tWoStatus\u003dRunningWos.getValueAt(i, \u0027WoStatus\u0027)\n\t\t\t\t\t\tLineName\u003dRunningWos.getValueAt(i, \u0027LineName\u0027)\n\t\t\t\t\t\tif SelectedLineName \u003d\u003d LineName:\n\t\t\t\t\t\t\tif str(WoStatus).lower()\u003d\u003dstr(\u0027In-Progress\u0027).lower() and str(woNo) !\u003d str(WoNumber):\n\t\t\t\t\t\t\t\tWoIsinProgress \u003d 1\n\t\t\t\t\t\t\t\tMessageText\u003d\u0027On line: \u0027+str(SelectedLineName)+\u0027, already workorder is In-progress, cannot changeover\u0027\n\t\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":MessageText},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\t\t\t\tbreak\n\t\t\t\tif WoIsinProgress!\u003d1:\t\n\t\t\t\t\tif str(status).lower() \u003d\u003dstr(\u0027In-Progress\u0027).lower() and str(WOType)\u003d\u003dstr(\u00271\u0027):\n\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\" Workorder is in-progress not allowed to do changeover \"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\telse:\n\t\t\t\t\t\tClubbedWoFlag\u003d 0\n\t\t\t\t\t\tIsWorkOrderClubbed \u003d ClubbedWorkorderList.getValueAt(0,\u0027IsWorkOrderClubbed\u0027)\n\t\t\t\t\t\tsystem.perspective.print(\u0027IsWorkOrderClubbed Resume Op : \u0027 + str(IsWorkOrderClubbed))\n\n\t\t\t\t\t\tif IsWorkOrderClubbed \u003d\u003d True or str(IsWorkOrderClubbed).lower() \u003d\u003d str(\"true\").lower():\n\t\t\t\t\t\t\tsystem.perspective.print(\"Print 1: CNS : In Clubbed Workorder\")\n\t\t\t\t\t\t\tprimaryWorkorderId \u003d ClubbedWorkorderList.getValueAt(0,\u0027PrimaryWorkOrderId\u0027)\n\t\t\t\t\t\t\tif workorderId\u003d\u003dprimaryWorkorderId:\n\t\t\t\t\t\t\t\tClubbedWoFlag\u003d 1\n\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\tClubbedWoFlag\u003d 0\n\t\t\t\t\t\telse:\n\t\t\t\t\t\t\tClubbedWoFlag\u003d 1\n\n\t\t\t\t\t\tif ClubbedWoFlag \u003d\u003d 0:\n\t\t\t\t\t\t\tPrimaryWorkorderNo \u003d ClubbedWorkorderList.getValueAt(0,\u0027PrimaryWorkorderNo\u0027)\n\t\t\t\t\t\t\tmessageText \u003d \u0027Please select and changeover against main workorder :\u0027 + str(PrimaryWorkorderNo)\n\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":messageText},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\t\telse:\n\t\t\t\t\t\t\tself.parent.parent.parent.getChild(\"MainViewContainer\").getChild(\"EmbeddedView\").props.path\u003d\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/OprConsoleTabViews/ChangeOver\u0027\n#\t\t\t\tsystem.perspective.openPopup(\u0027shopNotesPopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ChangeOver\u0027,draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\telif selectedMenu \u003d\u003d \"Report Scrap\":\n\t\t\tif self.session.custom.authorizeProductionReadOnly\u003d\u003d1:\n\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\"Read Only Access\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\t\t\n\t\t\telif status\u003d\u003d\u0027Not-Started\u0027:\t\t\t\t\n\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\" is Not-started to Report The Scrap\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\telse:\n\t\t\t\tself.parent.parent.parent.getChild(\"MainViewContainer\").getChild(\"EmbeddedView\").props.path\u003d\u0027Project_MES_Solution/ProductionOperatorConsole/MainViews/ReportScrap\u0027\n\t\t\n\t\telif selectedMenu \u003d\u003d \"QA\":\n\t\t\tself.parent.parent.parent.getChild(\"MainViewContainer\").getChild(\"EmbeddedView\").props.path\u003d\u0027Project_MES_Solution/ProductionOperatorConsole/MainViews/ReportScrap\u0027\n\t\telif selectedMenu \u003d\u003d \"PEA\":\n\t\t\tself.parent.parent.parent.getChild(\"MainViewContainer\").getChild(\"EmbeddedView\").props.path\u003d\u0027Project_MES_Solution/ProductionOperatorConsole/MainViews/ReportScrap\u0027\t\t\n\t\telif selectedMenu \u003d\u003d \"DownTime Alert\":\n\t\t\tif self.session.custom.authorizeProductionReadOnly\u003d\u003d1:\n\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\"Read Only Access\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\telse:\n\t\t\t\tif str(status).lower() \u003d\u003dstr(\u0027On-Hold\u0027).lower():\n\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\" not able to create breadown alert on-Hold\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\telse:\n\t\t\t\t\tsystem.perspective.openPopup(\u0027createAlertPopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/PopupCreateAlert\u0027,draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\n\t\telif selectedMenu \u003d\u003d \"DownTime RM\":\n\t\t\tif self.session.custom.authorizeProductionReadOnly\u003d\u003d1:\n\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\"Read Only Access\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\telse:\n#\t\t\t\tsystem.perspective.openPopup(\u0027createRMPopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/PopupCreateRMOrder\u0027,draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\n\t\t\t\tsystem.perspective.openPopup(\u0027PopupMaintenanceSelectType\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/PopupMaintenanceSelectType\u0027,draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\n\t\telif selectedMenu \u003d\u003d \"Raise Defects\":\n\t\t\tif self.session.custom.authorizeProductionReadOnly\u003d\u003d1:\n\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\"Read Only Access\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\telse:\n\t\t\t\tif status\u003d\u003d\u0027Not-Started\u0027:\n\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\" is Not-started to Raise The Defect\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\telse:\n\t#\t\t\t\tsystem.perspective.openPopup(\u0027RaisedDeffects\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/RaisedDeffects\u0027,draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\tself.parent.parent.parent.getChild(\"MainViewContainer\").getChild(\"EmbeddedView\").props.path\u003d\u0027Project_MES_Solution/ProductionOperatorConsole/MainViews/RaisedDeffects\u0027\t\n\t\t\t\t\n\t\telif selectedMenu \u003d\u003d \"Production Home\":\n\t\t\tWOType \u003d self.session.custom.WOType\n\t\t\tif str(WOType)\u003d\u003dstr(\u00271\u0027):\n\t\t\t\tself.parent.parent.parent.getChild(\"MainViewContainer\").getChild(\"EmbeddedView\").props.path\u003d\u0027Project_MES_Solution/ProductionOperatorConsole/MainViews/ProductionMainView\u0027\n\t\t\telif str(WOType)\u003d\u003dstr(\u00272\u0027):\n\t\t\t\tself.parent.parent.parent.getChild(\"MainViewContainer\").getChild(\"EmbeddedView\").props.path\u003d\u0027Project_MES_Solution/ProductionOperatorConsole/MainViews/CNSView\u0027\n\t\t\telse:\n\t\t\t\tself.parent.parent.parent.getChild(\"MainViewContainer\").getChild(\"EmbeddedView\").props.path\u003d\u0027Project_MES_Solution/ProductionOperatorConsole/MainViews/ProductionMainView\u0027\n\t\telif selectedMenu \u003d\u003d\"Available Components\":\n\t\t\tsystem.perspective.openPopup(\u0027AvailableComponents\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/PopupViewAvailableComponents\u0027,draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\t\t\n\t\n\t\telif selectedMenu \u003d\u003d\"Take-In\":\n\t\t\tsystem.perspective.print(\u0027isTakeInConfiguredForLine : \u0027 + str(isTakeInConfiguredForLine))\n\t\t\tif self.session.custom.authorizeProductionReadOnly\u003d\u003d1:\n\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\"Read Only Access\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\telif isTakeInConfiguredForLine \u003d\u003d 1:\n\t\t\t\tClubbedWo \u003d MaterialRequestAPI.getCNSClubbedWorkorderDetailsbyworkorderId(workorderId)\n\t\t\t\tIsWorkOrderClubbed \u003d ClubbedWo.getValueAt(0,\u0027IsWorkOrderClubbed\u0027)\n\n\t\t\t\tsystem.perspective.print(\u0027IsWorkOrderClubbed : \u0027 + str(IsWorkOrderClubbed))\n\t\t\t\tif IsWorkOrderClubbed \u003d\u003d True or str(IsWorkOrderClubbed).lower() \u003d\u003d str(\"true\").lower():\n\t\t\t\t\tsystem.perspective.print(\"Print 1: CNS : In Clubbed Workorder\")\n\t\t\t\t\tprimaryWorkorderId \u003d ClubbedWo.getValueAt(0,\u0027PrimaryWorkOrderId\u0027)\n\t\t\t\t\tsystem.perspective.print(\"workorderId : \" + str(workorderId))\n\t\t\t\t\tsystem.perspective.print(\"primaryWorkorderId : \" + str(primaryWorkorderId))\n\n\t\t\t\t\tif workorderId\u003d\u003dprimaryWorkorderId:\n\t\t\t\t\t\tsystem.perspective.openPopup(\u0027MachineList\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/TakeInTakeOut/CNSWorkorderTakeIn\u0027,draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\t\n\t\t\t\t\telse:\n\t\t\t\t\t\tPrimaryWorkorderNo \u003d ClubbedWo.getValueAt(0,\u0027PrimaryWorkorderNo\u0027)\n\t\t\t\t\t\tmessageText \u003d \u0027Please select and take in the machine against main workorder :\u0027 + str(PrimaryWorkorderNo)\n\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":messageText},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\telse:\n\t\t\t\t\tsystem.perspective.openPopup(\u0027MachineList\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/TakeInTakeOut/CNSWorkorderTakeIn\u0027,draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\t\n\t\t\telse:\n\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\"Take-In is not configured for the above workorders line.\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\n\t\telif selectedMenu \u003d\u003d\"Take-Out\":\n\t\t\tif self.session.custom.authorizeProductionReadOnly\u003d\u003d1:\n\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\"Read Only Access\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\telif isTakeInConfiguredForLine \u003d\u003d 1:\t\t\t\t\n\t\t\t\tClubbedWo \u003d MaterialRequestAPI.getCNSClubbedWorkorderDetailsbyworkorderId(workorderId)\n\t\t\t\tIsWorkOrderClubbed \u003d ClubbedWo.getValueAt(0,\u0027IsWorkOrderClubbed\u0027)\n\t\t\t\tif IsWorkOrderClubbed \u003d\u003d True or str(IsWorkOrderClubbed).lower() \u003d\u003d str(\"true\").lower():\n\t\t\t\t\tprimaryWorkorderId \u003d ClubbedWo.getValueAt(0,\u0027PrimaryWorkOrderId\u0027)\n\t\t\t\t\tif workorderId\u003d\u003dprimaryWorkorderId:\n\t\t\t\t\t\tsystem.perspective.openPopup(\u0027MachineList\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/TakeInTakeOut/CNSWorkorderTakeOut\u0027,draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\t\t\t\n\t\t\t\t\telse:\n\t\t\t\t\t\tPrimaryWorkorderNo \u003d ClubbedWo.getValueAt(0,\u0027PrimaryWorkorderNo\u0027)\n\t\t\t\t\t\tmessageText \u003d \u0027Please select and take out the machine against main workorder :\u0027 + str(PrimaryWorkorderNo)\n\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":messageText},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\telse:\n\t\t\t\t\tsystem.perspective.openPopup(\u0027MachineList\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/TakeInTakeOut/CNSWorkorderTakeOut\u0027,draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\t\t\t\n\t\t\telse:\n\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\"Take-Out is not configured for the above workorders line.\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\n\t\telif selectedMenu \u003d\u003d\"Tool Details\":\n\t\t\t\tsystem.perspective.openPopup(\u0027AssemblyPMDetails\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/AssemblyPMToolDetails\u0027,draggable\u003dFalse,resizable \u003d False,modal\u003dFalse,showCloseIcon\u003dFalse)\t\t\n\t\telif selectedMenu \u003d\u003d\"MSR\":\n\t\t\t\tself.parent.parent.parent.getChild(\"MainViewContainer\").getChild(\"EmbeddedView\").props.path\u003d\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/MachineSettingReport\u0027\t\n\t\telif selectedMenu \u003d\u003d\"Quality\":\n\t\t\tif self.session.custom.authorizeProductionReadOnly\u003d\u003d1:\n\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\"Read Only Access\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\telif status\u003d\u003d\u0027Not-Started\u0027:\n\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\" is Not-started for quality\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\telse:\n\t\t\t\tsystem.perspective.print(\u0027Quality Button Start ----------\u003e    : \u0027)\n\t\t\t\tworkOrderId\u003dself.session.custom.WorkorderID\n\t\t\t\tenterpriseID\u003d0\n\t\t\t\tplantID\u003d0\n\t\t\t\tareaID\u003d0\n\t\t\t\tlineID\u003d0\n\t\t\t\tinspectionId\u003d0\n\t\t\t\tuserId\u003dself.session.custom.UserId\t\n\t\t\t\tWoNumber\u003dself.session.custom.WoNumber\n\t\t\t\tsystem.perspective.print(\u0027WoNumber  : \u0027 + str(WoNumber))\n\t\t\t\tresultDetails \u003d QualityOperatorConsole.getProductionQualityOperatorConsole(enterpriseID,plantID,areaID,lineID,inspectionId,userId,workOrderId)\n\t\t\t\tif resultDetails \u003d\u003dNone or resultDetails\u003d\u003d[] or resultDetails\u003d\u003d\u0027\u0027:\n\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\"  characteristics not configured\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\telse:\n\t\t\t\t\tself.parent.parent.parent.getChild(\"MainViewContainer\").getChild(\"EmbeddedView\").props.path\u003d\u0027Project_MES_Solution/ProductionOperatorConsole/ProductionQuality/QualityConsWOSel\u0027\t\n\t\tsystem.perspective.closePopup(\"LoaderPopup\")\n\t\tself.parent.parent.parent.getChild(\"MainViewContainer\").getChild(\"ImageLoader\").meta.visible \u003d False\n#\t\t\t\n\texcept:\n\t\tsystem.perspective.print(\"Exception:: Horizontal Menu\")\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)\n\t\tsystem.perspective.closePopup(\"LoaderPopup\")\t"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "HorizontalMenu",
+                  "tooltip": {
+                    "style": {
+                      "backgroundColor": "#FFFFFF",
+                      "color": "#EE1616",
+                      "fontFamily": "Arial",
+                      "fontSize": 12
+                    }
+                  }
+                },
+                "position": {
+                  "basis": "1285px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.items[3].label": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.woStatus"
+                      },
+                      "enabled": false,
+                      "transforms": [
+                        {
+                          "code": "\tif value\u003d\u003d\u0027In-Progress\u0027:\n\t\titemLabel\u003d\u0027Hold WO\u0027\n\telse:\n\t\titemLabel\u003d\"Resume WO\"\n\treturn itemLabel",
+                          "type": "script"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  },
+                  "props.items[4].label": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.woStatus"
+                      },
+                      "transforms": [
+                        {
+                          "code": "\tif value\u003d\u003d\u0027In-Progress\u0027:\n\t\titemLabel\u003d\u0027Hold WO\u0027\n\telse:\n\t\titemLabel\u003d\"Resume WO\"\n\treturn itemLabel",
+                          "type": "script"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "itemStyle": {
+                    "classes": "HorizontalMenuBar/HrizontalMenuItemStyle"
+                  },
+                  "items": [
+                    {
+                      "enabled": true,
+                      "icon": {
+                        "color": "",
+                        "path": "material/home"
+                      },
+                      "items": [],
+                      "label": "Production Home",
+                      "style": {
+                        "classes": ""
+                      },
+                      "target": ""
+                    },
+                    {
+                      "enabled": true,
+                      "icon": {
+                        "color": "",
+                        "path": ""
+                      },
+                      "items": [
+                        {
+                          "enabled": true,
+                          "icon": {
+                            "path": ""
+                          },
+                          "items": [],
+                          "label": "Packing Details",
+                          "style": {
+                            "classes": ""
+                          },
+                          "target": ""
+                        },
+                        {
+                          "enabled": true,
+                          "icon": {
+                            "path": ""
+                          },
+                          "items": [],
+                          "label": "Component Details",
+                          "style": {
+                            "classes": ""
+                          },
+                          "target": ""
+                        },
+                        {
+                          "enabled": true,
+                          "icon": {
+                            "path": ""
+                          },
+                          "items": [],
+                          "label": "Machine Details",
+                          "style": {
+                            "classes": ""
+                          },
+                          "target": ""
+                        },
+                        {
+                          "enabled": true,
+                          "icon": {
+                            "path": ""
+                          },
+                          "items": [],
+                          "label": "Work Instruction",
+                          "style": {
+                            "classes": ""
+                          },
+                          "target": ""
+                        },
+                        {
+                          "enabled": true,
+                          "icon": {
+                            "path": ""
+                          },
+                          "items": [],
+                          "label": "Checklist",
+                          "style": {
+                            "classes": ""
+                          },
+                          "target": ""
+                        },
+                        {
+                          "enabled": true,
+                          "icon": {
+                            "path": ""
+                          },
+                          "items": [],
+                          "label": "MSR",
+                          "style": {
+                            "classes": ""
+                          },
+                          "target": ""
+                        }
+                      ],
+                      "label": "Workorder Details",
+                      "style": {
+                        "classes": ""
+                      },
+                      "target": ""
+                    },
+                    {
+                      "enabled": true,
+                      "icon": {
+                        "path": ""
+                      },
+                      "items": [],
+                      "label": "Change Over",
+                      "style": {
+                        "classes": ""
+                      },
+                      "target": ""
+                    },
+                    {
+                      "enabled": true,
+                      "icon": {
+                        "path": ""
+                      },
+                      "label": "Start WO",
+                      "style": {
+                        "classes": ""
+                      },
+                      "target": ""
+                    },
+                    {
+                      "enabled": true,
+                      "icon": {
+                        "path": ""
+                      },
+                      "style": {
+                        "classes": ""
+                      },
+                      "target": ""
+                    },
+                    {
+                      "enabled": true,
+                      "icon": {
+                        "path": ""
+                      },
+                      "label": "Complete Production",
+                      "style": {
+                        "classes": ""
+                      },
+                      "target": ""
+                    },
+                    {
+                      "enabled": true,
+                      "icon": {
+                        "path": ""
+                      },
+                      "items": [
+                        {
+                          "enabled": true,
+                          "icon": {
+                            "path": ""
+                          },
+                          "items": [],
+                          "label": "DownTime Alert",
+                          "style": {
+                            "classes": ""
+                          },
+                          "target": ""
+                        },
+                        {
+                          "enabled": true,
+                          "icon": {
+                            "path": ""
+                          },
+                          "items": [],
+                          "label": "DownTime RM",
+                          "style": {
+                            "classes": ""
+                          },
+                          "target": ""
+                        },
+                        {
+                          "enabled": true,
+                          "icon": {
+                            "path": ""
+                          },
+                          "items": [],
+                          "label": "Email Alerts",
+                          "style": {
+                            "classes": ""
+                          },
+                          "target": ""
+                        },
+                        {
+                          "enabled": true,
+                          "icon": {
+                            "path": ""
+                          },
+                          "items": [],
+                          "label": "Add Notes",
+                          "style": {
+                            "classes": ""
+                          },
+                          "target": ""
+                        }
+                      ],
+                      "label": "DownTime \u0026 Alerts",
+                      "style": {
+                        "classes": ""
+                      },
+                      "target": ""
+                    },
+                    {
+                      "enabled": true,
+                      "icon": {
+                        "path": ""
+                      },
+                      "label": "Operator Info",
+                      "style": {
+                        "classes": ""
+                      },
+                      "target": ""
+                    },
+                    {
+                      "enabled": true,
+                      "icon": {
+                        "path": ""
+                      },
+                      "items": [],
+                      "label": "Report Scrap",
+                      "style": {
+                        "classes": ""
+                      },
+                      "target": ""
+                    },
+                    {
+                      "enabled": true,
+                      "icon": {
+                        "color": "",
+                        "path": ""
+                      },
+                      "label": "Raise Defects",
+                      "style": {
+                        "classes": ""
+                      },
+                      "target": ""
+                    },
+                    {
+                      "enabled": true,
+                      "icon": {
+                        "path": ""
+                      },
+                      "items": [],
+                      "label": "Take-In",
+                      "style": {
+                        "classes": ""
+                      },
+                      "target": ""
+                    },
+                    {
+                      "enabled": true,
+                      "icon": {
+                        "path": ""
+                      },
+                      "items": [],
+                      "label": "Take-Out",
+                      "style": {
+                        "classes": ""
+                      },
+                      "target": ""
+                    },
+                    {
+                      "enabled": true,
+                      "icon": {
+                        "path": ""
+                      },
+                      "items": [],
+                      "label": "Quality",
+                      "style": {
+                        "classes": ""
+                      },
+                      "target": ""
+                    },
+                    {
+                      "enabled": true,
+                      "icon": {
+                        "path": ""
+                      },
+                      "items": [],
+                      "label": "Tool Details",
+                      "style": {
+                        "classes": ""
+                      },
+                      "target": ""
+                    }
+                  ],
+                  "style": {
+                    "backgroundColor": "#30647B00",
+                    "borderStyle": "none"
+                  }
+                },
+                "type": "ia.navigation.horizontalmenu"
+              }
+            ],
+            "meta": {
+              "name": "FlexContainer"
+            },
+            "position": {
+              "height": 0.2646,
+              "width": 0.9896,
+              "x": 0.0049,
+              "y": 0.7108
+            },
+            "props": {
+              "justify": "space-between",
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "meta": {
+              "name": "3-D red button (pressed)"
+            },
+            "position": {
+              "height": 0.1176,
+              "width": 0.0101,
+              "x": 0.7907,
+              "y": 0.0753
+            },
+            "propConfig": {
+              "meta.visible": {
+                "binding": {
+                  "config": {
+                    "path": "../LblMaterialAlerts.meta.visible"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "elements": [
+                {
+                  "name": "symbol",
+                  "type": "symbol"
+                },
+                {
+                  "elements": [
+                    {
+                      "cx": "56.25",
+                      "cy": "56.25",
+                      "elements": [
+                        {
+                          "name": "stop",
+                          "offset": "0",
+                          "stopColor": "#737373",
+                          "style": {
+                            "stopColor": "#737373"
+                          },
+                          "type": "stop"
+                        },
+                        {
+                          "name": "stop",
+                          "offset": "0.82",
+                          "stopColor": "#DEDEDE",
+                          "style": {
+                            "stopColor": "#DEDEDE"
+                          },
+                          "type": "stop"
+                        },
+                        {
+                          "name": "stop",
+                          "offset": "1",
+                          "stopColor": "#575757",
+                          "style": {
+                            "stopColor": "#575757"
+                          },
+                          "type": "stop"
+                        }
+                      ],
+                      "gradientUnits": "userSpaceOnUse",
+                      "id": "SVGID_1_",
+                      "name": "SVGID_1_",
+                      "r": "56.25",
+                      "type": "radialGradient"
+                    },
+                    {
+                      "cx": "56.25",
+                      "cy": "56.25",
+                      "fill": {
+                        "url": "url(#SVGID_1_)"
+                      },
+                      "name": "circle",
+                      "r": "56.25",
+                      "stroke": {
+                        "paint": "#4C4C4C",
+                        "width": "0.5"
+                      },
+                      "type": "circle"
+                    }
+                  ],
+                  "id": "Group_Red_Button_Pressed_Base",
+                  "name": "Group_Red_Button_Pressed_Base",
+                  "type": "group"
+                },
+                {
+                  "elements": [
+                    {
+                      "cx": "56.25",
+                      "cy": "56.307",
+                      "fill": {
+                        "paint": "#FF0000"
+                      },
+                      "name": "circle",
+                      "r": "43.919",
+                      "type": "circle"
+                    },
+                    {
+                      "cx": "56.25",
+                      "cy": "56.25",
+                      "fill": {
+                        "paint": "transparent"
+                      },
+                      "name": "circle",
+                      "r": "32.896",
+                      "stroke": {
+                        "paint": "#DC0000",
+                        "width": "2"
+                      },
+                      "type": "circle"
+                    }
+                  ],
+                  "id": "Group_Red_Button_Pressed_Front_Face",
+                  "name": "Group_Red_Button_Pressed_Front_Face",
+                  "type": "group"
+                }
+              ],
+              "viewBox": "0 0 112.5 112.5"
+            },
+            "type": "ia.shapes.svg"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "draggable": false,
+                    "id": "N693V3Na",
+                    "modal": true,
+                    "overlayDismiss": false,
+                    "resizable": false,
+                    "showCloseIcon": false,
+                    "type": "open",
+                    "viewPath": "Project_MES_Solution/ProductionOperatorConsole/PopUps/PopupViewMaterialAlert",
+                    "viewportBound": false
+                  },
+                  "scope": "C",
+                  "type": "popup"
+                }
+              }
+            },
+            "meta": {
+              "name": "LblMaterialAlerts"
+            },
+            "position": {
+              "height": 0.1706,
+              "width": 0.1403,
+              "x": 0.8046,
+              "y": 0.0528
+            },
+            "propConfig": {
+              "custom.MachineMaterialAlerts": {
+                "binding": {
+                  "config": {
+                    "expression": "now(1000)"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\ttry:\n\t\tworkorderId \u003d self.session.custom.WorkorderID\n\t\tlineId \u003d self.session.custom.LineID\n\t\tMaterialAlerts\u003dPDAComponentScanning.getMaterialAlerts(workorderId,lineId)\n#\t\tsystem.perspective.print(\u0027MaterialAlerts :\u0027 + str(MaterialAlerts))\n\t\tif MaterialAlerts.getRowCount() \u003e0:\n\t\t\tvalue \u003d True\n\t\telse:\n\t\t\tvalue \u003d False\n\t\t\t\n\t\treturn value\n\texcept:\n\t\treturn False\n\t\tpass",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "expr"
+                }
+              },
+              "meta.visible": {
+                "binding": {
+                  "config": {
+                    "expression": "now(1000)"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tif self.custom.MachineMaterialAlerts \u003d\u003d True: \n\t\tvalue \u003d self.meta.visible\n\t\tif value \u003d\u003d False:\n\t\t\tfrom threading import Timer\n\t\t\tdef runThisLater():\n\t\t\t\tself.meta.visible \u003d True\n\t\t\tTimer(0.09, runThisLater).start()\n\t\telse:\n\t\t\tfrom threading import Timer\n\t\t\tdef runThisLater():\n\t\t\t\tself.meta.visible \u003d False\n\t\t\tTimer(0.09, runThisLater).start()\n\telse:\n\t\tvalue \u003d False\n\treturn value",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "text": "Click here to see material alerts",
+              "textStyle": {
+                "color": "#000000",
+                "fontFamily": "Arial",
+                "fontSize": 14,
+                "fontWeight": "bold"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "HeaderContainer"
+        },
+        "position": {
+          "height": 0.2211,
+          "width": 0.9912
+        },
+        "props": {
+          "mode": "percent",
+          "style": {
+            "backgroundColor": "#EDF0F0"
+          }
+        },
+        "type": "ia.container.coord"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "system": {
+                "onStartup": {
+                  "config": {
+                    "script": "#\ttry:\n\t\tTabledata \u003d self.params.rowData\n\t\tsystem.perspective.print(\"Table1 RowData: \"+str(Tabledata))\n\t\tAreaName \u003d Tabledata.get(\u0027areaName\u0027)\n\t\tsystem.perspective.print( AreaName)\n\t\t\n#\t\tsystem.perspective.print(\"Start: Data Loading\")\n#\t\tAreaName\u003dTabledata.get(\u0027areaName\u0027)\n#\t\tsystem.perspective.print(\"AreaName: \"+str(AreaName))\n#\t\tif AreaName\u003d\u003d\u0027Assembly\u0027:\t\t\n#\t\t\tsystem.perspective.print(\"Assembly Area: \")\n#\t\t\tself.props.path\u003d\u0027Project_MES_Solution/ProductionOperatorConsole/MainViews/ProductionMainView\u0027\n#\t\telif AreaName\u003d\u003d\u0027CNS\u0027:\n#\t\t\tsystem.perspective.print(\"CNS Area: \")\n#\t\t\tself.props.path\u003d\u0027Project_MES_Solution/ProductionOperatorConsole/MainViews/CNSView\u0027\n#\t\telse:\n#\t\t\tsystem.perspective.print(\"Not Valid area Name: \")\n#\texcept:\n#\t\tsystem.perspective.print(\"Exception: Data Loading\")"
+                  },
+                  "enabled": false,
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "EmbeddedView"
+            },
+            "position": {
+              "height": 0.9932,
+              "width": 0.9962,
+              "x": 0.0017,
+              "y": 0.005
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "#FFFFFF"
+              }
+            },
+            "scripts": {
+              "customMethods": [],
+              "extensionFunctions": null,
+              "messageHandlers": [
+                {
+                  "messageType": "CallHome",
+                  "pageScope": true,
+                  "script": "\tWOType \u003d self.session.custom.WOType\n\tif str(WOType)\u003d\u003dstr(\u00271\u0027):\n\t\tself.props.path \u003d \u0027Project_MES_Solution/ProductionOperatorConsole/MainViews/ProductionMainView\u0027\n\telif str(WOType)\u003d\u003dstr(\u00272\u0027):\n\t\tself.props.path \u003d \u0027Project_MES_Solution/ProductionOperatorConsole/MainViews/CNSView\u0027\n\telse:\n\t\tself.props.path \u003d \u0027Project_MES_Solution/ProductionOperatorConsole/MainViews/ProductionMainView\u0027",
+                  "sessionScope": false,
+                  "viewScope": false
+                },
+                {
+                  "messageType": "CallChangeOverScreen",
+                  "pageScope": true,
+                  "script": "\tsystem.perspective.print(\u0027Change Over Screen Called -----------\u003e\u0027)\n\tself.props.path\u003d\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/OprConsoleTabViews/ChangeOver\u0027",
+                  "sessionScope": false,
+                  "viewScope": false
+                }
+              ]
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "ImageLoader",
+              "visible": 0
+            },
+            "position": {
+              "height": 0.13,
+              "width": 0.1193,
+              "x": 0.4407,
+              "y": 0.3777
+            },
+            "props": {
+              "fit": {
+                "mode": "cover"
+              },
+              "source": "/system/images/Builtin/icons/32/giphy.gif"
+            },
+            "type": "ia.display.image"
+          }
+        ],
+        "meta": {
+          "name": "MainViewContainer",
+          "tooltip": {
+            "location": "bottom-left"
+          }
+        },
+        "position": {
+          "height": 0.7656,
+          "width": 0.9909,
+          "x": 0.0023,
+          "y": 0.2271
+        },
+        "props": {
+          "mode": "percent"
+        },
+        "type": "ia.container.coord"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": 0.1467,
+      "y": -0.0117
+    },
+    "props": {
+      "mode": "percent",
+      "style": {
+        "backgroundColor": "#E0E3E4\n"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

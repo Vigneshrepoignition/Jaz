@@ -1,0 +1,1263 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 228,
+      "width": 452
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Label"
+        },
+        "position": {
+          "height": 0.1404,
+          "width": 0.2611,
+          "x": 0.1299,
+          "y": 0.057
+        },
+        "props": {
+          "text": "Scanner Value"
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "ImgBarcode"
+        },
+        "position": {
+          "height": 0.0921,
+          "width": 0.0664,
+          "x": 0.7113,
+          "y": 0.0855
+        },
+        "props": {
+          "source": "/system/images/Builtin/icons/16/barcode.png"
+        },
+        "type": "ia.display.image"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tself.getSibling(\"Table\").props.data\u003dfpsi_ignition01.get_workorderitem_and_serialnumber(fkWorkOrderId\u003d151075)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BarcodeScannerInput",
+          "visible": false
+        },
+        "position": {
+          "height": 0.1447,
+          "width": 0.3407,
+          "x": 0.6527,
+          "y": 0.125
+        },
+        "props": {
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.barcodescannerinput"
+      },
+      {
+        "meta": {
+          "name": "Table"
+        },
+        "position": {
+          "height": 0.7675,
+          "width": 0.9735,
+          "x": 0.0133,
+          "y": 0.21
+        },
+        "props": {
+          "columns": [
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "serialNumber",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Serial Number"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 190
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "ok",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Status"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 50
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "count",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Count"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": ""
+            }
+          ],
+          "data": 0,
+          "headerStyle": {
+            "backgroundColor": "#4275a0",
+            "classes": "Table/Header",
+            "fontWeight": "bold"
+          },
+          "pager": {
+            "bottom": false
+          },
+          "rows": {
+            "style": {
+              "backgroundColor": {
+                "$": [
+                  "ds",
+                  201,
+                  1707483649771
+                ],
+                "$columns": [
+                  {
+                    "data": [
+                      "GH5311023083429204E115105BA___",
+                      "GH5311023083429204E115105BA___",
+                      "GH5311023083429204E115105BA___",
+                      "GH5311023083429204E115105BA___",
+                      "GH5311023083429204E115105BA___",
+                      "GH5311023083429204E115105BA___",
+                      "GH5311023083429204E115105BA___",
+                      "GH5311023083429204E115105BA___",
+                      "GH5311023083429204E115105BB___",
+                      "GH5311023083429204E115105BB___",
+                      "GH5311023083429204E115105BB___",
+                      "GH5311023083429204E115105BB___",
+                      "GH5311023083429204E115105BB___",
+                      "GH5311023083429204E115105BB___",
+                      "GH5311023083429204E115105BB___",
+                      "GH5311023083429204E115105BB___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___",
+                      "GH5311023083429204E115105BT___"
+                    ],
+                    "name": "serialNumber",
+                    "type": "String"
+                  },
+                  {
+                    "data": [
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]",
+                      "[3, 1, 4]"
+                    ],
+                    "name": "controlValue",
+                    "type": "Object"
+                  },
+                  {
+                    "data": [
+                      1,
+                      2,
+                      3,
+                      4,
+                      5,
+                      6,
+                      7,
+                      8,
+                      1,
+                      2,
+                      3,
+                      4,
+                      5,
+                      6,
+                      7,
+                      8,
+                      1,
+                      2,
+                      3,
+                      4,
+                      5,
+                      6,
+                      7,
+                      8,
+                      9,
+                      10,
+                      11,
+                      12,
+                      13,
+                      14,
+                      15,
+                      16,
+                      17,
+                      18,
+                      19,
+                      20,
+                      21,
+                      22,
+                      23,
+                      24,
+                      25,
+                      26,
+                      27,
+                      28,
+                      29,
+                      30,
+                      31,
+                      32,
+                      33,
+                      34,
+                      35,
+                      36,
+                      37,
+                      38,
+                      39,
+                      40,
+                      41,
+                      42,
+                      43,
+                      44,
+                      45,
+                      46,
+                      47,
+                      48,
+                      49,
+                      50,
+                      51,
+                      52,
+                      53,
+                      54,
+                      55,
+                      56,
+                      57,
+                      58,
+                      59,
+                      60,
+                      61,
+                      62,
+                      63,
+                      64,
+                      65,
+                      66,
+                      67,
+                      68,
+                      69,
+                      70,
+                      71,
+                      72,
+                      73,
+                      74,
+                      75,
+                      76,
+                      77,
+                      78,
+                      79,
+                      80,
+                      81,
+                      82,
+                      83,
+                      84,
+                      85,
+                      86,
+                      87,
+                      88,
+                      89,
+                      90,
+                      91,
+                      92,
+                      93,
+                      94,
+                      95,
+                      96,
+                      97,
+                      98,
+                      99,
+                      100,
+                      101,
+                      102,
+                      103,
+                      104,
+                      105,
+                      106,
+                      107,
+                      108,
+                      109,
+                      110,
+                      111,
+                      112,
+                      113,
+                      114,
+                      115,
+                      116,
+                      117,
+                      118,
+                      119,
+                      120,
+                      121,
+                      122,
+                      123,
+                      124,
+                      125,
+                      126,
+                      127,
+                      128,
+                      129,
+                      130,
+                      131,
+                      132,
+                      133,
+                      134,
+                      135,
+                      136,
+                      137,
+                      138,
+                      139,
+                      140,
+                      141,
+                      142,
+                      143,
+                      144,
+                      145,
+                      146,
+                      147,
+                      148,
+                      149,
+                      150,
+                      151,
+                      152,
+                      153
+                    ],
+                    "name": "count",
+                    "type": "Integer"
+                  },
+                  {
+                    "data": [
+                      "Ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok",
+                      "Not ok"
+                    ],
+                    "name": "ok",
+                    "type": "String"
+                  }
+                ]
+              },
+              "classes": "Table/Rowsmiddle"
+            }
+          }
+        },
+        "scripts": {
+          "customMethods": [],
+          "extensionFunctions": null,
+          "messageHandlers": [
+            {
+              "messageType": "refresh_table_packing",
+              "pageScope": true,
+              "script": "#\n#\tfor rowindex in range(self.props.data.getRowCount()):\n#\t\tdata \u003dds.getValueAt(rowindex,\u0027ok\u0027)\n\t\t\n\t# implement your handler here",
+              "sessionScope": false,
+              "viewScope": false
+            }
+          ]
+        },
+        "type": "ia.display.table"
+      },
+      {
+        "events": {
+          "dom": {
+            "onCompositionEnd": {
+              "config": {
+                "script": "\tself.getSibling(\"Table\").props.data \u003d \" \"\n\tsystem.perspective.print(\"data\")\n\tself.getSibling(\"Table\").props.data\u003dfpsi_ignition01.get_workorderitem_and_serialnumber(fkWorkOrderId\u003dint(self.props.text))\n\tsystem.perspective.print(\"data\")"
+              },
+              "enabled": false,
+              "scope": "G",
+              "type": "script"
+            },
+            "onCompositionUpdate": {
+              "config": {
+                "script": "\tself.getSibling(\"Table\").props.data \u003d \" \"\n\tsystem.perspective.print(\"data\")\n\tself.getSibling(\"Table\").props.data\u003dfpsi_ignition01.get_workorderitem_and_serialnumber(fkWorkOrderId\u003dint(self.props.text))\n\tsystem.perspective.print(\"data\")"
+              },
+              "enabled": false,
+              "scope": "G",
+              "type": "script"
+            },
+            "onMouseEnter": {
+              "config": {
+                "script": "\t#fpsi_ignition01.post_scanned_serialnumber(serialNumber\u003d str(self.props.text),fkWorkOrderId\u003dint(self.session.custom.WOValue))\n\tself.getSibling(\"Table\").props.data \u003d \" \"\n\tsystem.perspective.print(\"data\")\n\tself.getSibling(\"Table\").props.data\u003dfpsi_ignition01.get_workorderitem_and_serialnumber(fkWorkOrderId\u003dint(self.props.text))\n\tsystem.perspective.print(\"data\")"
+              },
+              "enabled": false,
+              "scope": "G",
+              "type": "script"
+            },
+            "onMouseLeave": {
+              "config": {
+                "script": "\ttry:\n\t\tself.getSibling(\"Table\").props.data \u003d \" \"\n\t\tscanneddata \u003d self.props.text\n\t\tworkorderid \u003d self.session.custom.WorkorderID\n\t\tworkorderid \u003d 151075\n#\t\tfpsi_ignition01.post_scanned_serialnumber(serialNumber\u003dstr(scanneddata),fkWorkOrderId\u003dint(workorderid))\n\t\tself.getSibling(\"Table\").props.data\u003dfpsi_ignition01.get_workorderitem_and_serialnumber(fkWorkOrderId\u003d int(workorderid))\n\texcept Exception as e:\n\t\terrorMessage\u003d script_name  +\u0027 scanned_data - \u0027+  str(e)\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "enabled": false,
+              "scope": "G",
+              "type": "script"
+            },
+            "onPointerLeave": {
+              "config": {
+                "script": "\ttry:\n\t\tself.getSibling(\"Table\").props.data \u003d \" \"\n\t\tscanneddata \u003d self.props.text\n\t\tworkorderid \u003d self.session.custom.WorkorderID\n\t\tworkorderid \u003d 151075\n#\t\tfpsi_ignition01.post_scanned_serialnumber(serialNumber\u003dstr(scanneddata),fkWorkOrderId\u003dint(workorderid))\n\t\tself.getSibling(\"Table\").props.data\u003dfpsi_ignition01.get_workorderitem_and_serialnumber(fkWorkOrderId\u003d int(workorderid))\n\texcept Exception as e:\n\t\terrorMessage\u003d script_name  +\u0027 scanned_data - \u0027+  str(e)\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "enabled": false,
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "TextField"
+        },
+        "position": {
+          "height": 0.1404,
+          "width": 0.3319,
+          "x": 0.4065,
+          "y": 0.0614
+        },
+        "props": {
+          "style": {
+            "classes": "Common/TextBox"
+          },
+          "text": "10"
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "PollingIcon"
+        },
+        "position": {
+          "height": 0.1918,
+          "width": 0.1201,
+          "x": 0.6939,
+          "y": 0.6639
+        },
+        "propConfig": {
+          "meta.visible": {
+            "binding": {
+              "config": {
+                "aggregate": "MinMax",
+                "avoidScanClassValidation": true,
+                "dateRange": {
+                  "mostRecent": "5",
+                  "mostRecentUnits": "HOUR"
+                },
+                "enableValueCache": true,
+                "ignoreBadQuality": false,
+                "polling": {
+                  "enabled": true,
+                  "rate": "100"
+                },
+                "preventInterpolation": false,
+                "returnFormat": "Wide",
+                "returnSize": {
+                  "numRows": "100",
+                  "type": "FIXED"
+                },
+                "tags": [],
+                "valueFormat": "DATASET"
+              },
+              "transforms": [
+                {
+                  "code": "\t\n\tmessageType2 \u003d \u0027packingokcount\u0027\n\tsystem.perspective.sendMessage(messageType2, payload \u003d {\"value\":\u0027\u0027,\"SelctedRowIndex\":\u0027\u0027}, scope \u003d \"page\")\n\tvalue\u003d0\n\treturn value\n\t",
+                  "type": "script"
+                }
+              ],
+              "type": "tag-history"
+            }
+          }
+        },
+        "props": {
+          "path": "material/refresh"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "TextField_0",
+          "visible": false
+        },
+        "position": {
+          "height": 0.1404,
+          "width": 0.3319,
+          "x": 0.0243,
+          "y": 0.0219
+        },
+        "props": {
+          "text": 1
+        },
+        "scripts": {
+          "customMethods": [],
+          "extensionFunctions": null,
+          "messageHandlers": [
+            {
+              "messageType": "packingokcount",
+              "pageScope": true,
+              "script": "\t# implement your handler here\n\ttry:\n\t\tcount \u003d 0\n\t\tds \u003d self.getSibling(\"Table\").props.data\n\t\tfor rowindex in range(self.getSibling(\"Table\").props.data.getRowCount()):\n\t\t\tdata \u003dds.getValueAt(rowindex,\u0027ok\u0027)\n\t\t\tsystem.perspective.print(\"data2000\")\n\t\t\tif data \u003d\u003d str(\"Ok\"):\n\t\t\t\tcount \u003d count+1\n\t\tsystem.perspective.print(count)\n\t\tself.props.text\u003dcount\n\t\tself.session.custom.Packingokcount \u003d count\n\texcept:\n\t\tpass",
+              "sessionScope": false,
+              "viewScope": false
+            }
+          ]
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\tworkorderid \u003d 151075\n#\t\tself.getSibling(\"Table\").props.data \u003d \" \"\n\t\tself.getSibling(\"Table\").props.data\u003dfpsi_ignition01.get_workorderitem_and_serialnumber(fkWorkOrderId\u003d workorderid)\n\t\tds \u003d self.getSibling(\"Table\").props.data\n\t\tavailable \u003d 0\n\t\tfor rowindex in range(self.getSibling(\"Table\").props.data.getRowCount()):\n\t\t\tdata \u003dds.getValueAt(rowindex,\u0027serialNumber\u0027)\n\t\t\tsystem.perspective.print(\"data2000\")\n\t\t\tif data \u003d\u003d str(self.getSibling(\"TextField\").props.text):\n\t\t\t\tavailable \u003d 1\n\t\t\telse:\t\n\t\t\t\tpass\n\t\tif available \u003d\u003d 1:\n\t\t\tsystem.perspective.openPopup(\u0027alreadyscanned1\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/Modules/For_manual_assembly/popup/Already_scanned\u0027,params\u003d{\"serialnumber\":self.getSibling(\"TextField\").props.text},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\telif available \u003d\u003d 0:\n\t\t\tscanneddata \u003d self.getSibling(\"TextField\").props.text\n\t\t\tworkorderid \u003d self.session.custom.WorkorderID\n\t\t\tworkorderid \u003d 151075\n\t\t\tfpsi_ignition01.post_scanned_serialnumber(serialNumber\u003dstr(scanneddata),fkWorkOrderId\u003dworkorderid)\n#\t\t\tself.getSibling(\"Table\").props.data \u003d \" \"\n\t\tself.getSibling(\"Table\").props.data\u003dfpsi_ignition01.get_workorderitem_and_serialnumber(fkWorkOrderId\u003d workorderid)\n\n\texcept Exception as e:\n\t\terrorMessage\u003d   \u0027 scanned_data - \u0027+  str(e)\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Button"
+        },
+        "position": {
+          "height": 0.1491,
+          "width": 0.177,
+          "x": 0.7831,
+          "y": 0.057
+        },
+        "props": {
+          "text": "Scanned"
+        },
+        "type": "ia.input.button"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent",
+      "style": {
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

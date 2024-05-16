@@ -1,0 +1,345 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\tscriptName \u003d \"RMTC: Assigen Co-Operator Popup: On StartUp\"\t\t\n\t\ttry:\n\t\t\tself.getChild(\"root\").getChild(\"DrpdwnEmployeNames\").focus()\t\t\t\n\t\t\tscriptName \u003d \"RMTC: RM Order History  Startup\"\n\t\t\tuserId \u003d self.session.custom.UserId\n\t\t\tmaintenanceTypeId \u003d 2 #Reactive maintenance skill type\n\t\t\tRMOrderId \u003d self.session.custom.RMOrderID\n\t\t\temployeeData \u003d MaintenanceRMAPI.GetSkilledUserByMaintenanceType(maintenanceTypeId,RMOrderId,userId)\n\t\t\tself.getChild(\"root\").getChild(\"DrpdwnEmployeNames\").props.options \u003d employeeData\n\t\texcept:\n\t\t\timport sys, os\n\t\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\t\tAuthentication.exceptionLogger(errorMessage)\n\texcept:\n\t\t\timport sys, os\n\t\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\t\tlineno \u003d tb.tb_lineno\n\t\t\terrorMessage \u003d scriptName+\"Error on Line :\" + str(lineno) + \":: \"+ str(exc_obj) + \"Exeception :\" + str(sys.exc_info()[1])\n"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 200,
+      "width": 347
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 0.1616,
+          "width": 1.0029,
+          "x": -0.0029,
+          "y": -0.0001
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Assign Co-Operators",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 10,
+            "textAlign": "Center",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 0.1465,
+          "rotate": {
+            "anchor": "50% 25%"
+          },
+          "width": 0.087,
+          "x": 0.9069,
+          "y": 0.004
+        },
+        "props": {
+          "path": "material/close",
+          "style": {
+            "color": "#FFFFFF",
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tstatus \u003d self.session.custom.WOOperationStatus\n\tRMOrderID \u003d self.session.custom.RMOrderID\n\tuserId \u003d self.session.custom.UserId\n\temployeeId \u003d self.getSibling(\"DrpdwnEmployeNames\").props.value\n\tif status \u003d\u003d \"In-Progress\":\n\t\tfor assignedUserId in employeeId:\n\t\t\tstatusId \u003d 1\n\t\t\tpostCoOperator\u003dMaintenanceRMAPI.assignCoOperator(RMOrderID,assignedUserId,userId,statusId)\n\t\tmessageType \u003d \"viewAssignedCoOperator\"\n\t\tsystem.perspective.sendMessage(messageType, scope\u003d\u0027page\u0027)\n\t\tsystem.perspective.closePopup(\u0027\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnSave",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Click To Add"
+          }
+        },
+        "position": {
+          "height": 0.1869,
+          "width": 0.2812,
+          "x": 0.3581,
+          "y": 0.7268
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "../DrpdwnEmployeNames.props.value"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value !\u003d str(\"\").strip():\n\t\tself.props.style.backgroundColor \u003d \"#3888CC\"\n\t\tself.props.style.borderColor \u003d \"#3888CC\"\n\t\tvalue \u003d 1\n\telse:\n\t\tvalue \u003d 0 \n\t\tself.props.style.backgroundColor \u003d str(self.session.custom.disableBtncolour)\n\t\tself.props.style.borderColor \u003d  str(self.session.custom.disableBtncolour)\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "backgroundColor": "value",
+            "borderColor": "value",
+            "classes": "Common/Button"
+          },
+          "text": "Assign"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tself.getSibling(\"DrpDwnReason\").focus()\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "DrpdwnEmployeNames",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 0.1616,
+          "width": 0.8986,
+          "x": 0.046,
+          "y": 0.3889
+        },
+        "props": {
+          "multiSelect": true,
+          "options": {
+            "$": [
+              "ds",
+              192,
+              1672893230461
+            ],
+            "$columns": [
+              {
+                "data": [
+                  1077,
+                  1069,
+                  1068,
+                  39,
+                  43,
+                  40,
+                  1065,
+                  1067,
+                  64,
+                  65,
+                  41,
+                  42,
+                  19,
+                  49,
+                  63,
+                  47,
+                  38,
+                  62,
+                  61,
+                  46,
+                  56,
+                  54,
+                  53,
+                  52,
+                  50,
+                  48,
+                  3,
+                  44,
+                  23,
+                  24,
+                  25,
+                  27,
+                  28,
+                  29,
+                  30,
+                  32,
+                  33,
+                  34,
+                  35,
+                  36,
+                  37
+                ],
+                "name": "EmployeeId",
+                "type": "Integer"
+              },
+              {
+                "data": [
+                  "Shital123",
+                  "Ankita",
+                  "ew",
+                  "Jayant",
+                  "Vinayak",
+                  "SumiT",
+                  "Omkar",
+                  "Sumit",
+                  "testuser",
+                  "Harib",
+                  "Shrihari",
+                  "Vidhi",
+                  "JE",
+                  "Dhiraj",
+                  "Kushal",
+                  "Sushant",
+                  "Tejes",
+                  "Vishal",
+                  "Dennis",
+                  "Mohit",
+                  "Sachin",
+                  "Aerra",
+                  "Abdul",
+                  "Yongjian",
+                  "Handy",
+                  "Sagar",
+                  "zhu",
+                  "Deepak",
+                  "Susie",
+                  "Gintao",
+                  "Sophy",
+                  "Stanley",
+                  "Bee Nah",
+                  "XiangKe",
+                  "Shawn",
+                  "Jack",
+                  "zeng",
+                  "DongShi",
+                  "JEMES",
+                  "Tata",
+                  "Ganesh"
+                ],
+                "name": "Username",
+                "type": "String"
+              }
+            ]
+          },
+          "placeholder": {
+            "text": "Select Co-Operator"
+          },
+          "showClearIcon": true,
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "meta": {
+          "name": "LblCooperator"
+        },
+        "position": {
+          "height": 0.1212,
+          "width": 0.2725,
+          "x": 0.046,
+          "y": 0.2525
+        },
+        "props": {
+          "alignVertical": "top",
+          "text": "Co-Operator",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground",
+            "fontWeight": "lighter"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblMandstar"
+        },
+        "position": {
+          "height": 0.0606,
+          "width": 0.0348,
+          "x": 0.2739,
+          "y": 0.2525
+        },
+        "props": {
+          "alignVertical": "top",
+          "style": {
+            "classes": "Common/Label_WithOutBackground"
+          },
+          "text": "*",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground",
+            "color": "#FF4747"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -176,
+      "y": 35
+    },
+    "props": {
+      "mode": "percent",
+      "style": {
+        "classes": "Panel/PopUp"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

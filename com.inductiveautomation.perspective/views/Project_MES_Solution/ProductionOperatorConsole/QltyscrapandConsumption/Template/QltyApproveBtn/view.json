@@ -1,0 +1,69 @@
+{
+  "custom": {},
+  "params": {
+    "rowData": "value"
+  },
+  "propConfig": {
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 35,
+      "width": 84
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\trowData\u003dself.view.params.rowData\n\t\tsystem.perspective.print(\"rowData:\"+str(rowData))\n\t\tLotNo\u003drowData.get(\"LotNo\")\n\t\tScrapByFG\u003drowData.get(\"ScrapByFG\")\n\t\tProductionQty\u003drowData.get(\"ProductionQty\")\n\t\tContainerId\u003drowData.get(\"NoofContainerstoApprove\")\n\t\tContainerId1\u003dint(ContainerId)\n\t\tRemainingContainer\u003drowData.get(\"RemainingContainer\")\n\t\tRemainingContainer\u003dint(RemainingContainer)\n\t\tWorkorderNo\u003dself.session.custom.WoNumberFromQlty\n\t\tWorkorderId\u003dself.session.custom.WOIdFrmQlty\n\t\tLineId\u003dself.session.custom.LineIdFrmQlty\n#\t\tsystem.perspective.print(\"RemainingContainer---\u003e\"+str(RemainingContainer))\n#\t\tsystem.perspective.print(\"ContainerId1---\u003e\"+str(ContainerId1))\n\t\tif ContainerId\u003e0 :\n\t\t\tif RemainingContainer\u003e\u003dContainerId1:\n\t\t\t\tif ProductionQty\u003e\u003dScrapByFG:\n\n\t\t\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/QltyscrapandConsumption/Popup/ValidationPopup\u0027,params\u003d{\"WorkorderNo\":WorkorderNo,\"ContainerId\":ContainerId,\"LotNo\":LotNo,\"WorkorderId\":WorkorderId,\"LineId\":LineId,\"ScrapByFG\":ScrapByFG},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse,backgroundDismissible\u003dFalse)\t\n\n#\t\t\t\t\tContainerDetails\u003d[]\n#\t\t\t\t\tContainerDetails1\u003d{\n#\t\t\t\t\t\t\t\t\t      \"workorderNo\": WorkorderNo,\n#\t\t\t\t\t\t\t\t\t      \"containerId\": ContainerId,\n#\t\t\t\t\t\t\t\t\t      \"lotNo\": LotNo\t\t\n#\t\t\t\t\t\t\t\t\t\t}\t\t\t\t\t\t\n#\t\t\t\t\tContainerDetails.append(ContainerDetails1)\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n#\n#\t\t\t\t\tContainerApproveResult\u003dNewQltyApprove.ApproveContainerFromQlty(ContainerDetails)\n#\n#\t\t\t\t\tif ScrapByFG\u003e0:\n#\t\t\t\t\t\tscrapbyFG\u003dNewQltyApprove.ScrapByFG(WorkorderNo,WorkorderId,LineId,ScrapByFG,LotNo)\t\n#\t\t\t\t\telse:\n#\t\t\t\t\t\tIsValidConsumption\u003d1\n#\t\t\t\t\t\tscrapbyFG\u003d[]\t\t\t\t\t\t\t\t\t\t\t\t\n#\t\t\t\t\tfor Consumption in scrapbyFG:\n#\t\t\t\t\t\tIsValidConsumption \u003d Consumption.get(\"IsValid\")\n#\n#\t\t\t\t\tif ContainerApproveResult\u003d\u003d1: \n#\t\t\t\t\t\tif IsValidConsumption\u003d\u003d1:\n#\t\t\t\t\t\t\tMessageText\u003d\"Container Approved Successfully.\"\t\t\t\t\n#\t\t\t\t\t\t\tupdaateStatus\u003d1\n#\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse,backgroundDismissible\u003dFalse)\t\t\n#\t\t\t\t\t\t\tmessageType1 \u003d \u0027RefreshQltyTable\u0027\n#\t\t\t\t\t\t\tsystem.perspective.sendMessage(messageType1, payload \u003d {\"value\":0,\"SelctedRowIndex\":0}, scope \u003d \"page\")\t\n#\t\t\t\t\t\telse:\n#\t\t\t\t\t\t\tListofcomponent\u003d[]\n#\t\t\t\t\t\t\tfor component in (scrapbyFG):\n#\t\t\t\t\t\t\t\tEquipmentCode\u003dcomponent.get(\"EquipmentCode\")\n#\t\t\t\t\t\t\t\tHead\u003dcomponent.get(\"HeadName\")\n#\t\t\t\t\t\t\t\tComponentName\u003dcomponent.get(\"ComponentName\")\n#\t\t\t\t\t\t\t\tRemainLotQuantity\u003dcomponent.get(\"RemainLotQuantity\")\n#\t\t\t\t\t\t\t\tTotalConsumedQty\u003dcomponent.get(\"QualityScrapByFG\")\n#\n#\t\t\t\t\t\t\t\tQtyToBeFeed\u003d(float(TotalConsumedQty)-float(RemainLotQuantity))\n#\t\t\t\t\t\t\t\tMyPar\u003d(EquipmentCode,Head,ComponentName,RemainLotQuantity,TotalConsumedQty,QtyToBeFeed)\n#\t\t\t\t\t\t\t\tListofcomponent.append(MyPar)\n#\t\t\t\t\t\t\t\tHeader\u003d[\"Equipment Code\",\"Head\",\"Component Name\",\"Remaining Lot Quantity\",\"Calculated Consumption\",\"Qty to be Feed\"]\n#\t\t\t\t\t\t\tmessage \u003d system.dataset.toDataSet(Header,Listofcomponent)\t\t\t\t\t\n#\t\t\t\t\t\t\tupdateStatus\u003d\u0027Can not approve container, As the consummed lot quantity is greater than the remaining lot quantity for below components\u0027\n#\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027ComponentVal\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/PopupConsumptionScrapByFG\u0027,params\u003d{\"message\":message,\"updateStatus\":updateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n#\n#\t\t\t\t\telse:\n#\t\t\t\t\t\tMessageText\u003d\" Fail To Approve The Lot: \"+str(LotNo)\t\t\t\t\n#\t\t\t\t\t\tupdaateStatus\u003d0\n#\t\t\t\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse,backgroundDismissible\u003dFalse)\t\t\n#\t\t\t\t\t\tmessageType1 \u003d \u0027RefreshQltyTable\u0027\n#\t\t\t\t\t\tsystem.perspective.sendMessage(messageType1, payload \u003d {\"value\":0,\"SelctedRowIndex\":0}, scope \u003d \"page\")\n\t\t\t\telse:\n\t\t\t\t\t\tMessageText\u003d\"Scrap By FG Should Be less Than Production Quantity.\"\t\t\t\t\n\t\t\t\t\t\tupdaateStatus\u003d0\n\t\t\t\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse,backgroundDismissible\u003dFalse)\t\t\n\t\t\telse:\n\t\t\t\tMessageText\u003d\"Container Quantity Should Be less Than Remaining Container Quantity.\"\t\t\t\t\n\t\t\t\tupdaateStatus\u003d0\n\t\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse,backgroundDismissible\u003dFalse)\t\t\n\t\telse:\n\t\t\tMessageText\u003d\"Please Enter The No Of Containers To Approve.\"\t\t\t\t\n\t\t\tupdaateStatus\u003d0\n\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse,backgroundDismissible\u003dFalse)\t\t\n\texcept:\n\t\t\tsystem.perspective.print(\u0027Exception:Approve Lot\u0027)\n\t\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\t\tsystem.perspective.print(errorMessage)\n\t\t\tlineno \u003d tb.tb_lineno\n\t\t\tsystem.perspective.print(lineno)\n\t\t\tsys.exit()\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Button"
+        },
+        "position": {
+          "height": 0.9714,
+          "rotate": {
+            "anchor": "-77% 12%"
+          },
+          "width": 0.9762,
+          "x": -0.0119,
+          "y": 0.0143
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#00000000",
+            "borderStyle": "none",
+            "fontFamily": "Arial"
+          },
+          "text": "UpdateScrap \u0026 Approve Container",
+          "textStyle": {
+            "color": "#4747FF",
+            "fontFamily": "Arial",
+            "fontSize": 12,
+            "fontWeight": "bold"
+          }
+        },
+        "type": "ia.input.button"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

@@ -1,0 +1,478 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\t#Clearing Values From Dropdown On Startup\n\tself.getChild(\"root\").getChild(\"DrpDwnReason\").props.value \u003d \"\"\n\tself.getChild(\"root\").getChild(\"DrpDwnReason_Main\").props.value \u003d \"\"\n\tself.getChild(\"root\").getChild(\"TxtComment\").props.text \u003d \"\"\n\tself.getChild(\"root\").getChild(\"DrpDwnReason_Main\").focus()\t\n\ttry:\n\t\tscriptName \u003d \"Binding Reason SubTypes For Complete Operation\"\n\t\tmainReasonTypeId \u003d 1\n\t\tsubReasonTypeId \u003d 0\n\t\tuserId\u003dself.session.custom.UserId\n\t\treasonSubTypes\u003dProductionOperatorConsole.getReasonsCodes(mainReasonTypeId,subReasonTypeId,userId)\n\t\tself.getChild(\"root\").getChild(\"DrpDwnReason_Main\").props.options\u003d reasonSubTypes\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 303,
+      "width": 294
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 32,
+          "width": 292
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Confirmation Operation Hold",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 15,
+            "fontWeight": "bold",
+            "margin": 30,
+            "textAlign": "Center",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "draggable": true,
+                "id": "-evw-V83",
+                "modal": false,
+                "overlayDismiss": false,
+                "resizable": true,
+                "showCloseIcon": true,
+                "type": "close",
+                "viewPath": "Project_MES_Solution/Maint Operator Console/Popup/PopupConfirmationOpHold",
+                "viewportBound": false
+              },
+              "scope": "C",
+              "type": "popup"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 30,
+          "width": 30,
+          "x": 261.938
+        },
+        "props": {
+          "path": "material/close",
+          "style": {
+            "color": "#FFFFFF",
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "LblCodeName"
+        },
+        "position": {
+          "height": 24,
+          "width": 100,
+          "x": 10,
+          "y": 105
+        },
+        "props": {
+          "alignVertical": "top",
+          "style": {
+            "classes": "Common/Label_WithOutBackground"
+          },
+          "text": "Code Name",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tself.getSibling(\"TxtComment\").focus()\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "DrpDwnReason"
+        },
+        "position": {
+          "height": 32,
+          "width": 260,
+          "x": 10,
+          "y": 127.72
+        },
+        "propConfig": {
+          "props.options": {
+            "binding": {
+              "config": {
+                "path": "../DrpDwnReason_Main.props.value"
+              },
+              "transforms": [
+                {
+                  "code": "\ttry:\n\t\tscriptName \u003d \"Reason Code Selection: \"\n\t\tmainReasonTypeId \u003d 1\n\t\tsubReasonTypeId \u003d value\n\t\tuserId \u003d self.session.custom.UserId\n\t\tsubReasons\u003dProductionOperatorConsole.getReasonsCodes(mainReasonTypeId,subReasonTypeId,userId)\n\t\treturn subReasons\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "placeholder": {
+            "text": "Select Code Name"
+          },
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          },
+          "dom": {
+            "onClick": {
+              "config": {
+                "draggable": false,
+                "id": "uf01-dte",
+                "modal": true,
+                "overlayDismiss": false,
+                "resizable": false,
+                "showCloseIcon": false,
+                "type": "close",
+                "viewPath": "Project_MES_Solution/OperatorConsole/PopUps/ConfirmationOpHold",
+                "viewportBound": false
+              },
+              "scope": "C",
+              "type": "popup"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnCancel",
+          "tooltip": {
+            "enabled": true,
+            "text": "Click To Cancel"
+          }
+        },
+        "position": {
+          "height": 34,
+          "width": 80,
+          "x": 31.438000000000002,
+          "y": 249
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "classes": "Common/Button"
+          },
+          "text": "Cancel"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\tscriptName \u003d \"RMTC : Hold Operation: Hold Button\"\n\t\tWoNumber \u003d self.session.custom.WoNumber\n\t\tholdComment \u003d self.getSibling(\"TxtComment\").props.text\n\t\tholdReasonId \u003d self.getSibling(\"DrpDwnReason\").props.value\n\t\tuserID \u003d self.session.custom.UserId\n\t\tRMOrderID \u003d self.session.custom.RMOrderID\n\t\t\n\t\ttry:\n\t\t\tscriptName \u003d \"RMTC: Hold Operation Button: Script Called\"\n\t\t\tsaveResult \u003d MaintenanceRMAPI.holdOperation(WoNumber,RMOrderID,holdReasonId,holdComment,userID)\n\t\t\tsystem.perspective.sendMessage(\"updateStatusforSingleRow\", scope\u003d\u0027page\u0027)\n\t\t\tuserId \u003d self.session.custom.UserId\n\t\t\torderId \u003d self.session.custom.RMOrderID\n\t\t\tmaintenanceTypeId \u003d 2\n\t\t\treleaseActiveScreen\u003d MaintenanceOCAPI.ReleaseOperatorActiveScreen(userId,orderId,maintenanceTypeId)\n\t\t\tsystem.perspective.print(\"releaseActiveScreen :\" + str(releaseActiveScreen))\n\t\t\tpmtype \u003d self.session.custom.PMType\n\t\t\tsystem.perspective.print(\"pmtype :\" + str(pmtype))\n\t\t\tif str(pmtype) \u003d\u003d str(\u00271\u0027):\n\t\t\t\tsystem.perspective.navigate(\"/Maintenence Operator Console - RM\")\n\t\t\telse:\n\t\t\t\tsystem.perspective.navigate(\"/Maintenence Operator Console - RMTools\")\n\t\texcept:\n\t\t\timport sys, os\n\t\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\t\tAuthentication.exceptionLogger(errorMessage)\n\t\t\t\n\t\tsystem.perspective.closePopup(\u0027\u0027)\n\t\t\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnOk",
+          "tooltip": {
+            "enabled": true,
+            "location": "bottom-left",
+            "text": "Click to  Hold"
+          }
+        },
+        "position": {
+          "height": 34,
+          "width": 80,
+          "x": 176,
+          "y": 249
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "expression": "now(100)"
+              },
+              "transforms": [
+                {
+                  "code": "\treason\u003dself.getSibling(\"DrpDwnReason\").props.value\n\tcomment \u003d str(self.getSibling(\"TxtComment\").props.text)\n\tif (str(reason).strip() !\u003d\"\") :\n\t\tvalue \u003d True\n\t\tself.props.style.backgroundColor \u003d \"#3888CC\"\n\telse:\n\t\tvalue \u003d False\n\t\tself.props.style.backgroundColor \u003d str(self.session.custom.disableBtncolour)\n\t\tself.props.style.borderColor \u003d  str(self.session.custom.disableBtncolour)\n\treturn value\t\t\t",
+                  "type": "script"
+                }
+              ],
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "backgroundColor": "value",
+            "borderColor": "value",
+            "classes": "Common/Button"
+          },
+          "text": "Ok"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "LblMsgScan_0"
+        },
+        "position": {
+          "height": 24,
+          "width": 10,
+          "x": 86,
+          "y": 105
+        },
+        "props": {
+          "alignVertical": "top",
+          "style": {
+            "classes": "Common/Label_WithOutBackground"
+          },
+          "text": "*",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground",
+            "color": "#FF4747"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblComment"
+        },
+        "position": {
+          "height": 32,
+          "width": 95,
+          "x": 10,
+          "y": 163
+        },
+        "props": {
+          "text": "Comment",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "TxtComment",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 32,
+          "width": 260,
+          "x": 11,
+          "y": 197
+        },
+        "props": {
+          "deferUpdates": false,
+          "placeholder": "Add Comment",
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tself.getSibling(\"DrpDwnReason\").props.value \u003d \u0027\u0027\n\tself.getSibling(\"DrpDwnReason\").props.options \u003d None\n\tself.getSibling(\"DrpDwnReason\").focus()\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "DrpDwnReason_Main",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 32,
+          "width": 260,
+          "x": 10,
+          "y": 64
+        },
+        "props": {
+          "options": {
+            "$": [
+              "ds",
+              192,
+              1683258879254
+            ],
+            "$columns": [
+              {
+                "data": [
+                  40,
+                  54,
+                  56,
+                  68,
+                  69,
+                  70,
+                  71,
+                  72,
+                  73,
+                  74,
+                  75,
+                  76,
+                  77,
+                  78
+                ],
+                "name": "ReasonCodeId",
+                "type": "Long"
+              },
+              {
+                "data": [
+                  "Material Issue",
+                  "Hold_Test1",
+                  "子类1",
+                  "子类2",
+                  "Model  Changeover 转型号",
+                  "Quality Abnormal 品质异常",
+                  "Planned Maintenance 计划保养",
+                  "Line Tuning( PV,PPAP,Sample) 试产做样板",
+                  "Planned Shutdown 计划停产",
+                  "Material Abnormal 物料异常",
+                  "Machine broken down 设备故障",
+                  "Mold broken down 模具故障",
+                  "Tooling broken down 工具故障",
+                  "Other "
+                ],
+                "name": "ReasonCodeName",
+                "type": "String"
+              }
+            ]
+          },
+          "placeholder": {
+            "text": "Select Code Subtype"
+          },
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "meta": {
+          "name": "LblCodeSubtype"
+        },
+        "position": {
+          "height": 24,
+          "width": 94,
+          "x": 11,
+          "y": 40
+        },
+        "props": {
+          "alignVertical": "top",
+          "style": {
+            "classes": "Common/Label_WithOutBackground"
+          },
+          "text": "Code Subtype",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblMsgScan_3"
+        },
+        "position": {
+          "height": 12,
+          "width": 12,
+          "x": 100,
+          "y": 41
+        },
+        "props": {
+          "alignVertical": "top",
+          "style": {
+            "classes": "Common/Label_WithOutBackground"
+          },
+          "text": "*",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground",
+            "color": "#FF4747"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -17.0625,
+      "y": 0
+    },
+    "props": {
+      "style": {
+        "classes": "Panel/PopUp"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

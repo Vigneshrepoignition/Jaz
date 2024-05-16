@@ -1,0 +1,367 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 295,
+      "width": 367
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "HeaderLbl"
+        },
+        "position": {
+          "height": 32,
+          "width": 82,
+          "x": 142.5,
+          "y": 5
+        },
+        "props": {
+          "text": "Shift OEE",
+          "textStyle": {
+            "fontFamily": "Arial",
+            "fontSize": 12,
+            "fontWeight": "bold"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "AvailabilityLbl"
+        },
+        "position": {
+          "height": 32,
+          "width": 80,
+          "x": 23,
+          "y": 50
+        },
+        "props": {
+          "style": {
+            "classes": "Common/Label"
+          },
+          "text": "Availability",
+          "textStyle": {
+            "fontFamily": "Arial",
+            "fontSize": 12,
+            "fontWeight": "bold"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "PerdormanceLbl"
+        },
+        "position": {
+          "height": 32,
+          "width": 80,
+          "x": 23,
+          "y": 87
+        },
+        "props": {
+          "style": {
+            "classes": "Common/Label"
+          },
+          "text": "Performance",
+          "textStyle": {
+            "fontFamily": "Arial",
+            "fontSize": 12,
+            "fontWeight": "bold"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "QualityLbl"
+        },
+        "position": {
+          "height": 32,
+          "width": 80,
+          "x": 23,
+          "y": 124
+        },
+        "props": {
+          "style": {
+            "classes": "Common/Label"
+          },
+          "text": "Quality",
+          "textStyle": {
+            "fontFamily": "Arial",
+            "fontSize": 12,
+            "fontWeight": "bold"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "OEELbl"
+        },
+        "position": {
+          "height": 32,
+          "width": 80,
+          "x": 23,
+          "y": 161
+        },
+        "props": {
+          "style": {
+            "classes": "Common/Label"
+          },
+          "text": "OEE",
+          "textStyle": {
+            "fontFamily": "Arial",
+            "fontSize": 12,
+            "fontWeight": "bold"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "CalculatedAvailabilityLbl"
+        },
+        "position": {
+          "height": 32,
+          "width": 80,
+          "x": 117,
+          "y": 50
+        },
+        "props": {
+          "style": {
+            "classes": "Common/TextBox"
+          },
+          "text": "Availability",
+          "textStyle": {
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "CalculatedPerdormanceLbl"
+        },
+        "position": {
+          "height": 32,
+          "width": 80,
+          "x": 117,
+          "y": 87
+        },
+        "props": {
+          "style": {
+            "classes": "Common/TextBox"
+          },
+          "text": "Performance",
+          "textStyle": {
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "CalculatedQualityLbl"
+        },
+        "position": {
+          "height": 32,
+          "width": 80,
+          "x": 117,
+          "y": 124
+        },
+        "props": {
+          "style": {
+            "classes": "Common/TextBox"
+          },
+          "text": "Quality",
+          "textStyle": {
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "CalculatedOEELbl"
+        },
+        "position": {
+          "height": 32,
+          "width": 80,
+          "x": 117,
+          "y": 161
+        },
+        "props": {
+          "style": {
+            "classes": "Common/TextBox"
+          },
+          "text": "OEE",
+          "textStyle": {
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "ProgressAvailability"
+        },
+        "position": {
+          "height": 20,
+          "width": 151,
+          "x": 204,
+          "y": 57
+        },
+        "propConfig": {
+          "props.bar.color": {
+            "binding": {
+              "config": {
+                "path": "this.props.value"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003c\u003d50:\n\t\tbarColor\u003d \"#FF0000\"\n\telif value\u003e50 and value\u003c\u003d75:\n\t\tbarColor\u003d \"#798BF3\"\n\telif value\u003e75:\n\t\tbarColor\u003d \"#00AC00\"\n\telse:\n\t\tbarColor\u003d \"#000000\"\n\t\t\n\treturn \tbarColor\n\t\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "bar": {},
+          "valueDisplay": {
+            "enabled": true,
+            "format": "0.##%"
+          }
+        },
+        "type": "ia.display.progress"
+      },
+      {
+        "meta": {
+          "name": "ProgressPerformance"
+        },
+        "position": {
+          "height": 20,
+          "width": 151,
+          "x": 204,
+          "y": 92
+        },
+        "propConfig": {
+          "props.bar.color": {
+            "binding": {
+              "config": {
+                "path": "this.props.value"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003c\u003d50:\n\t\tbarColor\u003d \"#FF0000\"\n\telif value\u003e50 and value\u003c\u003d75:\n\t\tbarColor\u003d \"#798BF3\"\n\telif value\u003e75:\n\t\tbarColor\u003d \"#00AC00\"\n\telse:\n\t\tbarColor\u003d \"#000000\"\n\t\t\n\treturn \tbarColor\n\t\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "bar": {},
+          "valueDisplay": {
+            "enabled": true,
+            "format": "0.##%"
+          }
+        },
+        "type": "ia.display.progress"
+      },
+      {
+        "meta": {
+          "name": "ProgressOEE"
+        },
+        "position": {
+          "height": 20,
+          "width": 151,
+          "x": 204,
+          "y": 167
+        },
+        "propConfig": {
+          "props.bar.color": {
+            "binding": {
+              "config": {
+                "path": "this.props.value"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003c\u003d50:\n\t\tbarColor\u003d \"#FF0000\"\n\telif value\u003e50 and value\u003c\u003d75:\n\t\tbarColor\u003d \"#798BF3\"\n\telif value\u003e75:\n\t\tbarColor\u003d \"#00AC00\"\n\telse:\n\t\tbarColor\u003d \"#000000\"\n\t\t\n\treturn \tbarColor\n\t\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "bar": {},
+          "valueDisplay": {
+            "enabled": true,
+            "format": "0.##%"
+          }
+        },
+        "type": "ia.display.progress"
+      },
+      {
+        "meta": {
+          "name": "ProgressQuality"
+        },
+        "position": {
+          "height": 20,
+          "width": 151,
+          "x": 204,
+          "y": 126
+        },
+        "propConfig": {
+          "props.bar.color": {
+            "binding": {
+              "config": {
+                "path": "this.props.value"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003c\u003d50:\n\t\tbarColor\u003d \"#FF0000\"\n\telif value\u003e50 and value\u003c\u003d75:\n\t\tbarColor\u003d \"#798BF3\"\n\telif value\u003e75:\n\t\tbarColor\u003d \"#00AC00\"\n\telse:\n\t\tbarColor\u003d \"#000000\"\n\t\t\n\treturn \tbarColor\n\t\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "bar": {},
+          "valueDisplay": {
+            "enabled": true,
+            "format": "0.##%"
+          }
+        },
+        "type": "ia.display.progress"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "scripts": {
+      "customMethods": [],
+      "extensionFunctions": null,
+      "messageHandlers": [
+        {
+          "messageType": "updateOEEChart",
+          "pageScope": true,
+          "script": "\t# implement your handler here\n\ttableData \u003d payload[\u0027tblData\u0027]\n\tshiftId \u003d payload[\u0027shiftId\u0027]\n\tdata \u003d system.dataset.toPyDataSet(tableData)\n\ttotalProd \u003d 0\n\ttotalScrap \u003d 0\n\ttotalTarget \u003d 0\t\n\tshiftId,shiftName,shiftStartDate,shiftEndDate,CompletedHours \u003d ManualOperatorConsole.getShiftDetails(shiftId)\t\n#-------------------------------------------------------------------------------------\t\n\trunningHour\u003d CompletedHours+1\n\tmyCount\u003d1\n\tfor row in data:\n\t\ttotalProd +\u003d row[\"Production\"]\n\t\ttotalScrap +\u003d row[\"Scrap\"]\n\t\ttotalTarget +\u003d row[\"Target\"]\t\t\t\n\t\tif myCount \u003e\u003d runningHour:\n\t\t\tbreak\n\t\telse:\t\n\t\t\tmyCount \u003d myCount + 1\t\t\t\t\n#\tsystem.perspective.print(\"TotalProd\" +str(totalProd))\n#\tsystem.perspective.print(\"TotalScrap\" +str(totalScrap))\n#\tsystem.perspective.print(\"TotalTarget\" +str(totalTarget))\t\t\n\t\n\tAvailability \u003d float(0.98)\n\tPerformance \u003d (float(totalProd)/float(totalTarget))\n\tQuality \u003d float(totalProd)/(float(totalProd)+float(totalScrap))\n\t\n\tOEE \u003d round((Availability * Performance * Quality * float(100)),2)\t\n\tAvailability \u003d round((Availability * float(100)),2)\n\tPerformance \u003d round((Performance * float(100)),2)\n\tQuality \u003d round((Quality * float(100)),2)\n\t\n\tself.getChild(\"CalculatedAvailabilityLbl\").props.text \u003d str(Availability)+\" %\"\n\tself.getChild(\"CalculatedPerdormanceLbl\").props.text \u003d str(Performance)+\" %\"\n\tself.getChild(\"CalculatedQualityLbl\").props.text \u003d str(Quality)+\" %\"\n\tself.getChild(\"CalculatedOEELbl\").props.text \u003d str(OEE)+\" %\"\n\t\n\tself.getChild(\"ProgressAvailability\").props.value \u003d Availability\n\tself.getChild(\"ProgressPerformance\").props.value \u003d Performance\n\tself.getChild(\"ProgressQuality\").props.value \u003d Quality\n\tself.getChild(\"ProgressOEE\").props.value \u003d OEE\n\t\n\t",
+          "sessionScope": false,
+          "viewScope": false
+        }
+      ]
+    },
+    "type": "ia.container.coord"
+  }
+}

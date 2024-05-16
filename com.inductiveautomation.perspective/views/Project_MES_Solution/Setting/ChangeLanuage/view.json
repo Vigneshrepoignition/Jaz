@@ -1,0 +1,271 @@
+{
+  "custom": {
+    "locale": "en-US"
+  },
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\tself.custom.locale\u003dself.session.props.locale\n\tself.getChild(\"root\").getChild(\"ColumnContainer\").getChild(\"CoordinateContainer\").getChild(\"ddlLanguage\").props.value\u003dself.session.props.locale\n\t"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "ID": "value"
+  },
+  "propConfig": {
+    "custom.locale": {
+      "persistent": true
+    },
+    "params.ID": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 226,
+      "width": 343
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 37,
+          "width": 340.15
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Change Language",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 10,
+            "textAlign": "left",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\t\n\tsystem.perspective.closePopup(\u0027\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 37,
+          "width": 31.95,
+          "x": 298.72
+        },
+        "props": {
+          "path": "material/close",
+          "style": {
+            "color": "#FFFFFF",
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "LblMsgScan"
+                },
+                "position": {
+                  "height": 31,
+                  "rotate": {
+                    "anchor": "38% 113%"
+                  },
+                  "width": 74,
+                  "x": 27.6,
+                  "y": 37.3
+                },
+                "props": {
+                  "style": {
+                    "classes": "Common/Label"
+                  },
+                  "text": "Select :"
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "ddlLanguage"
+                },
+                "position": {
+                  "height": 36,
+                  "width": 202.00000000000003,
+                  "x": 101.038,
+                  "y": 34.8294
+                },
+                "props": {
+                  "options": [
+                    {
+                      "label": "English",
+                      "value": "en-US"
+                    },
+                    {
+                      "label": "Chinese",
+                      "value": "zh-TW"
+                    }
+                  ],
+                  "style": {
+                    "classes": "Common/TextBox"
+                  },
+                  "value": "en-US"
+                },
+                "type": "ia.input.dropdown"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\tself.session.props.locale\u003dself.getSibling(\"ddlLanguage\").props.value\n\tsystem.perspective.closePopup(\u0027\u0027)\n\t"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "Button"
+                },
+                "position": {
+                  "height": 34,
+                  "width": 92,
+                  "x": 44.211,
+                  "y": 104.719
+                },
+                "props": {
+                  "style": {
+                    "classes": "Common/Button"
+                  },
+                  "text": "Ok",
+                  "textStyle": {
+                    "classes": "Common/Button"
+                  }
+                },
+                "type": "ia.input.button"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\tsystem.perspective.closePopup(\u0027\u0027)\n\t"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "Button_0"
+                },
+                "position": {
+                  "height": 34,
+                  "rotate": {
+                    "anchor": "148% 88%"
+                  },
+                  "width": 92,
+                  "x": 180.69,
+                  "y": 104.297125
+                },
+                "props": {
+                  "style": {
+                    "classes": "Common/Button"
+                  },
+                  "text": "Cancel",
+                  "textStyle": {
+                    "classes": "Common/Button"
+                  }
+                },
+                "type": "ia.input.button"
+              }
+            ],
+            "meta": {
+              "name": "CoordinateContainer"
+            },
+            "position": {
+              "breakpoints": [
+                {
+                  "colIndex": 0,
+                  "name": "sm",
+                  "order": 1,
+                  "rowIndex": 0,
+                  "span": 12
+                },
+                {
+                  "colIndex": 0,
+                  "name": "md",
+                  "order": 1,
+                  "rowIndex": 0,
+                  "span": 12
+                },
+                {
+                  "colIndex": 0,
+                  "name": "lg",
+                  "order": 1,
+                  "rowIndex": 0,
+                  "span": 12
+                }
+              ],
+              "height": 186,
+              "x": -170,
+              "y": -80
+            },
+            "type": "ia.container.coord"
+          }
+        ],
+        "meta": {
+          "name": "ColumnContainer"
+        },
+        "position": {
+          "height": 187,
+          "width": 340.15,
+          "x": 0.55,
+          "y": 36.87
+        },
+        "type": "ia.container.column"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "style": {
+        "classes": "Panel/PopUp"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

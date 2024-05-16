@@ -1,0 +1,86 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\trowData\u003dself.params.rowData\n\t\tSelctedRow\u003dself.params.rowIndex\n\t\tcolumnName\u003dself.params.column\n\t\tFlag\u003drowData[\u0027Flag\u0027]\n\t\tCheckStatus\u003drowData[\u0027Action\u0027]\n\t\t\n\t\tif CheckStatus \u003d\u003d int(1):\n\t\t\tCheckStatus \u003d True\n\t\telse:\n\t\t\tCheckStatus \u003d False\n\t\t\n\t\tif str(columnName).strip()\u003d\u003d\u0027Action\u0027:\n\t\t\tif Flag !\u003d int(1):\n\t\t\t\tself.getChild(\"root\").getChild(\"Checkbox\").props.enabled \u003d 1\n\t\t\t\tself.getChild(\"root\").getChild(\"Checkbox\").props.selected\u003dCheckStatus\n\t\t\telse:\n\t\t\t\tself.getChild(\"root\").getChild(\"Checkbox\").props.enabled \u003d 0\n\texcept:\n\t\tpass"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "column": "value",
+    "columnIndex": "value",
+    "row": "value",
+    "rowData": "value",
+    "rowIndex": "value"
+  },
+  "propConfig": {
+    "params.column": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.columnIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.row": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 34,
+      "width": 48
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\n\t\tupdatedValue\u003dself.props.selected\n\t\tds\u003dself.view.params.rowData\n\t\tSelctedRow\u003dself.view.params.rowIndex\n\t\tcolumnName\u003dself.view.params.column\n\n\t\tif updatedValue \u003d\u003d True:\n\t\t\tupdatedValue \u003d 1\n\t\telse:\n\t\t\tupdatedValue \u003d 0\t\t\t\n\t\tmessageType \u003d \u0027updateSPQNumber\u0027\n\t\tsystem.perspective.sendMessage(messageType, payload \u003d {\"columnName\":columnName,\"updatedValue\":updatedValue,\"SelctedRow\":SelctedRow}, scope \u003d \"page\")\n\n\texcept:\n\t\tpass"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Checkbox"
+        },
+        "position": {
+          "height": 0.9706,
+          "width": 0.9583,
+          "x": 0.0196,
+          "y": 0.0285
+        },
+        "props": {
+          "text": ""
+        },
+        "type": "ia.input.checkbox"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

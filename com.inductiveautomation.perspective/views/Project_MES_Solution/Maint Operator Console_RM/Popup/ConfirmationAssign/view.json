@@ -1,0 +1,228 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry: \n\t\tscriptName \u003d \"RMTC: AssignConfirmation Popup: On Startup\"\n\t\tTabledata\u003dself.params.rowData\n\t\t\n\t\tWoNumber \u003d Tabledata.get(\"WoNumber\")\n\t\tRMOrderID \u003d Tabledata.get(\"RMOrderID\")\n\t\tReasonCodeID \u003d Tabledata.get(\"ReasonCodeID\")\n\t\t\n\t\tself.session.custom.WoNumber \u003d Tabledata.get(\u0027WoNumber\u0027)\n\t\tself.session.custom.RMOrderID \u003d Tabledata.get(\u0027RMOrderID\u0027)\n\t\tself.session.custom.ReasonCodeID\u003d Tabledata.get(\"ReasonCodeID\")\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "rowData": "value"
+  },
+  "propConfig": {
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 196,
+      "width": 334
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry: \n\t\tscriptName \u003d \"RMTC: AssignRMOrder OK Button: On Click\"\n\t\tRMOrderID \u003d self.session.custom.RMOrderID\n\t\tWoNumber \u003d self.session.custom.WoNumber\n\t\tuserId \u003d self.session.custom.UserId\n\t\tassignedUserId \u003d self.session.custom.UserId\n\t\tReasonCodeID \u003d self.session.custom.ReasonCodeID\n\t\tuserID  \u003d self.session.custom.UserId\n\t\tstatusId \u003d 7\n\t\ttry:\n\t\t\tscriptName \u003d \"RMTC: Post Assign Details: On OK Button: On Click\"\n\t\t\tpostAssignDetails \u003d MaintenanceRMAPI.AssignRmOrder(RMOrderID,WoNumber,userID,ReasonCodeID)\n\t\t\tsystem.perspective.print(\"postAssignDetails :\" + str(postAssignDetails))\n\t\t\tsystem.perspective.print(\"RMOrderID : \" + str(RMOrderID))\n\t\t\tsystem.perspective.print(\"assignedUserId : \" + str(assignedUserId))\n\t\t\tsystem.perspective.print(\"userId : \" + str(userId))\n\t\t\tsystem.perspective.print(\"statusId : \" + str(statusId))\n\t\t\t\n\t\t\tpostCoOperator \u003d MaintenanceRMAPI.assignCoOperator(RMOrderID,assignedUserId,userId,statusId)\n\t\t\tsystem.perspective.print(\"postCoOperator :\" + str(postCoOperator))\n\t\t\tsystem.perspective.sendMessage(\"AssignedStatusTableUpdate\", scope\u003d\u0027page\u0027)\n\t\t\tsystem.perspective.print(\"Assigned Successfullt Send Message handler\")\n\t\t\tsystem.perspective.closePopup(\u0027\u0027)\n\t\texcept:\n\t\t\timport sys, os\n\t\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\t\tAuthentication.exceptionLogger(errorMessage)\n\t\tsystem.perspective.closePopup(\u0027\u0027)\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnYes",
+          "tooltip": {
+            "enabled": true,
+            "location": "bottom-left",
+            "text": "Click To Delete"
+          }
+        },
+        "position": {
+          "height": 0.1753,
+          "width": 0.3313,
+          "x": 0.0904,
+          "y": 0.7526
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "classes": "Common/Button"
+          },
+          "text": "Yes"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tself.session.custom.WoNumber \u003d \"\"\n\tself.session.custom.RMOrderID \u003d \"\"\n\tself.session.custom.Line \u003d \"\"\n\tself.session.custom.Machine \u003d \"\"\t\t\n\tself.session.custom.WOOperationStatus \u003d \"\"\n\tself.session.custom.ActualStartDate \u003d \"\"\n\tself.session.custom.ActualCmpDateTime \u003d \"\"\t\n\tself.session.custom.AreaID \u003d \"\"\n\tself.session.custom.areaName \u003d \"\"\n\tself.session.custom.lineName \u003d \"\"\n\tself.session.custom.MachineID \u003d \"\"\n\tself.session.custom.enterpriseName\u003d \"\"\n\tself.session.custom.plantName \u003d \"\"\n\tsystem.perspective.closePopup(\"\")"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnNo",
+          "tooltip": {
+            "enabled": true,
+            "text": "Click to Cancel"
+          }
+        },
+        "position": {
+          "height": 0.1753,
+          "width": 0.3313,
+          "x": 0.5691,
+          "y": 0.7526
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "classes": "Common/Button"
+          },
+          "text": "No"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 0.1649,
+          "width": 1
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Confirmation",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 10,
+            "textAlign": "left",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tself.session.custom.WoNumber \u003d \"\"\n\tself.session.custom.RMOrderID \u003d \"\"\n\tself.session.custom.Line \u003d \"\"\n\tself.session.custom.Machine \u003d \"\"\t\t\n\tself.session.custom.WOOperationStatus \u003d \"\"\n\tself.session.custom.ActualStartDate \u003d \"\"\n\tself.session.custom.ActualCmpDateTime \u003d \"\"\t\n\tself.session.custom.AreaID \u003d \"\"\n\tself.session.custom.areaName \u003d \"\"\n\tself.session.custom.lineName \u003d \"\"\n\tself.session.custom.MachineID \u003d \"\"\n\tself.session.custom.enterpriseName\u003d \"\"\n\tself.session.custom.plantName \u003d \"\"\n\tsystem.perspective.closePopup(\"\")"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 0.1546,
+          "width": 0.0904,
+          "x": 0.9064
+        },
+        "props": {
+          "path": "material/close",
+          "style": {
+            "color": "#FFFFFF",
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "LblMsg"
+        },
+        "position": {
+          "height": 0.1804,
+          "width": 0.7108,
+          "x": 0.1775,
+          "y": 0.268
+        },
+        "props": {
+          "text": "Do you want to Assign",
+          "textStyle": {
+            "fontFamily": "Arial",
+            "fontSize": 22,
+            "textTransform": "none"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "requestName"
+        },
+        "position": {
+          "height": 0.1804,
+          "width": 0.5873,
+          "x": 0.2289,
+          "y": 0.4639
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "session.custom.WoNumber"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "textStyle": {
+            "fontFamily": "Arial",
+            "fontSize": 26,
+            "fontWeight": "bold",
+            "textTransform": "none"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -176,
+      "y": 35
+    },
+    "props": {
+      "mode": "percent",
+      "style": {
+        "classes": "Panel/PopUp"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

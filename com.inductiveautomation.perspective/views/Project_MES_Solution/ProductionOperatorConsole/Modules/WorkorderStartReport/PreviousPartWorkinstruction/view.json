@@ -1,0 +1,370 @@
+{
+  "custom": {},
+  "params": {
+    "PreviousWorkinstruction": ""
+  },
+  "propConfig": {
+    "params.PreviousWorkinstruction": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 493,
+      "width": 674
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "DataTable"
+        },
+        "position": {
+          "height": 0.998,
+          "width": 0.9998
+        },
+        "propConfig": {
+          "props.data": {
+            "binding": {
+              "config": {
+                "path": "view.params.PreviousWorkinstruction"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "bodyStyle": {
+            "backgroundColor": "#FFFFFF",
+            "classes": "Table/RowsBorder",
+            "color": "#000000",
+            "fontFamily": "Arial",
+            "fontSize": 12,
+            "overflowWrap": "break-word",
+            "textAlign": "justify-all"
+          },
+          "columns": [
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "SrNo",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "SrNo"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 75
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "MachineName",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Machine Name"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 100
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "PartNowithRevision",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Part Name"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": ""
+            }
+          ],
+          "emptyMessage": {
+            "noData": {
+              "icon": {
+                "color": "#C0C0C0"
+              },
+              "text": "Work instructions for part no is not configured"
+            }
+          },
+          "headerStyle": {
+            "backgroundColor": "#D5D5D5",
+            "fontFamily": "Arial",
+            "fontSize": 12
+          },
+          "pager": {
+            "bottom": false,
+            "initialOption": 5
+          },
+          "resizeMode": "fixed",
+          "rows": {
+            "striped": {
+              "color": {
+                "even": "#FAFAFB",
+                "odd": "#FAFAFB"
+              }
+            },
+            "style": {
+              "classes": "Table/Rowsmiddle",
+              "fontFamily": "Arial",
+              "fontSize": 10
+            }
+          }
+        },
+        "type": "ia.display.table"
+      }
+    ],
+    "events": {
+      "system": {
+        "onStartup": {
+          "config": {
+            "script": "\ttry:\n\t\tUserId\u003dself.session.custom.UserId\n\t\tworkOrderId\u003dself.session.custom.WorkorderID\n\t\twoNumber\u003dself.session.custom.WoNumber\n\t\tlistOfLoadedMaterial\u003dProductionWorkorderStartReport.CurrentLoadedMaterialOnMachine(UserId,workOrderId ,woNumber)\n\t\tsystem.perspective.print(\"listOfLoadedMaterial: \"+str(listOfLoadedMaterial))\n\t\tif listOfLoadedMaterial!\u003d[]:\n\t\t\tself.getChild(\"DataTable\").props.data\u003dlistOfLoadedMaterial\n\t\telse:\n\t\t\tpass\n\texcept:\n\t\tsystem.perspective.print(\u0027Exception :: List Of CurrentlyLoaded Material On Machine\u0027)\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)\n\t\tmessage\u003d{\"Screen_Event Name\":\u0027Exception :: Save Scrap\u0027,\"Function Name\":\u0027Save Scrap\u0027,\"Error Line\":lineno, \"Error Msg\":errorMessage}\n\t\tsystem.perspective.print(message)\n\t\tsystem.perspective.openPopup(\u0027ErrorDiagnostics\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/PopupErrorDiagnosis\u0027,params\u003d{\"message\":message},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\t\t\t\t\t\t\n\t\t\t\t"
+          },
+          "enabled": false,
+          "scope": "G",
+          "type": "script"
+        }
+      }
+    },
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": 0.0033,
+      "y": -0.0372
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

@@ -1,0 +1,280 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\tfrom threading import Timer\n\t\tdef runThisLater():\n\t\t\tsystem.perspective.closePopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027)\n\t\t\tsystem.perspective.closePopup(id\u003d\"SaveUpdatePopup\")\n\t\tTimer(10.0, runThisLater).start()\n\texcept :\n\t\tsystem.perspective.print(\u0027Exception :: SaveUpdatePopup Validation popup\u0027)\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "MessageText": "",
+    "updaateStatus": ""
+  },
+  "propConfig": {
+    "params.MessageText": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.updaateStatus": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 212,
+      "width": 388
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 42,
+          "width": "100%"
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Message",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 10,
+            "textAlign": "left",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Lbl"
+        },
+        "position": {
+          "height": 45,
+          "width": 299,
+          "x": 44.5,
+          "y": 69
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.MessageText"
+              },
+              "type": "property"
+            }
+          },
+          "props.textStyle.classes": {
+            "binding": {
+              "config": {
+                "path": "view.params.updaateStatus"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d3:\n\t\tvalue\u003d\u0027Common/Label_Warning\u0027\n\telse:\n\t\tvalue\u003d\u0027Common/Label_WithOutBackground\u0027\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "textStyle": {}
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 30,
+          "rotate": {
+            "anchor": "50% 37%"
+          },
+          "width": 36,
+          "x": 346.94,
+          "y": 6
+        },
+        "props": {
+          "path": "material/close",
+          "style": {
+            "color": "#FFFFFF",
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IconSuccessfull"
+        },
+        "position": {
+          "height": 60,
+          "rotate": {
+            "anchor": "50% 25%"
+          },
+          "width": 60,
+          "x": 164,
+          "y": 123
+        },
+        "propConfig": {
+          "meta.visible": {
+            "binding": {
+              "config": {
+                "path": "view.params.updaateStatus"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d1:\n\t\treturn 1\n\telse:\n\t\tpass",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "color": "#00D900",
+          "path": "material/check_circle"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IconFail"
+        },
+        "position": {
+          "height": 60,
+          "rotate": {
+            "anchor": "50% 25%"
+          },
+          "width": 60,
+          "x": 164,
+          "y": 123
+        },
+        "propConfig": {
+          "meta.visible": {
+            "binding": {
+              "config": {
+                "path": "view.params.updaateStatus"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d0:\n\t\treturn 1\n\telse:\n\t\tpass",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "color": "#FF0000",
+          "path": "material/info"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IconPrintSelect"
+        },
+        "position": {
+          "height": 60,
+          "rotate": {
+            "anchor": "50% 25%"
+          },
+          "width": 60,
+          "x": 164,
+          "y": 123
+        },
+        "propConfig": {
+          "meta.visible": {
+            "binding": {
+              "config": {
+                "path": "view.params.updaateStatus"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d3:\n\t\treturn 1\n\telse:\n\t\tpass",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "path": "material/print_disabled"
+        },
+        "type": "ia.display.icon"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}

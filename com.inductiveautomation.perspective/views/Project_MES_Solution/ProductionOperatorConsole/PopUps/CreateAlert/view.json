@@ -1,0 +1,687 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\t\n\tUserID \u003d self.session.custom.UserId\n\ttry:\t\n\t\temployeeData \u003d WorkOrderDetailsAPI.getUsers()\n\t\tself.getChild(\"root\").getChild(\"DrpDwnSelectEmpName\").props.options\u003demployeeData\n\t\tself.getChild(\"root\").getChild(\"DrpDwnSelectEmpName\").focus()\n\texcept Exception as e:\n\t\terrorMessage\u003d \"Operator Console Alert :-Exception to bind data to the Employee Dropdown\" +\" Exception : \"+  str(e)\n\t\tAuthentication.exceptionLogger(errorMessage)\n\ttry:\n\t\tmainReasonTypeId \u003d 4\n\t\tsubReasonTypeId \u003d 0\n\t\treasonData  \u003d ProductionOperatorConsole.getReasonsCodes(mainReasonTypeId,subReasonTypeId,UserID)\n\t\tself.getChild(\"root\").getChild(\"DrpDwnReason_Main\").props.options \u003d reasonData\n\texcept Exception as e:\n\t\terrorMessage\u003d \"Operator Console Alert :- Exception while binding data to dropdown.Exception : \" +  str(e)\n\t\tAuthentication.exceptionLogger(errorMessage)\n\n\t\t\n\t\n\t\n\t\n"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 293,
+      "width": 480
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\tLineName \u003d self.session.custom.lineName\n\t\tsystem.perspective.print(\"LineName\")\n\t\tsystem.perspective.print(LineName)\n\n\t\t\n\t\toperationId\u003d self.session.custom.Operation\n\t\tsystem.perspective.print(\"operationId\")\n\t\tsystem.perspective.print(operationId)\n\n\t\t\n\t\tWoNumber \u003d self.session.custom.WoNumber\n\t\tsystem.perspective.print(\"WoNumber\")\n\t\tsystem.perspective.print(WoNumber)\n\n\t\t\n\t\tsenderUserName \u003d self.session.custom.Username\n\t\tsenderUserName \u003dself.session.custom.FirstName + \u0027 \u0027 + self.session.custom.LastName\n\t\tsystem.perspective.print(\"senderUserName\")\n\t\tsystem.perspective.print(senderUserName)\n\n\t\t\n\t\tloggedUserId \u003d self.session.custom.UserId\n\t\tsystem.perspective.print(\"loggedUserId\")\n\t\tsystem.perspective.print(loggedUserId)\n\n\t\t\n\t\treceiverUserId\u003dself.getSibling(\"DrpDwnSelectEmpName\").props.value\n\t\tsystem.perspective.print(\"receiverUserId\")\n\t\tsystem.perspective.print(receiverUserId)\n\n\t\t\n\t\treasonId \u003d self.getSibling(\"DrpDwnReason\").props.value\n\t\tsystem.perspective.print(\"reasonId\")\n\t\tsystem.perspective.print(reasonId)\n\n\t\t\n\t\tcomments \u003d self.getSibling(\"TxtAddcmnt\").props.text\n\t\tsystem.perspective.print(\"comments\")\n\t\tsystem.perspective.print(comments)\n\n\t\t\n\t\t\n\t\t#To Get Email ID \n\t\tGetEmailId \u003d EmailFunction.getEmailIdDetails(receiverUserId)\n\t\t\n\t\treceiveremailId \u003d GetEmailId.get(\"EmailId\")\n\t\tsystem.perspective.print(\"receiveremailId\")\n\t\tsystem.perspective.print(receiveremailId)\n\n\t\t\n\t\t# To Get Reason Selected\n\t\tGetReasonSelected \u003d EmailFunction.getReasonCodeName(reasonId)\n\t\treasonName\u003dGetReasonSelected.get(\"reasonCodeName\")\n\t\tsystem.perspective.print(\"reasonName\")\n\t\tsystem.perspective.print(reasonName)\n\n\t\t\n\t\t#\t\n\t\tsystem.perspective.print(\"Start Send Mail function Call\")\n\t\tEmailFunction.sendMail(LineName,operationId,WoNumber,senderUserName,loggedUserId,reasonName,comments,receiveremailId)\n\t\tsystem.perspective.print(\"Email Send Successfully\")\n\t\tsystem.perspective.closePopup(\u0027\u0027)\n\texcept:\n\t\tsystem.perspective.print(\"Email Exception To Send\")\n\n\t\n\n"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnSendNots"
+        },
+        "position": {
+          "height": 0.1177,
+          "width": 0.2552,
+          "x": 0.3849,
+          "y": 0.8651
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "../DrpDwnReason_Main.props.value"
+              },
+              "transforms": [
+                {
+                  "code": "\tif (self.getSibling(\"LblMsgReason\").props.text !\u003d\u0027\u0027) and (self.getSibling(\"DrpDwnSelectEmpName\").props.value!\u003d\u0027\u0027) :\n\t\tvalue \u003d True\n\t\tself.props.style.backgroundColor \u003d \"#3888CC\"\t\n\t\tself.props.style.borderColor \u003d \"#3888CC\"\t\t\t\n\telse:\n\t\tvalue \u003d False\n\t\tself.props.style.backgroundColor \u003d str(self.session.custom.disableBtncolour)\n\t\tself.props.style.borderColor \u003d  str(self.session.custom.disableBtncolour)\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "backgroundColor": "value",
+            "borderColor": "value",
+            "classes": "Common/Button",
+            "cursor": "auto"
+          },
+          "text": "Send Email Alerts"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 0.1107,
+          "width": 1
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Send Email Alert",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 10,
+            "textAlign": "Center",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "draggable": false,
+                "id": "createAlertPopup",
+                "modal": false,
+                "overlayDismiss": false,
+                "resizable": false,
+                "showCloseIcon": false,
+                "type": "close",
+                "viewPath": "PopUp/AddNc",
+                "viewportBound": false
+              },
+              "scope": "C",
+              "type": "popup"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 0.1038,
+          "width": 0.0627,
+          "x": 0.9308
+        },
+        "props": {
+          "path": "material/close",
+          "style": {
+            "color": "#FFFFFF",
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "LblMsgEmpName"
+        },
+        "position": {
+          "height": 0.0865,
+          "width": 0.2259,
+          "x": 0.0395,
+          "y": 0.1858
+        },
+        "props": {
+          "style": {
+            "classes": "Common/Label"
+          },
+          "text": "Employee Name",
+          "textStyle": {
+            "classes": "Common/Label"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "TxtAddcmnt",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 0.1107,
+          "width": 0.6149,
+          "x": 0.3446,
+          "y": 0.6962
+        },
+        "props": {
+          "deferUpdates": false,
+          "placeholder": "Add Comment",
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "LblMsgReason"
+        },
+        "position": {
+          "height": 0.0865,
+          "width": 0.1736,
+          "x": 0.0396,
+          "y": 0.5318
+        },
+        "props": {
+          "style": {
+            "classes": "Common/Label"
+          },
+          "text": "Code Name",
+          "textStyle": {
+            "classes": "Common/Label"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tself.getSibling(\"TxtAddcmnt\").focus()"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "DrpDwnReason",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 0.1107,
+          "width": 0.6149,
+          "x": 0.3446,
+          "y": 0.5197
+        },
+        "propConfig": {
+          "props.options": {
+            "binding": {
+              "config": {
+                "path": "../DrpDwnReason_Main.props.value"
+              },
+              "transforms": [
+                {
+                  "code": "\ttry:\n\t\tmainReasonTypeId \u003d 4\n\t\tsubReasonTypeId \u003d int(value)\n\t\tuserId \u003d self.session.custom.UserId\n\t\treasonData  \u003d ProductionOperatorConsole.getReasonsCodes(mainReasonTypeId,subReasonTypeId,userId)\t\t\n\texcept Exception as e:\n\t\terrorMessage\u003d \"Operator Console Alert :- Exception while binding data to dropdown.Exception : \" +  str(e)\n\t\tAuthentication.exceptionLogger(errorMessage)\n\t\treasonData \u003d []\n\n\treturn reasonData",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "placeholder": {
+            "text": "Select Code Name"
+          },
+          "style": {
+            "classes": "Common/TextBox"
+          },
+          "value": 0
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": [
+              {
+                "config": {
+                  "draggable": true,
+                  "id": "ny9HS2TW",
+                  "modal": true,
+                  "overlayDismiss": true,
+                  "resizable": true,
+                  "showCloseIcon": false,
+                  "type": "close",
+                  "viewPath": "PopUp/Popup Start OP",
+                  "viewportBound": false
+                },
+                "scope": "C",
+                "type": "popup"
+              },
+              {
+                "config": {
+                  "script": "\t\n\tWorkflowOperationsId \u003d self.session.custom.WorkflowOperationsId\n\tWoNumber \u003d self.session.custom.WoNumber\n\tuserID \u003d self.session.custom.UserId\n\tEmployeeID \u003d self.getSibling(\"DrpDwnSelectEmpName\").props.value\n\tReasonCodeID \u003d self.getSibling(\"DrpDwnReason\").props.value\n\tComments \u003d self.getSibling(\"TxtAddcmnt\").props.text\n\t\n\ttry:\n\t\tsaveResult \u003d WorkOrderDetailsAPI.saveCreatedAlert(WorkflowOperationsId,WoNumber,EmployeeID,ReasonCodeID,Comments,userID)\n\t\tsystem.perspective.print(\"Alert saved successfully..\")\n\texcept:\n\t\tsystem.perspective.print(\"Unable to create alert..\")\t\n\t\t\n\tsystem.perspective.closePopup(\u0027\u0027)"
+                },
+                "scope": "G",
+                "type": "script"
+              }
+            ]
+          }
+        },
+        "meta": {
+          "name": "BtnCreateAlrt",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Click To Create Alert"
+          },
+          "visible": false
+        },
+        "position": {
+          "height": 0.1177,
+          "width": 0.2301,
+          "x": 0.5243,
+          "y": 0.8651
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "../TxtAddcmnt.props.text"
+              },
+              "transforms": [
+                {
+                  "code": "\tif (self.getSibling(\"LblMsgReason\").props.text !\u003d\u0027\u0027) and (self.getSibling(\"DrpDwnSelectEmpName\").props.value!\u003d\u0027\u0027) and (str(self.getSibling(\"TxtAddcmnt\").props.text).strip()!\u003d\u0027\u0027):\n\t\tvalue \u003d True\n\t\tself.props.style.backgroundColor \u003d \"#3888CC\"\t\n\t\tself.props.style.borderColor \u003d \t\"#3888CC\"\t\n\telse:\n\t\tvalue \u003d False\n\t\tself.props.style.backgroundColor \u003d str(self.session.custom.disableBtncolour)\n\t\tself.props.style.borderColor \u003d  str(self.session.custom.disableBtncolour)\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "backgroundColor": "value",
+            "borderColor": "value",
+            "classes": "Common/Button"
+          },
+          "text": "Create Alert"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tself.getSibling(\"DrpDwnReason_Main\").focus()"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "DrpDwnSelectEmpName",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 0.1107,
+          "width": 0.6149,
+          "x": 0.3446,
+          "y": 0.1737
+        },
+        "props": {
+          "options": {
+            "$": [
+              "ds",
+              192,
+              1697620767762
+            ],
+            "$columns": [
+              {
+                "data": [
+                  21,
+                  43,
+                  49,
+                  1,
+                  34,
+                  16,
+                  45,
+                  57,
+                  56,
+                  55,
+                  46,
+                  39,
+                  54,
+                  52,
+                  53,
+                  51,
+                  47,
+                  50,
+                  48,
+                  44,
+                  40,
+                  41,
+                  29,
+                  38,
+                  30,
+                  33,
+                  20,
+                  32,
+                  31,
+                  28,
+                  27,
+                  26,
+                  25,
+                  23,
+                  15,
+                  19,
+                  18,
+                  10,
+                  14,
+                  13,
+                  12,
+                  11,
+                  9,
+                  8,
+                  7,
+                  6,
+                  3,
+                  4,
+                  5
+                ],
+                "name": "EmployeeId",
+                "type": "Integer"
+              },
+              {
+                "data": [
+                  "Bapurao More",
+                  "Sushant Chavan",
+                  "Sushant Chavan",
+                  "Admin Admin",
+                  "Tejes Yadav",
+                  "Omkar Dengle",
+                  "Admin Admin",
+                  "BAPURAO BHUJANG MORE",
+                  "BM_QNRM bm",
+                  "sukhchain singh",
+                  "Vidhi More",
+                  "Vishal Singh",
+                  "DAYANAND LANGUTI",
+                  "RERE ERER",
+                  "li li",
+                  "li li",
+                  "Handy Liang",
+                  "Jayahnt Satkar",
+                  "Sushant Chavan",
+                  "Handy Liang",
+                  "Z L",
+                  "BAPURAO MORE",
+                  "Bapurao More",
+                  "sukhchain Singh",
+                  "Bapurao More",
+                  "Hari Mhasalekar",
+                  "yuy565 yuy565",
+                  "Testing_role 9129390",
+                  "Bapurao More",
+                  "Bapurao More",
+                  "Bapurao More",
+                  "Bapurao More",
+                  "Bapurao More",
+                  "bbm mmm",
+                  "Reshikesh S",
+                  "Test Vision_User",
+                  "SUkh Tester",
+                  "Raja K",
+                  "Rajeev Nair",
+                  "David Wang",
+                  "BeeNah Tan",
+                  "Selladurai S",
+                  "YJ Yin",
+                  "å‘¨æ€� æ€�",
+                  "Susie Susie",
+                  "é™ˆå½©æ¢… é™ˆå½©æ¢…",
+                  "éŸ¦å¨œ na",
+                  "æž—å°�å¦® xiaoni",
+                  "ä¸¥æ¬£æ€¡ ä¸¥æ¬£æ€¡"
+                ],
+                "name": "Username",
+                "type": "String"
+              }
+            ]
+          },
+          "placeholder": {
+            "text": "Select Employee Name"
+          },
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "meta": {
+          "name": "LblMsgCmnt"
+        },
+        "position": {
+          "height": 0.0865,
+          "width": 0.1381,
+          "x": 0.0375,
+          "y": 0.7048
+        },
+        "props": {
+          "style": {
+            "classes": "Common/Label"
+          },
+          "text": "Comment",
+          "textStyle": {
+            "classes": "Common/Label"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblMsgEmpName_0"
+        },
+        "position": {
+          "height": 0.0865,
+          "width": 0.0209,
+          "x": 0.2615,
+          "y": 0.1858
+        },
+        "props": {
+          "style": {
+            "classes": "Common/Label"
+          },
+          "text": "*",
+          "textStyle": {
+            "classes": "Common/Label",
+            "color": "#FF4747"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblMsgEmpName_1"
+        },
+        "position": {
+          "height": 0.0865,
+          "width": 0.0293,
+          "x": 0.2017,
+          "y": 0.5308
+        },
+        "props": {
+          "style": {
+            "classes": "Common/Label"
+          },
+          "text": "*",
+          "textStyle": {
+            "classes": "Common/Label",
+            "color": "#FF4747"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblMsgReason_Subtype"
+        },
+        "position": {
+          "height": 0.0865,
+          "width": 0.2071,
+          "x": 0.0395,
+          "y": 0.3571
+        },
+        "props": {
+          "style": {
+            "classes": "Common/Label"
+          },
+          "text": "Code Subtype",
+          "textStyle": {
+            "classes": "Common/Label"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tself.getSibling(\"DrpDwnReason\").focus()"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "DrpDwnReason_Main",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 0.1107,
+          "width": 0.6151,
+          "x": 0.3446,
+          "y": 0.3433
+        },
+        "props": {
+          "options": {
+            "$": [
+              "ds",
+              192,
+              1695282572596
+            ],
+            "$columns": [
+              {
+                "data": [
+                  101
+                ],
+                "name": "ReasonCodeId",
+                "type": "Long"
+              },
+              {
+                "data": [
+                  "EmailTestSUBCode"
+                ],
+                "name": "ReasonCodeName",
+                "type": "String"
+              }
+            ]
+          },
+          "placeholder": {
+            "text": "Select Code Subtype"
+          },
+          "style": {
+            "classes": "Common/TextBox"
+          },
+          "value": 0
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "meta": {
+          "name": "LblMsgEmpName_4"
+        },
+        "position": {
+          "height": 0.0865,
+          "width": 0.0293,
+          "x": 0.2427,
+          "y": 0.3564
+        },
+        "props": {
+          "style": {
+            "classes": "Common/Label"
+          },
+          "text": "*",
+          "textStyle": {
+            "classes": "Common/Label",
+            "color": "#FF4747"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent",
+      "style": {
+        "borderBottomLeftRadius": 4,
+        "borderBottomRightRadius": 4,
+        "borderColor": "#1088CA",
+        "borderStyle": "solid",
+        "borderTopLeftRadius": 4,
+        "borderTopRightRadius": 4,
+        "borderWidth": 1,
+        "marginLeft": 0,
+        "marginTop": 0,
+        "opacity": "1",
+        "outlineStyle": "none",
+        "paddingBottom": 2,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

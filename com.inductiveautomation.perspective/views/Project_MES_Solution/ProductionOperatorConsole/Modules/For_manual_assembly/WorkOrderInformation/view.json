@@ -1,0 +1,747 @@
+{
+  "custom": {},
+  "params": {
+    "ActualStartDate": "7/12/2022 3:15PM",
+    "CycleTime": 0.6,
+    "ItemNumber": "1301-001040DXX0093",
+    "PlanEndDate": "8/12/2022 3:15PM",
+    "PlanStartDate": "7/12/2022 3:15PM",
+    "PlanWOQty": 4000,
+    "ShiftCapacity": 1700
+  },
+  "propConfig": {
+    "params.ActualStartDate": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.CycleTime": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.ItemNumber": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.PlanEndDate": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.PlanStartDate": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.PlanWOQty": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.ShiftCapacity": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 245,
+      "width": 653
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "SimpleGauge"
+        },
+        "position": {
+          "height": 0.8273,
+          "width": 0.5867,
+          "x": 0.1692,
+          "y": 0.0549
+        },
+        "propConfig": {
+          "props.arc.color": {
+            "binding": {
+              "config": {
+                "path": "this.props.value"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003c\u003d50:\n\t\tbarColor\u003d \"#FF0000\"\n\telif value\u003e50 and value\u003c\u003d75:\n\t\tbarColor\u003d \"#798BF3\"\n\telif value\u003e75:\n\t\tbarColor\u003d \"#00AC00\"\n\telse:\n\t\tbarColor\u003d \"#000000\"\n\t\t\n\treturn \tbarColor\n\t\n\t",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.value": {
+            "binding": {
+              "config": {
+                "path": "session.custom.actualWoQty"
+              },
+              "transforms": [
+                {
+                  "code": "\ttry:\n\t\tplaneWoQty\u003dself.session.custom.WorkOrderQty\n#\t\tsystem.perspective.print(\"actualWoQty: \"+str(value))\n\t\tactualWoQty\u003dfloat(value)\n\t\t\n\t\tpercentValue\u003d(float(actualWoQty)/float(planeWoQty))*100\n#\t\tsystem.perspective.print(\"WO percentValue--\u003e\"+str(percentValue))\n\t\tif percentValue\u003c100:\n\t\t\treturn int(percentValue)\n\t\telse: \n\t\t\treturn 100\n#\t\telse:\n#\t\t\treturn 0\n\texcept:\n#\t\tsystem.perspective.print(\"Exception::WO Info Widgets\")\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)\n",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "animate": true,
+          "arc": {
+            "cornerRadius": 10,
+            "width": 8
+          },
+          "arcBackground": {
+            "color": "#1C8BD5"
+          },
+          "endAngle": 270,
+          "label": {
+            "color": "#13161A",
+            "offsetY": 30,
+            "size": "15Px",
+            "size_1": 18,
+            "units": "%"
+          },
+          "startAngle": -90,
+          "style": {
+            "classes": []
+          }
+        },
+        "type": "ia.chart.simple-gauge"
+      },
+      {
+        "meta": {
+          "name": "LblStdScheduleQty"
+        },
+        "position": {
+          "height": 0.1275,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.3631,
+          "x": 0.6022,
+          "y": 0.7602
+        },
+        "props": {
+          "text": "Standard Quantity",
+          "textStyle": {
+            "classes": "Widgets/WidgetsLabel",
+            "textAlign": "right"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblAtualScheduleQty"
+        },
+        "position": {
+          "height": 0.13,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.2831,
+          "x": 0.6822,
+          "y": 0.4791
+        },
+        "props": {
+          "text": "Planed WO Qty",
+          "textStyle": {
+            "classes": "Widgets/WidgetsLabel",
+            "textAlign": "right"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblCT"
+        },
+        "position": {
+          "height": 0.13,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.2831,
+          "x": 0.6822,
+          "y": 0.2352
+        },
+        "props": {
+          "text": "Cycle Time",
+          "textStyle": {
+            "classes": "Widgets/WidgetsLabel",
+            "textAlign": "right"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblCTValue",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 0.0988,
+          "width": 0.1692,
+          "x": 0.7961,
+          "y": 0.3443
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "session.custom.CycleTime"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "textStyle": {
+            "classes": "Widgets/WidgetsLabel",
+            "textAlign": "right"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblStdScheduleQtyValue",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 0.0985,
+          "width": 0.2569,
+          "x": 0.7099,
+          "y": 0.8627
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "session.custom.ShiftCapacity"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "textStyle": {
+            "classes": "Widgets/WidgetsLabel",
+            "textAlign": "right"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblActualScheduleQtyValue",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 0.0985,
+          "width": 0.2569,
+          "x": 0.7099,
+          "y": 0.5914
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "session.custom.WorkOrderQty"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "textStyle": {
+            "classes": "Widgets/WidgetsLabel",
+            "textAlign": "right"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblPercentValue",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 0.0985,
+          "width": 0.2043,
+          "x": 0.3445,
+          "y": 0.4203
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "aggregate": "MinMax",
+                "avoidScanClassValidation": true,
+                "dateRange": {
+                  "mostRecent": "1",
+                  "mostRecentUnits": "HOUR"
+                },
+                "enableValueCache": true,
+                "ignoreBadQuality": false,
+                "polling": {
+                  "enabled": true,
+                  "rate": "5"
+                },
+                "preventInterpolation": false,
+                "returnFormat": "Wide",
+                "returnSize": {
+                  "numRows": "100",
+                  "type": "FIXED"
+                },
+                "tags": [],
+                "valueFormat": "DATASET"
+              },
+              "transforms": [
+                {
+                  "code": "\ttry:\n\t\tuserId\u003dself.session.custom.UserId\n#\t\tWoNumber \u003d self.session.custom.WoNumber\n#\t\tWONO\u003d self.session.custom.WoNumber\n#\t\twoNo\u003d self.session.custom.WoNumber\n\t\tWorkorderId\u003dself.session.custom.WorkorderID\n\t\tsystem.perspective.print(\"WorkorderId: \"+str(WorkorderId))\n\t\tareaName \u003d self.session.custom.areaName\n\t\twostatus\u003dself.session.custom.woStatus\n\t\ttotal \u003d 0\n\t\tif WorkorderId!\u003d\u0027\u0027:\n\t\t\tgoodQty\u003dProductionOperatorConsole.getGoodQty(WorkorderId)\n\n\t\t\tfor i in (goodQty):\n\t\t\t\ttotal1\u003di.get(\u0027GoodQTY\u0027)\n\t\t\t\ttotal\u003dfloat(total1)\n\n\t\t\tself.session.custom.actualWoQty\u003dtotal\n\t\t\tself.session.custom.ComPlEtetioNQTy\u003dtotal\n\t\t\treturn total\n\t\telif wostatus\u003d\u003d\u0027On-Hold\u0027:\n\t\t\tif self.session.custom.actualWoQty\u003e0:\n\t\t\t\treturn self.session.custom.actualWoQty\n\t\t\telse:\n\t\t\t\treturn 0\n\t\telse:\n\t\t\treturn 0\n\texcept:\n\t\tsystem.perspective.print(\"Exception::Act WO Qty\")\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)",
+                  "type": "script"
+                }
+              ],
+              "type": "tag-history"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "fontFamily": "Arial",
+            "fontSize": 14,
+            "textAlign": "Center"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblActualStartDate"
+        },
+        "position": {
+          "height": 0.13,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.2948,
+          "x": 0.426,
+          "y": 0.7458
+        },
+        "props": {
+          "text": "Act Start Date",
+          "textStyle": {
+            "classes": "Widgets/WidgetsLabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblActualStartDate_0",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 0.0907,
+          "width": 0.3036,
+          "x": 0.316,
+          "y": 0.8638
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "session.custom.woActualStartDate"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "textStyle": {
+            "classes": "Widgets/WidgetsData",
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblItemNumber"
+        },
+        "position": {
+          "height": 0.127,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.3015,
+          "x": 0.6638,
+          "y": 0.0057
+        },
+        "props": {
+          "text": "Item Number",
+          "textStyle": {
+            "classes": "Widgets/WidgetsLabel",
+            "textAlign": "right"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblItemNumberValue",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 0.1066,
+          "width": 0.3569,
+          "x": 0.6084,
+          "y": 0.1004
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "session.custom.Item"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "textStyle": {
+            "classes": "Widgets/WidgetsLabel",
+            "textAlign": "right"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblAtualScheduleQty_0"
+        },
+        "position": {
+          "height": 0.1314,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.2338,
+          "x": 0.3549,
+          "y": 0.3082
+        },
+        "props": {
+          "text": "Act Qty",
+          "textStyle": {
+            "classes": "Widgets/WidgetsLabel",
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblstdHCValue",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 0.0988,
+          "width": 0.1692,
+          "x": 0.0154,
+          "y": 0.3443
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "session.custom.stdHC"
+              },
+              "transforms": [
+                {
+                  "code": "\tif str(value).strip()\u003d\u003d\u0027\u0027 or str(value).strip()\u003d\u003d\u0027null\u0027 or str(value).strip()\u003d\u003d\u0027None\u0027:\n\t \tvalue\u003d0\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "textStyle": {
+            "classes": "Widgets/WidgetsData"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblCT_0"
+        },
+        "position": {
+          "height": 0.13,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.2831,
+          "x": 0.0154,
+          "y": 0.2352
+        },
+        "props": {
+          "text": "Std HC",
+          "textStyle": {
+            "classes": "Widgets/WidgetsLabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblAtualScheduleQty_1"
+        },
+        "position": {
+          "height": 0.13,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.2831,
+          "x": 0.0154,
+          "y": 0.0057
+        },
+        "props": {
+          "text": "Sales Order",
+          "textStyle": {
+            "classes": "Widgets/WidgetsLabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblsalesOrderValue",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 0.0985,
+          "width": 0.2569,
+          "x": 0.0154,
+          "y": 0.1008
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "session.custom.salesOrder"
+              },
+              "transforms": [
+                {
+                  "code": "\tif str(value).strip()\u003d\u003d\u0027\u0027 or str(value).strip()\u003d\u003d\u0027null\u0027 or str(value).strip()\u003d\u003d\u0027None\u0027:\n\t \tvalue\u003d0\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "textStyle": {
+            "classes": "Widgets/WidgetsData"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblactHc"
+        },
+        "position": {
+          "height": 0.13,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.2831,
+          "x": 0.0154,
+          "y": 0.4791
+        },
+        "props": {
+          "text": "Act HC",
+          "textStyle": {
+            "classes": "Widgets/WidgetsLabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblactHcVal",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 0.0988,
+          "width": 0.1692,
+          "x": 0.0154,
+          "y": 0.5914
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "session.custom.actHC"
+              },
+              "transforms": [
+                {
+                  "code": "\tHCCount \u003d self.session.custom.actHC\n\tsystem.perspective.print(\"W1O Info ACT HC:\"+str(value))\n\tif str(value).strip()\u003d\u003d\u0027\u0027 or str(value).strip()\u003d\u003d\u0027null\u0027 or str(value).strip()\u003d\u003d\u0027None\u0027:\n\t \tvalue\u003d0.0\n \tsystem.perspective.print(\"WO Info ACT HC:\"+str(value))\n\treturn float(value)",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "textStyle": {
+            "classes": "Widgets/WidgetsData"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblWOName"
+        },
+        "position": {
+          "height": 0.127,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.2031,
+          "x": 0.428,
+          "y": -0.0066
+        },
+        "props": {
+          "text": "Work Order",
+          "textStyle": {
+            "classes": "Widgets/WidgetsLabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblWONameValue",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 0.0985,
+          "width": 0.2569,
+          "x": 0.3331,
+          "y": 0.0877
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "session.custom.WoNumber"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "textStyle": {
+            "classes": "Widgets/WidgetsData",
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblPlanStartDate"
+        },
+        "position": {
+          "height": 0.13,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.2744,
+          "x": 0.0154,
+          "y": 0.7602
+        },
+        "props": {
+          "text": "Plan Start Date",
+          "textStyle": {
+            "classes": "Widgets/WidgetsLabel",
+            "textAlign": "Widgets/WidgetsLabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblPlanStartDateValue",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 0.0907,
+          "width": 0.3007,
+          "x": 0.0154,
+          "y": 0.8627
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "session.custom.woStartDate"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "textStyle": {
+            "classes": "Widgets/WidgetsData"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent",
+      "style": {
+        "backgroundColor": "#FFFFFF",
+        "borderColor": "#D3D0D0",
+        "borderStyle": "solid",
+        "borderWidth": 1
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

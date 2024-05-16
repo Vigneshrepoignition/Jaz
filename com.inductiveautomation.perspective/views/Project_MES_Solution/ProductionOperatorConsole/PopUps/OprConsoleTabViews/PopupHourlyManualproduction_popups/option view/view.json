@@ -1,0 +1,60 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 49,
+      "width": 70
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "draggable": true,
+                "id": "B-V5IF7Z",
+                "modal": true,
+                "overlayDismiss": true,
+                "resizable": true,
+                "showCloseIcon": true,
+                "type": "open",
+                "viewPath": "Project_MES_Solution/ProductionOperatorConsole/PopUps/PopupHourlyManualproduction_popups/bad_count details",
+                "viewportBound": false
+              },
+              "scope": "C",
+              "type": "popup"
+            },
+            "onContextMenu": {
+              "config": {
+                "script": "\t"
+              },
+              "enabled": false,
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Icon"
+        },
+        "position": {
+          "height": 30,
+          "width": 30,
+          "x": 16,
+          "y": 7
+        },
+        "props": {
+          "path": "material/edit"
+        },
+        "type": "ia.display.icon"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}

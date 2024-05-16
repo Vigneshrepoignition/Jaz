@@ -1,0 +1,279 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\tsystem.perspective.print(\"downtiome______________\u003e\"+self.params.value) "
+        },
+        "enabled": false,
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "value": ""
+  },
+  "propConfig": {
+    "params.value": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 35,
+      "width": 336
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblDownTM",
+          "tooltip": {
+            "enabled": true,
+            "text": "Downtime"
+          }
+        },
+        "position": {
+          "height": 0.75
+        },
+        "propConfig": {
+          "position.basis": {
+            "binding": {
+              "config": {
+                "path": "view.params.value"
+              },
+              "enabled": false,
+              "transforms": [
+                {
+                  "code": "\ttry:\t\t\n\t\tmyList \u003d self.view.params.value\n\t\tmyList\u003dsystem.util.jsonDecode(myList.decode(\u0027utf-8\u0027))\n\t\tDownTime\u003dmyList[1]\n\t\tDownTimePercent\u003d(float(DownTime)/float(60))*float(100)\n\t\tsystem.perspective.print(\" DownTime Percent Val--\u003e\"+str(DownTimePercent))\n\t\treturn int(DownTimePercent)\n\texcept:\n\t\tsystem.perspective.print(\u0027Exception In production View\u0027)\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "position.width": {
+            "binding": {
+              "config": {
+                "path": "view.params.value"
+              },
+              "transforms": [
+                {
+                  "code": "\ttry:\t\t\n\t\tmyList \u003d self.view.params.value\n\t\tmyList\u003dsystem.util.jsonDecode(myList.decode(\u0027utf-8\u0027))\n\t\tDownTime\u003dmyList[1]\n\t\tpercentWidthValue\u003d(float(DownTime)/float(60))*float(0.8)\n#\t\tpercentWidthValue\u003dfloat(percentWidthValue1)*float(0.8)\n\t\tsystem.perspective.print(\"PercentVal--\u003e\"+str(percentWidthValue))\n\t\treturn (percentWidthValue)\n\n\texcept:\n\t\tsystem.perspective.print(\u0027Exception In production View\u0027)",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "position.x": {
+            "binding": {
+              "config": {
+                "path": "view.params.value"
+              },
+              "transforms": [
+                {
+                  "code": "\ttry:\t\t\n\t\tproductionDetailsList \u003d value\n\t\tproductionDetailsList\u003dsystem.util.jsonDecode(productionDetailsList.decode(\u0027utf-8\u0027))\n\t\tRunningTime\u003dproductionDetailsList[0]\n\t\tpercentWidthValue\u003d((float(RunningTime)/float(60))*float(0.8))+float(0.05)\n\t\tsystem.perspective.print(\"PercentVal--\u003e\"+str(percentWidthValue))\n\t\treturn (percentWidthValue)\n\texcept:\n\t\tsystem.perspective.print(\u0027Exception In production View\u0027)\n",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.value"
+              },
+              "transforms": [
+                {
+                  "code": "\ttry:\t\t\n\t\tmyList \u003d self.view.params.value\n\t\tmyList\u003dsystem.util.jsonDecode(myList.decode(\u0027utf-8\u0027))\n\t\tDownTime\u003dmyList[1]\n\t\tif DownTime\u003c1: \n\t\t\treturn \u0027\u0027\n\t\telse:\n\t\t\treturn str(DownTime) #+str(\" Min\")\n\texcept:\n\t\tsystem.perspective.print(\u0027Exception In production View\u0027)\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#FF8A8A",
+            "marginBottom": 5,
+            "marginTop": 5,
+            "textAlign": "center"
+          },
+          "textStyle": {
+            "classes": "ProductionOperatorConsole/ProgressBarLable"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblIdleTM",
+          "tooltip": {
+            "enabled": true,
+            "text": "Idle Time / Remaining Time"
+          }
+        },
+        "position": {
+          "height": 0.75
+        },
+        "propConfig": {
+          "position.basis": {
+            "binding": {
+              "config": {
+                "path": "view.params.value"
+              },
+              "enabled": false,
+              "transforms": [
+                {
+                  "code": "\ttry:\t\t\n\t\tmyList \u003d self.view.params.value\n\t\tmyList\u003dsystem.util.jsonDecode(myList.decode(\u0027utf-8\u0027))\n\t\tIdleTime\u003dmyList[2]\n\t\tIdleTimePercent\u003d(float(IdleTime)/float(60))*float(100)\n\t\tsystem.perspective.print(\" Idle Time Percent Val--\u003e\"+str(IdleTimePercent))\n\t\treturn int(IdleTimePercent)\n\texcept:\n\t\tsystem.perspective.print(\u0027Exception In production View\u0027)\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "position.width": {
+            "binding": {
+              "config": {
+                "path": "view.params.value"
+              },
+              "transforms": [
+                {
+                  "code": "\ttry:\t\t\n\t\tmyList \u003d self.view.params.value\n\t\tmyList\u003dsystem.util.jsonDecode(myList.decode(\u0027utf-8\u0027))\n\t\tIdleTime\u003dmyList[2]\n\t\tpercentWidthValue\u003d(float(IdleTime)/float(60))*float(0.8)\n#\t\tpercentWidthValue\u003dfloat(percentWidthValue1)*float(0.8)\n\t\tsystem.perspective.print(\"PercentVal--\u003e\"+str(percentWidthValue))\n\t\treturn (percentWidthValue)\n\texcept:\n\t\tsystem.perspective.print(\u0027Exception In production View\u0027)",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "position.x": {
+            "binding": {
+              "config": {
+                "path": "view.params.value"
+              },
+              "transforms": [
+                {
+                  "code": "\ttry:\t\t\n\t\tproductionDetailsList \u003d value\n\t\tproductionDetailsList\u003dsystem.util.jsonDecode(productionDetailsList.decode(\u0027utf-8\u0027))\n\t\tRunningTime\u003dproductionDetailsList[0]\n\t\tdownTime\u003dproductionDetailsList[1]\t\t\t\n\t\tpercentWidthValue\u003d((float(RunningTime+downTime)/float(60))*float(0.8)+float(0.05))\n\t\tsystem.perspective.print(\"PercentVal--\u003e\"+str(percentWidthValue))\n\t\treturn (percentWidthValue)\n\texcept:\n\t\t\tsystem.perspective.print(\u0027Exception In production View\u0027)",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.value"
+              },
+              "transforms": [
+                {
+                  "code": "\ttry:\t\t\n\t\tmyList \u003d self.view.params.value\n\t\tmyList\u003dsystem.util.jsonDecode(myList.decode(\u0027utf-8\u0027))\n\t\tIdleTime\u003dmyList[2]\n\t\tif IdleTime\u003c1: \n\t\t\treturn \u0027\u0027\n\t\telse:\n\t\t\treturn str(IdleTime) #+str(\" Min\")\n\texcept:\n\t\tsystem.perspective.print(\u0027Exception In production View\u0027)\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#D5D5D5",
+            "borderColor": "#F7F0F0",
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "marginBottom": 5,
+            "marginRight": 5,
+            "marginTop": 5,
+            "textAlign": "center"
+          },
+          "textStyle": {
+            "classes": "ProductionOperatorConsole/ProgressBarLable"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblRunningTM",
+          "tooltip": {
+            "enabled": true,
+            "text": "Production Time"
+          }
+        },
+        "position": {
+          "height": 0.75,
+          "x": 0.05
+        },
+        "propConfig": {
+          "position.basis": {
+            "binding": {
+              "config": {
+                "path": "view.params.value"
+              },
+              "enabled": false,
+              "transforms": [
+                {
+                  "code": "\ttry:\t\t\n\t\tmyList \u003d self.view.params.value\n\t\tmyList\u003dsystem.util.jsonDecode(myList.decode(\u0027utf-8\u0027))\n\t\tRunningTime\u003dmyList[0]\n\t\tRunningTimePercent\u003d(float(RunningTime)/float(60))*float(100)\n\t\tsystem.perspective.print(\" Running Percent Val--\u003e\"+str(RunningTimePercent))\n\t\treturn int(RunningTimePercent)\n\texcept:\n\t\tsystem.perspective.print(\u0027Exception In production View\u0027)\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)\t",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "position.width": {
+            "binding": {
+              "config": {
+                "path": "view.params.value"
+              },
+              "transforms": [
+                {
+                  "code": "\ttry:\t\t\n\t\tproductionDetailsList \u003d value\n\t\tproductionDetailsList\u003dsystem.util.jsonDecode(productionDetailsList.decode(\u0027utf-8\u0027))\n\t\tDownTime\u003dproductionDetailsList[0]\n\t\tpercentWidthValue\u003d(float(DownTime)/float(60))*float(0.8)\n#\t\tpercentWidthValue\u003dfloat(percentWidthValue1)*float(0.8)\n#\t\tsystem.perspective.print(\"PercentVal--\u003e\"+str(percentWidthValue))\n\t\tsystem.perspective.print(\u0027Production Percent Val\u0027+str(percentWidthValue))\n\t\tif percentWidthValue\u003e0.786666666667:\n\t\t\treturn (0.786666666667)\n\t\telse:\n\t\t\treturn (percentWidthValue)\n\texcept:\n\t\tsystem.perspective.print(\u0027Exception In production View\u0027)\n",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.value"
+              },
+              "previewEnabled": false,
+              "transforms": [
+                {
+                  "code": "\ttry:\t\t\n\t\tmyList \u003d self.view.params.value\n\t\tmyList\u003dsystem.util.jsonDecode(myList.decode(\u0027utf-8\u0027))\n\t\tRunningTime\u003dmyList[0]\n\t\tif RunningTime\u003c1: \n\t\t\treturn \u0027\u0027\n\t\telse:\n\t\t\treturn str(RunningTime) #+str(\u0027 Min\u0027)\n\texcept:\n\t\tsystem.perspective.print(\u0027Exception In production View\u0027)\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)\t\n",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "ProductionOperatorConsole/ProductionTimeProgressBar"
+          },
+          "textStyle": {
+            "classes": "ProductionOperatorConsole/ProgressBarLable"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

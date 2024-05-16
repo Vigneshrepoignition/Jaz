@@ -1,0 +1,274 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\tself.getChild(\"root\").getChild(\"TxtComment\").props.text \u003d \"\"\n\tself.getChild(\"root\").getChild(\"TxtComment\").focus()"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 185,
+      "width": 371
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 32,
+          "width": 369,
+          "x": -1
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Resume Hold Operation ",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 15,
+            "fontWeight": "bold",
+            "margin": 70,
+            "textAlign": "Center",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 30,
+          "width": 30,
+          "x": 334.938,
+          "y": 1
+        },
+        "props": {
+          "path": "material/close",
+          "style": {
+            "color": "#FFFFFF",
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          },
+          "dom": {
+            "onClick": {
+              "config": {
+                "draggable": false,
+                "id": "uf01-dte",
+                "modal": true,
+                "overlayDismiss": false,
+                "resizable": false,
+                "showCloseIcon": false,
+                "type": "close",
+                "viewPath": "Project_MES_Solution/OperatorConsole/PopUps/ResumeOpsPopup",
+                "viewportBound": false
+              },
+              "scope": "C",
+              "type": "popup"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnCancel",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Click to Cancel"
+          }
+        },
+        "position": {
+          "height": 34,
+          "width": 80,
+          "x": 58.438,
+          "y": 127
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "classes": "Common/Button"
+          },
+          "text": "Cancel"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\tscriptName \u003d \"PMTC : Resume Operation Yes Button\"\n\t\tsystem.perspective.print(\"In Actual scannning screen...\")\n\t\tWoNumber \u003d self.session.custom.WoNumber\n\t\tresumeComment \u003d self.getSibling(\"TxtComment\").props.text\n\t\tuserID \u003d self.session.custom.UserId\n\t\tPMOrderID \u003d self.session.custom.PMOrderID\n\t\tsystem.perspective.print(\"WoNumber:\" + str(WoNumber))\n\t\tsystem.perspective.print(\"resumeComment :\" + str(resumeComment))\n\t\tsystem.perspective.print(\"userID :\" + str(userID))\n\t\tsystem.perspective.print(\"PMOrderID :\" + str(PMOrderID))\n\t\t\n\t\ttry:\n\t\t\tsaveResult \u003d MaintenanceOCAPI.resumeHoldOperation(PMOrderID,WoNumber,resumeComment,userID)\t\t\n\t\t\tsystem.perspective.print(\"saveResult :\" + str(saveResult))\n\t\t\t\n\t\t\tif saveResult \u003d\u003d int(1):\n\t\t\t\tsystem.perspective.navigate(\u0027/MaintenanceOperatorConsole\u0027)\n\t\t\telse:\n\t\t\t\tsystem.perspective.sendMessage(\"Ref_PrevMaintancePop\", scope\u003d\u0027page\u0027)\n\t\t\t\tsystem.perspective.print(\"Message Handler Sent Successfully\")\n\t\t\t\t\n\t\texcept:\n\t\t\tlogger \u003d system.util.getLogger(\"MES Application\")\n\t\t\tlogger.error(\"Error in Resume Operation\" +str(WoNumber))\n\t\t\t\n\t\tsystem.perspective.closePopup(\u0027\u0027)\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnOk",
+          "tooltip": {
+            "location": "bottom-left",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 34,
+          "width": 80,
+          "x": 227,
+          "y": 127
+        },
+        "propConfig": {
+          "meta.tooltip.text": {
+            "binding": {
+              "config": {
+                "expression": "now(500)"
+              },
+              "transforms": [
+                {
+                  "code": "\tcommentTxt \u003d self.getSibling(\"TxtComment\").props.text\n\tif commentTxt \u003d\u003d str(\"\").strip():\n\t\tvalue \u003d \"Enter Comments\"\n\telse:\n\t\tvalue \u003d \"\"\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "expr"
+            }
+          },
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "../TxtComment.props.text"
+              },
+              "enabled": false,
+              "transforms": [
+                {
+                  "code": "\tcommentTxt \u003dstr(value).strip()\n\t\n\tif (str(commentTxt).strip()!\u003d str(\"\").strip()):\n\t\tvalue \u003d True\n\t\tself.props.style.backgroundColor \u003d \"#3888CC\"\n\t\tself.props.style.borderColor \u003d \"#3888CC\"\n\telse:\n\t\tvalue \u003d False\n\t\tself.props.style.backgroundColor \u003d str(self.session.custom.disableBtncolour)\n\t\tself.props.style.borderColor \u003d str(self.session.custom.disableBtncolour)\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "backgroundColor": "value",
+            "borderColor": "value",
+            "classes": "Common/Button"
+          },
+          "text": "Resume"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "LblComment"
+        },
+        "position": {
+          "height": 32,
+          "width": 95,
+          "x": 14,
+          "y": 35
+        },
+        "props": {
+          "text": "Comment",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "TxtComment"
+        },
+        "position": {
+          "height": 32,
+          "width": 337,
+          "x": 14,
+          "y": 70
+        },
+        "propConfig": {
+          "props.style.borderColor": {
+            "binding": {
+              "config": {
+                "path": "this.props.text"
+              },
+              "transforms": [
+                {
+                  "code": "\tif str(value).strip() !\u003d str(\u0027\u0027).strip():\n\t\tvalue \u003d \"#3888CC\"\n\telse:\n\t\tvalue \u003d str(self.session.custom.disableBtncolour)\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "deferUpdates": false,
+          "placeholder": "Add Comment",
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.text-field"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "style": {
+        "classes": "Panel/PopUp"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

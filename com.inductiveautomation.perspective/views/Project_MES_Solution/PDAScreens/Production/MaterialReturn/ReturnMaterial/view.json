@@ -1,0 +1,1181 @@
+{
+  "custom": {
+    "BobbinId": "",
+    "BomdetailsId": "",
+    "HeadName": "",
+    "IsPOUApplicable": "",
+    "ItemId": "",
+    "ItemName": "",
+    "ToogleWarehouse": 1,
+    "WONumber": "",
+    "labelType": "",
+    "machineId": "",
+    "materialUnitUsage": "",
+    "operationId": "",
+    "scannedLotNumber": "",
+    "scannedMachineLocator": "",
+    "scannedPart": "",
+    "scannedVendorLot": "",
+    "selectedLineId": "",
+    "selectedWorkorderId": ""
+  },
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\tuserId \u003d self.session.custom.UserId\n#\t\tif self.session.custom.authorizePDAMaterialReturn !\u003d 1 :\n#\t\t\tsystem.perspective.navigate(\u0027/LoginScreen\u0027)\n#\t\telse:\n\t\t\t#---Clearing Components Values on Startup----------------------------------\u003e\n\t\tself.getChild(\"root\").getChild(\"DrpdwnAutoLines\").props.value \u003d \u0027\u0027\n\t\tself.getChild(\"root\").getChild(\"DrpdwnAutoLines\").props.options \u003d None\n\t\tself.getChild(\"root\").getChild(\"DrpdwnWorkorderNo\").props.value \u003d \u0027\u0027\n\t\tself.getChild(\"root\").getChild(\"DrpdwnWorkorderNo\").props.options \u003d None\n\t\tself.getChild(\"root\").getChild(\"TxtScanComponentQR\").props.text \u003d \u0027\u0027\n\t\tself.getChild(\"root\").getChild(\"LblErrorMessage\").meta.visible \u003dFalse\n\t\tself.getChild(\"root\").getChild(\"TxtScannedComponentLot\").props.text \u003d \u0027\u0027\n\t\tself.getChild(\"root\").getChild(\"TxtRMQty\").props.enabled \u003d False\n\t\tself.getChild(\"root\").getChild(\"TxtRMQty\").props.text \u003d 0\n\t\tself.getChild(\"root\").getChild(\"TxtAvailableQty\").props.text \u003d 0.0000\n\t\tself.getChild(\"root\").getChild(\"BtnSendWarehouse\").props.enabled \u003d False\n\t\tself.getChild(\"root\").getChild(\"BtnprintLot\").props.enabled \u003dFalse\n\t\tself.getChild(\"root\").getChild(\"TxtRMQty\").props.style.backgroundColor\u003d\"#D5D5D573\"\n\t\tself.getChild(\"root\").getChild(\"LblworkorderStatus\").meta.visible \u003d False\n\t\tself.getChild(\"root\").getChild(\"LblworkorderStatus\").props.text \u003d  \u0027\u0027\n#----------Clearing Custom Parameters-----------------------------\n\t\tself.custom.BomdetailsId \u003d \u0027\u0027\n\t\tself.custom.ItemId \u003d \u0027\u0027\n\t\tself.custom.ItemName \u003d \u0027\u0027\n\t\tself.custom.WONumber \u003d \u0027\u0027\n\t\tself.custom.scannedPart \u003d \u0027\u0027\n\t\tself.custom.scannedLotNumber \u003d \u0027\u0027\n\t\tself.custom.IsPOUApplicable \u003d \u0027\u0027\n\t\tself.custom.WONumber \u003d \u0027\u0027\n\t\tself.custom.machineId \u003d \u0027\u0027\n\t\tself.custom.operationId \u003d \u0027\u0027\n\t\tself.custom.scannedLotNumber \u003d \u0027\u0027\n\t\tself.custom.scannedPart \u003d\u0027\u0027\n\t\tself.custom.selectedLineId \u003d \u0027\u0027\n\t\tself.custom.selectedWorkorderId \u003d \u0027\u0027\n\t\tself.custom.labelType \u003d \u0027\u0027\n\t\tself.custom.scannedVendorLot \u003d \u0027\u0027\n\t\ttry:\n\t\t\tLineData \u003d MaterialRequestAPI.getLinesByUserID(userId)\n\t\texcept:\n\t\t\tpass\n\t\tself.getChild(\"root\").getChild(\"DrpdwnAutoLines\").props.options \u003d LineData\n\t\tself.getChild(\"root\").getChild(\"DrpdwnAutoLines\").focus()\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: PDA :: Material Return : On Startup\u0027:\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "propConfig": {
+    "custom.BobbinId": {
+      "persistent": true
+    },
+    "custom.BomdetailsId": {
+      "persistent": true
+    },
+    "custom.HeadName": {
+      "persistent": true
+    },
+    "custom.IsPOUApplicable": {
+      "persistent": true
+    },
+    "custom.ToogleWarehouse": {
+      "binding": {
+        "config": {
+          "path": "/root/MultiStateButton.props.controlValue"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.WONumber": {
+      "persistent": true
+    },
+    "custom.labelType": {
+      "persistent": true
+    },
+    "custom.machineId": {
+      "persistent": true
+    },
+    "custom.materialUnitUsage": {
+      "persistent": true
+    },
+    "custom.operationId": {
+      "persistent": true
+    },
+    "custom.scannedLotNumber": {
+      "persistent": true
+    },
+    "custom.scannedMachineLocator": {
+      "persistent": true
+    },
+    "custom.scannedPart": {
+      "persistent": true
+    },
+    "custom.scannedVendorLot": {
+      "persistent": true
+    },
+    "custom.selectedLineId": {
+      "persistent": true
+    },
+    "custom.selectedWorkorderId": {
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 499,
+      "width": 380
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblOprMachine"
+        },
+        "position": {
+          "height": 17,
+          "width": 91,
+          "x": 8,
+          "y": 53
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Line / Division: "
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\n\t\t#---Claring COmponnets Dields-----------\n\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d False\n\t\tself.getSibling(\"LblErrorMessageLine\").meta.visible \u003d False\n\t\tself.getSibling(\"LblErrorMessageMachine\").meta.visible \u003d False\n\t\tself.getSibling(\"LblworkorderStatus\").meta.visible \u003d False\n\t\tself.getSibling(\"LblworkorderStatus\").props.text \u003d  \u0027\u0027\n\t\tself.getSibling(\"DrpdwnWorkorderNo\").props.value \u003d \u0027\u0027\n\t\tself.getSibling(\"DrpdwnWorkorderNo\").props.options \u003d None\n\t\t\n\t\tself.getSibling(\"TxtScanComponentQR\").props.text \u003d \u0027\u0027\n\t\tself.getSibling(\"TxtScannedComponentLot\").props.text \u003d \u0027\u0027\n\t\t\n\t\tself.getSibling(\"TxtRMQty\").props.text \u003d 0\n\t\tself.getSibling(\"TxtRMQty\").props.enabled \u003d False\n\t\t\n\t\tself.getSibling(\"TxtAvailableQty\").props.text \u003d 0\n\t\tself.getSibling(\"BtnSendWarehouse\").props.enabled \u003d False\n\t\t\n\t\tself.getSibling(\"BtnprintLot\").props.enabled \u003d False\n\t\tself.getSibling(\"TxtRMQty\").props.style.backgroundColor\u003d\"#D5D5D573\"\t\n\t\t\n\t\t#----Clearing Custome Parameters-------\n\t\tself.view.custom.IsPOUApplicable \u003d \u0027\u0027\n\t\tuserId \u003d self.session.custom.UserId\n\t\tselectedLine \u003d self.props.value\n\n\t\t#------------Validating the POU (Line Side Storage Applicable or not for the Selected Line)\n\t\t\n\t\tds \u003d self.props.options\n\t\tds\u003dsystem.dataset.toPyDataSet(ds)\n\t\tfor i in ds:\n\t\t\tId\u003di[1]\n\t\t\tif selectedLine\u003d\u003dId:\n\t\t\t\tIsValidatinginPou \u003di[0]\n\t\t\t\tbreak\n\t\tself.view.custom.IsPOUApplicable \u003d IsValidatinginPou\n\t\t\n\t\tdrpDwnWoNumberData \u003d PDAComponentScanning.getWoNumbersByLineForReturnMaterial(userId,selectedLine)\n\t\tself.getSibling(\"DrpdwnWorkorderNo\").props.options \u003d drpDwnWoNumberData\n\t\tself.getSibling(\"DrpdwnWorkorderNo\").focus()\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: PDA :: Material Return : On Line Action Performed\u0027:\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "DrpdwnAutoLines",
+          "tooltip": {
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Select Operation/Machine"
+          }
+        },
+        "position": {
+          "height": 25,
+          "width": 360,
+          "x": 8,
+          "y": 71.5
+        },
+        "props": {
+          "options": null,
+          "placeholder": {
+            "text": "Select Line / Division"
+          },
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "meta": {
+          "name": "LblWorkorderNo"
+        },
+        "position": {
+          "height": 19,
+          "width": 248,
+          "x": 8.5,
+          "y": 110.5
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Work-Order No:",
+          "textStyle": {
+            "classes": "PDA/PDALabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\n\t\tgreenColor\u003d\"#00AC00\"\n\t\tredColor\u003d\"#FF0000\"\n\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d False\n\t\tself.getSibling(\"LblErrorMessageLine\").meta.visible \u003d False\n\t\tself.getSibling(\"LblErrorMessageMachine\").meta.visible \u003d False\n\t\tself.getSibling(\"LblworkorderStatus\").meta.visible \u003d False\n\t\tself.getSibling(\"LblworkorderStatus\").props.text \u003d  \u0027\u0027\n\t\t\n\t\tself.getSibling(\"TxtScanComponentQR\").props.text \u003d \u0027\u0027\n\t\tself.getSibling(\"TxtScanComponentQR\").props.enabled \u003d False\n\t\tself.getSibling(\"TxtScannedComponentLot\").props.text \u003d \u0027\u0027\n\t\t\n\t\tself.getSibling(\"TxtScanMachine\").props.text \u003d \u0027\u0027\n\t\tif str(self.session.custom.authorizePDAMaterialReturnReadOnly) \u003d\u003d str(\u00271\u0027):\n\t\t\tself.getSibling(\"TxtScanMachine\").props.enabled \u003d True\n\t\t\tself.getSibling(\"TxtScanComponentQR\").props.enabled \u003d False\n\t\telse:\n\t\t\tself.getSibling(\"TxtScanMachine\").props.enabled \u003d False\n\t\t\tself.getSibling(\"TxtScanComponentQR\").props.enabled \u003d False\n\t\t\t\n\t\t\t\n\t\tself.getSibling(\"TxtRMQty\").props.value \u003d 0\n\t\tself.getSibling(\"TxtRMQty\").props.enabled \u003d False\n\t\tself.getSibling(\"TxtAvailableQty\").props.text \u003d 0\n\t\tself.getSibling(\"BtnSendWarehouse\").props.enabled \u003d False\n\t\tself.getSibling(\"BtnprintLot\").props.enabled \u003d False\n\t\tself.getSibling(\"TxtRMQty\").props.style.backgroundColor\u003d\"#D5D5D573\"\n\t\tselectedWorkorderId \u003dself.props.value\n\n\t\tsystem.perspective.print(\u0027SelectedWorkorderId is : \u0027 + str(selectedWorkorderId))\n\t\t#--------\n\t\tself.custom.BomdetailsId \u003d \u0027\u0027\n\t\tself.custom.ItemId \u003d \u0027\u0027\n\t\tself.custom.ItemName \u003d \u0027\u0027\n\t\tself.custom.WONumber \u003d \u0027\u0027\n\t\tself.custom.scannedPart \u003d \u0027\u0027\n\t\tself.custom.scannedLotNumber \u003d \u0027\u0027\n\t\tself.view.custom.labelType \u003d \u0027\u0027\n\t\tself.view.custom.scannedVendorLot \u003d \u0027\u0027\n\t\t\n\t\tds \u003d self.props.options\n\t\tds \u003d system.dataset.toPyDataSet(ds)\t\n\t\tfor i in ds:\n\t\t\tworkorderId \u003d i[2]\n\t\t\tif workorderId \u003d\u003d selectedWorkorderId:\n\t\t\t\tWorkorderStatus \u003d i[0]\n\t\t\t\tWorkorderTypeId \u003d i[1]\n\t\t\t\tself.view.custom.workorderType \u003d WorkorderTypeId\n\t\t\t\tbreak\n\n\t\tsystem.perspective.print(\u0027WorkorderStatus : \u0027 + str(WorkorderStatus))\n\t\tsystem.perspective.print(\u0027selectedWorkorderId : \u0027 + str(selectedWorkorderId))\n\t\tsystem.perspective.print(\u0027WorkorderTypeId : \u0027 + str(WorkorderTypeId))\n\n\t\tif str(WorkorderTypeId) \u003d\u003d str(\u00272\u0027):\n\t\t\tcnsClubbedWorkorderDetails \u003d MaterialRequestAPI.getCNSClubbedWorkorderDetailsbyworkorderId(selectedWorkorderId)\n\t\t\tClubbedRowCount \u003d cnsClubbedWorkorderDetails.getRowCount()\n\n\t\t\tif ClubbedRowCount \u003e\u003d 2:\n\t\t\t\tprimaryWorkorderId \u003d cnsClubbedWorkorderDetails.getValueAt(0,\u0027PrimaryWorkOrderId\u0027)\n\t\t\t\tif primaryWorkorderId \u003d\u003d selectedWorkorderId:\n\t\t\t\t\tself.getSibling(\"TxtScanMachine\").props.enabled \u003d True\n\t\t\t\t\tself.getSibling(\"TxtScanComponentQR\").props.enabled \u003d True\n\t\t\t\t\tself.getSibling(\"TxtScanMachine\").focus()\n\t\t\t\t\tself.getSibling(\"BtnprintLot\").props.enabled \u003d True\n\t\t\t\t\tself.getSibling(\"LblworkorderStatus\").props.textStyle.color \u003d str(redColor)\n\t\t\t\t\tself.getSibling(\"LblworkorderStatus\").props.text \u003d \u0027Note: Selected workorder is :\u0027 + str(WorkorderStatus)\n\t\t\t\t\tself.getSibling(\"LblworkorderStatus\").meta.visible \u003d True\n\t\t\t\telse:\n\t\t\t\t\tPrimaryWorkorderNo \u003d cnsClubbedWorkorderDetails.getValueAt(0,\u0027PrimaryWorkorderNo\u0027)\n\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \u0027Warning: Please select and return the material against main workorder :\u0027 + str(PrimaryWorkorderNo)\n\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\tself.getSibling(\"TxtScanMachine\").props.enabled \u003d False\n\t\t\t\t\tself.getSibling(\"TxtScanComponentQR\").props.enabled \u003d False\n\t\t\telse:\n\t\t\t\tself.getSibling(\"TxtScanMachine\").props.enabled \u003d True\n\t\t\t\tself.getSibling(\"TxtScanComponentQR\").props.enabled \u003d True\n\t\t\t\tself.getSibling(\"BtnprintLot\").props.enabled \u003d True\n\t\t\t\tself.getSibling(\"TxtScanMachine\").focus()\n\t\t\t\tself.getSibling(\"LblworkorderStatus\").props.textStyle.color \u003d str(redColor)\n\t\t\t\tself.getSibling(\"LblworkorderStatus\").props.text \u003d \u0027Note: Selected workorder is :\u0027 + str(WorkorderStatus)\n\t\t\t\tself.getSibling(\"LblworkorderStatus\").meta.visible \u003d True\t\n\t\telse:\n\t\t\tself.getSibling(\"TxtScanMachine\").props.enabled \u003d True\n\t\t\tself.getSibling(\"TxtScanComponentQR\").props.enabled \u003d True\n\t\t\tself.getSibling(\"BtnprintLot\").props.enabled \u003d True\n\t\t\tself.getSibling(\"TxtScanMachine\").focus()\n\t\t\tself.getSibling(\"LblworkorderStatus\").props.textStyle.color \u003d str(redColor)\n\t\t\tself.getSibling(\"LblworkorderStatus\").props.text \u003d \u0027Note: Selected workorder is :\u0027 + str(WorkorderStatus)\n\t\t\tself.getSibling(\"LblworkorderStatus\").meta.visible \u003d True\n\t\t\t\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: PDA :: Material Return : On Workorder Action Performed\u0027:\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "DrpdwnWorkorderNo",
+          "tooltip": {
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Select Operation/Machine"
+          }
+        },
+        "position": {
+          "height": 25,
+          "width": 360,
+          "x": 8,
+          "y": 129
+        },
+        "props": {
+          "enabled": 1,
+          "options": null,
+          "placeholder": {
+            "text": "Select Workorder Number"
+          },
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "page": "/PDADashboard"
+              },
+              "scope": "C",
+              "type": "nav"
+            }
+          }
+        },
+        "meta": {
+          "name": "NavigateBackButton"
+        },
+        "position": {
+          "height": 22,
+          "width": 30,
+          "x": -4,
+          "y": 2
+        },
+        "props": {
+          "path": "material/arrow_back"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 21,
+          "width": 128,
+          "x": 27,
+          "y": 4
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDAHeader"
+          },
+          "text": "Material Return"
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\n\t\t#--Clearing Remaining Data on Action Performed------------------\u003e\n\t\tself.getSibling(\"Txt_Quantity\").props.value \u003d \"\"\n\t\tself.getSibling(\"TxtScanComponentQR\").props.text \u003d \"\"\n\t\tself.getSibling(\"TblComponent\").props.data \u003dNone\n\t\tself.getSibling(\"BtnSendWarehouse\").props.enabled \u003d False\n\t\tself.getSibling(\"TxtScanComponentQR\").props.enabled\u003dTrue\n\t\tself.getSibling(\"Txt_Quantity\").props.value \u003d \u0027\u0027\n\t\tself.getSibling(\"BtnSendWarehouse\").props.enabled\u003dFalse\n\t\tself.getSibling(\"LblErrorMessage\").meta.visible\u003dFalse\n\t\tself.custom.BomdetailsId \u003d \u0027\u0027\n\t\tself.custom.ItemId \u003d \u0027\u0027\n\t\tself.custom.ItemName \u003d \u0027\u0027\n\t\tself.custom.WONumber \u003d \u0027\u0027\n\t\tself.custom.scannedPart \u003d \u0027\u0027\n\t\tself.custom.scannedLotNumber \u003d \u0027\u0027\n\t\t\n\t\t#---------Parameters used -------------------------------------\u003e\n\t\tselectedLineId \u003d self.getSibling(\"DrpdwnAutoLines\").props.value\n\t\tselectedItemId \u003d self.props.value\n\t\tselectedWorkorderId \u003d self.getSibling(\"DrpdwnWorkorderNo\").props.value\n\t\tworkOrderNo \u003d self.getSibling(\"DrpdwnWorkorderNo\").props.value\n\t\tselectedLineId \u003d self.getSibling(\"DrpdwnAutoLines\").props.value\n#\t\tworkOrderNo \u003d  self.getSibling(\"DrpdwnAutoLines\").props.value #Added to Pass as lined Id \n\t\tsystem.perspective.print(\u0027Selected ItemId: \u0027 + str(selectedItemId))\n\t\tsystem.perspective.print(\u0027Selected workOrderNo: \u0027 + str(workOrderNo))\n\t\tds \u003d self.props.options\n\t\tsystem.perspective.print(\u0027Selected ds: \u0027 + str(ds))\n\t\tds\u003dsystem.dataset.toPyDataSet(ds)\n\t\tsystem.perspective.print(\u0027Selected ds: \u0027 + str(ds))\n\t\tfor i in ds:\n\t\t\tId\u003di[1]\n\t\t\tif selectedItemId\u003d\u003dId:\n\t\t\t\tItemDetails\u003dPDA_MaterialReceive.GetBomdetailsIdbyItemID(selectedItemId,workOrderNo,selectedLineId)\n\t\t\t\tself.view.custom.BomdetailsId \u003d ItemDetails.getValueAt(0,\"bomdetailsId\")\n\t\t\t\tself.view.custom.ItemId \u003d ItemDetails.getValueAt(0,\"ItemId\")\n\t\t\t\tself.view.custom.ItemName \u003d ItemDetails.getValueAt(0,\"Material\")\n\t\t\t\tbreak\n\t\t\n\t\tsystem.perspective.print(\u0027SelectedWorkorderId :\u0027 + str(selectedWorkorderId))\n\t\tsystem.perspective.print(\u0027selectedItemId :\u0027 + str(selectedItemId))\n\t\tsystem.perspective.print(\u0027selectedLineId :\u0027 + str(selectedLineId))\n\t\t\n\t\tViewReturnLot\u003dPDAComponentScanning.getAvailableLotToReturn(selectedWorkorderId,selectedItemId,selectedLineId)\n\t\tsystem.perspective.print(\u0027View Return Lot :\u0027 + str(ViewReturnLot))\n\t\tself.getSibling(\"TblComponent\").props.data \u003d ViewReturnLot\n\t\tself.getSibling(\"TxtScanComponentQR\").focus()\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: PDA :: Material Return : On Component Action Performed\u0027:\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          },
+          "dom": {
+            "onFocus": {
+              "config": {
+                "script": "\tself.props.enabled\u003d1\n\tself.props.placeholder.text\u003dstr(\"Select Work Order Number\")"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "DrpdwnMaterialRequest_BCP_18March23",
+          "tooltip": {
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Select Operation/Machine"
+          },
+          "visible": false
+        },
+        "position": {
+          "height": 24,
+          "width": 360,
+          "x": 8,
+          "y": 235
+        },
+        "props": {
+          "enabled": 1,
+          "options": null,
+          "placeholder": {
+            "text": "Select Component"
+          },
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\tgreenColor\u003d\"#00AC00\"\n\t\tredColor\u003d\"#FF0000\"\n\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \u0027\u0027\n\n\t\tWorkorderId \u003d selectedWorkorderId \u003d self.getSibling(\"DrpdwnWorkorderNo\").props.value\n\t\tselectedLineId \u003d lineId \u003d self.getSibling(\"DrpdwnAutoLines\").props.value\n\t\tBomDetailsId \u003d self.view.custom.BomdetailsId\n\t\tItemId \u003d selectedItemId \u003dself.view.custom.ItemId\n\t\toperationId \u003d self.view.custom.operationId\n\t\tmachineId \u003d self.view.custom.machineId\n\t\tuserId \u003d self.session.custom.UserId\n\n\t\tscannedHeadName \u003d self.view.custom.HeadName\n\t\tscannedLotNumber \u003d self.getSibling(\"TxtScannedComponentLot\").props.text\n\t\tscannedLotQty \u003d self.getSibling(\"TxtRMQty\").props.text  #Returnable Qty\n\t\tsystem.perspective.print(\u0027scannedLotQty To be Return :\u0027 + str(scannedLotQty))\n\n\t\treturnLocation \u003d self.view.custom.ToogleWarehouse\n\n\t\tscannedString \u003d str(self.getSibling(\"TxtScanComponentQR\").props.text).strip()\n\t\tscannedStrArray \u003d (scannedString.split(\"|\"))\n\n\t\tif float(scannedLotQty) \u003e float(0) or float(scannedLotQty) \u003e float(0):\n#\t\tif str(scannedLotQty) \u003e str(\u00270\u0027) or str(scannedLotQty) \u003e str(\u00270.00\u0027):\n\t\t\ttry:\n\t\t\t\tscannedBarcodeType \u003d str(scannedStrArray[0]).strip()\n\t\t\t\tif str(scannedBarcodeType).strip().lower() \u003d\u003d str(\u0027L0\u0027).lower():\n\t\t\t\t\tlabelType \u003d 1\n\t\t\t\t\tscannedpartNumber \u003d scannedStrArray[1]\n\t\t\t\t\tscannedpartRevision \u003d scannedStrArray[2]\n\t\t\t\t\tscannedLotNumber \u003d scannedStrArray[3]\n\t\t\t#\t\tscannedLotQty \u003d scannedStrArray[4]\n\t\t\t\t\tscannedLotFactory \u003d scannedStrArray[5]\n\t\t\t\t\tscannedSubInventory \u003d scannedStrArray[6]\n\t#\t\t\t\tscannedWorkOrderNumber \u003d scannedStrArray[7]\n\t\t\t\t\tscannedVendorLot \u003d str(scannedStrArray[8]).strip()\n\t\t\t\telse:\n\t\t\t\t\t#Other than MES Label Will Be Scanned Here------------\u003e\n\t\t\t\t\tlabelType\u003d 2\n\t\t\t\t\tscannedpartNumber \u003d str(scannedStrArray[1]).strip()\n\t\t\t\t\tscannedpartRevision \u003d str(scannedStrArray[2]).strip()\n\t\t\t\t\tscannedVendorLot \u003d str(scannedStrArray[3]).strip()\n\t\t\t\t\tscannedLotQty \u003d str(scannedStrArray[4]).strip()\n\t\t\t\t\tscannedComponent \u003d scannedpartNumber + \u0027_\u0027+ scannedpartRevision\n\t\t\t\t\tscannedLotNumber \u003d \u0027\u0027\n\t\t\t\t\tscannedSubInventory \u003d \u0027\u0027\n\t\t\texcept:\n\t\t\t\timport sys, os\n\t\t\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\t\t\tlineno \u003d tb.tb_lineno\n\t\t\t\terrorMessage \u003d \"Error: \"+\"WoNumber : \" + str(self.session.custom.WoNumber)+ \" || \" + str(exc_obj) + \" ||Code Line No :\"+ str(lineno)\n\t\t\t\tMessageText\u003d\"Warning: Error in converting scanned string in QR string\"\n\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d str(MessageText)\n\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\telse:\n\t\t\t\tscannedWorkOrderNumber \u003d self.view.custom.WONumber\n\t\t\t\tsystem.perspective.print(\u0027scannedWorkOrderNumber : \u0027 + str(scannedWorkOrderNumber))\n\t\t\t\t\n\t\t\t\tscannedLotQty \u003d self.getSibling(\"TxtRMQty\").props.text  #Returnable Qty\n\t\t\t\t\n\t\t\t\tif int(labelType) \u003d\u003d int(2):  #E0 Label Type\n#\t\t\t\t\treturnQRCodeString \u003d \u0027E0|\u0027+str(scannedpartNumber)+\u0027|\u0027+str(scannedpartRevision)+\u0027|\u0027+str(scannedVendorLot)+\u0027|\u0027+str(scannedLotQty)+\u0027|\u0027+\u0027\u0027+\u0027|\u0027\n\t\t\t\t\treturnQRCodeString \u003d scannedString.replace(str(scannedStrArray[4]), str(scannedLotQty))\n\t\t\t\telse:#L0 Label Type\n#\t\t\t\t\treturnQRCodeString \u003d \u0027L0\u0027+str(scannedpartNumber)+\u0027|\u0027+str(scannedpartRevision)+\u0027|\u0027+str(scannedLotNumber)+\u0027|\u0027+str(scannedLotQty)+\u0027|\u0027+str(scannedLotFactory)+\u0027|\u0027+str(scannedSubInventory)+\u0027|\u0027+str(scannedWorkOrderNumber)+\u0027|\u0027+str(scannedVendorLot)+\u0027|\u0027\n\t\t\t\t\treturnQRCodeString \u003d scannedString.replace(str(scannedStrArray[4]), str(scannedLotQty))\n\t\t\t\t\n\t\t\t\tscannedMachineLocator \u003d self.view.custom.scannedMachineLocator\n#\t\t\t\ttry:\n\t\t\t\tpostReturnMaterial \u003d PDAComponentScanning.postReturnMaterialToERP(selectedWorkorderId,selectedLineId,BomDetailsId,ItemId,scannedLotNumber,scannedLotQty,returnLocation,userId,operationId,machineId,scannedHeadName,labelType,scannedVendorLot,scannedMachineLocator,scannedSubInventory)\n#\t\t\t\texcept:\n#\t\t\t\t\tpostReturnMaterial \u003d 0\n\n\t\t\t\tsystem.perspective.print(\u0027PostReturnMaterial   :\u0027 + str(postReturnMaterial))\n\t\t\t\tif int(postReturnMaterial) \u003d\u003d int(1):\n\t\t\t\t\ttry:\n\t\t\t\t\t\tworkOrderNumber \u003d \"String\"\n\t\t\t\t\t\t#----Machine\n\t\t\t\t\t\tself.getSibling(\"TxtScanMachine\").props.enabled \u003d True\n\t\t\t\t\t\tself.getSibling(\"TxtScanMachine\").props.text \u003d \"\"\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMachine\").meta.visible \u003d False\n\t\t\t\t\t\t#---Components\n\t\t\t\t\t\tself.getSibling(\"TxtScannedComponentLot\").props.text \u003d \"\"\n\t\t\t\t\t\tself.getSibling(\"TxtScanComponentQR\").props.text \u003d \u0027\u0027\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d False\n\t\t\t\t\t\tself.getSibling(\"TxtAvailableQty\").props.text \u003d 0\n\t\t\t\t\t\tself.getSibling(\"TxtRMQty\").props.text \u003d 0\n\t\t\t\t\t\t#--Focusing on Machine\n\t\t\t\t\t\tself.getSibling(\"TxtScanMachine\").focus()\n\n\t\t\t\t\t\tprintFile \u003d PDAComponentScanning.getPrintingTemplate(selectedWorkorderId,selectedLineId,BomDetailsId,ItemId,scannedLotNumber,scannedLotQty,returnLocation,returnQRCodeString,userId)\n\t\t\t\t\t\tpostPrintingDetails \u003d PDAComponentScanning.postPrintingHistory(selectedWorkorderId,selectedLineId,BomDetailsId,ItemId,scannedLotNumber,scannedLotQty,returnLocation,returnQRCodeString,userId)\n\n\t\t\t\t\t\tNoOfPrint\u003dint(1)\n\t\t\t\t\t\tprintedBy\u003dself.session.custom.UserId\n\t\t\t\t\t\tdsPrintlist\u003dPrinterConfiguration.GetWONumberLineWisePrinterDetails(lineId,WorkorderId)\n\n\t\t\t\t\t\tif len(dsPrintlist)\u003e0:\n\t\t\t\t\t\t\tfor i  in \tdsPrintlist:\n\t\t\t\t\t\t\t\tPrinterId\u003d i[\u0027PrinterId\u0027]\n\t\t\t\t\t\t\t\tPrinterName\u003d str(i[\u0027PrinterName\u0027]).strip()\n\t\t\t\t\t\t\t\tPrinterIP\u003d str(i[\u0027PrinterIP\u0027]).strip()\n\t\t\t\t\t\t\t\tPort\u003d str(i[\u0027Port\u0027]).strip()\n\t\t\t\t\t\t\t\tLineId \u003d str(i[\u0027LineId\u0027]).strip()\n\t\t\t\t\t\t\t\tbreak\n\n\t\t\t\t\t\t\tif  str(PrinterIP).strip()\u003d\u003d\u0027\u0027 or str(PrinterIP).strip()\u003d\u003dNone or str(PrinterIP).lower().strip()\u003d\u003d\u0027none\u0027 or  str(PrinterIP).lower().strip()\u003d\u003d\u0027null\u0027:\n\t\t\t\t\t\t\t\tMessageText\u003d\"Warning: Print Failed.Please Configure Printer IP address.\"\n\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d str(MessageText)\n\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\t\t\telif str(Port).strip()\u003d\u003d\u0027\u0027 or str(Port).strip()\u003d\u003dNone or str(Port).lower().strip()\u003d\u003d\u0027none\u0027 or  str(Port).lower().strip()\u003d\u003d\u0027null\u0027:\t\n\t\t\t\t\t\t\t\tMessageText\u003d\"Warning: Print Failed.Please Configure Printer Port.\"\n\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d str(MessageText)\n\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\t\t\telif str(printFile).strip()\u003d\u003d\u0027\u0027 or str(printFile).strip()\u003d\u003dNone or str(printFile).lower().strip()\u003d\u003d\u0027none\u0027 or  str(printFile).lower().strip()\u003d\u003d\u0027null\u0027:\t\n\t\t\t\t\t\t\t\tMessageText\u003d\"Warning : Please Configure PRN File.\"\n\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d str(MessageText)\n\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\t\t\telse:\n\t\t\t\t#\t\t\t\tPackingAndLabelling.PrintNumberPacking(Number,labelTypeId,printedBy,NoOfPrint,workOrderNumber)\n#\t\t\t\t\t\t\t\tprinterIP\u003d\u0027172.19.83.39\u0027#JE QA Client Side    # 172.19.83.50\n#\t\t\t\t\t\t\t\tPrinterIP \u003d \u0027172.19.83.50\u0027\n#\t\t\t\t\t\t\t\tPort\u003d9100\n\t\t\t\t\t\t\t\tprintResult\u003dPrint.printingServer(printFile,NoOfPrint,PrinterIP,Port)\n\n\t\t\t\t\t\t\t\tif printResult\u003d\u003d True or printResult\u003d\u003d1 and int(postReturnMaterial) \u003d\u003d int(1):\n\t\t\t\t\t\t\t\t\tscannedLotNumber\u003dself.getSibling(\"TxtScannedComponentLot\").props.text\n\t\t\t\t\t\t\t\t\tMessageText\u003d\"Success : Scanned component is returned and printed Successfully\"\n\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d str(MessageText)\n\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(greenColor)\n\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\n\t\t\t\t\t\t\t\telif printResult\u003d\u003d False or printResult\u003d\u003d0 and int(postReturnMaterial) \u003d\u003d int(1) :\n\t\t\t\t\t\t\t\t\tMessageText\u003d\"Warning : Material returned successfully but error in printing Lot please click on reprint to print again\"\n\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d str(MessageText)\n\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\t\tMessageText\u003d\"Warning :Failed in printing the scanned lot \" + str(scannedLotNumber) \n\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d str(MessageText)\n\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\t\telse:\n\t\t\t\t\t\t\tMessageText\u003d\"Warning : Please Configured Printer For Respective Line.\"\n\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d str(MessageText)\n\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\t\t\t\t\t\n\t\t\t\t\texcept:\n\t\t\t\t\t\timport sys, os\n\t\t\t\t\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\t\t\t\t\tlineno \u003d tb.tb_lineno\n\t\t\t\t\t\terrorMessage \u003d \"Error: \"+\"WoNumber : \" + str(self.session.custom.WoNumber)+ \" || \" + str(exc_obj) + \" ||Code Line No :\"+ str(lineno)\n\t\t\t\t\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\t\t\t\t\tAuthentication.exceptionLogger(errorMessage)\t\n\n\t\t\t\telse:\n\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \"Warning: Error in returning the quantity, please contact your administrator\"\n\t\telse:\n\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \"Warning: Return Qty should be greater than zero\"\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"Error: \"+\"WoNumber : \" + str(self.session.custom.WoNumber)+ \" || \" + str(exc_obj) + \" ||Code Line No :\"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnSendWarehouse"
+        },
+        "position": {
+          "height": 34,
+          "width": 94,
+          "x": 203.9999942779541,
+          "y": 432
+        },
+        "propConfig": {
+          "props.style.backgroundColor": {
+            "binding": {
+              "config": {
+                "path": "this.props.enabled"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value \u003d\u003d True:\n\t\tvalue \u003d \"#3888CC\"\n\telse:\n\t\tvalue \u003d str(self.session.custom.disableBtncolour)\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.style.borderColor": {
+            "binding": {
+              "config": {
+                "path": "this.props.enabled"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value \u003d\u003d True:\n\t\tvalue \u003d \"#3888CC\"\n\telse:\n\t\tvalue \u003d str(self.session.custom.disableBtncolour)\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "../MultiStateButton.props.controlValue"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value \u003d\u003d 0:\n\t\tvalue \u003d \u0027Return to POU\u0027\n\telse:\n\t\tvalue \u003d \u0027Return to Warehouse\u0027\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "enabled": false,
+          "image": {
+            "width": 45
+          },
+          "style": {
+            "classes": "PDA/PDAButton"
+          },
+          "textStyle": {
+            "fontSize": 10
+          }
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "LblScanComponent"
+        },
+        "position": {
+          "height": 18,
+          "width": 363,
+          "x": 9.5,
+          "y": 220.02
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Scan Component:",
+          "textStyle": {
+            "classes": "PDA/PDALabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tgreenColor\u003d\"#00AC00\"\n\tredColor\u003d\"#FF0000\"\n\tif str(self.session.custom.authorizePDAMaterialReturnReadOnly) \u003d\u003d str(\u00270\u0027):\n\t\tself.getSibling(\"LblErrorMessage\").props.text\u003dstr(\"\")\n\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d false\n\telse:\n\t\tself.props.enabled \u003d False\n\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \"Warning: Read Only Access\"\n"
+              },
+              "enabled": false,
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "TxtScanComponentQR",
+          "tooltip": {}
+        },
+        "position": {
+          "height": 25,
+          "width": 306,
+          "x": 8,
+          "y": 239.6
+        },
+        "propConfig": {
+          "meta.tooltip.enabled": {
+            "binding": {
+              "config": {
+                "path": "this.props.enabled"
+              },
+              "transforms": [
+                {
+                  "code": "\tds\u003dself.getSibling(\"Table\").props.data\n\tif len(ds)\u003e0:\n\t\tvalue\u003d1\n\telse:\n\t\tvalue\u003d0\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizePDAMaterialReturnReadOnly"
+              },
+              "type": "property"
+            }
+          },
+          "props.style.backgroundColor": {
+            "binding": {
+              "config": {
+                "path": "this.props.enabled"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value \u003d\u003d False:\n\t\tvalue \u003d \"#D5D5D573\"\n\telse:\n\t\tvalue \u003d \u0027#FFFFFF\u0027\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.text": {
+            "onChange": {
+              "enabled": null,
+              "script": "\ttry:\n\t\tself.getSibling(\"LblErrorMessageLine\").meta.visible \u003d False\n\t\tself.getSibling(\"LblErrorMessageWorkorder\").meta.visible \u003d False\n\t\tself.getSibling(\"LblErrorMessageMachine\").meta.visible \u003d False\n\t\t\n\t\tgreenColor\u003d\"#00AC00\"\n\t\tredColor\u003d\"#FF0000\"\n\t\tselectedLineId \u003d self.getSibling(\"DrpdwnAutoLines\").props.value\n\t\tselectedWorkorderId \u003d self.getSibling(\"DrpdwnWorkorderNo\").props.value\n\t\tuserId \u003d self.session.custom.UserId\n\t\tscannedcomp \u003d self.props.text\n\t\tif str(scannedcomp).strip() !\u003d str(\"\").strip():\n\t\t\tif str(selectedLineId) !\u003d str(\"\").strip():\n\t\t\t\tif str(selectedLineId) !\u003d str(\"\").strip() and str(selectedWorkorderId) !\u003d str(\"\").strip():\n\t\t\t\t\tscannedMachine \u003d self.getSibling(\"TxtScanMachine\").props.text\n\t\t\t\t\tif str(scannedMachine).strip() !\u003d str(\"\").strip():\n\t\t\t\t\t\tscannedcomp \u003d self.props.text\n\t\t\t\t\t\tif str(scannedcomp).strip() !\u003d str(\"\").strip():\n\t\t\t\t\t\t\tself.getSibling(\"TxtScannedComponentLot\").props.text \u003d \u0027\u0027\n\t\t\t\t\t\t\tself.getSibling(\"TxtRMQty\").props.text \u003d 0\n\t\t\t\t\t\t\tself.getSibling(\"TxtRMQty\").props.enabled \u003d False\n\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessageLine\").meta.visible \u003d False\n\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessageWorkorder\").meta.visible \u003d False\n\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMachine\").meta.visible \u003d False\n\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d False\n\t\n\t\t\t\t\t\t\tself.getSibling(\"BtnSendWarehouse\").props.enabled \u003d False\n\t\t\t\t\t\t\tself.getSibling(\"BtnprintLot\").props.enabled \u003d False\n\t\t\t\t\t\t\tself.view.custom.BomdetailsId \u003d \u0027\u0027\n\t\t\t\t\t\t\tself.view.custom.ItemId \u003d \u0027\u0027\n\t\t\t\t\t\t\tself.view.custom.materialUnitUsage \u003d \u0027\u0027\n\n\t\t\t\t\t\t\ttry:\t\t\t\n\t\t\t\t\t\t\t\tcomponentsTableData \u003d PDAComponentScanning.GetRequestedComponentsforMaterialReturn(selectedWorkorderId,selectedLineId)\n\t\t\t\t\t\t\t\trequestedComponentDetails \u003d componentsTableData.getRowCount()\n\t\t\t\t\t\t\t\tsystem.perspective.print(\u0027Component List Row Count :\u0027 + str(requestedComponentDetails))\n\t\t\t\t\t\t\texcept:\n\t\t\t\t\t\t\t\timport sys, os\n\t\t\t\t\t\t\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\t\t\t\t\t\t\tlineno \u003d tb.tb_lineno\n\t\t\t\t\t\t\t\terrorMessage \u003d \"\u0027Exception :: Component Scanning ::\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\t\t\t\t\t\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\t\t\t\t\t\t\tpass\n\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\tif requestedComponentDetails \u003e 0:\n\t\t\t\t\t\t\t\t\tcomponentList \u003d []\n\t\t\t\t\t\t\t\t\tcomponentNameIndex \u003d componentsTableData.getColumnIndex(\"ComponentName\")\n\t\t\t\t\t\t\t\t\tcomponentList \u003d componentsTableData.getColumnAsList(componentNameIndex)\n\t\t\t\t\t\t\t\t\tsystem.perspective.print(\u0027Print : 1 : Requested Component List  :\u0027 + str(componentList))\n\n\t\t\t\t\t\t\t\t\tscannedString \u003d self.props.text\n\t\t\t\t\t\t\t\t\tscannedString \u003d str(scannedString).strip()\n\t\t\t\t\t\t\t\t\tscannedStrArray \u003d (scannedString.split(\"|\"))\n\t\t\t\t\t\t\t\t\tscannedBarcodeType \u003d str(scannedStrArray[0]).strip()\n\n\t\t\t\t\t\t\t\t\tif str(scannedBarcodeType).strip().lower() \u003d\u003d str(\u0027L0\u0027).lower():\n\t\t\t\t\t\t\t\t\t\tlabelType \u003d 1\n\t\t\t\t\t\t\t\t\t\tscannedpartNumber \u003d str(scannedStrArray[1]).strip()\n\t\t\t\t\t\t\t\t\t\tscannedpartRevision \u003d str(scannedStrArray[2]).strip()\n\t\t\t\t\t\t\t\t\t\tscannedLotNumber \u003d str(scannedStrArray[3]).strip()\n\t\t\t\t\t\t\t\t\t\tscannedLotQty \u003d str(scannedStrArray[4]).strip()\n\t\t\t\t\t\t\t\t\t\tscannedLotFactory \u003d str(scannedStrArray[5]).strip()\n\t\t\t\t\t\t\t\t\t\tscannedSubInventory \u003d str(scannedStrArray[6]).strip()\n\t\t\t\t\t\t\t\t\t\tscannedVendorLot \u003d str(scannedStrArray[8]).strip()\n\t\t\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\t\t\t#Other than MES Label Will Be Scanned Here------------\u003e\n\t\t\t\t\t\t\t\t\t\tlabelType\u003d 2\n\t\t\t\t\t\t\t\t\t\tscannedpartNumber \u003d str(scannedStrArray[1]).strip()\n\t\t\t\t\t\t\t\t\t\tscannedpartRevision \u003d str(scannedStrArray[2]).strip()\n\t\t\t\t\t\t\t\t\t\tscannedVendorLot \u003d str(scannedStrArray[3]).strip()\n\t\t\t\t\t\t\t\t\t\tscannedLotQty \u003d str(scannedStrArray[4]).strip()\n\t\t\t\t\t\t\t\t\t\tscannedComponent \u003d scannedpartNumber + \u0027_\u0027+ scannedpartRevision\n\n\t\t\t\t\t\t\t\t\t\tfor i in range(componentsTableData.getRowCount()):\n\t\t\t\t\t\t\t\t\t\t\trequestedComponentName \u003d componentsTableData.getValueAt(i,\"ComponentName\")\n\t\t\t\t\t\t\t\t\t\t\tscannedStrArray \u003d (requestedComponentName.split(\"_\"))\n\t\t\t\t\t\t\t\t\t\t\trequestedComponentNameTable \u003d str(scannedStrArray[0]).strip()+\u0027_\u0027+str(scannedStrArray[1]).strip()\n\t\t\t\t\t\t\t\t\t\t\tscannedLotFactory \u003d str(scannedStrArray[2]).strip()\n\t\t\t\t\t\t\t\t\t\t\tif str(requestedComponentNameTable).strip().upper() \u003d\u003d str(scannedComponent).strip().upper():\n\t\t\t\t\t\t\t\t\t\t\t\tselectedItemId \u003d componentsTableData.getValueAt(i,\"ItemId\")\n\t\t\t\t\t\t\t\t\t\t\t\tbreak\n\n\t\t\t\t\t\t\t\t\t\tscannedLotNumber \u003d \u0027\u0027\n\t\t\t\t\t\t\t\t\t\tscannedSubInventory \u003d \u0027\u0027\n\n\t\t\t\t\t\t\t\t\tpartName \u003d \tstr(scannedpartNumber)+\"_\"+str(scannedpartRevision)+\"_\"+str(scannedLotFactory)\n\t\t\t\t\t\t\t\t\tsystem.perspective.print(\u0027Print : 2 : partNam :\u0027 + str(partName))\n\n\t\t\t\t\t\t\t\t\tif (str(partName).upper().strip() not in componentList):\n\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \"Warning: The scanned component is not linked with above machine\"\n\t\t\t\t\t\t\t\t\t\tself.props.text \u003d str(\"\")\n\t\t\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\t\t\tfor i in range(componentsTableData.getRowCount()):\n\t\t\t\t\t\t\t\t\t\t\tComponentNameTable \u003d componentsTableData.getValueAt(i,\"ComponentName\")\n\t\t\t\t\t\t\t\t\t\t\tif str(ComponentNameTable).lower() \u003d\u003d str(partName).lower():\n\t\t\t\t\t\t\t\t\t\t\t\tselectedItemId \u003d componentsTableData.getValueAt(i,\"ItemId\")\n\t\t\t\t\t\t\t\t\t\t\t\tbomDetailsId \u003d componentsTableData.getValueAt(i,\"bomdetailsId\")\n\t\t\t\t\t\t\t\t\t\t\t\tmaterialUnitUsage \u003d componentsTableData.getValueAt(i,\"UnitUsage\")\n\t\t\t\t\t\t\t\t\t\t\t\toperationId \u003d self.view.custom.operationId\n\t\t\t\t\t\t\t\t\t\t\t\tmachineId \u003d self.view.custom.machineId\n\t\t\t\t\t\t\t\t\t\t\t\tscannedHeadName \u003d self.view.custom.HeadName\n\t\t\t\t\t\t\t\t\t\t\t\tself.view.custom.ItemId \u003d selectedItemId\n\n\t\t\t\t\t\t\t\t\t\t\t\ttry:\n\t\t\t\t\t\t\t\t\t\t\t\t\tViewReturnLot \u003dPDAComponentScanning.getAvailableLotToReturn(selectedWorkorderId,selectedItemId,selectedLineId,bomDetailsId,operationId,machineId,scannedHeadName,scannedLotNumber,labelType,scannedVendorLot)\n\t\t\t\t\t\t\t\t\t\t\t\t\tsystem.perspective.print(\u0027Print 3: ViewReturnLot List  :\u0027 + str(ViewReturnLot))\n\t\t\t\t\t\t\t\t\t\t\t\texcept:\n\t\t\t\t\t\t\t\t\t\t\t\t\tViewReturnLot \u003d []\n\n\t\t\t\t\t\t\t\t\t\t\t\tLotList \u003d []\n\t\t\t\t\t\t\t\t\t\t\t\tif int(labelType) \u003d\u003d int(2):  #E0 Label Type Scanning: \n\t\t\t\t\t\t\t\t\t\t\t\t\tscannedLotNumber\u003dscannedVendorLot\n\t\t\t\t\t\t\t\t\t\t\t\t\tLotIndex \u003d ViewReturnLot.getColumnIndex(\"VendorLot\")\n\t\t\t\t\t\t\t\t\t\t\t\t\tLotList \u003d ViewReturnLot.getColumnAsList(LotIndex)\n\t\t\t\t\t\t\t\t\t\t\t\telse:  #L0 Label Type Scanning\n\t\t\t\t\t\t\t\t\t\t\t\t\tLotIndex \u003d ViewReturnLot.getColumnIndex(\"LotNumber\")\n\t\t\t\t\t\t\t\t\t\t\t\t\tLotList \u003d ViewReturnLot.getColumnAsList(LotIndex)\n\n\t\t\t\t\t\t\t\t\t\t\t\tsystem.perspective.print(\u0027Print : 3 : Scanned RM Lot Lists  :\u0027 + str(LotList))\n\t\t\t\t\t\t\t\t\t\t\t\tsystem.perspective.print(\u0027Print : 4 : Scanned RM scannedLotNumber :\u0027 + str(scannedLotNumber))\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\tif str(scannedLotNumber).strip() not in LotList and int(labelType) \u003d\u003d int(2):\n\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \"Warning: Please scan correct lot number against selected workorder and line\"\n\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\t\t\t\t\t\t\t\t\tself.props.text \u003d str(\"\")\n\t\t\t\t\t\t\t\t\t\t\t\t\tbreak\n\t\t\t\t\t\t\t\t\t\t\t\telif str(scannedLotNumber).strip() not in LotList and int(labelType) \u003d\u003d int(1):\n\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \"Warning: Please scan correct lot number against selected workorder and line\"\n\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\t\t\t\t\t\t\t\t\tself.props.text \u003d str(\"\")\n\t\t\t\t\t\t\t\t\t\t\t\t\tbreak\n\t\t\t\t\t\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\t\t\t\t\t\tfor j in range(ViewReturnLot.getRowCount()):\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tif int(labelType) \u003d\u003d int(2):  #E0Lable\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tLotNumberTable \u003d  ViewReturnLot.getValueAt(j,\"VendorLot\")\n\t\t\t\t\t\t\t\t\t\t\t\t\t\telse:  #L0Lable\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tLotNumberTable \u003d  ViewReturnLot.getValueAt(j,\"LotNumber\")\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tBomDetailsId \u003d ViewReturnLot.getValueAt(j,\"BomDetailsId\")\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.view.custom.BomdetailsId \u003d BomDetailsId\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tif str(LotNumberTable) \u003d\u003d str(scannedLotNumber) and int(labelType) \u003d\u003d int(2):   #E0Lable\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tAvailableLotQty \u003d  ViewReturnLot.getValueAt(j,\"AvailableToReturn\")\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblScannedComponentLot\").props.text \u003d \"Scanned Component || Scanned Vendor Lot:\"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"TxtScannedComponentLot\").props.placeholder \u003d \"Scanned Component || Scanned Vendor Lot:\"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"TxtScannedComponentLot\").props.text \u003dstr(partName)+\u0027 || \u0027+str(scannedLotNumber)\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"TxtAvailableQty\").props.text \u003d AvailableLotQty\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"TxtRMQty\").props.text\u003d AvailableLotQty\n\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"BtnSendWarehouse\").props.enabled \u003d True\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"BtnprintLot\").props.enabled \u003d True\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(greenColor)\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \"Success: Successfully scanned the lot number\"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"TxtRMQty\").props.enabled \u003d True\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"TxtRMQty\").props.style.backgroundColor\u003d\"#FFFFFF\"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"TxtRMQty\").focus()\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.props.enabled \u003dFalse\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tbreak\n\t\t\t\t\t\t\t\t\t\t\t\t\t\telif str(LotNumberTable) \u003d\u003d str(scannedLotNumber) and int(labelType) \u003d\u003d int(1):  #L0Lable\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblScannedComponentLot\").props.text \u003d \"Scanned Component || Scanned JE Lot:\"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"TxtScannedComponentLot\").props.placeholder \u003d \"Scanned Component || Scanned JE Lot:\"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tAvailableLotQty \u003d  ViewReturnLot.getValueAt(j,\"AvailableToReturn\")\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tsystem.perspective.print(\u0027Print : 5 : AvailableLotQty :\u0027 + str(AvailableLotQty))\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tif str(AvailableLotQty) \u003d\u003d str(\u00270.00\u0027):\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tAvailableLotQty \u003d 0\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tpass\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"TxtScannedComponentLot\").props.text \u003dstr(partName)+\u0027 || \u0027+str(scannedLotNumber)\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"TxtAvailableQty\").props.text \u003d AvailableLotQty\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"TxtRMQty\").props.text\u003d AvailableLotQty\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"BtnSendWarehouse\").props.enabled \u003d True\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"BtnprintLot\").props.enabled \u003d True\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(greenColor)\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \"Success: Successfully scanned the lot number\"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"TxtRMQty\").props.enabled \u003d True\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"TxtRMQty\").props.style.backgroundColor\u003d\"#FFFFFF\"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"TxtRMQty\").focus()\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.props.enabled \u003dFalse\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tbreak\n\t\t\t\t\t\t\t\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tpass\n\n\t\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \"Warning: Components are not requested yet to return\"\n\t\t\t\t\t\t\t\t\tself.props.text \u003d str(\"\")\n\t\t\t\t\t\telse:\n\t\t\t\t\t\t\tself.focus()\n\t\t\t\t\t\t\tpass\n\t\t\t\t\telse:\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMachine\").props.textStyle.color \u003d  str(redColor)\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMachine\").props.text \u003d \"Warning: Please scan the machine barcode first \"\t\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMachine\").meta.visible \u003d True\n\t\t\t\t\t\tself.props.text \u003d str(\"\")\n\t\t\t\t\t\tself.getSibling(\"TxtScanMachine\").focus()\n\t\t\t\telse:\n\t\t\t\t\tself.getSibling(\"LblErrorMessageWorkorder\").props.textStyle.color \u003d  str(redColor)\n\t\t\t\t\tself.getSibling(\"LblErrorMessageWorkorder\").props.text \u003d \"Warning: Please select the workorder first \"\n\t\t\t\t\tself.getSibling(\"LblErrorMessageWorkorder\").meta.visible \u003d True\n\t\t\t\t\tself.props.text \u003d str(\"\")\n\t\t\t\t\tself.getSibling(\"DrpdwnWorkorderNo\").focus()\n\t\t\telse:\n\t\t\t\tself.getSibling(\"LblErrorMessageLine\").props.textStyle.color \u003d  str(redColor)\n\t\t\t\tself.getSibling(\"LblErrorMessageLine\").props.text \u003d \"Warning: Please select the line first\"\t\n\t\t\t\tself.getSibling(\"LblErrorMessageLine\").meta.visible \u003d True\n\t\t\t\tself.props.text \u003d str(\"\")\n\t\t\t\tself.getSibling(\"DrpdwnAutoLines\").focus()\n\t\telse:\n\t\t\tpass\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: Component Scanning ::\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)\n\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \"Warning: Error in scanning component\"\n\t\tself.props.text \u003d str(\"\")"
+            }
+          }
+        },
+        "props": {
+          "deferUpdates": false,
+          "placeholder": "Scan/Enter Component Code",
+          "rejectUpdatesWhileFocused": false,
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "events": {
+          "dom": {
+            "onMouseOver": {
+              "config": {
+                "script": "\ttry:\n\t\tWoNumber\u003dself.session.custom.WoNumber\n\t\tworkflowId\u003dself.session.custom.WorkflowId\n\t\tworkflowOperationId\u003dself.session.custom.Process\n\t\tworkflowProcessId\u003dself.session.custom.ProcessID\t\n\t\tComponentsDetails\u003dWorkOrderDetailsAPI.getComponentDetails(WoNumber,workflowId,workflowOperationId,workflowProcessId)\n\t\tsystem.perspective.print(\"Components Details to be Binded are: \"+ str(ComponentsDetails))\n\t#-----------For Start Button Enable Validation\t\t\n\t\tComponents \u003d system.dataset.toPyDataSet(ComponentsDetails)\n\t\ti \u003d None\n\t\tdsData \u003d Components\n\t\theaders \u003d [dsData.getColumnName(c) for c in range(dsData.getColumnCount())]\n\t\tSerialNumberIndex \u003d headers.index(\"SerialNumber\")\n\t\tLotNumberIndex \u003d headers.index(\"LotNumber\")\n\t\tseriallist \u003d dsData.getColumnAsList(SerialNumberIndex)\n\t\tLotNolist \u003d dsData.getColumnAsList(LotNumberIndex)\n\t\tif i in seriallist and i in LotNolist:\n\t\t\tsystem.perspective.print(\"Null Values Preset in the Components\")\n\t\t\tself.getSibling(\"BtnStart\").props.enabled\u003d0\n\t\t\tself.getSibling(\"BtnStart\").meta.tooltip.text\u003d \"Not able to Start, All Components Details are not Filled\"\n\t\telse:\n\t\t\tself.getSibling(\"BtnStart\").props.enabled\u003d1\n\t\t\tsystem.perspective.print(\"Null Not Preset in the Components\")\n\texcept:\n\t\t system.perspective.print(\"Error in the Borcode MouseOver\")\n"
+              },
+              "enabled": false,
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Image_4"
+        },
+        "position": {
+          "height": 21,
+          "width": 27,
+          "x": 345.63,
+          "y": 240.6
+        },
+        "props": {
+          "fit": {
+            "mode": "fill"
+          },
+          "source": "/system/images/Builtin/icons/16/barcodesmall.png"
+        },
+        "type": "ia.display.image"
+      },
+      {
+        "meta": {
+          "name": "LblErrorMessage",
+          "visible": false
+        },
+        "position": {
+          "height": 16,
+          "width": 362,
+          "x": 9.11,
+          "y": 265.99
+        },
+        "props": {
+          "style": {
+            "classes": "Ref_MES/Common/Label_PDAValidation"
+          },
+          "text": "Warning: Returnable qty is not availble for scanned raw material",
+          "textStyle": {
+            "classes": "PDA/lblWarning",
+            "color": "#FF0000"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\n\t\tgreenColor\u003d\"#00AC00\"\n\t\tredColor\u003d\"#FF0000\"\n\t\tself.getSibling(\"LblErrorMessageLine\").meta.visible \u003d False\n\t\t\n\t\tselectedLineId \u003d self.getSibling(\"DrpdwnAutoLines\").props.value\n\t\tif selectedLineId !\u003d \"\":\n\t\t\tIsPOUApplicable \u003d self.view.custom.IsPOUApplicable\n\t\t\tsystem.perspective.print(\u0027IsPOUApplicable is :\u0027 + str(IsPOUApplicable))\n\t\t\tif IsPOUApplicable \u003d\u003d False:\n\t\t\t\tCurrentControlValue \u003d self.props.controlValue\n\t\t\t\tsystem.perspective.print(\u0027Selected Control Values is :\u0027 + str(CurrentControlValue))\n\t\t\t\tif int(CurrentControlValue) \u003d\u003d int(0):\n\t\t\t\t\tself.props.controlValue \u003d 1\n\t\t\t\t\tself.getSibling(\"LblErrorMessageLine\").props.textStyle.color \u003d  str(redColor)\n\t\t\t\t\tself.getSibling(\"LblErrorMessageLine\").props.text\u003d \"Warning: POU is not applicable for selected line\"\t\n\t\t\t\t\tself.getSibling(\"LblErrorMessageLine\").meta.visible \u003d True\n\t\t\t\telse:\n\t\t\t\t\tself.getSibling(\"LblErrorMessageLine\").meta.visible \u003d False\n\t\t\t\t\tpass\n\t\t\telse:\n\t\t\t\tpass\n\t\telse:\n\t\t\tself.props.controlValue \u003d 1\n\t\t\tself.getSibling(\"LblErrorMessageLine\").props.textStyle.color \u003d  str(redColor)\n\t\t\tself.getSibling(\"LblErrorMessageLine\").props.text\u003d \"Warning: Please select the line first\"\n\t\t\tself.getSibling(\"LblErrorMessageLine\").meta.visible \u003d True\n\t\t\tself.getSibling(\"DrpdwnAutoLines\").focus()\n\texcept:\n\t\tpass"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "MultiStateButton"
+        },
+        "position": {
+          "height": 24,
+          "width": 208,
+          "x": 164,
+          "y": 28
+        },
+        "propConfig": {
+          "props.states[0].unselectedStyle.backgroundColor": {
+            "binding": {
+              "config": {
+                "path": "this.props.controlValue"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value \u003d\u003d 1:\n\t\tvalue  \u003d \u0027#00D900\u0027\n\t\tself.props.states[0].unselectedStyle.fontWeight \u003d \u0027bolder\u0027\n\telse:\n\t\tvalue  \u003d \u0027#CCFFCC96\u0027\n\t\tself.props.states[0].unselectedStyle.fontWeight\u003d \u0027lighter\u0027\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.states[1].selectedStyle.backgroundColor": {
+            "binding": {
+              "config": {
+                "path": "this.props.controlValue"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value \u003d\u003d 0:\n\t\tvalue  \u003d \u0027#00D900\u0027\n\t\tself.props.states[1].selectedStyle.fontWeight \u003d \u0027bolder\u0027\n\telse:\n\t\tvalue  \u003d \u0027#CCFFCC96\u0027\n\t\tself.props.states[1].selectedStyle.fontWeight \u003d \u0027lighter\u0027\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "controlValue": 1,
+          "defaultSelectedStyle": {
+            "backgroundColor": ""
+          },
+          "endButtonCornerRadius": 3,
+          "indicatorValue": 0,
+          "orientation": "row",
+          "states": [
+            {
+              "selectedStyle": {
+                "backgroundColor": "#CCFFCC96",
+                "classes": ""
+              },
+              "text": "To Warehouse",
+              "unselectedStyle": {
+                "classes": "",
+                "fontWeight": "bolder"
+              },
+              "value": 1
+            },
+            {
+              "selectedStyle": {
+                "classes": "",
+                "fontWeight": "lighter"
+              },
+              "text": "To POU",
+              "unselectedStyle": {
+                "backgroundColor": "#CCFFCC96",
+                "classes": ""
+              },
+              "value": 0
+            }
+          ]
+        },
+        "type": "ia.input.multi-state-button"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\tself.getSibling(\"TxtScanComponentQR\").props.text \u003d \u0027\u0027\n\t\tself.getSibling(\"TxtScanComponentQR\").props.enabled \u003d True\n\t\tself.getSibling(\"TxtScannedComponentLot\").props.text \u003d \u0027\u0027\n\n\n\t\tself.getSibling(\"TxtRMQty\").props.text \u003d 0\n\t\tself.getSibling(\"TxtRMQty\").props.enabled \u003d False\n\t\tself.getSibling(\"TxtAvailableQty\").props.text \u003d 0.0000\n\t\tself.getSibling(\"BtnSendWarehouse\").props.enabled \u003d False\n\t\tself.getSibling(\"BtnprintLot\").props.enabled \u003d False\n\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d False\t\n\t\tself.view.custom.BomdetailsId \u003d \u0027\u0027\n\t\tself.view.custom.ItemId \u003d \u0027\u0027\n\t\tself.view.custom.materialUnitUsage \u003d \u0027\u0027\n\t\tself.view.custom.labelType \u003d \u0027\u0027\n\t\tself.view.custom.scannedVendorLot \u003d \u0027\u0027\n\texcept:\n\t\tpass"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClear",
+          "tooltip": {
+            "enabled": true,
+            "location": "bottom-left",
+            "text": "Clear"
+          }
+        },
+        "position": {
+          "height": 30.00000000000003,
+          "width": 34,
+          "x": 312.5,
+          "y": 235.6
+        },
+        "props": {
+          "path": "material/arrow_back"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "LblRMQty"
+        },
+        "position": {
+          "height": 13.620000000000005,
+          "width": 168,
+          "x": 8,
+          "y": 348.5
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "RM Qty:",
+          "textStyle": {
+            "classes": "PDA/PDALabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "TxtRMQty_BCP",
+          "visible": false
+        },
+        "position": {
+          "height": 25,
+          "width": 172,
+          "x": 8,
+          "y": 336.61250019073486
+        },
+        "propConfig": {
+          "props.value": {
+            "onChange": {
+              "enabled": null,
+              "script": "\ttry:\n\t\tgreenColor\u003d\"#00AC00\"\n\t\tredColor\u003d\"#FF0000\"\n\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d False\n\t\t#Handelig Null Scenarios------------\u003e\n\t\trmQty \u003d self.props.value\n\t\tif \trmQty \u003d\u003d None or str(rmQty) \u003d\u003d (\"None\").strip().lower() or str(rmQty).strip() \u003d\u003d (\"\").strip().lower():\n\t\t\tself.props.value \u003d 0.0\n\t\telse:\n\t\t\tpass\n\t\t\t\n\t\tRMQty \u003d float(self.props.value)\t\t\n\t\tAvailableQty \u003d float(self.getSibling(\"TxtAvailableQty\").props.text)\n\t\t\n\t\tif float(AvailableQty) \u003e\u003d float(RMQty):\n\t\t\tpass\n\t\telse:\n\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \"Warning: Returnable raw material quantity cannot be greater than available quantity\"\n\t\t\tself.props.value\u003dpreviousValue\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: Component Scanning ::\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+            }
+          }
+        },
+        "props": {
+          "align": "left",
+          "enabled": false,
+          "format": "none",
+          "placeholder": "Enter RM Qty",
+          "style": {
+            "backgroundColor": "#D5D5D573",
+            "classes": "Common/TextBox",
+            "color": "#2B2B2B"
+          },
+          "value": 0
+        },
+        "type": "ia.input.numeric-entry-field"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tself.getSibling(\"LblErrorMessage\").props.text\u003dstr(\"\")\n\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d false\n"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "TxtScannedComponentLot",
+          "tooltip": {
+            "enabled": null
+          }
+        },
+        "position": {
+          "height": 25,
+          "width": 362,
+          "x": 8,
+          "y": 304.365
+        },
+        "props": {
+          "deferUpdates": false,
+          "enabled": 0,
+          "placeholder": "Scanned Component || Scanned JE Lot",
+          "rejectUpdatesWhileFocused": false,
+          "style": {
+            "backgroundColor": "#D5D5D573",
+            "classes": "Common/TextBox",
+            "color": "#000000"
+          }
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "LblScannedComponentLot"
+        },
+        "position": {
+          "height": 17,
+          "width": 355,
+          "x": 8.5,
+          "y": 283.37
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Scanned Component || Scanned JE Lot:",
+          "textStyle": {
+            "classes": "PDA/PDALabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "TxtAvailableQt_",
+          "visible": false
+        },
+        "position": {
+          "height": 23.610000000000014,
+          "width": 160,
+          "x": 8.5,
+          "y": 398.39
+        },
+        "props": {
+          "align": "left",
+          "enabled": 0,
+          "format": "0,0.0000",
+          "placeholder": "Available Qty",
+          "spinner": {
+            "enabled": false
+          },
+          "style": {
+            "backgroundColor": "#D5D5D573",
+            "classes": "Common/TextBox",
+            "color": "#000000"
+          },
+          "value": 0
+        },
+        "type": "ia.input.numeric-entry-field"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "draggable": false,
+                "id": "WNbNFYUp",
+                "modal": true,
+                "overlayDismiss": false,
+                "resizable": false,
+                "showCloseIcon": false,
+                "type": "open",
+                "viewParams": {
+                  "selectedLineId": "{/root/DrpdwnAutoLines.props.value}",
+                  "selectedWorkorderId": "{/root/DrpdwnWorkorderNo.props.value}"
+                },
+                "viewPath": "Project_MES_Solution/PDAScreens/Production/MaterialReturn/PrintReturnLot",
+                "viewportBound": false
+              },
+              "scope": "C",
+              "type": "popup"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnprintLot"
+        },
+        "position": {
+          "height": 34,
+          "width": 94,
+          "x": 77.9999942779541,
+          "y": 432
+        },
+        "propConfig": {
+          "props.style.backgroundColor": {
+            "binding": {
+              "config": {
+                "path": "this.props.enabled"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value \u003d\u003d True:\n\t\tvalue \u003d \"#3888CC\"\n\telse:\n\t\tvalue \u003d str(self.session.custom.disableBtncolour)\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.style.borderColor": {
+            "binding": {
+              "config": {
+                "path": "this.props.enabled"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value \u003d\u003d True:\n\t\tvalue \u003d \"#3888CC\"\n\telse:\n\t\tvalue \u003d str(self.session.custom.disableBtncolour)\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "enabled": false,
+          "image": {
+            "width": 45
+          },
+          "style": {
+            "classes": "PDA/PDAButton"
+          },
+          "text": "Reprint Lot",
+          "textStyle": {
+            "fontSize": 10
+          }
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "dom": {
+            "onMouseOver": {
+              "config": {
+                "script": "\ttry:\n\t\tWoNumber\u003dself.session.custom.WoNumber\n\t\tworkflowId\u003dself.session.custom.WorkflowId\n\t\tworkflowOperationId\u003dself.session.custom.Process\n\t\tworkflowProcessId\u003dself.session.custom.ProcessID\t\n\t\tComponentsDetails\u003dWorkOrderDetailsAPI.getComponentDetails(WoNumber,workflowId,workflowOperationId,workflowProcessId)\n\t\tsystem.perspective.print(\"Components Details to be Binded are: \"+ str(ComponentsDetails))\n\t#-----------For Start Button Enable Validation\t\t\n\t\tComponents \u003d system.dataset.toPyDataSet(ComponentsDetails)\n\t\ti \u003d None\n\t\tdsData \u003d Components\n\t\theaders \u003d [dsData.getColumnName(c) for c in range(dsData.getColumnCount())]\n\t\tSerialNumberIndex \u003d headers.index(\"SerialNumber\")\n\t\tLotNumberIndex \u003d headers.index(\"LotNumber\")\n\t\tseriallist \u003d dsData.getColumnAsList(SerialNumberIndex)\n\t\tLotNolist \u003d dsData.getColumnAsList(LotNumberIndex)\n\t\tif i in seriallist and i in LotNolist:\n\t\t\tsystem.perspective.print(\"Null Values Preset in the Components\")\n\t\t\tself.getSibling(\"BtnStart\").props.enabled\u003d0\n\t\t\tself.getSibling(\"BtnStart\").meta.tooltip.text\u003d \"Not able to Start, All Components Details are not Filled\"\n\t\telse:\n\t\t\tself.getSibling(\"BtnStart\").props.enabled\u003d1\n\t\t\tsystem.perspective.print(\"Null Not Preset in the Components\")\n\texcept:\n\t\t system.perspective.print(\"Error in the Borcode MouseOver\")\n"
+              },
+              "enabled": false,
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Image_1"
+        },
+        "position": {
+          "height": 24,
+          "width": 26,
+          "x": 346.63,
+          "y": 183
+        },
+        "props": {
+          "fit": {
+            "mode": "fill"
+          },
+          "source": "/system/images/Builtin/icons/16/barcodesmall.png"
+        },
+        "type": "ia.display.image"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\tself.getSibling(\"TxtScanComponentQR\").props.text \u003d \u0027\u0027\n\t\tself.getSibling(\"TxtScanComponentQR\").props.enabled \u003d True\n\t\tself.getSibling(\"TxtScannedComponentLot\").props.text \u003d \u0027\u0027\n\t\tself.getSibling(\"TxtRMQty\").props.text \u003d 0\n\t\tself.getSibling(\"TxtRMQty\").props.enabled \u003d False\n\t\tself.getSibling(\"TxtAvailableQty\").props.text \u003d 0.0000\n\t\tself.getSibling(\"BtnSendWarehouse\").props.enabled \u003d False\n#\t\tself.getSibling(\"BtnprintLot\").props.enabled \u003d False\n\t\t\n\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d False\n\t\tself.getSibling(\"LblErrorMessageMachine\").meta.visible \u003d False\n\t\tself.getSibling(\"LblErrorMessageLine\").meta.visible \u003d False\n\t\t\n\t\tself.getSibling(\"TxtScanMachine\").props.text \u003d \u0027\u0027\n\t\tself.getSibling(\"TxtScanMachine\").props.enabled \u003d True\n\t\t\n\t\tself.view.custom.BomdetailsId \u003d \u0027\u0027\n\t\tself.view.custom.ItemId \u003d \u0027\u0027\n\t\tself.view.custom.materialUnitUsage \u003d \u0027\u0027\n\t\tself.view.custom.labelType \u003d \u0027\u0027\n\t\tself.view.custom.scannedVendorLot \u003d \u0027\u0027\n\texcept:\n\t\tpass"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Icon",
+          "tooltip": {
+            "text": "Click to clear machine"
+          }
+        },
+        "position": {
+          "height": 30,
+          "width": 37,
+          "x": 311.5,
+          "y": 179
+        },
+        "props": {
+          "path": "material/arrow_back"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tself.getSibling(\"LblErrorMessageMachine\").props.text\u003dstr(\"\")\n\tself.getSibling(\"LblErrorMessageMachine\").meta.visible \u003d false"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "TxtScanMachine"
+        },
+        "position": {
+          "height": 25,
+          "width": 306,
+          "x": 8,
+          "y": 182
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizePDAMaterialReturnReadOnly"
+              },
+              "type": "property"
+            }
+          },
+          "props.style.backgroundColor": {
+            "binding": {
+              "config": {
+                "path": "this.props.enabled"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value \u003d\u003d False:\n\t\tvalue \u003d \"#D5D5D573\"\n\telse:\n\t\tvalue \u003d \u0027#FFFFFF\u0027\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.text": {
+            "onChange": {
+              "enabled": null,
+              "script": "\ttry:\n\t\tgreenColor\u003d\"#008000\"\n\t\tredColor\u003d\"#FF0000\"\n\t\tself.getSibling(\"TxtScanComponentQR\").props.enabled\u003d True\n\t\tselectedlineId \u003d self.getSibling(\"DrpdwnAutoLines\").props.value\n\t\tselectedWorkorderId \u003d self.getSibling(\"DrpdwnWorkorderNo\").props.value\n\n\t\tif str(selectedlineId) !\u003d str(\"\").strip():\n\t\t\tif str(selectedlineId) !\u003d str(\"\").strip() and str(selectedWorkorderId) !\u003d str(\"\").strip():\n\t\t\t\tmachineTxt \u003d str(self.props.text)\n\t\t\t\tif machineTxt !\u003d str(\"\"):\n\t\t\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d False\n\t\t\t\t\tself.getSibling(\"LblErrorMessageLine\").meta.visible \u003d False\n\t\t\t\t\tself.getSibling(\"LblErrorMessageMachine\").meta.visible \u003d False\n\n\t\t\t\t\tself.getSibling(\"TxtScanComponentQR\").props.text \u003d str(\"\")\n\t\t\t\t\tself.getSibling(\"LblErrorMessageMachine\").props.text \u003d \"\"\n\t\t\t\t\tself.view.custom.BobbinId\u003d\u0027\u0027\n\t\t\t\t\tself.view.custom.HeadName \u003d \u0027\u0027\n\t\t\t\t\tselectedLineId \u003d self.getSibling(\"DrpdwnAutoLines\").props.value\n\t\t\t\t\tselectedWorkorderId \u003d selectedWoNumberId \u003d self.getSibling(\"DrpdwnWorkorderNo\").props.value\n\n\t\t\t\t\tuserId \u003d self.session.custom.UserId\t\t\t\t\t\n#\t\t\t\t\twoMachineCodeList \u003d WorkOrderDetailsAPI.getMachineListForSelectedWO(userId,selectedLineId,selectedWoNumberId)\n\t\t\t\t\twoMachineCodeList \u003d PDAComponentScanning.getMachineListForSelectedWO(userId,selectedLineId,selectedWorkorderId)\n\t\t\t\t\tsystem.perspective.print(\"woMachineCodeList \"+str(woMachineCodeList))\n\n\t\t\t\t\tscannedString \u003d machineTxt\n\t\t\t\t\tscannedString \u003d str(scannedString).strip()\n\t\t\t\t\tscannedStrArray \u003d (scannedString.split(\"|\"))\n\n\t\t\t\t\ttry:\n\t\t\t\t\t\tscannedMachineCode \u003d str(scannedStrArray[0]).strip()\n\t\t\t\t\t\tscannedHeadName \u003d str(scannedStrArray[1]).strip()\n\t\t\t\t\texcept:\n\t\t\t\t\t\tscannedMachineCode \u003d \u0027\u0027\n\t\t\t\t\t\tscannedHeadName \u003d \u0027\u0027\n\n\t\t\t\t\ttry:\n\t\t\t\t\t\tscannedMachineLocator \u003d str(scannedStrArray[2]).strip()\n\t\t\t\t\texcept:\n\t\t\t\t\t\tscannedMachineLocator \u003d \"\"\n\n\t\t\t\t\tself.view.custom.scannedMachineLocator \u003d scannedMachineLocator\n\t\t\t\t\tscannedMachineCode \u003d scannedMachineCode.strip()\n\t\t\t\n\t\t\t\t\tif str(len(scannedStrArray)) \u003d\u003d str(\u00271\u0027):\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMachine\").props.textStyle.color \u003d  str(redColor)\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMachine\").props.text  \u003d \"Warning: Please scan correct machine barcode in form of MachineName|Heads| \"\t\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMachine\").meta.visible \u003d True\n\t\t\t\t\t\tself.props.text \u003d str(\"\")\n\t\t\t\t\telif str(scannedMachineCode).strip() not in woMachineCodeList:\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMachine\").props.textStyle.color \u003d  str(redColor)\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMachine\").props.text \u003d \"Please scan correct machine against the operation\"\t\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMachine\").meta.visible \u003d True\n\t\t\t\t\t\tself.props.text \u003d str(\"\")\n\t\t\t\t\telse:\n#\t\t\t\t\t\tresultData \u003d WorkOrderDetailsAPI.getAllPDADetailsForSelMachine(userId,selectedLineId,selectedWoNumberId,scannedMachineCode)\n\t\t\t\t\t\tresultData \u003d PDAComponentScanning.getSingleMachineDetailsforMaterialReturn(userId,selectedLineId,selectedWorkorderId,scannedMachineCode)\n\n\t\t\t\t\t\tfor i in resultData:\t\t\t\n\t\t\t\t\t\t\twoNumber \u003d i.get(\"WorkOrderNo\")\t\n\t\t\t\t\t\t\tworkflowOperationsId \u003d i.get(\"WorkflowOperationsId\")\n\t\t\t\t\t\t\toperationId\u003di.get(\"OperationId\")\n\t\t\t\t\t\t\tprocess \u003d i.get(\"Process\")\n\t\t\t\t\t\t\toperation \u003d i.get(\"Operation\")\n\t\t\t\t\t\t\tmachineId \u003d str(i.get(\"MachineId\")).strip()\n\t\t\t\t\t\t\tmachineName \u003d i.get(\"MachineName\")\n\t\t\t\t\t\t\toprStatus \u003d i.get(\"Status\")\n\t\t\t\t\t\t\tworkOrderQty \u003d i.get(\"PlannedQty\")\n\t\t\t\t\t\t\tworkflowId \u003d i.get(\"WorkflowId\")\t\t\n\t\t\t\t\t\t\tlineName \u003d i.get(\"LineName\")\n\t\t\t\t\t\t\tareaName \u003d i.get(\"AreaName\")\t\n\n#\t\t\t\t\t\tsystem.perspective.print(\u0027woNumber :\u0027 + str(woNumber))\n\t\t\t\t\t\tself.view.custom.WONumber \u003d woNumber\n\t\t\t\t\t\tself.view.custom.operationId \u003d operationId\n\t\t\t\t\t\tself.view.custom.machineId \u003d machineId\n\t\t\t\t\t\tself.session.custom.LineID \u003d self.getSibling(\"DrpdwnAutoLines\").props.value\n\n\t\t\t\t\t\tself.session.custom.areaName \u003d areaName\n\t\t\t\t\t\tself.session.custom.lineName \u003d lineName\n\t\t\t\t\t\tself.session.custom.machineName \u003d machineName\n\t\t\t\t\t\tself.session.custom.MachineID \u003d machineId\n\n\t\t\t\t\t\t#------------- Fetch session variable values -------------------\t\t\t\n\t\t\t\t\t\tHeadData\u003dPDAComponentScanning.getHeadDetailsbyMachineId(machineId)\n\t\t\t\t\t\tHeadRowCount \u003d HeadData.getRowCount()\n\t\t\t\t\t\tif HeadRowCount \u003e 0:\n\t\t\t\t\t\t\tHeadIndex \u003d HeadData.getColumnIndex(\u0027HeadsName\u0027)\n\t\t\t\t\t\t\tHeadsList \u003d HeadData.getColumnAsList(HeadIndex)\n\t\t\t\t\t\t\tif scannedHeadName not in HeadsList:\n\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMachine\").props.textStyle.color \u003d  str(redColor)\n\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMachine\").props.text \u003d \"Warning: Please scan correct head of machine \"\t\n\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMachine\").meta.visible \u003d True\n\t\t\t\t\t\t\t\tself.props.text \u003d str(\"\")\n\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\tfor i in range(HeadData.getRowCount()):\n\t\t\t\t\t\t\t\t\tHeadName \u003d HeadData.getValueAt(i,\u0027HeadsName\u0027)\n\t\t\t\t\t\t\t\t\tif HeadName \u003d\u003d scannedHeadName:\n\t\t\t\t\t\t\t\t\t\tBobbinsId \u003d HeadData.getValueAt(i,\u0027BobbinsId\u0027)\n\t\t\t\t\t\t\t\t\t\tself.view.custom.BobbinId\u003dBobbinsId\n\t\t\t\t\t\t\t\t\t\tself.view.custom.HeadName \u003d scannedHeadName\n\t\t\t\t\t\t\t\t\t\tscannedMachineId \u003d self.session.custom.MachineID\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\tIsReserveDataProcessed \u003d1\n\t\t\t\t\t\t\t\t\t\ttry:\n\t\t\t\t\t\t\t\t\t\t\tIsReserveDataProcessed\u003dPDAComponentScanning.reserveMaterialBeforeMaterialReturn(selectedLineId,selectedWorkorderId,scannedMachineId)\n\t\t\t\t\t\t\t\t\t\texcept:\n\t\t\t\t\t\t\t\t\t\t\tIsReserveDataProcessed \u003d 0\n\n\t\t\t\t\t\t\t\t\t\tsystem.perspective.print(\u0027IsReserveDataProcessed : \u0027 + str(IsReserveDataProcessed))\n\t\t\t\t\t\t\t\t\t\tif str(IsReserveDataProcessed).lower().strip() \u003d\u003d str(\u0027success\u0027).lower().strip():\n\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMachine\").props.textStyle.color \u003d  str(greenColor)\n\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMachine\").props.text \u003d \"Success: Machine is Scanned Successfully\"\t\n\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMachine\").meta.visible \u003d True\n\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"TxtScanComponentQR\").focus()\n\t\t\t\t\t\t\t\t\t\t\tself.props.enabled \u003d False\n\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"TxtScanComponentQR\").props.enabled \u003d True\n\t\t\t\t\t\t\t\t\t\t\tbreak\n\t\t\t\t\t\t\t\t\t\telif str(IsReserveDataProcessed) \u003d\u003d  str(\u00270\u0027):\n\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMachine\").props.textStyle.color \u003d  str(redColor)\n\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMachine\").props.text \u003d \"Error: Error in reserving the material for selected workorder, please contact your administrator\"\t\n\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMachine\").meta.visible \u003d True\n\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"TxtScanComponentQR\").focus()\n\t\t\t\t\t\t\t\t\t\t\tbreak\n\t\t\t\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMachine\").props.textStyle.color \u003d  str(redColor)\n\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMachine\").props.text \u003d \"Error :\"+ str(IsReserveDataProcessed)\n\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMachine\").meta.visible \u003d True\n\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"TxtScannedComponentLot\").props.enabled \u003d False\n\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"TxtScanComponentQR\").props.enabled \u003d False\n\t\t\t\t\t\t\t\t\t\t\tbreak\n\t\t\t\t\t\t\t\t\t\tbreak\n\t\t\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\t\t\tpass\n\t\t\t\t\t\telse:\n\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMachine\").props.textStyle.color \u003d  str(redColor)\n\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMachine\").props.text \u003d \"Warning: Please configure heads for scanned machine\"\n\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMachine\").meta.visible \u003d True\n\t\t\t\telse:\n\t\t\t\t\tself.focus()\n\t\t\t\t\tpass\n\t\t\telse:\n\t\t\t\tself.getSibling(\"LblErrorMessageWorkorder\").props.textStyle.color \u003d  str(redColor)\n\t\t\t\tself.getSibling(\"LblErrorMessageWorkorder\").props.text \u003d \"Warning: Please select the workorder first\"\t\n\t\t\t\tself.getSibling(\"LblErrorMessageWorkorder\").meta.visible \u003d True\n\t\t\t\tself.props.text \u003d str(\"\")\n\t\t\t\tself.getSibling(\"DrpdwnWorkorderNo\").focus()\n\t\telse:\n\t\t\tself.getSibling(\"LblErrorMessageLine\").props.textStyle.color \u003d  str(redColor)\n\t\t\tself.getSibling(\"LblErrorMessageLine\").props.text \u003d \"Warning: Please select the line first\"\t\n\t\t\tself.getSibling(\"LblErrorMessageLine\").meta.visible \u003d True\n\t\t\tself.props.text \u003d str(\"\")\n\t\t\tself.getSibling(\"DrpdwnAutoLines\").focus()\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: PDA :: Material Return Scanning : On Machine Scanning Change\u0027:\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)\n\t\tself.getSibling(\"LblErrorMessageMachine\").props.textStyle.color \u003d  str(redColor)\n\t\tself.getSibling(\"LblErrorMessageMachine\").props.text \u003d \"Warning: Error in machine string, please contact your system administrator \"\t\n\t\tself.getSibling(\"LblErrorMessageMachine\").meta.visible \u003d True\n\t\tself.props.text \u003d str(\u0027\u0027)"
+            }
+          }
+        },
+        "props": {
+          "deferUpdates": false,
+          "placeholder": "Scan/Enter Machine Code",
+          "rejectUpdatesWhileFocused": false,
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "LblScanMchine"
+        },
+        "position": {
+          "height": 18,
+          "width": 354,
+          "x": 8.5,
+          "y": 166
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Scan Machine Code:",
+          "textStyle": {
+            "classes": "PDA/PDALabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblErrorMessageMachine",
+          "visible": false
+        },
+        "position": {
+          "height": 18,
+          "width": 356,
+          "x": 8,
+          "y": 206.03
+        },
+        "props": {
+          "style": {
+            "classes": "Ref_MES/Common/Label_PDAValidation"
+          },
+          "text": "Please Scan/Enter  Correct Part Number",
+          "textStyle": {
+            "classes": "PDA/lblWarning",
+            "color": "#FF0000"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "TxtAvailableQty"
+        },
+        "position": {
+          "height": 25,
+          "width": 172,
+          "x": 202.5,
+          "y": 372.5
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#D5D5D573",
+            "classes": "Common/TextBox",
+            "color": "#2B2B2B"
+          },
+          "text": 0,
+          "value": 0
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblAvailableQty"
+        },
+        "position": {
+          "height": 13.620000000000005,
+          "width": 158,
+          "x": 202.5,
+          "y": 348.5
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Available Qty To Return:",
+          "textStyle": {
+            "classes": "PDA/PDALabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblErrorMessageLine",
+          "visible": false
+        },
+        "position": {
+          "height": 13,
+          "width": 356,
+          "x": 10.1,
+          "y": 95.49
+        },
+        "props": {
+          "style": {
+            "classes": "Ref_MES/Common/Label_PDAValidation"
+          },
+          "text": "Warning: Please select the line first",
+          "textStyle": {
+            "classes": "PDA/lblWarning",
+            "color": "#FF0000"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblErrorMessageWorkorder",
+          "visible": false
+        },
+        "position": {
+          "height": 13,
+          "width": 356,
+          "x": 10,
+          "y": 154
+        },
+        "props": {
+          "style": {
+            "classes": "Ref_MES/Common/Label_PDAValidation"
+          },
+          "text": "Please select the workorder first",
+          "textStyle": {
+            "classes": "PDA/lblWarning",
+            "color": "#FF0000"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "TxtRMQty"
+        },
+        "position": {
+          "height": 25,
+          "width": 172,
+          "x": 8,
+          "y": 372.5
+        },
+        "propConfig": {
+          "props.text": {
+            "onChange": {
+              "enabled": null,
+              "script": "\ttry:\n\t\tgreenColor\u003d\"#00AC00\"\n\t\tredColor\u003d\"#FF0000\"\n\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d False\n\n\t\trmQty \u003d self.props.text\n\t\tsystem.perspective.print(\u0027Current Qty is : \u0027 + str(rmQty))\n\t\tif \trmQty \u003d\u003d None or str(rmQty) \u003d\u003d (\"None\").strip().lower() or str(rmQty).strip() \u003d\u003d (\"\").strip().lower():\n\t\t\tself.props.text \u003d 0.0\n\t\telse:\n\t\t\tpass\n\t\t\n\t\tRMQty \u003d str(self.props.text)\t\t\n\t\tAvailableQty \u003d str(self.getSibling(\"TxtAvailableQty\").props.text)\n\t\t\n\t\tRMQty \u003d float(self.props.text)\t\t\n\t\tAvailableQty \u003d float(self.getSibling(\"TxtAvailableQty\").props.text)\n\t\t\n\t\tif float(AvailableQty) \u003c\u003d float(0):\n\t\t\tself.getSibling(\"BtnSendWarehouse\").props.enabled \u003d False\n#\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n#\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n#\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \"Warning: Returnable qty is not availble for scanned raw material\"\n\t\telif float(AvailableQty) \u003e\u003d float(RMQty):\n\t\t\tself.getSibling(\"BtnSendWarehouse\").props.enabled \u003d True\n\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \u0027\u0027\n\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d False\n\t\t\tpass\n\t\telse:\n\t\t\tself.getSibling(\"LblErrorMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d True\n\t\t\tself.getSibling(\"LblErrorMessage\").props.text \u003d \"Warning: Returnable raw material quantity cannot be greater than available quantity\"\n\t\t\tself.getSibling(\"BtnSendWarehouse\").props.enabled \u003d False\n\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: Component Scanning ::\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+            }
+          }
+        },
+        "props": {
+          "deferUpdates": false,
+          "enabled": false,
+          "rejectUpdatesWhileFocused": false,
+          "style": {
+            "backgroundColor": "#D5D5D573",
+            "classes": "Common/TextBox",
+            "color": "#2B2B2B"
+          },
+          "text": 0
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "LblworkorderStatus",
+          "visible": false
+        },
+        "position": {
+          "height": 9,
+          "width": 352,
+          "x": 11,
+          "y": 155
+        },
+        "props": {
+          "textStyle": {
+            "fontSize": 10
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}

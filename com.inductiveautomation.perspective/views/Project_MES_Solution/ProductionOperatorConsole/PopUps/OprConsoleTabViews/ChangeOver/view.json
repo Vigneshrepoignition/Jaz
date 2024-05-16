@@ -1,0 +1,1532 @@
+{
+  "custom": {
+    "IsChangeoverApplicable": ""
+  },
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\tself.getChild(\"root\").getChild(\"LblMessage\").meta.visible \u003d True\n\t\tself.custom.IsChangeoverApplicable \u003d \u0027\u0027\n\t\tworkorderId \u003d self.session.custom.WorkorderID\n\t\tlineId \u003d self.session.custom.LineID\n\t\tAcknowledgement \u003d False  #----False for Validation of changeover True for Acknowledement for changeover\n\t\tuserId\u003dself.session.custom.UserId\n\n\t\ttry:\n\t\t\tResultData\u003dPDAComponentScanning.getChangeoverDetails(workorderId,lineId,Acknowledgement,userId)\n\t\texcept:\n\t\t\tResultData \u003d []\n\t\tsystem.perspective.print(\u0027ResultData : \u0027 + str(ResultData))\n\t\ttry:\n\t\t\tValidateMFGLine \u003d ResultData.getValueAt(0,\u0027ValidateMFGLine\u0027)\n\t\texcept:\n\t\t\tValidateMFGLine \u003d \u0027\u0027\n\n\t\ttry:\n\t\t\tMFGLineDifferent \u003d ResultData.getValueAt(0,\u0027MFGLineDifferent\u0027)\n\t\texcept:\n\t\t\tMFGLineDifferent \u003d \u0027\u0027\n\n\t\ttry:\n\t\t\tPrevMFGLine \u003d ResultData.getValueAt(0,\u0027PrevMFGLine\u0027)\n\t\texcept:\n\t\t\tPrevMFGLine \u003d \u0027\u0027\n\n\t\ttry:\n\t\t\tCurrentMFGLine \u003d ResultData.getValueAt(0,\u0027CurrentMFGLine\u0027)\n\t\texcept:\n\t\t\tCurrentMFGLine \u003d \u0027\u0027\n\n\t\ttry:\n\t\t\tPartNumberChanged \u003d ResultData.getValueAt(0,\u0027PartNumberChanged\u0027)\n\t\texcept:\n\t\t\tPartNumberChanged \u003d \u0027\u0027\n\n\t\ttry:\n\t\t\tPrevPartNumber \u003d ResultData.getValueAt(0,\u0027PrevPartNumber\u0027)\n\t\texcept:\n\t\t\tPrevPartNumber \u003d \u0027\u0027\n\n\t\ttry:\n\t\t\tCurrentPartNumber \u003d ResultData.getValueAt(0,\u0027CurrentPartNumber\u0027)\n\t\t\tChangeoverLabel \u003d self.getChild(\"root\").getChild(\"CoordinateContainer\").getChild(\"Label\").props.text\n\t\t\tself.getChild(\"root\").getChild(\"CoordinateContainer\").getChild(\"Label\").props.text \u003d ChangeoverLabel + \" (\"+str(CurrentPartNumber)+ \")\"\n\t\texcept:\n\t\t\tCurrentPartNumber \u003d \u0027\u0027\n\n\t\ttry:\n\t\t\tworkflowChanged \u003d ResultData.getValueAt(0,\u0027WorkFlowChanged\u0027)\n\t\texcept:\n\t\t\tworkflowChanged \u003d \u0027\u0027\n\n\t\ttry:\n\t\t\tAcknowledgement \u003d ResultData.getValueAt(0,\u0027Acknowledgement\u0027)\n\t\texcept:\n\t\t\tAcknowledgement \u003d \u0027\u0027\n\n\t\ttry:\n\t\t\tIsDataProcessed \u003d ResultData.getValueAt(0,\u0027DataProcessing\u0027)\n\t\texcept:\n\t\t\tIsDataProcessed \u003d 0\n\t\t\n\n\t\t\n\t\ttry:\n\t\t\tIsScrapBackflushed \u003d ResultData.getValueAt(0,\u0027IsScrapBackflushed\u0027)\n\t\texcept:\n\t\t\tIsScrapBackflushed \u003d 0\n\t\t\t\n\t\tsystem.perspective.print(\u0027IsScrapBackflushed : \u0027 + str(IsScrapBackflushed))\n\t\tsystem.perspective.print(\u0027IsScrapBackflushed : \u0027 + str(IsScrapBackflushed))\n#\t\tIsScrapBackflushed \u003d \u00270\u0027\n\t\tif str(IsDataProcessed) \u003d\u003d str(\u00270\u0027):\n\t\t\tif str(IsScrapBackflushed) \u003d\u003d str(\u00270\u0027):\n\t\t\t\tif str(ValidateMFGLine)  \u003d\u003d str(\u00270\u0027) or ValidateMFGLine \u003d\u003d False :\n\t\t\t\t\tif str(PartNumberChanged) \u003d\u003d str(\u00271\u0027) and str(workflowChanged) \u003d\u003d str(\u00270\u0027):\n\t\t\t\t\t\tself.getChild(\"root\").getChild(\"TblChangeOver\").props.columns[7].header.title \u003d \u0027Returnable Qty\u0027\n\t\t\t\t\t\tself.custom.IsChangeoverApplicable \u003d 0\n\t\t\t\t\t\tMessageText \u003d \"Note: Current workorder Part/Factory/Revision is changed as per previous workorder, please return all present components from PDA\"\n\t\t\t\t\t\tself.getChild(\"root\").getChild(\"LblMessage\").meta.visible \u003d True\n\t\t\t\t\t\tself.getChild(\"root\").getChild(\"LblMessage\").props.text \u003d MessageText\n\t\t\t\t\t\tself.getChild(\"root\").getChild(\"TblChangeOver\").props.data  \u003d ResultData\n\t\t\t\t\telif str(PartNumberChanged) \u003d\u003d str(\u00270\u0027) and str(workflowChanged) \u003d\u003d str(\u00271\u0027)  and str(Acknowledgement) !\u003d str(\u00274\u0027): #Factory Same but some Components are same returnunmatched components.\n\t\t\t\t\t\tself.getChild(\"root\").getChild(\"TblChangeOver\").props.columns[7].header.title \u003d \u0027Returnable Qty\u0027\n\t\t\t\t\t\tself.custom.IsChangeoverApplicable \u003d 0\n\t\t\t\t\t\tMessageText \u003d \"Note: Current workorder workflow is changed as per previous workflow, please return all remaining components\"\n\t\t\t\t\t\tself.getChild(\"root\").getChild(\"LblMessage\").meta.visible \u003d True\n\t\t\t\t\t\tself.getChild(\"root\").getChild(\"LblMessage\").props.text \u003d MessageText\n\t\t\t\t\t\tself.getChild(\"root\").getChild(\"TblChangeOver\").props.data  \u003d ResultData\n\t\t\t\t\telif str(PartNumberChanged) \u003d\u003d str(\u00270\u0027) and str(workflowChanged) \u003d\u003d str(\u00270\u0027) and str(Acknowledgement) \u003d\u003d str(\u00274\u0027):\n\t\t\t\t\t\tself.getChild(\"root\").getChild(\"TblChangeOver\").props.columns[7].header.title \u003d \u0027Changeover Qty\u0027\n\t\t\t\t\t\tself.custom.IsChangeoverApplicable \u003d 1\n\t\t\t\t\t\tMessageText \u003d \"Note: Please fill all above mandatory fields and click on complete changeover\"\n\t\t\t\t\t\tself.getChild(\"root\").getChild(\"LblMessage\").meta.visible \u003d True\n\t\t\t\t\t\tself.getChild(\"root\").getChild(\"LblMessage\").props.text \u003d MessageText\n\t\t\t\t\t\tself.getChild(\"root\").getChild(\"TblChangeOver\").props.data  \u003d ResultData\n\t\t\t\telse:\n\t\t\t\t\tif str(MFGLineDifferent) \u003d\u003d str(\u00271\u0027):\n\t\t\t\t\t\tself.getChild(\"root\").getChild(\"TblChangeOver\").props.columns[7].header.title \u003d \u0027Returnable Qty\u0027\n\t\t\t\t\t\tself.custom.IsChangeoverApplicable \u003d 0\n\t\t\t\t\t\tMessageText \u003d \"Note: Current workorder MFGLine is changed as per previous workorder, please return all present components from PDA\"\n\t\t\t\t\t\tself.getChild(\"root\").getChild(\"LblMessage\").meta.visible \u003d True\n\t\t\t\t\t\tself.getChild(\"root\").getChild(\"LblMessage\").props.text \u003d MessageText\n\t\t\t\t\t\tself.getChild(\"root\").getChild(\"TblChangeOver\").props.data  \u003d ResultData\n\t\t\t\t\telif str(PartNumberChanged) \u003d\u003d str(\u00271\u0027) and str(workflowChanged) \u003d\u003d str(\u00270\u0027):\n\t\t\t\t\t\tself.getChild(\"root\").getChild(\"TblChangeOver\").props.columns[7].header.title \u003d \u0027Returnable Qty\u0027\n\t\t\t\t\t\tself.custom.IsChangeoverApplicable \u003d 0\n\t\t\t\t\t\tMessageText \u003d \"Note: Current workorder Part/Factory/Revision is changed as per previous workorder, please return all present components from PDA\"\n\t\t\t\t\t\tself.getChild(\"root\").getChild(\"LblMessage\").meta.visible \u003d True\n\t\t\t\t\t\tself.getChild(\"root\").getChild(\"LblMessage\").props.text \u003d MessageText\n\t\t\t\t\t\tself.getChild(\"root\").getChild(\"TblChangeOver\").props.data  \u003d ResultData\n\t\t\t\t\telif str(PartNumberChanged) \u003d\u003d str(\u00270\u0027) and str(workflowChanged) \u003d\u003d str(\u00271\u0027)  and str(Acknowledgement) !\u003d str(\u00274\u0027): #Factory Same but some Components are same returnunmatched components.\n\t\t\t\t\t\tself.getChild(\"root\").getChild(\"TblChangeOver\").props.columns[7].header.title \u003d \u0027Returnable Qty\u0027\n\t\t\t\t\t\tself.custom.IsChangeoverApplicable \u003d 0\n\t\t\t\t\t\tMessageText \u003d \"Note: Current workorder workflow is changed as per previous workflow, please return all remaining components\"\n\t\t\t\t\t\tself.getChild(\"root\").getChild(\"LblMessage\").meta.visible \u003d True\n\t\t\t\t\t\tself.getChild(\"root\").getChild(\"LblMessage\").props.text \u003d MessageText\n\t\t\t\t\t\tself.getChild(\"root\").getChild(\"TblChangeOver\").props.data  \u003d ResultData\n\t\t\t\t\telif str(PartNumberChanged) \u003d\u003d str(\u00270\u0027) and str(workflowChanged) \u003d\u003d str(\u00270\u0027) and str(Acknowledgement) \u003d\u003d str(\u00274\u0027):\n\t\t\t\t\t\tself.getChild(\"root\").getChild(\"TblChangeOver\").props.columns[7].header.title \u003d \u0027Changeover Qty\u0027\n\t\t\t\t\t\tself.custom.IsChangeoverApplicable \u003d 1\n\t\t\t\t\t\tMessageText \u003d \"Note: Please fill all above mandatory fields and click on complete changeover\"\n\t\t\t\t\t\tself.getChild(\"root\").getChild(\"LblMessage\").meta.visible \u003d True\n\t\t\t\t\t\tself.getChild(\"root\").getChild(\"LblMessage\").props.text \u003d MessageText\n\t\t\t\t\t\tself.getChild(\"root\").getChild(\"TblChangeOver\").props.data  \u003d ResultData\n\t\t\telse:\n\t\t\t\tself.custom.IsChangeoverApplicable \u003d 0\n\t\t\t\tMessageText \u003d \"Scrap backflush is pending, please backflush added scrap for previous workorder\"\n\t\t\t\tMessageText1 \u003d \"Note: Scrap backflush is pending, please backflush added scrap for previous workorder\"\n\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":MessageText},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\t\t\t\t\t\t\n\t\t\t\tself.getChild(\"root\").getChild(\"LblMessage\").meta.visible \u003d True\n\t\t\t\tself.getChild(\"root\").getChild(\"LblMessage\").props.text \u003d MessageText1\n\n\t\telse:\n\t\t\tself.custom.IsChangeoverApplicable \u003d 0\n\t\t\tMessageText \u003d \"FG Quantity calculation is inprogress for previous WorkOrder, Please wait for some time.\"\n\t\t\tMessageText1 \u003d \"Note: FG Quantity calculation is inprogress for previous WorkOrder, Please wait for some time.\"\n\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":MessageText},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\t\t\t\t\t\t\n\t\t\tself.getChild(\"root\").getChild(\"LblMessage\").meta.visible \u003d True\n\t\t\tself.getChild(\"root\").getChild(\"LblMessage\").props.text \u003d MessageText1\n\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: Production Operator Console: Change Over On startup\u0027:\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "propConfig": {
+    "custom.IsChangeoverApplicable": {
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 697,
+      "width": 1302
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "height": 0.7949,
+              "width": 0.8591,
+              "x": 0.0068,
+              "y": 0.099
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.WoNumber"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tvalue \u003d \"Changeover to \" + str(value)\n\treturn value",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "textStyle": {
+                "classes": "Common/Label_Header"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\ttry:\n\t\tself.parent.parent.getChild(\"LblMessage\").meta.visible \u003d True\n\t\tself.view.custom.IsChangeoverApplicable \u003d \u0027\u0027\n\t\tMessageText \u003d \"Note: \"\n\t\tself.parent.parent.getChild(\"LblMessage\").props.text \u003d MessageText\n\t\tself.parent.parent.getChild(\"TblChangeOver\").props.data \u003d []\n\t\tworkorderId \u003d self.session.custom.WorkorderID\n\t\tlineId \u003d self.session.custom.LineID\n\t\tAcknowledgement \u003d False  #----False for Validation of changeover True for Acknowledement for changeover\n\t\tuserId\u003dself.session.custom.UserId\n\n\t\ttry:\n\t\t\tResultData\u003dPDAComponentScanning.getChangeoverDetails(workorderId,lineId,Acknowledgement,userId)\n\t\texcept:\n\t\t\tResultData \u003d []\n\n\t\tsystem.perspective.print(\u0027ResultData :\u0027 + str(ResultData))\n\t\ttry:\n\t\t\tValidateMFGLine \u003d ResultData.getValueAt(0,\u0027ValidateMFGLine\u0027)\n\t\texcept:\n\t\t\tValidateMFGLine \u003d \u0027\u0027\n\n\t\ttry:\n\t\t\tMFGLineDifferent \u003d ResultData.getValueAt(0,\u0027MFGLineDifferent\u0027)\n\t\texcept:\n\t\t\tMFGLineDifferent \u003d \u0027\u0027\n\n\t\ttry:\n\t\t\tPrevMFGLine \u003d ResultData.getValueAt(0,\u0027PrevMFGLine\u0027)\n\t\texcept:\n\t\t\tPrevMFGLine \u003d \u0027\u0027\n\n\t\ttry:\n\t\t\tCurrentMFGLine \u003d ResultData.getValueAt(0,\u0027CurrentMFGLine\u0027)\n\t\texcept:\n\t\t\tCurrentMFGLine \u003d \u0027\u0027\n\n\t\ttry:\n\t\t\tPartNumberChanged \u003d ResultData.getValueAt(0,\u0027PartNumberChanged\u0027)\n\t\texcept:\n\t\t\tPartNumberChanged \u003d \u0027\u0027\n\n\t\ttry:\n\t\t\tPrevPartNumber \u003d ResultData.getValueAt(0,\u0027PrevPartNumber\u0027)\n\t\texcept:\n\t\t\tPrevPartNumber \u003d \u0027\u0027\n\n\t\ttry:\n\t\t\tworkflowChanged \u003d ResultData.getValueAt(0,\u0027WorkFlowChanged\u0027)\n\t\texcept:\n\t\t\tworkflowChanged \u003d \u0027\u0027\n\n\t\ttry:\n\t\t\tAcknowledgement \u003d ResultData.getValueAt(0,\u0027Acknowledgement\u0027)\n\t\texcept:\n\t\t\tAcknowledgement \u003d \u0027\u0027\n\n\t\ttry:\n\t\t\tIsDataProcessed \u003d ResultData.getValueAt(0,\u0027DataProcessing\u0027)\n\t\texcept:\n\t\t\tIsDataProcessed \u003d 0\n\t\t\n\t\tsystem.perspective.print(\u0027IsDataProcessed : \u0027 + str(IsDataProcessed))\n\t\ttry:\n\t\t\tIsScrapBackflushed \u003d ResultData.getValueAt(0,\u0027IsScrapBackflushed\u0027)\n\t\texcept:\n\t\t\tIsScrapBackflushed \u003d 0\n\t\t\n\t\t\n\t\tRowCount \u003d ResultData.getRowCount()\n\t\tsystem.perspective.print(\u0027RowCount : \u0027 + str(RowCount))\n\t\tif int(RowCount) \u003eint(0):\n\t\t\tif str(IsDataProcessed) \u003d\u003d str(\u00270\u0027):\n\t\t\t\tif str(IsScrapBackflushed) \u003d\u003d str(\u00270\u0027):\n\t\t\t\t\tif str(ValidateMFGLine)  \u003d\u003d str(\u00270\u0027) or ValidateMFGLine \u003d\u003d False :\n\t\t\t\t\t\tif str(PartNumberChanged) \u003d\u003d str(\u00271\u0027) and str(workflowChanged) \u003d\u003d str(\u00270\u0027):\n\t\t\t\t\t\t\tself.parent.parent.getChild(\"TblChangeOver\").props.columns[7].header.title \u003d \u0027Returnable Qty\u0027\n\t\t\t\t\t\t\tself.view.custom.IsChangeoverApplicable \u003d 0\n\t\t\t\t\t\t\tMessageText \u003d \"Note: Current workorder Part/Factory/Revision is changed as per previous workorder, please return all present components from PDA\"\n\t\t\t\t\t\t\tself.parent.parent.getChild(\"LblMessage\").meta.visible \u003d True\n\t\t\t\t\t\t\tself.parent.parent.getChild(\"LblMessage\").props.text \u003d MessageText\n\t\t\t\t\t\t\tself.parent.parent.getChild(\"TblChangeOver\").props.data  \u003d ResultData\n\t\t\t\t\t\telif str(PartNumberChanged) \u003d\u003d str(\u00270\u0027) and str(workflowChanged) \u003d\u003d str(\u00271\u0027)  and str(Acknowledgement) !\u003d str(\u00274\u0027): #Factory Same but some Components are same returnunmatched components.\n\t\t\t\t\t\t\tself.parent.parent.getChild(\"TblChangeOver\").props.columns[7].header.title \u003d \u0027Returnable Qty\u0027\n\t\t\t\t\t\t\tself.view.custom.IsChangeoverApplicable \u003d 0\n\t\t\t\t\t\t\tMessageText \u003d \"Note: Current workorder workflow is changed as per previous workflow, please return all remaining components\"\n\t\t\t\t\t\t\tself.parent.parent.getChild(\"LblMessage\").meta.visible \u003d True\n\t\t\t\t\t\t\tself.parent.parent.getChild(\"LblMessage\").props.text \u003d MessageText\n\t\t\t\t\t\t\tself.parent.parent.getChild(\"TblChangeOver\").props.data  \u003d ResultData\n\t\t\t\t\t\telif str(PartNumberChanged) \u003d\u003d str(\u00270\u0027) and str(workflowChanged) \u003d\u003d str(\u00270\u0027) and str(Acknowledgement) \u003d\u003d str(\u00274\u0027):\n\t\t\t\t\t\t\tself.parent.parent.getChild(\"TblChangeOver\").props.columns[7].header.title \u003d \u0027Changeover Qty\u0027\n\t\t\t\t\t\t\tself.view.custom.IsChangeoverApplicable \u003d 1\n\t\t\t\t\t\t\tMessageText \u003d \"Note: Please fill all above mandatory fields and click on complete changeover\"\n\t\t\t\t\t\t\tself.parent.parent.getChild(\"LblMessage\").meta.visible \u003d True\n\t\t\t\t\t\t\tself.parent.parent.getChild(\"LblMessage\").props.text \u003d MessageText\n\t\t\t\t\t\t\tself.parent.parent.getChild(\"TblChangeOver\").props.data \u003d ResultData\n\t\t\t\t\telse:\n\t\t\t\t\t\tif str(MFGLineDifferent) \u003d\u003d str(\u00271\u0027):\n\t\t\t\t\t\t\tself.parent.parent.getChild(\"TblChangeOver\").props.columns[7].header.title \u003d \u0027Returnable Qty\u0027\n\t\t\t\t\t\t\tself.view.custom.IsChangeoverApplicable \u003d 0\n\t\t\t\t\t\t\tMessageText \u003d \"Note: Current workorder MFGLine is changed as per previous workorder, please return all present components from PDA\"\n\t\t\t\t\t\t\tself.parent.parent.getChild(\"LblMessage\").meta.visible \u003d True\n\t\t\t\t\t\t\tself.parent.parent.getChild(\"LblMessage\").props.text \u003d MessageText\n\t\t\t\t\t\t\tself.parent.parent.getChild(\"TblChangeOver\").props.data  \u003d ResultData\n\t\t\t\t\t\telif str(PartNumberChanged) \u003d\u003d str(\u00271\u0027) and str(workflowChanged) \u003d\u003d str(\u00270\u0027):\n\t\t\t\t\t\t\tself.parent.parent.getChild(\"TblChangeOver\").props.columns[7].header.title \u003d \u0027Returnable Qty\u0027\n\t\t\t\t\t\t\tself.view.custom.IsChangeoverApplicable \u003d 0\n\t\t\t\t\t\t\tMessageText \u003d \"Note: Current workorder Part/Factory/Revision is changed as per previous workorder, please return all present components from PDA\"\n\t\t\t\t\t\t\tself.parent.parent.getChild(\"LblMessage\").meta.visible \u003d True\n\t\t\t\t\t\t\tself.parent.parent.getChild(\"LblMessage\").props.text \u003d MessageText\n\t\t\t\t\t\t\tself.parent.parent.getChild(\"TblChangeOver\").props.data \u003d ResultData\n\t\t\t\t\t\telif str(PartNumberChanged) \u003d\u003d str(\u00270\u0027) and str(workflowChanged) \u003d\u003d str(\u00271\u0027)  and str(Acknowledgement) !\u003d str(\u00274\u0027): #Factory Same but some Components are same returnunmatched components.\n\t\t\t\t\t\t\tself.parent.parent.getChild(\"TblChangeOver\").props.columns[7].header.title \u003d \u0027Returnable Qty\u0027\n\t\t\t\t\t\t\tself.view.custom.IsChangeoverApplicable \u003d 0\n\t\t\t\t\t\t\tMessageText \u003d \"Note: Current workorder workflow is changed as per previous workflow, please return all remaining components\"\n\t\t\t\t\t\t\tself.parent.parent.getChild(\"LblMessage\").meta.visible \u003d True\n\t\t\t\t\t\t\tself.parent.parent.getChild(\"LblMessage\").props.text \u003d MessageText\n\t\t\t\t\t\t\tself.parent.parent.getChild(\"TblChangeOver\").props.data  \u003d ResultData\n\t\t\t\t\t\telif str(PartNumberChanged) \u003d\u003d str(\u00270\u0027) and str(workflowChanged) \u003d\u003d str(\u00270\u0027) and str(Acknowledgement) \u003d\u003d str(\u00274\u0027):\n\t\t\t\t\t\t\tself.parent.parent.getChild(\"TblChangeOver\").props.columns[7].header.title \u003d \u0027Changeover Qty\u0027\n\t\t\t\t\t\t\tself.view.custom.IsChangeoverApplicable \u003d 1\n\t\t\t\t\t\t\tMessageText \u003d \"Note: Please fill all above mandatory fields and click on complete changeover\"\n\t\t\t\t\t\t\tself.parent.parent.getChild(\"LblMessage\").meta.visible \u003d True\n\t\t\t\t\t\t\tself.parent.parent.getChild(\"LblMessage\").props.text \u003d MessageText\n\t\t\t\t\t\t\tself.parent.parent.getChild(\"TblChangeOver\").props.data \u003d ResultData\n\t\t\t\telse:\n\t\t\t\t\tself.view.custom.IsChangeoverApplicable \u003d 0\n\t\t\t\t\tMessageText \u003d \"Scrap backflush is pending, please backflush added scrap for previous workorder\"\n\t\t\t\t\tMessageText1 \u003d \"Note: Scrap backflush is pending, please backflush added scrap for previous workorder\"\n\t\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":MessageText},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\t\t\t\t\t\t\n\t\t\t\t\tself.parent.parent.getChild(\"LblMessage\").meta.visible \u003d True\n\t\t\t\t\tself.parent.parent.getChild(\"LblMessage\").props.text \u003d MessageText1\n\t\t\telse:\n\t\t\t\tself.view.custom.IsChangeoverApplicable \u003d 0\n\t\t\t\tMessageText \u003d \"FG Quantity calculation is inprogress for previous WorkOrder, Please wait for some time.\"\n\t\t\t\tMessageText1 \u003d \"Note: FG Quantity calculation is inprogress for previous WorkOrder, Please wait for some time.\"\n\t\t\t\tsystem.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":MessageText},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\t\t\t\t\t\t\n\t\t\t\tself.parent.parent.getChild(\"LblMessage\").meta.visible \u003d True\n\t\t\t\tself.parent.parent.getChild(\"LblMessage\").props.text \u003d MessageText1\n\t\telse:\n\t\t\tpass\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: Production Operator Console: Change Over: Refresh Button\u0027:\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "RefreshBtn",
+              "tooltip": {
+                "enabled": true,
+                "location": "bottom-left",
+                "style": {
+                  "classes": "Common/ToolTip"
+                }
+              }
+            },
+            "position": {
+              "height": 0.7949,
+              "width": 0.0823,
+              "x": 0.9064,
+              "y": 0.09
+            },
+            "props": {
+              "image": {
+                "height": 15,
+                "width": 45
+              },
+              "style": {
+                "classes": "Common/Button"
+              },
+              "text": "Refresh",
+              "textStyle": {
+                "fontFamily": "Arial",
+                "fontSize": 11
+              }
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "CoordinateContainer"
+        },
+        "position": {
+          "height": 0.0544,
+          "width": 0.9979,
+          "x": 0.0016,
+          "y": 0.0024
+        },
+        "props": {
+          "mode": "percent",
+          "style": {
+            "backgroundColor": "#EDF0F0"
+          }
+        },
+        "type": "ia.container.coord"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tself.getSibling(\"StartDTPicker\").props.value \u003d \u0027\u0027\n\tself.getSibling(\"EndDTPicker\").props.value \u003d \u0027\u0027\n\tself.getSibling(\"TxtRemark\").props.text \u003d \u0027\u0027\n\tself.getSibling(\"StartDTPicker\").focus()"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "DropdwnSelectCatagory"
+        },
+        "position": {
+          "height": 0.0459,
+          "width": 0.2019,
+          "x": 0.0129,
+          "y": 0.1101
+        },
+        "props": {
+          "options": {
+            "$": [
+              "ds",
+              192,
+              1683012170753
+            ],
+            "$columns": [
+              {
+                "data": [
+                  61
+                ],
+                "name": "ReasonCodeId",
+                "type": "Long"
+              },
+              {
+                "data": [
+                  "CO- Material Change"
+                ],
+                "name": "ReasonCodeName",
+                "type": "String"
+              }
+            ]
+          },
+          "placeholder": {
+            "text": "Select Catagory"
+          },
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "meta": {
+          "name": "LblSelectCategory"
+        },
+        "position": {
+          "height": 0.033,
+          "width": 0.1995,
+          "x": 0.0144,
+          "y": 0.0717
+        },
+        "props": {
+          "text": "Catagory",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Label"
+        },
+        "position": {
+          "height": 0.029,
+          "width": 0.0092,
+          "x": 0.0581,
+          "y": 0.0744
+        },
+        "props": {
+          "text": "*",
+          "textStyle": {
+            "color": "#D90000"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tself.getSibling(\"TxtRemark\").props.text \u003d \u0027\u0027\n\tself.getSibling(\"TxtRemark\").focus()"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "EndDTPicker"
+        },
+        "position": {
+          "height": 0.0459,
+          "width": 0.2019,
+          "x": 0.4687,
+          "y": 0.1101
+        },
+        "propConfig": {
+          "props.minDate": {
+            "binding": {
+              "config": {
+                "path": "../StartDTPicker.props.value"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "dismissOnSelect": false,
+          "formattedValue": null,
+          "inputProps": {
+            "style": {
+              "backgroundColor": "#FFFFFF",
+              "borderStyle": "none",
+              "fontFamily": "Arial",
+              "fontSize": 12
+            }
+          },
+          "placeholder": "Select End Date\u0026Time",
+          "style": {
+            "backgroundColor": "#FFFFFF00",
+            "classes": "Common/TextBox",
+            "fontFamily": "Arial",
+            "fontSize": 12
+          },
+          "value": ""
+        },
+        "type": "ia.input.date-time-input"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tself.getSibling(\"EndDTPicker\").props.value \u003d \u0027\u0027\n\tself.getSibling(\"TxtRemark\").props.text \u003d \u0027\u0027\n\tself.getSibling(\"EndDTPicker\").focus()"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "StartDTPicker"
+        },
+        "position": {
+          "height": 0.0459,
+          "width": 0.2019,
+          "x": 0.2417,
+          "y": 0.1101
+        },
+        "props": {
+          "dismissOnSelect": false,
+          "formattedValue": null,
+          "inputProps": {
+            "style": {
+              "backgroundColor": "#FFFFFF",
+              "borderStyle": "none",
+              "fontFamily": "Arial",
+              "fontSize": 12
+            }
+          },
+          "placeholder": "Select Start Date\u0026Time",
+          "style": {
+            "backgroundColor": "#FFFFFF00",
+            "classes": "Common/TextBox",
+            "fontFamily": "Arial",
+            "fontSize": 12
+          }
+        },
+        "type": "ia.input.date-time-input"
+      },
+      {
+        "meta": {
+          "name": "LblEndDT"
+        },
+        "position": {
+          "height": 0.033,
+          "width": 0.2034,
+          "x": 0.4683,
+          "y": 0.0702
+        },
+        "props": {
+          "text": "End Date Time",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Label_1"
+        },
+        "position": {
+          "height": 0.0314,
+          "width": 0.0108,
+          "x": 0.5405,
+          "y": 0.07
+        },
+        "props": {
+          "text": "*",
+          "textStyle": {
+            "color": "#D90000"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Label_0"
+        },
+        "position": {
+          "height": 0.0314,
+          "width": 0.0108,
+          "x": 0.3125,
+          "y": 0.0684
+        },
+        "props": {
+          "text": "*",
+          "textStyle": {
+            "color": "#D90000"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblStartDT"
+        },
+        "position": {
+          "height": 0.033,
+          "width": 0.2011,
+          "x": 0.2415,
+          "y": 0.0702
+        },
+        "props": {
+          "text": "Start Date Time",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "TxtRemark",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 0.0459,
+          "width": 0.3016,
+          "x": 0.6825,
+          "y": 0.108
+        },
+        "props": {
+          "deferUpdates": false,
+          "placeholder": "Add Comments",
+          "rejectUpdatesWhileFocused": false,
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "LblRemark"
+        },
+        "position": {
+          "height": 0.033,
+          "width": 0.2993,
+          "x": 0.6839,
+          "y": 0.0714
+        },
+        "props": {
+          "text": "Comments",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "TblChangeOver"
+        },
+        "position": {
+          "height": 0.7233,
+          "width": 0.9728,
+          "x": 0.0122,
+          "y": 0.1887
+        },
+        "props": {
+          "bodyStyle": {
+            "classes": "Table/RowsBorder",
+            "overflowWrap": "break-word",
+            "textAlign": "justify-all"
+          },
+          "columns": [
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "SrNo",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 50
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "WorkorderNo",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Prev Workorder"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 85
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "PrevPartNumber",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Previous Part"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 130
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "CurrentPartNumber",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Current_PartNo_ORG_Rev_SO"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": 130
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "MachineName",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "MachineName with Head"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "ComponentName",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Component Name"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "TransferComponentLot",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Scanned Component Lot"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "AvailableToReturn",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Qty"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "string",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "PartNumberChanged",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "WorkFlowChanged",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "Acknowledgement",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": ""
+            }
+          ],
+          "data": null,
+          "emptyMessage": {
+            "noData": {
+              "icon": {
+                "color": "#C0C0C0",
+                "path": "material/hourglass_empty"
+              },
+              "text": "Components are not available"
+            }
+          },
+          "filter": {
+            "enabled": true
+          },
+          "headerStyle": {
+            "classes": "Table/Header"
+          },
+          "pager": {
+            "bottom": false
+          },
+          "resizeMode": "fixed",
+          "rows": {
+            "striped": {
+              "color": {
+                "even": "#FAFAFB",
+                "odd": "#FAFAFB"
+              }
+            },
+            "style": {
+              "classes": "Table/Rowsmiddle"
+            },
+            "subviewExpansionMode": "single"
+          },
+          "selection": {
+            "enableColumnSelection": true
+          }
+        },
+        "type": "ia.display.table"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\tcategoryId\u003dself.getSibling(\"DropdwnSelectCatagory\").props.value\n\t\tselectedLineId \u003d self.session.custom.LineID\n\t\tshiftId \u003d Authentication.getshiftId(selectedLineId)\n\t\tsystem.perspective.print(\u0027Line Id: \u0027 + str(selectedLineId) + \u0027|| Shift Id :\u0027 + str(shiftId))\n\t\tuserId \u003d self.session.custom.UserId\n\t\tWoNumber \u003d self.session.custom.WoNumber\n\t\tstartTime1\u003dself.getSibling(\"StartDTPicker\").props.value\n\t\tendTime1\u003dself.getSibling(\"EndDTPicker\").props.value\n\t\tcomment\u003dself.getSibling(\"TxtRemark\").props.text\n\t\tstartTime \u003d str(system.date.format(startTime1,\"yyyy-MM-dd\u0027T\u0027HH:mm:ss.ss\u0027Z\u0027\"))\n\t\tendTime \u003d str(system.date.format(endTime1,\"yyyy-MM-dd\u0027T\u0027HH:mm:ss.ss\u0027Z\u0027\"))\n\t\tIsChangeOverApplicable \u003d self.view.custom.IsChangeoverApplicable\n\t\tworkorderId \u003d self.session.custom.WorkorderID\n\t\tlineId \u003d self.session.custom.LineID\n\t\tAcknowledgement \u003d True  #----False for Validation of changeover True for Acknowledement for changeover\n\t\tTableData \u003d self.getSibling(\"TblChangeOver\").props.data\n\t\tTableRowCount \u003d TableData.getRowCount()\n#\t\tsystem.perspective.print(\u0027TableRowCount : \u0027 + str(TableRowCount))\n\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\tif comment \u003d\u003d str(\"\").strip():\n\t\t\tcomment \u003d \u0027Not Added by Operator\u0027\n\t\telse:\n\t\t\tpass\n\t\t\n\t\t\n#\t\tsystem.perspective.print(\u0027workorderId :\u0027 + str(workorderId))\n#\t\tsystem.perspective.print(\u0027shiftId :\u0027 + str(shiftId))\n#\t\tsystem.perspective.print(\u0027userId :\u0027 + str(userId))\n#\t\tsystem.perspective.print(\u0027WoNumber :\u0027 + str(WoNumber))\n#\t\tsystem.perspective.print(\u0027startTime :\u0027 + str(startTime))\n#\t\tsystem.perspective.print(\u0027endTime :\u0027 + str(endTime))\n\n\t\tif TableRowCount \u003e 0:\n\t\t\tif IsChangeOverApplicable \u003d\u003d 1 or str(IsChangeOverApplicable) \u003d\u003d str(\u00271\u0027):\n\t\t\t\tchangeOverResult \u003d 1\n\t\t\t\ttry:\n\t\t\t\t\tResultData\u003dPDAComponentScanning.getChangeoverDetails(workorderId,lineId,Acknowledgement,userId)\n\t\t\t\texcept:\n\t\t\t\t\tchangeOverResult \u003d 0\n\n#\t\t\t\tsystem.perspective.print(\u0027changeOverResult :\u0027 + str(changeOverResult))\n\t\t\t\tif str(changeOverResult) \u003d\u003d str(\u00271\u0027):\n\t\t\t\t\tpostChangeOver\u003dProductionOperatorConsole.postChangeoverDetails(categoryId,shiftId,userId,WoNumber,startTime,endTime,comment)\n#\t\t\t\t\tsystem.perspective.print(\u0027postChangeOver :\u0027 + str(postChangeOver))\n\t\t\t\t\t\n\t\t\t\t\tif postChangeOver \u003d\u003d int(1) or postChangeOver \u003d\u003d 1:\n\t\t\t\t\t\tsystem.perspective.closePopup(\u0027\u0027)\n\t\t\t\t\t\tsystem.perspective.openPopup(\u0027MessagePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/Material Request Screens/MessageBoxPopup\u0027,params\u003d{\"MessageText\":\" Successfully added changeover details\",\"ErrorVisible\": False,\"SuccessVisible\":True},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\t\tsystem.perspective.sendMessage(\"CallHome\", scope\u003d\u0027page\u0027)\n\t\t\t\t\telse:\n\t\t\t\t\t\tsystem.perspective.openPopup(\u0027MessagePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/Material Request Screens/MessageBoxPopup\u0027,params\u003d{\"MessageText\":\" Error in  saving changeover details\",\"ErrorVisible\": True,\"SuccessVisible\":False},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n#\t\t\t\t\t\tsystem.perspective.print(\"Fail To Save The Change Over--\u003e\")\n\t\t\t\telse:\n\t\t\t\t\tsystem.perspective.openPopup(\u0027MessagePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/Material Request Screens/MessageBoxPopup\u0027,params\u003d{\"MessageText\":\" Error in  transferring material to new workorder\",\"ErrorVisible\": True,\"SuccessVisible\":False},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n#\t\t\t\t\tsystem.perspective.print(\"Fail To Save The Change Over--\u003e\")\n\t\t\telse:\n\t\t\t\tsystem.perspective.openPopup(\u0027MessagePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/Material Request Screens/MessageBoxPopup\u0027,params\u003d{\"MessageText\":\" Change over is not applicable, please return all remaining components present in machine\",\"ErrorVisible\": True,\"SuccessVisible\":False},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\telse:\n\t\t\tsystem.perspective.openPopup(\u0027MessagePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/Material Request Screens/MessageBoxPopup\u0027,params\u003d{\"MessageText\":\" Components are not available to do changeover\",\"ErrorVisible\": True,\"SuccessVisible\":False},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: Production Operator Console: Change over : Save Button :\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnSave",
+          "tooltip": {
+            "enabled": true
+          }
+        },
+        "position": {
+          "height": 0.0573,
+          "width": 0.1594,
+          "x": 0.8233,
+          "y": 0.9275
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "expression": "now(350)"
+              },
+              "transforms": [
+                {
+                  "code": "\tcategoryId \u003d self.getSibling(\"DropdwnSelectCatagory\").props.value\n\tstartTime \u003d self.getSibling(\"StartDTPicker\").props.value\n\tendTime \u003d self.getSibling(\"EndDTPicker\").props.value\n\t\t\n\tif categoryId !\u003d \u0027\u0027 and startTime !\u003d \u0027\u0027 and endTime !\u003d \u0027\u0027:\n\t\tvalue \u003d True\n\t\tself.props.style.backgroundColor \u003d \"#3888CC\"\n\t\tself.props.style.borderColor \u003d \"#3888CC\"\n\telse:\n\t\tvalue \u003d False\n\t\tself.props.style.backgroundColor \u003d str(self.session.custom.disableBtncolour)\n\t\tself.props.style.borderColor \u003d str(self.session.custom.disableBtncolour)\n\treturn value\n",
+                  "type": "script"
+                }
+              ],
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "image": {
+            "height": 20,
+            "width": 50
+          },
+          "style": {
+            "backgroundColor": "value",
+            "borderColor": "value",
+            "classes": "PDA/PDAButton"
+          },
+          "text": "Complete Changeover",
+          "textStyle": {
+            "classes": "PDA/MainButtonText"
+          }
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "LblMessage"
+        },
+        "position": {
+          "height": 0.0556,
+          "width": 0.7806,
+          "x": 0.0136,
+          "y": 0.9326
+        },
+        "props": {
+          "text": "Note: ",
+          "textStyle": {
+            "classes": "Common/Blink",
+            "color": "#FF0000",
+            "fontFamily": "Arial",
+            "fontSize": 18,
+            "fontWeight": "bold"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent",
+      "style": {
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

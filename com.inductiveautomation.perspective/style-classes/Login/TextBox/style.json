@@ -1,0 +1,12 @@
+{
+  "base": {
+    "style": {
+      "borderColor": "#e1e1e1",
+      "borderWidth": "1px",
+      "color": "#737373",
+      "fontFamily": "Cambria",
+      "fontSize": "14px",
+      "fontWeight": "normal"
+    }
+  }
+}

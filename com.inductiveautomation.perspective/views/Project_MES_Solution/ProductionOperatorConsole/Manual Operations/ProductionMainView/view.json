@@ -1,0 +1,160 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 769,
+      "width": 1348
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Dashboard"
+        },
+        "position": {
+          "height": 0.987,
+          "width": 0.9792
+        },
+        "props": {
+          "editingToggle": false,
+          "widgets": [
+            {
+              "body": {
+                "style": {
+                  "classes": ""
+                }
+              },
+              "header": {
+                "enabled": true,
+                "style": {
+                  "classes": "Widgets/WidgetsHeader"
+                },
+                "title": "Workorder Information"
+              },
+              "isConfigurable": false,
+              "minSize": {
+                "columnSpan": 1,
+                "rowSpan": 1
+              },
+              "name": "Workorder Information",
+              "position": {
+                "columnEnd": 3,
+                "columnStart": 1,
+                "rowEnd": 4,
+                "rowStart": 1
+              },
+              "style": {
+                "classes": ""
+              },
+              "viewParams": {},
+              "viewPath": "Project_MES_Solution/ProductionOperatorConsole/Modules/WorkOrderInformation"
+            },
+            {
+              "body": {
+                "style": {
+                  "classes": ""
+                }
+              },
+              "header": {
+                "enabled": true,
+                "style": {
+                  "classes": "Widgets/WidgetsHeader"
+                },
+                "title": "Mold Information"
+              },
+              "isConfigurable": false,
+              "minSize": {
+                "columnSpan": 1,
+                "rowSpan": 1
+              },
+              "name": "Mold Information",
+              "position": {
+                "columnEnd": 5,
+                "columnStart": 3,
+                "rowEnd": 4,
+                "rowStart": 1
+              },
+              "style": {
+                "classes": ""
+              },
+              "viewParams": {},
+              "viewPath": "Project_MES_Solution/ProductionOperatorConsole/Modules/MoldInformation"
+            },
+            {
+              "body": {
+                "style": {
+                  "classes": ""
+                }
+              },
+              "header": {
+                "enabled": true,
+                "style": {
+                  "classes": "Widgets/WidgetsHeader"
+                },
+                "title": "Shift Production Details"
+              },
+              "isConfigurable": false,
+              "minSize": {
+                "columnSpan": 1,
+                "rowSpan": 1
+              },
+              "name": "Shift Production Details",
+              "position": {
+                "columnEnd": 10,
+                "columnStart": 1,
+                "rowEnd": 10,
+                "rowStart": 4
+              },
+              "style": {
+                "classes": ""
+              },
+              "viewParams": {},
+              "viewPath": "Project_MES_Solution/ProductionOperatorConsole/Modules/ProductionGrid"
+            },
+            {
+              "body": {
+                "style": {
+                  "classes": ""
+                }
+              },
+              "header": {
+                "enabled": true,
+                "style": {
+                  "classes": "Widgets/WidgetsHeader"
+                },
+                "title": "Packing Information"
+              },
+              "isConfigurable": false,
+              "minSize": {
+                "columnSpan": 1,
+                "rowSpan": 1
+              },
+              "name": "Packing Information",
+              "position": {
+                "columnEnd": 10,
+                "columnStart": 5,
+                "rowEnd": 4,
+                "rowStart": 1
+              },
+              "style": {
+                "classes": ""
+              },
+              "viewParams": {},
+              "viewPath": "Project_MES_Solution/ProductionOperatorConsole/Modules/PackingInformation"
+            }
+          ]
+        },
+        "type": "ia.display.dashboard"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

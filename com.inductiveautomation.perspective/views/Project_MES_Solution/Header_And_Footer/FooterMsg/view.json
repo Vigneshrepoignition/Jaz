@@ -1,0 +1,85 @@
+{
+  "custom": {},
+  "params": {
+    "Message": ""
+  },
+  "propConfig": {
+    "params.Message": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 51,
+      "width": 1603
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Carousel"
+        },
+        "position": {
+          "height": 0.8649,
+          "width": 0.9981,
+          "x": 0.0007,
+          "y": 0.0678
+        },
+        "props": {
+          "appearance": {
+            "arrows": {
+              "enabled": false
+            },
+            "dots": {
+              "enabled": false
+            },
+            "slidePadding": 0,
+            "slidesToShow": 0
+          },
+          "autoplay": {
+            "enabled": true,
+            "transitionDelay": 5000
+          },
+          "behavior": {
+            "desktopDraggable": false,
+            "mobileSwipeable": false
+          },
+          "lazyLoad": false,
+          "views": [
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "Please follow safety rules while working on shop floor"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/Message"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "Please wear safety instruments (safety goggles, shoes, helmet,etc while working on shop floor."
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/Message"
+            }
+          ]
+        },
+        "type": "ia.display.carousel"
+      }
+    ],
+    "meta": {
+      "name": "root",
+      "tooltip": {
+        "tail": false
+      }
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

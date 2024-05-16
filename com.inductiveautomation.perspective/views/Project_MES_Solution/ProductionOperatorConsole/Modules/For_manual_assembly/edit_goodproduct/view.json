@@ -1,0 +1,115 @@
+{
+  "custom": {},
+  "params": {
+    "rowData": "value"
+  },
+  "propConfig": {
+    "params.rowData": {
+      "paramDirection": "inout",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 18,
+      "width": 109
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": [
+              {
+                "config": {
+                  "draggable": false,
+                  "id": "jTZHtbkw",
+                  "modal": true,
+                  "overlayDismiss": false,
+                  "resizable": false,
+                  "showCloseIcon": false,
+                  "type": "open",
+                  "viewParams": {
+                    "rowdata": "{view.params.rowData}"
+                  },
+                  "viewPath": "Project_MES_Solution/ProductionOperatorConsole/Modules/For_manual_assembly/popup/edit_goodproductiondetails",
+                  "viewportBound": false
+                },
+                "scope": "C",
+                "type": "popup"
+              },
+              {
+                "config": {
+                  "script": "\tsystem.perspective.print(self.view.params.value)"
+                },
+                "scope": "G",
+                "type": "script"
+              }
+            ]
+          }
+        },
+        "meta": {
+          "name": "Icon"
+        },
+        "position": {
+          "height": 0.8944,
+          "width": 0.2448,
+          "x": 0.4972,
+          "y": 0.0556
+        },
+        "props": {
+          "path": "material/edit"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "TextField"
+        },
+        "position": {
+          "height": 0.8422,
+          "width": 0.4404,
+          "x": 0.0362,
+          "y": 0.1044
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.rowData"
+              },
+              "transforms": [
+                {
+                  "code": "\tvalue \u003d value[\"goodQuantity\"]\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "enabled": false,
+          "style": {
+            "backgroundColor": "#FFFFFF",
+            "borderStyle": "none",
+            "textAlign": "right"
+          }
+        },
+        "type": "ia.input.text-field"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": 0.0588,
+      "y": 0.075
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

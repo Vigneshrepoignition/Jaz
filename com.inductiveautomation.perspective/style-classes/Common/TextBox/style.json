@@ -1,0 +1,19 @@
+{
+  "base": {
+    "style": {
+      "borderColor": "#497FD4",
+      "borderStyle": "solid",
+      "borderWidth": "1.9px",
+      "borderRadius": "3px",
+      "borderTopLeftRadius": "5px",
+      "borderTopRightRadius": "5px",
+      "borderBottomLeftRadius": "5px",
+      "borderBottomRightRadius": "5px",
+      "fontFamily": "Arial",
+      "fontSize": "12px",
+      "fontWeight": "normal",
+      "outlineStyle": "none",
+      "outlineWidth": "0"
+    }
+  }
+}

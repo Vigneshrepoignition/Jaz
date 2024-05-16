@@ -1,0 +1,294 @@
+{
+  "custom": {},
+  "params": {
+    "ActProd": 0,
+    "LotNo": "",
+    "PartNo": "",
+    "RowData": "",
+    "WorkorderId": ""
+  },
+  "propConfig": {
+    "params.ActProd": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.LotNo": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.PartNo": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.RowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.WorkorderId": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 131,
+      "width": 222
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 32,
+          "width": 217
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2",
+            "fontFamily": "Arial",
+            "fontSize": 12
+          },
+          "text": "Add Count",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 12,
+            "fontWeight": "bold",
+            "margin": 10,
+            "textAlign": "Center",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\timport math\n\ttry:\t\t\t\t\t\n\t\tWorkorderId\u003dself.view.params.WorkorderId\n\t\tLotNo \u003d self.view.params.LotNo\n\t\tproductionCount\u003dself.getSibling(\"NumericProductionCount\").props.value\n\t\tuserId\u003dself.session.custom.UserId\n\t\tPartNo\u003dself.view.params.PartNo\n#---------------------Calculate Machine Shots Based On Production Count-----------------------\n\t\t\n#\t\tresult \u003dProductionOperatorConsole.GetCavityPieces(WorkorderId,LotNo)\n#\t\tfor i in (result):\n#\t\t\tcavity \u003d i.get(\u0027Cavity\u0027)\n#\t\t\tPieces \u003d i.get(\u0027ProductPiece\u0027)\n#\t\tsystem.perspective.print(\u0027cavity\u0027+str(cavity))\t\n#\t\tsystem.perspective.print(\u0027Pieces\u0027+str(Pieces))\t\n#\t\tsystem.perspective.print(\u0027productionCount\u0027+str(productionCount))\t\n#-----------------------Formula to calculate Machine Shots Based On Production Count------\t\t\n#\t\tMachineShots \u003d (productionCount*Pieces)/cavity\n#\t\tMachineShots \u003d math.ceil(MachineShots)\n#\t\tMachineShots \u003d int(MachineShots)\n#\t\tsystem.perspective.print(\"MachineShots:\"+str(MachineShots))\n\t\tPostResult \u003d ProductionOperatorConsole.updateProductionCount(WorkorderId,productionCount,userId,PartNo)\n\t\tif PostResult \u003d\u003d 1:\n\t\t\tsystem.perspective.closePopup(\u0027\u0027)\n\t\t\tMessageText\u003d\"Production OK Quantity Added Successfully.\"\n\t\t\tupdaateStatus\u003d1\n\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\t\t\t\t\n\t\t\tself.props.value \u003d 0\n\t\telse:\n\t\t\tsystem.perspective.closePopup(\u0027\u0027)\n\t\t\tMessageText\u003d\"Fail To Add Production Count.\"\n\t\t\tupdaateStatus\u003d0\n\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\t\t\t\t\t\t\t\n\texcept:\n\t\tsystem.perspective.print(\u0027Exception :: Add Ok Qty\u0027)\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)\t\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnOk"
+        },
+        "position": {
+          "height": 34,
+          "rotate": {
+            "anchor": "40% 50%"
+          },
+          "width": 99,
+          "x": 9.387500000000001,
+          "y": 85.28750000000001
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "../NumericProductionCount.props.value"
+              },
+              "transforms": [
+                {
+                  "code": "\t\n\tif value \u003e 0:\n\t\tself.props.style.backgroundColor \u003d \u0027#3888CC\u0027\n\t\treturn True\n\t\t\n\telse:\n\t\tself.props.style.backgroundColor \u003d \u0027#AAAAAA\u0027\n\t\treturn False\n\t",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "backgroundColor": "#AAAAAA",
+            "borderStyle": "none",
+            "classes": "Common/Button",
+            "fontFamily": "Arial",
+            "fontSize": 12
+          },
+          "text": "Add OK"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "NumericProductionCount",
+          "tooltip": {
+            "enabled": true,
+            "location": "bottom-left",
+            "text": "Enter Quantity"
+          }
+        },
+        "position": {
+          "height": 27.999999999999993,
+          "width": 179,
+          "x": 13.19804,
+          "y": 38.813939999999995
+        },
+        "propConfig": {
+          "props.value": {
+            "onChange": {
+              "enabled": null,
+              "script": "\tself.getSibling(\"LblErrorMSG\").props.text\u003d\u0027\u0027\n\t"
+            }
+          }
+        },
+        "props": {
+          "align": "left",
+          "containerStyle": {
+            "backgroundColor": "#F0ECEC"
+          },
+          "enabled": 1,
+          "format": "0,0",
+          "inputBounds": {
+            "minimum": 0
+          },
+          "spinner": {
+            "enabled": false
+          },
+          "style": {
+            "backgroundColor": "#FFFFFF",
+            "classes": "Common/TextBox_disabled"
+          },
+          "value": 0
+        },
+        "type": "ia.input.numeric-entry-field"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\timport math\n\ttry:\t\t\t\t\t\n\t\tWorkorderId\u003dself.view.params.WorkorderId\n\t\tLotNo \u003d self.view.params.LotNo\n\t\tproductionCount\u003dself.getSibling(\"NumericProductionCount\").props.value\n\t\tuserId\u003dself.session.custom.UserId\n\t\tPartNo\u003dself.view.params.PartNo\n\t\tActprod \u003d self.view.params.ActProd\n\t\tsystem.perspective.print(\u0027Actprod:\u0027+str(Actprod))\n\t\tif productionCount\u003c\u003dActprod:\n\t\t\tproductionCount \u003d productionCount*(-1)\n\t\t\tsystem.perspective.print(\"MachineShots:\"+str(productionCount))\n\t\t\tPostResult \u003d ProductionOperatorConsole.updateProductionCount(WorkorderId,productionCount,userId,PartNo)\n\t\t\tif PostResult \u003d\u003d 1:\n\t\t\t\tsystem.perspective.closePopup(\u0027\u0027)\n\t\t\t\tMessageText\u003d\"Production NOK Quantity Added Successfully.\"\n\t\t\t\tupdaateStatus\u003d1\n\t\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\t\t\t\t\n\t\t\t\tself.props.value \u003d 0\n\t\t\telse:\n\t\t\t\tsystem.perspective.closePopup(\u0027\u0027)\n\t\t\t\tMessageText\u003d\"Fail To Add NOK Quantity\"\n\t\t\t\tupdaateStatus\u003d0\n\t\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\t\t\t\t\t\t\t\n\t\telse:\n\t\t\tself.getSibling(\"LblErrorMSG\").props.text\u003d\u0027Can not add NOK more tha production Qty\u0027\n\texcept:\n\t\tsystem.perspective.print(\u0027Exception :: Add NOk Qty\u0027)\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)\t\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnNok"
+        },
+        "position": {
+          "height": 34,
+          "rotate": {
+            "anchor": "40% 50%"
+          },
+          "width": 98,
+          "x": 115.188,
+          "y": 86.1875
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "../NumericProductionCount.props.value"
+              },
+              "transforms": [
+                {
+                  "code": "\t\n\tif value \u003e 0:\n\t\tself.props.style.backgroundColor \u003d \u0027#3888CC\u0027\n\t\treturn True\n\t\t\n\telse:\n\t\tself.props.style.backgroundColor \u003d \u0027#AAAAAA\u0027\n\t\treturn False",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "backgroundColor": "#AAAAAA",
+            "borderStyle": "none",
+            "classes": "Common/Button",
+            "fontFamily": "Arial",
+            "fontSize": 12
+          },
+          "text": "Add NOK"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 23,
+          "rotate": {
+            "anchor": "50% 37%"
+          },
+          "width": 31,
+          "x": 181.6900030517578,
+          "y": 4.014999618530274
+        },
+        "props": {
+          "color": "#FFFFFF",
+          "path": "material/close",
+          "style": {
+            "color": "#FFFFFF",
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "LblErrorMSG"
+        },
+        "position": {
+          "height": 17,
+          "width": 208,
+          "x": 7.68,
+          "y": 67.49
+        },
+        "props": {
+          "alignVertical": "top",
+          "textStyle": {
+            "color": "#FA1616",
+            "fontFamily": "Arial",
+            "fontSize": 10
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": 0,
+      "y": 5
+    },
+    "props": {
+      "style": {
+        "classes": "Common/TextBox"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

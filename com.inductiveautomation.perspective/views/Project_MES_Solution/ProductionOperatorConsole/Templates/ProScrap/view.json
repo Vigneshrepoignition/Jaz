@@ -1,0 +1,98 @@
+{
+  "custom": {},
+  "params": {
+    "rowData": "",
+    "rowIndex": "",
+    "value": 0
+  },
+  "propConfig": {
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.value": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 34,
+      "width": 106
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\t\t\t\n\t\tvalue\u003dfloat(self.props.value)\n\t\tsystem.perspective.print(\"Scrap Decimal Val: \"+str(value))\n\t\trowindex\u003dself.view.params.rowIndex\n\t\trowData\u003dself.view.params.rowData\n\t\tsystem.perspective.print(\u0027rowData :\u0027 + str(rowData))\n\t\tRemainingQty\u003drowData.get(\u0027RemainingQty\u0027)\n\t\tRemainingQty\u003dfloat(RemainingQty)\n\t\tif value\u003c\u003dRemainingQty:\n\t\t\tSelctedRow\u003drowindex\t\t\t\n\t\t\tmessageType1 \u003d \u0027updateProdScrap\u0027\n\t\t\tsystem.perspective.sendMessage(messageType1, payload \u003d {\"value\":value,\"SelctedRowIndex\":rowindex}, scope \u003d \"page\")\n\n\t\telse:\n#\t\t\tIsMaterialRequest\u003d\u0027IsMaterialRequest\u0027\n\t\t\tIsMaterialRequest\u003drowData.get(\u0027IsMaterialRequest\u0027)\n\t\t\tsystem.perspective.print(\u0027IsMaterialRequest :\u0027 + str(IsMaterialRequest))\n\t\t\tif str(IsMaterialRequest) \u003d\u003d str(\u00271\u0027) or str(IsMaterialRequest).lower().strip() \u003d\u003d str(\u0027true\u0027).strip() or IsMaterialRequest \u003d\u003d True:\n\t\t\t\tMessageText\u003d\"Unable to Add Scrap As Entered Quantity Is Greater Than Available Quantity  In Lot. The Available Lot Quantity Is:  \"+str(RemainingQty)\n\t\t\t\tupdaateStatus\u003d0\n\t\t\t\tself.props.value\u003d0\n\t\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\telse:\n\t\t\t\tmessageType1 \u003d \u0027updateProdScrap\u0027\n\t\t\t\tsystem.perspective.sendMessage(messageType1, payload \u003d {\"value\":value,\"SelctedRowIndex\":rowindex}, scope \u003d \"page\")\n\n\texcept:\n\t\t\tsystem.perspective.print(\u0027Exception:Update Scrap\u0027)\n\t\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\t\tsystem.perspective.print(errorMessage)\n\t\t\tlineno \u003d tb.tb_lineno\n\t\t\tsystem.perspective.print(lineno)\n\t\t\tsys.exit()\t\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "NumericEntryField"
+        },
+        "position": {
+          "height": 0.8824,
+          "width": 0.9057,
+          "x": 0.0621,
+          "y": 0.0374
+        },
+        "propConfig": {
+          "props.placeholder": {
+            "binding": {
+              "config": {
+                "path": "view.params.value"
+              },
+              "enabled": false,
+              "type": "property"
+            }
+          },
+          "props.value": {
+            "binding": {
+              "config": {
+                "path": "view.params.value"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "align": "center",
+          "format": "0,0.000000000000",
+          "inputBounds": {
+            "minimum": 0
+          },
+          "placeholder": 0,
+          "style": {
+            "backgroundColor": "#F5FFFF",
+            "borderStyle": "solid",
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.input.numeric-entry-field"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -0.4151,
+      "y": 1.0588
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "custom": {},
+  "params": {
+    "value": "2023-12-27 06:24:56"
+  },
+  "propConfig": {
+    "params.value": {
+      "paramDirection": "inout",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 46,
+      "width": 232
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "TextArea"
+        },
+        "position": {
+          "height": 38,
+          "width": 56,
+          "x": 9
+        },
+        "type": "ia.input.text-area"
+      },
+      {
+        "meta": {
+          "name": "DateTimeInput"
+        },
+        "position": {
+          "height": 29,
+          "width": 132,
+          "x": 73,
+          "y": 3
+        },
+        "props": {
+          "format": "YYYY-MM-DD HH:mm:ss",
+          "formattedValue": "2023-12-07 00:00:00",
+          "value": {
+            "$": [
+              "ts",
+              0,
+              1702985193136
+            ],
+            "$ts": 1701878400000
+          }
+        },
+        "type": "ia.input.date-time-input"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": 117,
+      "y": -65
+    },
+    "type": "ia.container.coord"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "base": {
+    "style": {
+      "borderColor": "#FFFFFF",
+      "borderStyle": "none",
+      "color": "#000000",
+      "fontFamily": "Arial",
+      "fontSize": "22px",
+      "fontWeight": "bold",
+      "textShadow": "#D5D5D5 1px"
+    }
+  }
+}

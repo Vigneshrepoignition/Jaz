@@ -1,0 +1,278 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\tuserId\u003dself.session.custom.UserId\n\t\tWONO\u003dself.session.custom.WoNumber\n\t\tMachineDetails\u003dProductionOperatorConsole.GetMachineDetails(userId,WONO)\n\t\tsystem.perspective.print(\u0027Machine Details:\u0027+str(MachineDetails))\t\n\t\trowcount\u003d MachineDetails.getRowCount()\n\t\tfor i in range(rowcount):\n\t\t\tgoodQty\u003dMachineDetails.getValueAt(i, \u0027Good Qty\u0027)\n\t\t\tbadQty\u003dMachineDetails.getValueAt(i, \u0027Bad Qty\u0027)\t\t\n\t\t\tmachineName\u003dMachineDetails.getValueAt(i, \u0027Equipment Code\u0027)\n\t\t\tstatus\u003dMachineDetails.getValueAt(i, \u0027Equipment Status\u0027)\n#\t\t\tself.getChild(\"root\").getChild(\"LblGQty\").props.text\u003dgoodQty\n\t\t\tself.getChild(\"root\").getChild(\"LblBQty\").props.text\u003dbadQty\n\t\t\tself.getChild(\"root\").getChild(\"LblMachineName\").props.text\u003dmachineName\n\t\t\tself.getChild(\"root\").getChild(\"LblAlertStatus\").props.tex\u003dstatus\n\texcept:\n\t\tsystem.perspective.print(\u0027Exception :: Quality Scrap Details\u0027)\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)\n"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 241,
+      "width": 507
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblScanBadge"
+        },
+        "position": {
+          "height": 41.06,
+          "width": 98.14,
+          "x": 11.8,
+          "y": 50.28
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Machine Name",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblReason"
+        },
+        "position": {
+          "height": 41.06,
+          "width": 98.14,
+          "x": 11.8,
+          "y": 138.44
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Bad Qty",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "height": 0.8,
+              "width": 0.334,
+              "x": 0.33,
+              "y": 0.1
+            },
+            "props": {
+              "style": {
+                "color": "#FFFFFF",
+                "fontWeight": "bold"
+              },
+              "text": "Machine Parameters"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\tsystem.perspective.closePopup(\u0027\u0027)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Icon"
+            },
+            "position": {
+              "height": 0.75,
+              "width": 0.0593,
+              "x": 0.917,
+              "y": 0.125
+            },
+            "props": {
+              "color": "#FFFFFF",
+              "path": "material/clear"
+            },
+            "type": "ia.display.icon"
+          }
+        ],
+        "meta": {
+          "name": "CoordinateContainer"
+        },
+        "position": {
+          "height": 40,
+          "width": 506
+        },
+        "props": {
+          "mode": "percent",
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          }
+        },
+        "type": "ia.container.coord"
+      },
+      {
+        "meta": {
+          "name": "LblReason_1"
+        },
+        "position": {
+          "height": 41.06,
+          "width": 98.13999999999999,
+          "x": 275.75,
+          "y": 138.44
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Alert Status",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblReason_2"
+        },
+        "position": {
+          "height": 41.06,
+          "width": 98.13999999999999,
+          "x": 275.75,
+          "y": 49
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Goot Qty",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblMachineName",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 36.489999999999995,
+          "width": 204.54999999999998,
+          "x": 11.8,
+          "y": 91.89
+        },
+        "props": {
+          "style": {
+            "borderWidth": 1,
+            "classes": "Common/TextBox_disabled",
+            "textAlign": "left"
+          },
+          "text": "Speed"
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblGQty",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 36.489999999999995,
+          "width": 204.55,
+          "x": 275.75,
+          "y": 91.89
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "session.custom.actualWoQty"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "borderWidth": 1,
+            "classes": "Common/TextBox_disabled",
+            "textAlign": "left"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblBQty",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 38.77999999999997,
+          "width": 204.54999999999998,
+          "x": 11.8,
+          "y": 180.61
+        },
+        "props": {
+          "style": {
+            "borderWidth": 1,
+            "classes": "Common/TextBox_disabled",
+            "textAlign": "left"
+          },
+          "text": "Cycle Time"
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblAlertStatus",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 38.78,
+          "width": 204.55,
+          "x": 275.75,
+          "y": 178.06
+        },
+        "props": {
+          "style": {
+            "borderWidth": 1,
+            "classes": "Common/TextBox_disabled",
+            "textAlign": "left"
+          },
+          "text": "Alert Status"
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}

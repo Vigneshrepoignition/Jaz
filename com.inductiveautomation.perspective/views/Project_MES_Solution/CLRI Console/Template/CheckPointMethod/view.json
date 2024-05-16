@@ -1,0 +1,103 @@
+{
+  "custom": {},
+  "params": {
+    "column": "value",
+    "columnIndex": "value",
+    "dataset": "value",
+    "row": "value",
+    "rowData": "value",
+    "rowIndex": "value",
+    "value": "value"
+  },
+  "propConfig": {
+    "params.column": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.columnIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.dataset": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.row": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.value": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 35,
+      "width": 84
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\tscriptName \u003d \"RMTC: Assign Button: OnClick\"\n\t\timport re\n\t\timport json\n\t\timport urllib2, urllib\n\t\tURLPath \u003d system.tag.read(\"[default]JMES_InternalTags/urlAPI\").value\n#\t\tURLPath \u003d system.tag.read(\"[default]JMES_InternalTags/urlSITAPI\").value\n\n\t\tUserID \u003d self.session.custom.UserId\n\t\tapiPath \u003d \"MaintenanceOperatorConsoleRM/GetMaintenanceOperatorConsoleWorkOrdersdefault?UserId\u003d\"+str(UserID)\t\n\t\turl \u003d URLPath + apiPath\n\t\trequest \u003d urllib2.Request(url)\n\t\tresponse \u003d urllib2.urlopen(request)\n\t\tdata \u003d system.net.httpGet(url)\n\t\tresultData\u003d system.util.jsonDecode(data)\n\t\tdataList \u003d []\n\t\tj\u003d1\n\t\tfor i in resultData:\t\n\t\t\tID \u003d j\n\t\t\tWoNumber \u003d i.get(\"WO Number\")\n\t\t\tStatus \u003d i.get(\"Status\")\t\t\n\t\t\tPMOrderID \u003d i.get(\"PMOrder ID\")\n\t\t\tif Status \u003d\u003d \"Assigned\" or Status \u003d\u003d \"In-Progress\":#or Status \u003d\u003d \"On-Hold\":\n\t\t\t\tStatus \u003d str(Status)\n#\t\t\t\tsystem.perspective.print(\"Status inside IF Loop: \" + str(Status))\n\t\t\t\tWoNumber \u003d str(WoNumber)\n\t\t\t\tPMOrderID \u003d str(PMOrderID)\n\t\t\t\tbreak\n\t\tif Status \u003d\u003d str(\"Assigned\").strip() or Status \u003d\u003d str(\"In-Progress\").strip(): #or Status \u003d\u003d \"On-Hold\":\n\t\t\tTabledata\u003dself.view.params.rowData\n#\t\t\tsystem.perspective.print(\"selectedRowData : \" + str(Tabledata))\n\t\t\ttry: \n\t\t\t\tscriptName \u003d \"Maintenance Technician Console :View Button Script\"\n\t\t\t\tTabledata\u003dself.view.params.rowData\n\t\t\t\t\t\t\t\n\t\t\t\tif Tabledata\u003d\u003d[]:\n\t\t\t\t\t\tsystem.perspective.print(\"empty\")\n\t\t\t\telse:\n\t\t\t\t\tStatus \u003d Tabledata.get(\"Status\")\n#\t\t\t\t\tsystem.perspective.print(\"RM Order Status is :\" + str(Status))\n\t\t\t\t\tif Status \u003d\u003d str(\"Assigned\").strip() or Status \u003d\u003d str(\"In-Progress\").strip():#or Status \u003d\u003d str(\"On-Hold\").strip():\n#\t\t\t\t\t\tsystem.perspective.print(\"Inside Assigned Condition to Open Next Page\")\n\t\t\t\t\t\tsystem.perspective.navigate(view \u003d \u0027Project_MES_Solution/Maint Operator Console_RM/Popup/MaintOprConsRMWOSel\u0027,params \u003d {\u0027rowData\u0027 :self.view.params.rowData})\n\t\t\t\t\telse:\n#\t\t\t\t\t\tsystem.perspective.print(\"In Assigned Else Condition \")\n#\t\t\t\t\t\tsystem.perspective.print(\"WoNumber is: \" + str(WoNumber))\n\t\t\t\t\t\tself.session.custom.WoNumber \u003d WoNumber\n#\t\t\t\t\t\tsystem.perspective.print(\"PMOrderID is: \" + str(PMOrderID))\n\t\t\t\t\t\tself.session.custom.PMOrderID \u003d PMOrderID\n\t\t\t\t\t\tsystem.perspective.openPopup(\u0027myPopupId1\u0027,\u0027Project_MES_Solution/Maint Operator Console_RM/Popup/AssignMessageBox\u0027,params \u003d {\u0027rowData\u0027 :self.view.params.rowData},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\t\t\n\t\t\texcept:\n\t\t\t\timport sys, os\n\t\t\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\t\t\tAuthentication.exceptionLogger(errorMessage)\t\n\t\telse:\t\n\t\t\tTabledata\u003dself.view.params.rowData\n#\t\t\tsystem.perspective.print(\"selectedRowData : \" + str(Tabledata))\t\n\t\t\tStatus \u003d Tabledata.get(\"Status\")\n\t\t\tif Status \u003d\u003d str(\"On-Hold\").strip():\n\t\t\t\tsystem.perspective.navigate(view \u003d \u0027Project_MES_Solution/Maint Operator Console_RM/Popup/MaintOprConsRMWOSel\u0027,params \u003d {\u0027rowData\u0027 :self.view.params.rowData})\n\t\t\telse:\n\t\t\t\tsystem.perspective.openPopup(\u0027myPopupId\u0027,\u0027Project_MES_Solution/Maint Operator Console_RM/Popup/ConfirmationAssign\u0027,params \u003d {\u0027rowData\u0027 :self.view.params.rowData},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Button",
+          "tooltip": {
+            "enabled": true,
+            "text": "Click to Assign"
+          }
+        },
+        "position": {
+          "height": 0.9714,
+          "rotate": {
+            "anchor": "-77% 12%"
+          },
+          "width": 0.9762,
+          "x": -0.0119,
+          "y": 0.0143
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#FFFFFF",
+            "borderStyle": "none",
+            "fontFamily": "Arial"
+          },
+          "text": "Assign",
+          "textStyle": {
+            "color": "#4747FF",
+            "fontFamily": "Arial",
+            "fontSize": 12,
+            "fontWeight": "bold"
+          }
+        },
+        "type": "ia.input.button"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

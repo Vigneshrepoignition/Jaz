@@ -1,0 +1,210 @@
+{
+  "custom": {},
+  "params": {
+    "MessageText": "",
+    "updaateStatus": ""
+  },
+  "propConfig": {
+    "params.MessageText": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.updaateStatus": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 193,
+      "width": 354
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 0.1623,
+          "width": 1
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Confirmation",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 75,
+            "textAlign": "Center",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 0.1466,
+          "width": 0.1136,
+          "x": 0.8862,
+          "y": 0.0052
+        },
+        "props": {
+          "path": "material/close",
+          "style": {
+            "color": "#FFFFFF",
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\n\t\tsystem.perspective.navigate(\"/LineLeadConsole\")\t\n\t\tsystem.perspective.closePopup(\"\")\n\texcept:\n\t\tsystem.perspective.print(\"Exception:: LL Navigate TO BAck\")\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)\n"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnOk",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Click To Complete"
+          }
+        },
+        "position": {
+          "height": 0.1832,
+          "width": 0.2841,
+          "x": 0.1733,
+          "y": 0.6728
+        },
+        "props": {
+          "image": {
+            "width": 100
+          },
+          "style": {
+            "backgroundColor": "value",
+            "borderColor": "value",
+            "classes": "PDA/PDAButton"
+          },
+          "text": "Yes"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnNo",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Click To Cancel"
+          }
+        },
+        "position": {
+          "height": 0.1832,
+          "width": 0.2841,
+          "x": 0.5426,
+          "y": 0.6728
+        },
+        "props": {
+          "image": {
+            "width": 100
+          },
+          "style": {
+            "classes": "PDA/PDAButton"
+          },
+          "text": "No"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "LblWONo"
+        },
+        "position": {
+          "height": 0.3194,
+          "width": 0.858,
+          "x": 0.071,
+          "y": 0.2901
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.MessageText"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/Label_WithOutBackground"
+          },
+          "textStyle": {
+            "classes": "PDA/LabelText"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -6.0625,
+      "y": -11.109375
+    },
+    "props": {
+      "mode": "percent",
+      "style": {
+        "classes": "Panel/PopUp"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

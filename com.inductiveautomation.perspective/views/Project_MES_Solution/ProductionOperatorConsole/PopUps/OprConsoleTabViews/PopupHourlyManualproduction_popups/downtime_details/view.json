@@ -1,0 +1,840 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\tlineid \u003d self.session.custom.LineID\n\tsystem.perspective.print(\"dataisjbhj\")\n\ta \u003d fpsi_ignition01.Downtime_history_get(lineid)\n\tsystem.perspective.print(a)\n\tself.getChild(\"root\").getChild(\"Table\").props.data\u003dfpsi_ignition01.Downtime_history_get(lineid\u003d2)\n\t"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 514,
+      "width": 913
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Table"
+        },
+        "position": {
+          "height": 0.8113,
+          "width": 0.9918,
+          "x": 0.005,
+          "y": 0.1757
+        },
+        "props": {
+          "columns": [
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "editable": false,
+              "field": "startTime",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Start Time"
+              },
+              "justify": "left",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "date",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 90
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "editable": false,
+              "field": "endTime",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "End Time"
+              },
+              "justify": "left",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "date",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 80
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "elapsedTime",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Elapsed"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "view",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "Project_MES_Solution/ProductionOperatorConsole/PopUps/PopupHourlyManualproduction_popups/downtime_Elapsed_calculation",
+              "visible": true,
+              "width": 100
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "reasonCodeName",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Reasons"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 120
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "actions",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Actions"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "view",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "Project_MES_Solution/ProductionOperatorConsole/PopUps/PopupHourlyManualproduction_popups/downtime_details_manual_delete_icon",
+              "visible": true,
+              "width": 40
+            }
+          ],
+          "data": {
+            "$": [
+              "ds",
+              192,
+              1707821180632
+            ],
+            "$columns": [
+              {
+                "data": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "name": "rowID",
+                "type": "Integer"
+              },
+              {
+                "data": [
+                  2,
+                  2,
+                  2,
+                  2
+                ],
+                "name": "fkLineId",
+                "type": "Integer"
+              },
+              {
+                "data": [
+                  "A10",
+                  "A10",
+                  "A10",
+                  "A10"
+                ],
+                "name": "lineName",
+                "type": "String"
+              },
+              {
+                "data": [
+                  "A10 - (23\")",
+                  "A10 - (23\")",
+                  "A10 - (23\")",
+                  "A10 - (23\")"
+                ],
+                "name": "totalElapsedTime",
+                "type": "String"
+              },
+              {
+                "data": [
+                  14446,
+                  14448,
+                  14454,
+                  14455
+                ],
+                "name": "fkDowntimeId",
+                "type": "Integer"
+              },
+              {
+                "data": [
+                  0,
+                  1900,
+                  14141,
+                  14141
+                ],
+                "name": "fkReasonCodeId",
+                "type": "Integer"
+              },
+              {
+                "data": [
+                  null,
+                  "2C020",
+                  "Sample",
+                  "Sample"
+                ],
+                "name": "code",
+                "type": "String"
+              },
+              {
+                "data": [
+                  "2024-02-13T10:30:00",
+                  "2024-02-13T12:00:00",
+                  "2024-02-13T12:10:00",
+                  "2024-02-13T12:13:00"
+                ],
+                "name": "startTime",
+                "type": "String"
+              },
+              {
+                "data": [
+                  "2024-02-13T10:45:00",
+                  "2024-02-13T12:05:00",
+                  "2024-02-13T12:12:00",
+                  "2024-02-13T12:14:00"
+                ],
+                "name": "endTime",
+                "type": "String"
+              },
+              {
+                "data": [
+                  900,
+                  300,
+                  120,
+                  60
+                ],
+                "name": "elapsedTime",
+                "type": "Integer"
+              },
+              {
+                "data": [
+                  694,
+                  694,
+                  1,
+                  1
+                ],
+                "name": "fkUserID",
+                "type": "Integer"
+              },
+              {
+                "data": [
+                  "",
+                  "",
+                  "SuperAdmin",
+                  "SuperAdmin"
+                ],
+                "name": "userName",
+                "type": "String"
+              },
+              {
+                "data": [
+                  null,
+                  "Endcap/Stator Assembly",
+                  "IT_Capacity",
+                  "IT_Capacity"
+                ],
+                "name": "reasonSubTypeName",
+                "type": "String"
+              },
+              {
+                "data": [
+                  null,
+                  "胶件穿孔/Plastic Perforation",
+                  "Default Lock Stoppage",
+                  "Default Lock Stoppage"
+                ],
+                "name": "reasonCodeName",
+                "type": "String"
+              },
+              {
+                "data": [
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                "name": "colorHEX",
+                "type": "String"
+              },
+              {
+                "data": [
+                  "B",
+                  "B",
+                  "B",
+                  "B"
+                ],
+                "name": "shiftName",
+                "type": "String"
+              },
+              {
+                "data": [
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                "name": "equipmentName",
+                "type": "String"
+              },
+              {
+                "data": [
+                  false,
+                  false,
+                  false,
+                  false
+                ],
+                "name": "isDelete",
+                "type": "Boolean"
+              },
+              {
+                "data": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "name": "fkEquipmentId",
+                "type": "Integer"
+              },
+              {
+                "data": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "name": "fkChangedByID",
+                "type": "Integer"
+              },
+              {
+                "data": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "name": "fkProjectID",
+                "type": "Integer"
+              },
+              {
+                "data": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "name": "actions",
+                "type": "Integer"
+              }
+            ]
+          },
+          "headerStyle": {
+            "classes": "Table/Header"
+          },
+          "rows": {
+            "style": {
+              "classes": "Table/Rowsmiddle"
+            }
+          }
+        },
+        "scripts": {
+          "customMethods": [],
+          "extensionFunctions": null,
+          "messageHandlers": [
+            {
+              "messageType": "get_auto_downtimehistory",
+              "pageScope": true,
+              "script": "\timport time\n\tsystem.perspective.print(\"message handling\")\n\tself.props.data \u003d \" \"\n\ttime.sleep(0.10)\n\tlineid \u003d self.session.custom.LineID\n\t\n\ta \u003d fpsi_ignition01.Downtime_history_get(lineid)\n\tsystem.perspective.print(a)\n\tself.props.data\u003dfpsi_ignition01.Downtime_history_get(lineid\u003d2)\n",
+              "sessionScope": true,
+              "viewScope": true
+            }
+          ]
+        },
+        "type": "ia.display.table"
+      },
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 0.0979,
+          "width": 1,
+          "x": 0.0001
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Downtime Issues / Maintenance",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 10,
+            "textAlign": "Center",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "draggable": false,
+                "id": "Popupmanualdowntimes",
+                "modal": false,
+                "overlayDismiss": false,
+                "resizable": false,
+                "showCloseIcon": false,
+                "type": "close",
+                "viewPath": "Project_MES_Solution/ProductionOperatorConsole/PopUps/Popupautoproduction/downtime_details",
+                "viewportBound": false
+              },
+              "scope": "C",
+              "type": "popup"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 0.0896,
+          "width": 0.0592,
+          "x": 0.9386,
+          "y": 0.0041
+        },
+        "props": {
+          "color": "#FFFFFF",
+          "path": "material/close"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "draggable": false,
+                "id": "D4OwHwkS",
+                "modal": false,
+                "overlayDismiss": false,
+                "resizable": false,
+                "showCloseIcon": false,
+                "type": "open",
+                "viewPath": "Project_MES_Solution/ProductionOperatorConsole/PopUps/PopupHourlyManualproduction_popups/Adddowntime_details",
+                "viewportBound": false
+              },
+              "scope": "C",
+              "type": "popup"
+            }
+          }
+        },
+        "meta": {
+          "name": "Button_1"
+        },
+        "position": {
+          "height": 0.0661,
+          "width": 0.0975,
+          "x": 0.8978,
+          "y": 0.1005
+        },
+        "props": {
+          "image": {
+            "icon": {
+              "path": "material/add"
+            }
+          },
+          "text": "Add"
+        },
+        "type": "ia.input.button"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -0.7385,
+      "y": -0.1392
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "custom": {},
+  "params": {
+    "column": "value",
+    "columnIndex": "value",
+    "dataset": "value",
+    "row": "value",
+    "rowData": "value",
+    "rowIndex": "value",
+    "value": "value"
+  },
+  "propConfig": {
+    "params.column": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.columnIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.dataset": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.row": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.value": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 35,
+      "width": 84
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\tisReadOnly \u003d self.session.custom.authorizeMaintenancePMToolsReadOnly\n\t\tif isReadOnly\u003d\u003d1:\n\t\t\tself.meta.tooltip.text \u003d \"Read Only Access\"\t\t\n\t\t\tpass\n\t\telse:\t\n\t\n\t\t\tscriptName \u003d \"PMTC: Assign Button: OnClick\"\n\t\t\tuserID \u003d self.session.custom.UserId\n\t\t\tTypeId \u003d self.session.custom.PMType\n\t\t\tif TypeId \u003d\u003d 1 or TypeId \u003d\u003d int(1) or TypeId \u003d\u003d str(1):\n\t\t\t\tresultData\u003d MaintenanceOCAPI.getPMOrderDetailsforAssign(userID,TypeId)\n\t\t\telse:\n\t\t\t\tresultData\u003d MaintenanceOCAPI.getPMOrderDetailsforAssign(userID,TypeId)\n\t\t\t\t\n\t\t\tdataList \u003d []\n\t\t\tj\u003d1\n\t\t\tfor i in resultData:\t\n\t\t\t\tID \u003d j\n\t\t\t\tWoNumber \u003d i.get(\"WO Number\")\n\t\t\t\tStatus \u003d i.get(\"Status\")\t\t\n\t\t\t\tPMOrderID \u003d i.get(\"PMOrder ID\")\n\t\t\t\tif Status \u003d\u003d \"Assigned\" or Status \u003d\u003d \"In-Progress\":#or Status \u003d\u003d \"On-Hold\":\n\t\t\t\t\tStatus \u003d str(Status)\n\t\t\t\t\tWoNumber \u003d str(WoNumber)\n\t\t\t\t\tPMOrderID \u003d str(PMOrderID)\n\t\t\t\t\tbreak\n\t\t\tif Status \u003d\u003d str(\"Assigned\").strip() or Status \u003d\u003d str(\"In-Progress\").strip(): #or Status \u003d\u003d \"On-Hold\":\n\t\t\t\tTabledata\u003dself.view.params.rowData\n\t\t\t\ttry: \n\t\t\t\t\tscriptName \u003d \"Maintenance Technician Console :View Button Script\"\n\t\t\t\t\tTabledata\u003dself.view.params.rowData\n\t\t\t\t\t\t\t\t\n\t\t\t\t\tif Tabledata\u003d\u003d[]:\n\t\t\t\t\t\t\tsystem.perspective.print(\"empty\")\n\t\t\t\t\telse:\n\t\t\t\t\t\torderId \u003d Tabledata.get(\"PMOrderID\")\n\t\t\t\t\t\tuserId\u003dself.session.custom.UserId\n\t\t\t\t\t\tmaintenanceTypeId \u003d 1 #Preventive Maintenenact Type\n\t\t\t\t\t\tresult\u003dMaintenanceOCAPI.GetIsOperatorActive(userId,orderId,maintenanceTypeId)\n\t\t\t\t\t\tIsScreenActive \u003d result[0]\n\t#\t\t\t\t\tsystem.perspective.print(\"IsScreenActive : \"+ str(IsScreenActive))\n\t\t\t\t\t\tif IsScreenActive \u003d\u003d int(0) or IsScreenActive \u003d\u003d str(\"0\"):\n\t\t\t\t\t\t\tStatus \u003d Tabledata.get(\"Status\")\n\t\t\t\t\t\t\tif Status \u003d\u003d str(\"Assigned\").strip() or Status \u003d\u003d str(\"In-Progress\").strip():#or Status \u003d\u003d str(\"On-Hold\").strip():\n\t\t\t\t\t\t\t\tif TypeId \u003d\u003d 1 or TypeId \u003d\u003d int(1) or TypeId \u003d\u003d str(1):\n\t\t\t\t\t\t\t\t\tsystem.perspective.navigate(view \u003d \u0027Project_MES_Solution/Maint Operator Console/Popup/MaintOprConsWOSel\u0027,params \u003d {\u0027rowData\u0027 :self.view.params.rowData})\n\t\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\t\tsystem.perspective.navigate(view \u003d \u0027Project_MES_Solution/Maint Operator Console/Popup/MaintOprConPMToolSel\u0027,params \u003d {\u0027rowData\u0027 :self.view.params.rowData})\t\t\t\t\t\n\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\tself.session.custom.WoNumber \u003d WoNumber\n\t\t\t\t\t\t\t\tself.session.custom.PMOrderID \u003d PMOrderID\n\t\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027myPopupId1\u0027,\u0027Project_MES_Solution/Maint Operator Console/Popup/AssignMessageBox\u0027,params \u003d {\u0027rowData\u0027 :self.view.params.rowData},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\t\t\n\t\t\t \t\t\telse:\n\t\t\t \t\t\t\tsystem.perspective.openPopup(\u0027myPopupId\u0027, \u0027Project_MES_Solution/Maint Operator Console/Popup/ViewMessageBox\u0027,params \u003d {\u0027rowData\u0027 :self.view.params.rowData},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t \t\t\n\t\t\t\texcept:\n\t\t\t\t\timport sys, os\n\t\t\t\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\t\t\t\tAuthentication.exceptionLogger(errorMessage)\n\t\t\telse:\n\t\t\t\tTabledata\u003dself.view.params.rowData\n\t\t\t\torderId \u003d Tabledata.get(\"PMOrderID\")\n\t\t\t\tuserId\u003dself.session.custom.UserId\n\t\t\t\tmaintenanceTypeId \u003d 1 #Preventive Maintenenact Type\n\t\t\t\tresult\u003dMaintenanceOCAPI.GetIsOperatorActive(userId,orderId,maintenanceTypeId)\n\t\t\t\tIsScreenActive \u003d result[0]\n\t\t\t\tif IsScreenActive \u003d\u003d int(0) or IsScreenActive \u003d\u003d str(\"0\"):\n\t\t\t\t\tStatus \u003d Tabledata.get(\"Status\")\n\t\t\t\t\tPMNumber \u003d Tabledata.get(\u0027PMNumber\u0027)\n\t\t\t\t\tself.session.custom.WoNumber \u003d PMNumber\n\t\t\t\t\tif Status \u003d\u003d str(\"On-Hold\").strip():\n\t\t\t\t\t\tif TypeId \u003d\u003d 1 or TypeId \u003d\u003d int(1) or TypeId \u003d\u003d str(1):\n\t\t\t\t\t\t\tsystem.perspective.navigate(view \u003d \u0027Project_MES_Solution/Maint Operator Console/Popup/MaintOprConsWOSel\u0027,params \u003d {\u0027rowData\u0027 :self.view.params.rowData})\n\t\t\t\t\t\telse:\n\t\t\t\t\t\t\tsystem.perspective.navigate(view \u003d \u0027Project_MES_Solution/Maint Operator Console/Popup/MaintOprConPMToolSel\u0027,params \u003d {\u0027rowData\u0027 :self.view.params.rowData})\n\t\t\t\t\telse:\n\t\t\t\t\t\tsystem.perspective.openPopup(\u0027myPopupId\u0027,\u0027Project_MES_Solution/Maint Operator Console/Popup/ConfirmationAssign\u0027,params \u003d {\u0027rowData\u0027 :self.view.params.rowData},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t  \t\telse:\n\t\t  \t\t\tsystem.perspective.openPopup(\u0027myPopupId\u0027, \u0027Project_MES_Solution/Maint Operator Console/Popup/ViewMessageBox\u0027,params \u003d {\u0027rowData\u0027 :self.view.params.rowData},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Button",
+          "tooltip": {
+            "enabled": true,
+            "location": "bottom-left"
+          }
+        },
+        "position": {
+          "height": 0.9714,
+          "rotate": {
+            "anchor": "-77% 12%"
+          },
+          "width": 0.9762,
+          "x": -0.0119,
+          "y": 0.0143
+        },
+        "propConfig": {
+          "meta.tooltip.text": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizeMaintenancePMMachineReadOnly"
+              },
+              "transforms": [
+                {
+                  "code": "\ttry:\n\t\tmaintenanceType \u003d self.session.custom.PMType  #1-Machine 2-Tools\n\t\tif str(maintenanceType) \u003d\u003d str(\u00271\u0027) or int(maintenanceType) \u003d\u003d int(1):\n\t\t\tPMMachineReadOnly \u003d self.session.custom.authorizeMaintenancePMMachineReadOnly\n\t\t\tif PMMachineReadOnly\u003d\u003d1 or str(PMMachineReadOnly)\u003d\u003dstr(\u00271\u0027):\n\t\t\t\tvalue\u003d\u0027Read Only Access\u0027\n\t\t\telse:\n\t\t\t\tvalue\u003d\u0027\u0027\n\t\telse:\n\t\t\tPMToolsReadOnly \u003d self.session.custom.authorizeMaintenancePMToolsReadOnly\n\t\t\tif PMToolsReadOnly\u003d\u003d1 or str(PMToolsReadOnly)\u003d\u003dstr(\u00271\u0027):\n\t\t\t\tvalue\u003d\u0027Read Only Access\u0027\n\t\t\telse:\n\t\t\t\tvalue\u003d\u0027\u0027\n\t\treturn value\n\texcept:\n\t\treturn \u0027\u0027",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizeMaintenancePMMachineReadOnly"
+              },
+              "transforms": [
+                {
+                  "code": "\ttry:\n\t\tmaintenanceType \u003d self.session.custom.PMType  #1-Machine 2-Tools\n\t\tif str(maintenanceType) \u003d\u003d str(\u00271\u0027) or int(maintenanceType) \u003d\u003d int(1):\n\t\t\tif str(self.session.custom.authorizeMaintenancePMMachineReadOnly) \u003d\u003d str(\u00271\u0027) or int(self.session.custom.authorizeMaintenancePMMachineReadOnly) \u003d\u003d int(1):\n\t\t\t\tref \u003d 0\n\t\t\telse:\n\t\t\t\tref \u003d 1\n\t\telse:\n\t\t\tif str(self.session.custom.authorizeMaintenancePMToolsReadOnly) \u003d\u003d str(\u00271\u0027) or int(self.session.custom.authorizeMaintenancePMToolsReadOnly) \u003d\u003d int(1):\n\t\t\t\tref \u003d 0\n\t\t\telse:\n\t\t\t\tref \u003d 1\n\t\treturn ref\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: PMTC:: Landing Page: Assign Button Tag Linking :\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#FFFFFF",
+            "borderStyle": "none",
+            "fontFamily": "Arial"
+          },
+          "text": "Assign",
+          "textStyle": {
+            "color": "#4747FF",
+            "fontFamily": "Arial",
+            "fontSize": 12,
+            "fontWeight": "bold"
+          }
+        },
+        "type": "ia.input.button"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

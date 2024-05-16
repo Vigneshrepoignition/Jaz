@@ -1,0 +1,67 @@
+{
+  "custom": {},
+  "params": {
+    "column": "value",
+    "columnIndex": "value",
+    "row": "value",
+    "rowData": "value",
+    "rowIndex": "value"
+  },
+  "propConfig": {
+    "params.column": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.columnIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.row": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 34,
+      "width": 128
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "txtInstrumentSerialNo",
+          "visible": 0
+        },
+        "position": {
+          "height": 0.8824,
+          "width": 0.9375,
+          "x": 0.0234
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#FFFFFF",
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.input.text-field"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

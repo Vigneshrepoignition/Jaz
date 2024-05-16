@@ -1,0 +1,1012 @@
+{
+  "custom": {
+    "IsSlotsAvailable": false,
+    "Qty": 0,
+    "ValidScannedSparePart": false,
+    "dsSpareParts": null,
+    "sparePartId": "",
+    "sparePartImage": "",
+    "sparePartNumber": "",
+    "wareHouseId": ""
+  },
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\tself.getChild(\"root\").getChild(\"IFrame\").meta.visible \u003d False\n\t\tself.getChild(\"root\").getChild(\"SparePartImageViewer\").meta.visible \u003d False\n\t\tself.getChild(\"root\").getChild(\"BtnBack\").meta.visible \u003d False\n\t\tself.getChild(\"root\").getChild(\"BtnClearAll\").meta.visible \u003d True\n\t#--------------------------------------End -------------------------------------------------\t\n#\t\tif self.session.custom.authorizePDAScanPartReception !\u003d 1 :\n#\t\t\tsystem.perspective.navigate(\u0027/LoginScreen\u0027)\n#\t\telse:\n\t\tuserId \u003d self.session.custom.UserId\n\t\tself.getChild(\"root\").getChild(\"TxtScanComponentQR\").props.enabled\u003d0\n\t\tself.custom.dsSpareParts\u003dNone\n\t\tself.custom.wareHouseId\u003d\u0027\u0027\n\t\tself.custom.sparePartNumber\u003d\u0027\u0027\n\t\tself.custom.Qty\u003d0\n\t\tself.custom.sparePartId\u003d\u0027\u0027\n\t\tself.custom.IsSlotsAvailable \u003d False\n\t\tself.custom.sparePartImage \u003d \u0027\u0027\n\t\t\n\t\tself.getChild(\"root\").getChild(\"Txt_PartNumber\").props.enabled\u003d0\n\t\tself.getChild(\"root\").getChild(\"TxtScanComponentQR\").props.enabled\u003d0\n\t\tself.getChild(\"root\").getChild(\"txtQty\").props.enabled\u003d0\n\t\tself.getChild(\"root\").getChild(\"Txt_PartNumber\").props.text\u003d\u0027\u0027\n\t\tself.getChild(\"root\").getChild(\"txtQty\").props.value\u003d0\n\t\tself.getChild(\"root\").getChild(\"TxtScanComponentQR\").props.text\u003d\u0027\u0027\n\t\tself.getChild(\"root\").getChild(\"Drpdslot\").props.value\u003d\u0027\u0027\n\t\tself.getChild(\"root\").getChild(\"Drpdslot\").props.options\u003dNone\n\t\t\n\t\tif self.session.custom.UserId!\u003d\u0027\u0027:\n\t\t\tSupermarketInfo\u003d[]\n\t\t\tHeader\u003d[\"SupermarketID\",\"Supermarket\"]\n\t\t\tUserId \u003dself.session.custom.UserId\n\t\t\tGetSupermarket\u003d PDASparePart.GetWarehouseByUserId(UserId)\n\t\t\t\n\t\t\tif GetSupermarket\u003d\u003d[] or GetSupermarket \u003d\u003dNone :\n\t\t\t\tsystem.perspective.print(\"No data found\")\n\t\t\t\tpass\n\t\t\telse:\n\t\t\t\tGetSupermarket\u003d PDASparePart.GetWarehouseByUserId(UserId)\n\t\t\t\tself.getChild(\"root\").getChild(\"DrpDwnSelWarehouse\").props.options\u003dGetSupermarket\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: PDA :: Spare Part Reception  : On Startup\u0027:\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "propConfig": {
+    "custom.IsSlotsAvailable": {
+      "persistent": true
+    },
+    "custom.Qty": {
+      "persistent": true
+    },
+    "custom.ValidScannedSparePart": {
+      "persistent": true
+    },
+    "custom.dsSpareParts": {
+      "persistent": true
+    },
+    "custom.sparePartId": {
+      "persistent": true
+    },
+    "custom.sparePartImage": {
+      "persistent": true
+    },
+    "custom.sparePartNumber": {
+      "persistent": true
+    },
+    "custom.wareHouseId": {
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 464,
+      "width": 383
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblComments"
+        },
+        "position": {
+          "height": 21.02,
+          "width": 358,
+          "x": 12.49,
+          "y": 345.44
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Comments",
+          "textStyle": {
+            "classes": "PDA/PDALabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "page": "/PDADashboard"
+              },
+              "scope": "C",
+              "type": "nav"
+            }
+          }
+        },
+        "meta": {
+          "name": "NavigateBackButton"
+        },
+        "position": {
+          "height": 21.99,
+          "width": 29.61,
+          "x": -2.99,
+          "y": 1
+        },
+        "props": {
+          "path": "material/arrow_back"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "LblSparePartReceptionTitle"
+        },
+        "position": {
+          "height": 21.99,
+          "width": 180,
+          "x": 24.66,
+          "y": 1
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDAHeader"
+          },
+          "text": "Spare Part Reception"
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblWorkorderNo_0"
+        },
+        "position": {
+          "height": 21.02,
+          "width": 117.00000000000003,
+          "x": 170.98,
+          "y": 280.99
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Slot",
+          "textStyle": {
+            "classes": "PDA/PDALabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onFocus": {
+              "config": {
+                "script": "\tself.props.enabled\u003d1\n\tself.props.placeholder.text\u003dstr(\"Select Slot\")"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Drpdslot",
+          "tooltip": {
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Select Operation/Machine"
+          }
+        },
+        "position": {
+          "height": 25,
+          "width": 201,
+          "x": 170.5,
+          "y": 303.5
+        },
+        "props": {
+          "options": null,
+          "placeholder": {
+            "text": "Select Slot"
+          },
+          "search": {
+            "noResultsText": "No slots found"
+          },
+          "style": {
+            "classes": "Common/TextBox"
+          },
+          "value": -1
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "meta": {
+          "name": "LblPOno"
+        },
+        "position": {
+          "height": 21.02,
+          "width": 356.98,
+          "x": 9.5,
+          "y": 101.51
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "PO NO",
+          "textStyle": {
+            "classes": "PDA/PDALabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Txt_PartNumber",
+          "tooltip": {
+            "enabled": true
+          }
+        },
+        "position": {
+          "height": 23.99,
+          "width": 360,
+          "x": 9,
+          "y": 124
+        },
+        "propConfig": {
+          "props.style.backgroundColor": {
+            "binding": {
+              "config": {
+                "path": "this.props.enabled"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value \u003d\u003d False:\n\t\tvalue \u003d \"#D5D5D5AB\"\n\telse:\n\t\tvalue \u003d \"#FFFFFF\"\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "deferUpdates": false,
+          "enabled": 0,
+          "placeholder": "PO No",
+          "rejectUpdatesWhileFocused": false,
+          "style": {
+            "classes": "Ref_MES/Common/TextBox",
+            "color": "#0C0505"
+          }
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\timport re\n\t\timport json\n\t\timport urllib2, urllib \n\t\timport datetime\n\t\tscriptName\u003d\u0027CAll matrial Return\u0027\n\t\tgreenColor\u003d\"#00AC00\"\n\t\tredColor\u003d\"#FF0000\"\n\n\t\tpoNumber\u003dself.getSibling(\"Txt_PartNumber\").props.text\n\t\tslot\u003dself.getSibling(\"Drpdslot\").props.value\n\t\tuserID\u003dself.session.custom.UserId\n\t\twarehouseId\u003dself.getSibling(\"DrpDwnSelWarehouse\").props.value\n\t\tsparePartNumber\u003dself.view.custom.sparePartId\n\t\treceivedQty\u003dself.getSibling(\"txtQty\").props.value\n\t\tcomments \u003d self.getSibling(\"TxtComments\").props.text\n\t\ttry:\n\t\t\tres\u003dPDASparePart.AddRecieveSparePartsReceived(poNumber,sparePartNumber,receivedQty,slot,userID,warehouseId,comments)\t\n\t\texcept:\n\t\t\tself.getSibling(\"LblSuccessMessage\").props.textStyle.color \u003d str(greenColor)\n\t\t\tself.getSibling(\"LblSuccessMessage\").props.text \u003d \u0027Error in receiving spare part in warehouse, please contact administrator for more details\u0027\n\t\t\tself.getSibling(\"LblSuccessMessage\").meta.visible\u003d True\n\t\t\t\n\t\tif res\u003d\u003d1 or str(res)\u003d\u003d\u00271\u0027:\n\t\t\tself.getSibling(\"DrpDwnSelWarehouse\").props.value \u003d \u0027\u0027\n\t\t\tself.getSibling(\"Txt_PartNumber\").props.text\u003d\u0027\u0027\n\t\t\tself.getSibling(\"Txt_PartNumber\").props.enabled\u003d1\n\t\t\tself.props.enabled\u003d0\n\t\t\tself.getSibling(\"TxtScanComponentQR\").props.text\u003d\u0027\u0027\n\t\t\tself.getSibling(\"TxtScanComponentQR\").props.enabled\u003d1\n\t\t\tself.getSibling(\"txtQty\").props.value\u003d0\n\t\t\tself.getSibling(\"txtQty\").props.enabled\u003d0\n\n\t\t\tself.getSibling(\"Drpdslot\").props.options\u003d\u0027\u0027\n\t\t\tself.getSibling(\"Drpdslot\").props.value\u003d\u0027\u0027\n\t\t\tself.getSibling(\"TctSparePartName\").props.text\u003d \u0027\u0027\n\t\t\tself.getSibling(\"txtQty\").props.value \u003d 0\n\t\t\tself.getSibling(\"TxtComments\").props.text \u003d \u0027\u0027\n\t\t\tself.getSibling(\"TxtScanComponentQR\").focus()\n\t\t\t\n\t\t\tself.getSibling(\"LblSuccessMessage\").props.textStyle.color \u003d str(greenColor)\n\t\t\tself.getSibling(\"LblSuccessMessage\").props.text \u003d \u0027Scanned sparepart is received in selected warehouse successfully\u0027\n\t\t\tself.getSibling(\"LblSuccessMessage\").meta.visible\u003d True\n\t\telse:\n\t\t\tself.getSibling(\"LblSuccessMessage\").props.text\u003d \u0027SparePart is not received in selected warehouse\u0027\n\t\t\tself.getSibling(\"LblSuccessMessage\").meta.visible\u003d1\n\t\t\tself.getSibling(\"LblSuccessMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\t\n\t\t\t\n\texcept:\t\t\t\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: PDA :: Spare Part Reception :  Submit Button On Click :\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnFinishTrollley"
+        },
+        "position": {
+          "height": 27.98,
+          "width": 80.01,
+          "x": 204.97,
+          "y": 18
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "expression": "now(100)"
+              },
+              "transforms": [
+                {
+                  "code": "\tsparePartNumber \u003d self.view.custom.sparePartId\n\treceivedQty \u003d self.getSibling(\"txtQty\").props.value\n\tslot \u003d self.getSibling(\"Drpdslot\").props.value\n\twarehouseId \u003d self.getSibling(\"DrpDwnSelWarehouse\").props.value\n\tErrorMessageVisibility \u003d self.getSibling(\"LblErrorMessageReceivedQty\").meta.visible\n\tIsSlotAvailable\u003dself.view.custom.IsSlotsAvailable \n\tisreadonly \u003d self.session.custom.authorizePDAScanPartReceptionReadOnly\n\t\n\tif \tsparePartNumber  !\u003d \u0027\u0027 and int(receivedQty) \u003e int(0) and (slot !\u003d \u0027\u0027) and warehouseId !\u003d \u0027\u0027  and ErrorMessageVisibility \u003d\u003d False and IsSlotAvailable !\u003d False and isreadonly\u003d\u003d False:\n\t\tvalue \u003d True\n\t\tself.props.style.backgroundColor \u003d \"#3888CC\"\t\n\t\tself.props.style.borderColor \u003d \"#3888CC\"\t\n\telse:\n\t\tvalue \u003d False\n\t\tself.props.style.backgroundColor \u003d str(self.session.custom.disableBtncolour)\n\t\tself.props.style.borderColor \u003d str(self.session.custom.disableBtncolour)\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "image": {
+            "width": 45
+          },
+          "style": {
+            "backgroundColor": "value",
+            "borderColor": "value",
+            "classes": "PDA/PDAButton"
+          },
+          "text": "Submit",
+          "textStyle": {
+            "fontSize": 10
+          }
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "LblReceivedQty"
+        },
+        "position": {
+          "height": 21.02,
+          "width": 112,
+          "x": 9.5,
+          "y": 282.47
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Received Qty",
+          "textStyle": {
+            "classes": "PDA/PDALabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblSparePartNumber"
+        },
+        "position": {
+          "height": 21.02,
+          "width": 352,
+          "x": 9.5,
+          "y": 155.5
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Spare Part Number",
+          "textStyle": {
+            "classes": "PDA/PDALabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tself.getSibling(\"LblValidateSlotBarcode\").meta.visible \u003d False\n\tself.getSibling(\"LblSuccessMessage\").meta.visible \u003d False"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "TxtScanComponentQR",
+          "tooltip": {
+            "enabled": 1
+          }
+        },
+        "position": {
+          "height": 23.99,
+          "width": 282,
+          "x": 9,
+          "y": 179.1
+        },
+        "propConfig": {
+          "props.style.backgroundColor": {
+            "binding": {
+              "config": {
+                "path": "this.props.enabled"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value \u003d\u003d False:\n\t\tvalue \u003d \"#D5D5D5AB\"\n\telse:\n\t\tvalue \u003d \"#FFFFFF\"\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.text": {
+            "onChange": {
+              "enabled": null,
+              "script": "\ttry:\n\t\tgreenColor\u003d\"#00AC00\"\n\t\tredColor\u003d\"#FF0000\"\n\t\tscriptName\u003d\"PDA API call\"\n\t\tScannedQRData\u003dself.props.text\n\t\tisPartValid\u003d0\n\t\tself.getSibling(\"Drpdslot\").props.options\u003dNone\n\t\tself.getSibling(\"Drpdslot\").props.value\u003d-1\n\t\tself.getSibling(\"txtQty\").props.value \u003d 0\n\t\tself.getSibling(\"TxtComments\").props.text \u003d \u0027\u0027\n\t\tself.view.custom.ValidScannedSparePart \u003d False\n\t\tself.view.custom.sparePartImage \u003d \u0027\u0027\n\t\tself.view.custom.sparePartId \u003d \u0027\u0027\n\t\tself.view.custom.IsSlotsAvailable \u003d False\n\t\tself.getSibling(\"LblErrorMessageReceivedQty\").meta.visible \u003d False\n\t\tself.getSibling(\"LblSuccessMessage\").meta.visible \u003d False\n\t\tWarehouseId\u003dself.getSibling(\"DrpDwnSelWarehouse\").props.value\n\t\t\n\t\tif str(ScannedQRData).strip()!\u003d\u0027\u0027 and str(ScannedQRData)!\u003dNone:\n\t\t\tScannedQRData\u003dstr(ScannedQRData).strip().lower()\n\t\t\tdsSparePart\u003dself.view.custom.dsSpareParts\n\t\t\tfor i in dsSparePart:\n\t\t\t\tsparePartNumber\u003d str(i[\u0027sparePartNumber\u0027]).strip().lower()\n\t\t\t\tsparePartName\u003d i[\u0027sparePartName\u0027]\n\t\t\t\tsystem.perspective.print(\"sparePartNumber \"+ (sparePartNumber))\n\t\t\t\tsparePartId\u003d i[\u0027id\u0027]\n\t\t\t\tsparePartQty\u003d i[\u0027canRequest\u0027]\n\t\t\t\tsparePartMinQty\u003d i[\u0027minQty\u0027]\n\t\t\t\tSparepartImagepath\u003di[\u0027SparepartImagepath\u0027]\n\t\t\t\t\n\t\t\t\tif ScannedQRData\u003d\u003dsparePartNumber:\n\t\t\t\t\tself.view.custom.Qty\u003dsparePartQty\n\t\t\t\t\tself.getSibling(\"TctSparePartName\").props.text \u003d sparePartName\n\t\t\t\t\tsystem.perspective.print(\u0027SparePartImage is : \u0027 + str(SparepartImagepath))\n\t\t\t\t\tself.view.custom.sparePartImage\u003dSparepartImagepath\n\t\t\t\t\tself.view.custom.sparePartNumber\u003dstr(self.props.text).strip()\n\t\t\t\t\tself.view.custom.sparePartId\u003dsparePartId\n\t\t\t\t\tisPartValid\u003d1\n\t\t\t\t\tself.view.custom.ValidScannedSparePart \u003d True\n\t\t\t\t\tself.getSibling(\"txtQty\").focus()\n\t\t\t\t\tbreak\n\n\t\t\tif isPartValid\u003d\u003d0:\n\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.textStyle.color \u003d str(redColor)\n\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.text\u003d\"Plese scan correct spare part number against selected warehouse\"\n\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").meta.visible\u003d1\n\t\t\t\tself.getSibling(\"txtQty\").props.value\u003d0\n\t\t\t\tself.view.custom.ValidScannedSparePart \u003d False\n\t\t\t\tself.view.custom.Qty\u003d0\n\t\t\t\tself.view.custom.sparePartNumber\u003d\"\"\n\t\t\t\tself.view.custom.sparePartId\u003d0\n\t\t\t\tself.getSibling(\"txtQty\").props.enabled\u003d0\n\t\t\t\tself.getSibling(\"Drpdslot\").props.options\u003d\u0027\u0027\n\t\t\t\tself.getSibling(\"Drpdslot\").props.value\u003d\u0027\u0027\n\n\t\t\telif  isPartValid\u003d\u003d1:\n\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.text\u003d\"\"\n\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").meta.visible\u003d0\n\t\t\t\tself.getSibling(\"Drpdslot\").props.options\u003dNone\n\t\t\t\tself.getSibling(\"txtQty\").props.enabled\u003d1\n#\t\t\t\tds\u003dPDASparePart.GetSlotsForSpareParts(sparePartId)\n\t\t\t\tds\u003dPDASparePart.GetSlotsForWarehouse(WarehouseId,sparePartId)\n\t\t\t\tself.getSibling(\"Drpdslot\").props.value\u003d-1\n\t\t\t\tself.getSibling(\"txtQty\").focus()\n\n\t\t\t\tif len(ds)\u003e 0:\n\t\t\t\t\tself.getSibling(\"Drpdslot\").props.options\u003dds\n\t\t\t\t\tself.getSibling(\"Drpdslot\").props.value\u003dds[0][0]\n\t\t\t\t\tself.view.custom.IsSlotsAvailable \u003d True\n\t\t\t\telse:\n\t\t\t\t\tself.view.custom.IsSlotsAvailable \u003d False\n\t\t\t\t\tself.getSibling(\"Drpdslot\").props.value \u003d \u0027\u0027\n\t\t\t\t\tself.getSibling(\"Drpdslot\").props.options\u003dNone\n\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.textStyle.color \u003d str(redColor)\n\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.text\u003d \"Slot is not available, please configure the slot from warehouse hirarchy for scanned sparepart\"\n\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").meta.visible\u003d1\n\t\t\t\t\t\n\t\telse:\n\t\t\tpass\n\texcept:\t\t\t\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: PDA :: Spare Part Reception :  Spare Part Scanning : On Change Script :\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+            }
+          }
+        },
+        "props": {
+          "deferUpdates": false,
+          "enabled": 0,
+          "placeholder": "Scan /Enter Spare Part Number",
+          "rejectUpdatesWhileFocused": false,
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "LblValidateSlotBarcode"
+        },
+        "position": {
+          "height": 19,
+          "width": 358,
+          "x": 8.62,
+          "y": 206.47
+        },
+        "propConfig": {
+          "meta.visible": {
+            "binding": {
+              "config": {
+                "path": "this.meta.visible"
+              },
+              "transforms": [
+                {
+                  "code": "\tpartNumber\u003dself.getSibling(\"TxtScanComponentQR\").props.text\n\tif str(partNumber).strip()\u003d\u003d\u0027\u0027:\n\t\tvalue\u003d0\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Ref_MES/Common/Label_PDAValidation"
+          },
+          "text": "Please Scan/Enter  Correct Part Number",
+          "textStyle": {
+            "classes": "PDA/lblWarning",
+            "color": "#FF0000"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "TxtComments"
+        },
+        "position": {
+          "height": 76.98,
+          "width": 364,
+          "x": 9.99,
+          "y": 367.94
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "../txtQty.props.enabled"
+              },
+              "transforms": [
+                {
+                  "code": "\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.style.backgroundColor": {
+            "binding": {
+              "config": {
+                "path": "this.props.enabled"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value \u003d\u003d False:\n\t\tvalue \u003d \"#D5D5D5AB\"\n\telse:\n\t\tvalue \u003d \"#FFFFFF\"\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Common/TextBox",
+            "color": "#000000",
+            "fontFamily": "Arial"
+          }
+        },
+        "type": "ia.input.text-area"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\n\t\tgreenColor\u003d\"#00AC00\"\n\t\tredColor\u003d\"#FF0000\"\n\t\tself.view.custom.ValidScannedSparePart \u003d False\n\t\tself.getSibling(\"LblSuccessMessage\").meta.visible \u003d False\n\t\tself.getSibling(\"LblValidateSlotBarcode\").meta.visible\u003d0\n\t\tself.getSibling(\"LblErrorMessageReceivedQty\").meta.visible \u003d False\n\t\t\n\t\twarehouseId\u003dself.props.value\n\t\tdsSparePart\u003dPDASparePart.GetSpareParts(warehouseId)\n\t\tsystem.perspective.print(\"warehouseId \u003d \"+str(warehouseId))\n\t\tself.view.custom.dsSpareParts\u003ddsSparePart\n\t\t\n\t\tsystem.perspective.print(\"dsSparePart \"+str(len(dsSparePart)))\n\t\t\n\t\tself.view.custom.sparePartNumber\u003d\u0027\u0027\n\t\tself.view.custom.Qty\u003d0\n\t\tself.view.custom.sparePartId\u003d0\n\t\tself.getSibling(\"txtQty\").props.enabled\u003d0\n\t\tself.getSibling(\"Drpdslot\").props.value\u003d\u0027\u0027\n\t\tself.getSibling(\"Txt_PartNumber\").props.text\u003d\u0027\u0027\n\t\tself.view.custom.IsSlotsAvailable \u003d False\n\t\t\n\t\tif len(dsSparePart)\u003e0:\n\t\t\tself.getSibling(\"TxtScanComponentQR\").props.enabled\u003d1\n\t\t\tself.getSibling(\"Txt_PartNumber\").props.enabled\u003d1\n\t\telse:\n\t\t\tself.getSibling(\"TxtScanComponentQR\").props.enabled\u003d0\n\t\t\tself.getSibling(\"Txt_PartNumber\").props.enabled\u003d0\n\t\t\tself.getSibling(\"LblSuccessMessage\").props.textStyle.color \u003d str(redColor)\n\t\t\tself.getSibling(\"LblSuccessMessage\").props.text\u003d \"Spare parts are not available for selected warehouse\"\n\t\t\tself.getSibling(\"LblSuccessMessage\").meta.visible\u003d1\n\t\t\t\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: PDA :: Spare Part Reception : Warehouse Dropdown Selection : On Action Performed\u0027:\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          },
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tUserId \u003dself.session.custom.UserId\n\tsystem.perspective.print(\"userId\")\n\tsystem.perspective.print(UserId)\n\tself.getSibling(\"txtQty\").props.value\u003d0\n\tself.getSibling(\"TxtScanComponentQR\").props.text\u003d\u0027\u0027\n\t\n\tself.getSibling(\"LblValidateSlotBarcode_1\").meta.visible\u003d0\n\tGetSupermarket\u003d PDASparePart.GetWarehouseByUserId(UserId)\n\tif GetSupermarket\u003d\u003d[] or GetSupermarket\u003d\u003dNone:\n\t\tsystem.perspective.print(\"No data found\")\n\telse:\n\t\tself.props.options\u003dGetSupermarket\n\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "DrpDwnSelWarehouse"
+        },
+        "position": {
+          "height": 25.01,
+          "width": 362,
+          "x": 8,
+          "y": 70.04
+        },
+        "propConfig": {
+          "props.value": {
+            "onChange": {
+              "enabled": null,
+              "script": "\tSupermarket\u003dself.props.value\n\tif Supermarket\u003d\u003d\u0027\u0027:\n\t\tpass\n\telse:\n\t\tds\u003dself.props.options\n\t\tds1\u003dsystem.dataset.toPyDataSet(ds)\n\t\tsystem.perspective.print(\"Supermarket Name\")\n\t\tsystem.perspective.print(ds1)\n\t\tdsCount\u003dds.getRowCount()\n\t\tfor i in range(dsCount):\n\t\t\tSupermarketLable\u003dds.getValueAt(i, \u0027SupermarketID\u0027)\n\t\t\tif Supermarket\u003d\u003dSupermarketLable:\n\t\t\t\tSupermarketName\u003dds.getValueAt(i, \u0027Supermarket\u0027)\n#\t\t\t\tsystem.perspective.print(SupermarketLable)\n\t\t\t\tself.session.custom.PDASupermarket\u003dSupermarketName\n\t\t\t\tself.session.custom.PDASupermarketID\u003dSupermarketLable\n\t\t\t\tsystem.perspective.print(self.session.custom.PDASupermarket)\n\t\t\t\tsystem.perspective.print(self.session.custom.PDASupermarketID)\n\n##\t\tfor i in ds1:\n##\t\t\tSupermarketLable\u003di.get(\u0027SupermarketID\u0027)\t\n###\t\t\tSupermarketName\u003di.get(\u0027Supermarket\u0027)\n##\t\t\tif Supermarket\u003d\u003dSupermarketLable:\n###\t\t\t\tSupermarketLable\u003di.get(\u0027SupermarketID\u0027)\t\n##\t\t\t\tSupermarketName\u003di.get(\u0027Supermarket\u0027)\n#\t\t\t\tsystem.perspective.print(SupermarketLable)\n#\t\t\t\tself.session.custom.PDASupermarket\u003dSupermarketName\n#\t\t\t\tself.session.custom.PDASupermarketID\u003dSupermarketLable\n#\t\t\t\tsystem.perspective.print(self.session.custom.PDASupermarket)\n#\t\t\t\tsystem.perspective.print(self.session.custom.PDASupermarketID)\n#\t\t"
+            }
+          }
+        },
+        "props": {
+          "placeholder": {
+            "color": "#AAAAAA",
+            "text": "Select Warehouse"
+          },
+          "style": {
+            "classes": "Ref_MES/Common/TextBox"
+          }
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "meta": {
+          "name": "LblWarehouseSelection"
+        },
+        "position": {
+          "height": 21.02,
+          "width": 142.01,
+          "x": 10,
+          "y": 48.48
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Warehouse",
+          "textStyle": {
+            "classes": "PDA/PDALabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\n\t\tscannedSparepartQty \u003d self.view.custom.Qty\n\t\tenteredQty \u003d self.props.value\n\t\t\n\t\tsystem.perspective.print(\u0027Scanned Spare PArt Qty is : \u0027 + str(scannedSparepartQty))\n\t\tsystem.perspective.print(\u0027enteredQty  : \u0027 + str(enteredQty))\n\t\tif int(scannedSparepartQty) \u003d\u003d int(0):\n\t\t\tself.props.value \u003d 0\n\t\t\tself.getSibling(\"LblErrorMessageReceivedQty\").props.text \u003d \"Maximum limit for scanned warehouse sparepart exceeded\"\n\t\t\tself.getSibling(\"LblErrorMessageReceivedQty\").meta.visible \u003d True\n\t\telif int(enteredQty) \u003e int(scannedSparepartQty):\n\t\t\tself.props.value \u003d 0\n\t\t\tself.getSibling(\"LblErrorMessageReceivedQty\").props.text \u003d \"Please enter the correct available Qty for scanned spare part, Available Qty is \"+ str(scannedSparepartQty)\n\t\t\tself.getSibling(\"LblErrorMessageReceivedQty\").meta.visible \u003d True\n\t\telif int(enteredQty) \u003d\u003d int(scannedSparepartQty):\n\t\t\tself.getSibling(\"LblErrorMessageReceivedQty\").meta.visible \u003d False\n\t\telse:\n\t\t\tself.getSibling(\"LblErrorMessageReceivedQty\").meta.visible \u003d False\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: PDA :: Spare Part Reception : On Action Performed of Received Qty :\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          },
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tself.getSibling(\"LblSuccessMessage\").meta.visible \u003d False\n\tself.getSibling(\"LblValidateSlotBarcode\").meta.visible\u003d False\n\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "txtQty"
+        },
+        "position": {
+          "height": 23.99,
+          "width": 150,
+          "x": 9,
+          "y": 303.5
+        },
+        "propConfig": {
+          "props.style.backgroundColor": {
+            "binding": {
+              "config": {
+                "path": "this.props.enabled"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value \u003d\u003d False:\n\t\tvalue \u003d \"#D5D5D5AB\"\n\telse:\n\t\tvalue \u003d \"#FFFFFF\"\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "enabled": 0,
+          "format": "0,0",
+          "inputBounds": {
+            "minimum": 0
+          },
+          "spinner": {
+            "enabled": false
+          },
+          "style": {
+            "classes": "Common/TextBox"
+          },
+          "value": 0
+        },
+        "type": "ia.input.numeric-entry-field"
+      },
+      {
+        "meta": {
+          "name": "LblErrorMessageReceivedQty",
+          "visible": false
+        },
+        "position": {
+          "height": 16.01,
+          "width": 363,
+          "x": 8.62,
+          "y": 329.48
+        },
+        "propConfig": {
+          "meta.visible": {
+            "binding": {
+              "config": {
+                "path": "this.meta.visible"
+              },
+              "enabled": false,
+              "transforms": [
+                {
+                  "code": "\tqtyEnter\u003dself.getSibling(\"txtQty\").props.value\n\tQty\u003dself.view.custom.Qty\n\tsystem.perspective.print(\u0027Qty is : \u0027+ str(Qty))\n\tif qtyEnter \u003e Qty :\n\t\tvalue\u003d1\n\telse:\t\n\t\tvalue\u003d0\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Ref_MES/Common/Label_PDAValidation"
+          },
+          "text": "Received Qty exceeds warehouse maximum quanity.",
+          "textStyle": {
+            "classes": "PDA/lblWarning",
+            "color": "#FF0000"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblWarehouseselection",
+          "visible": 0
+        },
+        "position": {
+          "height": 16.01,
+          "width": 190,
+          "x": 9.5,
+          "y": 50.01
+        },
+        "props": {
+          "style": {
+            "classes": "Ref_MES/Common/Label_PDAValidation"
+          },
+          "text": "SparePart received successfully.",
+          "textStyle": {
+            "classes": "PDA/LabelText",
+            "color": "#2B2B2B"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblMandatory3"
+        },
+        "position": {
+          "height": 23.01,
+          "width": 11.99,
+          "x": 74.99,
+          "y": 48.02
+        },
+        "props": {
+          "text": "*",
+          "textStyle": {
+            "color": "#FF0000"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblMandatory2"
+        },
+        "position": {
+          "height": 23.01,
+          "width": 11.99,
+          "x": 118.99,
+          "y": 153.01
+        },
+        "props": {
+          "text": "*",
+          "textStyle": {
+            "color": "#FF0000"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblMandatory1"
+        },
+        "position": {
+          "height": 23.01,
+          "width": 11.99,
+          "x": 85.98,
+          "y": 279.97
+        },
+        "props": {
+          "text": "*",
+          "textStyle": {
+            "color": "#FF0000"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblMandatory"
+        },
+        "position": {
+          "height": 23.01,
+          "width": 11.99,
+          "x": 197.5,
+          "y": 278.48
+        },
+        "props": {
+          "text": "*",
+          "textStyle": {
+            "color": "#FF0000"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\tself.getSibling(\"TctSparePartName\").props.text \u003d \u0027\u0027\n\t\tself.view.custom.Qty \u003d \u0027\u0027\n\t\tself.view.custom.dsSpareParts \u003d \u0027\u0027\n\t\tself.view.custom.sparePartId \u003d \u0027\u0027\n\t\tself.view.custom.sparePartImage \u003d \u0027\u0027\n\t\tself.view.custom.sparePartNumber \u003d \u0027\u0027\n\t\tself.view.custom.wareHouseId \u003d \u0027\u0027\n\t\t\n\t\tself.getSibling(\"Txt_PartNumber\").props.text \u003d \u0027\u0027\n\t\tself.getSibling(\"TxtScanComponentQR\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"TxtComments\").props.text \u003d \u0027\u0027\n\t\tself.getSibling(\"DrpDwnSelWarehouse\").props.value \u003d \u0027\u0027\t\n\t\tself.getSibling(\"Drpdslot\").props.value \u003d\u0027\u0027\n\t\tself.getSibling(\"Drpdslot\").props.options \u003d None\n\t\tself.getSibling(\"LblSuccessMessage\").meta.visible \u003d False\n\t\tself.getSibling(\"LblErrorMessageReceivedQty\").meta.visible \u003d False\n\t\tself.getSibling(\"txtQty\").props.value \u003d 0\n\t\tself.view.custom.IsSlotsAvailable\u003d False\n\t\tself.view.custom.ValidScannedSparePart \u003d False\n\t\tself.view.custom.sparePartImage \u003d \u0027\u0027\n\t\t\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: PDA :: Spare Part Reception : On Clear Button : On Click Event \u0027:\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnClearAll"
+        },
+        "position": {
+          "height": 27.98,
+          "rotate": {
+            "anchor": "25% 100%"
+          },
+          "width": 80.01,
+          "x": 289.5,
+          "y": 18
+        },
+        "props": {
+          "enabled": 1,
+          "image": {
+            "width": 45
+          },
+          "style": {
+            "classes": "PDA/PDAButton"
+          },
+          "text": "Clear All",
+          "textStyle": {
+            "fontSize": 10
+          }
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\tsystem.perspective.print(\"Image View click\")\n\t\tgreenColor\u003d\"#00AC00\"\n\t\tredColor\u003d\"#FF0000\"\n\t\topeningUrl \u003d system.tag.read(\"[default]JMES_InternalTags/AttachmentUrl\").value\n\t\tImageFilePath \u003d self.view.custom.sparePartImage\n\t\tname \u003d str(ImageFilePath).strip()\n\t\tsystem.perspective.print(\u0027name :\u0027 + str(name))\n\n\t\tif str(name).strip() !\u003d str(\"\").strip() or ImageFilePath !\u003d \u0027\u0027:\n\t\t\tname \u003dname.replace(\u0027\\\\\u0027,\u0027/\u0027)\n\t\t\turl \u003d openingUrl+name\n\t\t\tsystem.perspective.print(\u0027Image View url :\u0027 + str(url))\n\t\t\tself.getSibling(\"SparePartImageViewer\").props.source \u003d url\n#\t\t\tself.getSibling(\"IFrame\").props.src \u003d url\n\t\t\t\n\t\t\tself.getSibling(\"SparePartImageViewer\").meta.visible \u003d True\n#\t\t\tself.getSibling(\"IFrame\").meta.visible \u003d True\n\n\t\t\tself.getSibling(\"BtnFinishTrollley\").meta.visible \u003d False\n\t\t\tself.getSibling(\"BtnClearAll\").meta.visible \u003d False\n\t\t\tself.getSibling(\"LblSparePartReceptionTitle\").props.text \u003dstr(self.getSibling(\"TxtScanComponentQR\").props.text)\n\t\t\tself.getSibling(\"NavigateBackButton\").meta.visible \u003d False\n\t\t\tself.getSibling(\"BtnBack\").meta.visible \u003d True\n\t\telse:\n\t\t\tself.getSibling(\"IFrame\").props.src   \u003d \u0027\u0027\n\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.textStyle.color \u003d str(redColor)\n\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.text\u003d \"Spare part image is not available for scanned spare part\"\n\t\t\tself.getSibling(\"LblValidateSlotBarcode\").meta.visible\u003d1\n\t\t\t\n#\t\tself.view.custom.sparePartImage\u003d\"http://hnjmesjedev/FactoryMagix/assets//UploadedFiles//SparePartImages//210120232044_Injectordemo.jpg\"\n\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: PDA :: Spare Part Reception :View Spare Part Image Button :\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnViewImage"
+        },
+        "position": {
+          "height": 27.98,
+          "rotate": {
+            "anchor": "25% 100%"
+          },
+          "width": 70.01,
+          "x": 299,
+          "y": 177.1
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "../TxtScanComponentQR.props.text"
+              },
+              "transforms": [
+                {
+                  "code": "\tsparePartValidated \u003dself.view.custom.ValidScannedSparePart\n\tsystem.perspective.print(\u0027sparePartValidated :\u0027 + str(sparePartValidated))\n\tif str(value).strip() !\u003d str(\"\").strip(): #and (sparePartValidated \u003d\u003d True or sparePartValidated \u003d\u003d 1):\n\t\tself.props.style.backgroundColor \u003d \"#3888CC\"\t\n\t\tself.props.style.borderColor \u003d \"#3888CC\"\t\n\t\tvalue \u003d True\n\telse:\n\t\tvalue \u003d False\n\t\tself.props.style.backgroundColor \u003d str(self.session.custom.disableBtncolour)\n \t\tself.props.style.borderColor \u003d str(self.session.custom.disableBtncolour) \n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "image": {
+            "width": 45
+          },
+          "style": {
+            "backgroundColor": "value",
+            "borderColor": "value",
+            "classes": "PDA/PDAButton"
+          },
+          "text": "ViewImage",
+          "textStyle": {
+            "fontSize": 10
+          }
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "LblSparepartName"
+        },
+        "position": {
+          "height": 21.02,
+          "width": 192.99,
+          "x": 10.49,
+          "y": 226.01
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Spare Part Name",
+          "textStyle": {
+            "classes": "PDA/PDALabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tself.getSibling(\"LblErrorMessage\").props.text\u003dstr(\"\")\n\tself.getSibling(\"LblErrorMessage\").meta.visible \u003d false\n"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "TctSparePartName",
+          "tooltip": {
+            "enabled": 1
+          }
+        },
+        "position": {
+          "height": 24,
+          "width": 362,
+          "x": 8,
+          "y": 247
+        },
+        "props": {
+          "deferUpdates": false,
+          "enabled": 0,
+          "placeholder": "Scanned Spare Part Name",
+          "rejectUpdatesWhileFocused": false,
+          "style": {
+            "backgroundColor": "#D5D5D5AB",
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "IFrame",
+          "visible": false
+        },
+        "position": {
+          "height": 408,
+          "width": 372,
+          "x": 1.49,
+          "y": 52.95
+        },
+        "props": {
+          "allowFullScreen": true,
+          "referrerPolicy": "origin",
+          "style": {
+            "border": "set"
+          }
+        },
+        "type": "ia.display.iframe"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tself.getSibling(\"IFrame\").meta.visible \u003d False\n\tself.getSibling(\"SparePartImageViewer\").meta.visible \u003d False\n\tself.getSibling(\"BtnFinishTrollley\").meta.visible \u003d True\t\n\tself.getSibling(\"LblSparePartReceptionTitle\").props.text \u003d \"Spare Part Reception\"\n\tself.getSibling(\"NavigateBackButton\").meta.visible \u003d True\n\tself.getSibling(\"BtnClearAll\").meta.visible \u003d True\n\tself.meta.visible \u003d False\n\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnBack",
+          "visible": false
+        },
+        "position": {
+          "height": 29,
+          "rotate": {
+            "anchor": "25% 100%"
+          },
+          "width": 76,
+          "x": 292,
+          "y": 17
+        },
+        "props": {
+          "enabled": 1,
+          "image": {
+            "width": 45
+          },
+          "style": {
+            "classes": "PDA/PDAButton"
+          },
+          "text": "Back",
+          "textStyle": {
+            "fontSize": 10
+          }
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "LblSuccessMessage",
+          "visible": false
+        },
+        "position": {
+          "height": 21,
+          "width": 365,
+          "x": 11.977499237060547,
+          "y": 203.1775072479248
+        },
+        "props": {
+          "textStyle": {
+            "fontSize": 10
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "SparePartImageViewer",
+          "visible": false
+        },
+        "position": {
+          "height": 407,
+          "width": 373,
+          "x": 4,
+          "y": 51
+        },
+        "props": {
+          "fit": {
+            "mode": "fill"
+          }
+        },
+        "type": "ia.display.image"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": 329.5,
+      "y": -172.5078125
+    },
+    "type": "ia.container.coord"
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "custom": {},
+  "params": {
+    "Column": "value",
+    "column": "value",
+    "rowData": "value",
+    "rowIndex": "value",
+    "value": "value"
+  },
+  "propConfig": {
+    "params.Column": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.column": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.value": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 32,
+      "width": 147
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Dropdown"
+        },
+        "position": {
+          "height": 1,
+          "width": 0.9864
+        },
+        "props": {
+          "options": 1,
+          "placeholder": {
+            "text": "Select Frequency"
+          },
+          "style": {
+            "classes": "Common/TableDrpDwn"
+          },
+          "value": 0
+        },
+        "type": "ia.input.dropdown"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

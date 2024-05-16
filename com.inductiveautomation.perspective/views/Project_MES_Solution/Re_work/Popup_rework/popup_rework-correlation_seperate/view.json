@@ -1,0 +1,53 @@
+{
+  "custom": {},
+  "params": {
+    "rowData": "value"
+  },
+  "propConfig": {
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 38,
+      "width": 172
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.print(self.view.params.rowData)\n\totherSerialID \u003d self.view.params.rowData[\"otherSerialID\"]\n\ta \u003d fpsi_ignition01.post_correlations_separateAndAddUnmergedSerial(otherSerialID,fkCreatedByID\u003d0)\n\t#Rework_Correletions_Table_refresh\n\tmessageType \u003d \u0027Rework_Correletions_Table_refresh\u0027\n\tsystem.perspective.sendMessage(messageType, scope\u003d\u0027page\u0027)\n\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Button"
+        },
+        "position": {
+          "height": 30,
+          "width": 143,
+          "x": 3,
+          "y": 4
+        },
+        "props": {
+          "primary": false,
+          "text": "Seperate"
+        },
+        "type": "ia.input.button"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}

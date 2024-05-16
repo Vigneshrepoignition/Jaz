@@ -1,0 +1,42 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 51,
+      "width": 1222
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "EmbVWSmall"
+        },
+        "props": {
+          "path": "Project_MES_Solution/Header_And_Footer/Title"
+        },
+        "type": "ia.display.view"
+      },
+      {
+        "meta": {
+          "name": "EmbVWLarge"
+        },
+        "position": {
+          "size": "large"
+        },
+        "props": {
+          "path": "Project_MES_Solution/Header_And_Footer/Title"
+        },
+        "type": "ia.display.view"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "breakpoint": 802
+    },
+    "type": "ia.container.breakpt"
+  }
+}

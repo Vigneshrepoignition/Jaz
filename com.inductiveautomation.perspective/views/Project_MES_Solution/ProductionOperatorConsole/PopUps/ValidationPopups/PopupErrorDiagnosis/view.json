@@ -1,0 +1,186 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\t\n\t\tErrorString\u003dself.params.message\n#\t\tfor i in (ErrorString):\n\t\tScreenEventName\u003dErrorString.get(\u0027Screen_Event Name\u0027)\n\t\tFunctionName\u003dErrorString.get(\u0027Function Name\u0027)\n\t\tErrorMsg \u003dErrorString.get(\u0027Error Msg\u0027)\n\t\tErrorLine\u003dErrorString.get(\u0027Error Line\u0027)\t\t\t\t\n\t\tself.getChild(\"root\").getChild(\"ScreenName_Event\").props.text \u003d \"ScreenEventName: \"+str(ScreenEventName)\n\t\tself.getChild(\"root\").getChild(\"FunctionName\").props.text\u003d \"Function Name: \"+str(FunctionName)\n\t\tself.getChild(\"root\").getChild(\"ErrorMsg\").props.text\u003d \"Error MSg: \"+str(ErrorMsg)\n\t\tself.getChild(\"root\").getChild(\"LineNo\").props.text\u003d \"Error at Line: \"+str(ErrorLine)\n\t\t\t\n\texcept:\n\t\tpass"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "message": "",
+    "updateStatus": ""
+  },
+  "propConfig": {
+    "params.message": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.updateStatus": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 235,
+      "width": 577
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 39.62,
+          "width": 577
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#9A9FA2"
+          },
+          "text": "Error Diagnostics",
+          "textStyle": {
+            "backgroundColor": "#9A9FA2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 10,
+            "textAlign": "left",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 38.37,
+          "width": 41.39,
+          "x": 529.87,
+          "y": 1.45
+        },
+        "props": {
+          "color": "#FFFFFF",
+          "path": "material/close"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "ScreenName_Event"
+        },
+        "position": {
+          "height": 28.99,
+          "width": 529.25,
+          "x": 14.21,
+          "y": 43.31
+        },
+        "props": {
+          "textStyle": {
+            "color": "#ED2929",
+            "fontFamily": "Arial",
+            "fontSize": 12,
+            "fontWeight": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "FunctionName"
+        },
+        "position": {
+          "height": 28.99,
+          "width": 529.25,
+          "x": 14.21,
+          "y": 90.22
+        },
+        "props": {
+          "textStyle": {
+            "color": "#ED2929",
+            "fontFamily": "Arial",
+            "fontSize": 12,
+            "fontWeight": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "ErrorMsg"
+        },
+        "position": {
+          "height": 28.99,
+          "width": 529.25,
+          "x": 14.21,
+          "y": 130.14
+        },
+        "props": {
+          "textStyle": {
+            "color": "#ED2929",
+            "fontFamily": "Arial",
+            "fontSize": 12,
+            "fontWeight": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LineNo"
+        },
+        "position": {
+          "height": 28.99,
+          "width": 529.25,
+          "x": 14.21,
+          "y": 170.06
+        },
+        "props": {
+          "textStyle": {
+            "color": "#ED2929",
+            "fontFamily": "Arial",
+            "fontSize": 12,
+            "fontWeight": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": 0.0033,
+      "y": -0.0372
+    },
+    "props": {
+      "style": {
+        "backgroundColor": "#EDE9E9"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

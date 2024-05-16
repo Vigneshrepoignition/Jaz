@@ -1,0 +1,181 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry: \n\t\tscriptName \u003d \"RMTC: View Message Popup: On Startup\"\n\t\tTabledata\u003dself.params.rowData\n\t\tName \u003d Tabledata.get(\"Name\")\n\t\t\n\t\tself.getChild(\"root\").getChild(\"ViewBtnRMNumber\").props.text\u003d(Name)\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "rowData": "value"
+  },
+  "propConfig": {
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 195,
+      "width": 334
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tself.session.custom.WoNumber \u003d \"\"\n\tself.session.custom.RMOrderID \u003d \"\"\n\tself.session.custom.Line \u003d \"\"\n\tself.session.custom.Machine \u003d \"\"\t\t\n\tself.session.custom.WOOperationStatus \u003d \"\"\n\tself.session.custom.ActualStartDate \u003d \"\"\n\tself.session.custom.ActualCmpDateTime \u003d \"\"\t\n\tself.session.custom.AreaID \u003d \"\"\n\tself.session.custom.areaName \u003d \"\"\n\tself.session.custom.lineName \u003d \"\"\n\tself.session.custom.MachineID \u003d \"\"\n\tself.session.custom.enterpriseName\u003d \"\"\n\tself.session.custom.plantName \u003d \"\"\n\tsystem.perspective.closePopup(\"\")"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnNo",
+          "tooltip": {
+            "enabled": true,
+            "text": "Click to Cancel"
+          }
+        },
+        "position": {
+          "height": 34,
+          "width": 110,
+          "x": 104.7,
+          "y": 143.5
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "classes": "Common/Button"
+          },
+          "text": "OK"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 32,
+          "width": 332
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Message",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 10,
+            "textAlign": "left",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tself.session.custom.WoNumber \u003d \"\"\n\tself.session.custom.RMOrderID \u003d \"\"\n\tself.session.custom.Line \u003d \"\"\n\tself.session.custom.Machine \u003d \"\"\t\t\n\tself.session.custom.WOOperationStatus \u003d \"\"\n\tself.session.custom.ActualStartDate \u003d \"\"\n\tself.session.custom.ActualCmpDateTime \u003d \"\"\t\n\tself.session.custom.AreaID \u003d \"\"\n\tself.session.custom.areaName \u003d \"\"\n\tself.session.custom.lineName \u003d \"\"\n\tself.session.custom.MachineID \u003d \"\"\n\tself.session.custom.enterpriseName\u003d \"\"\n\tself.session.custom.plantName \u003d \"\"\n\tsystem.perspective.closePopup(\"\")"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 30,
+          "width": 30,
+          "x": 300.938
+        },
+        "props": {
+          "path": "material/close",
+          "style": {
+            "color": "#FFFFFF",
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "ViewbtnLblMsg"
+        },
+        "position": {
+          "height": 36,
+          "width": 283,
+          "x": 43.6,
+          "y": 89.5
+        },
+        "props": {
+          "text": "Is Not Assigned To You",
+          "textStyle": {
+            "fontFamily": "Arial",
+            "fontSize": 25,
+            "textTransform": "none"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "ViewBtnRMNumber"
+        },
+        "position": {
+          "height": 35,
+          "width": 318,
+          "x": 8.8,
+          "y": 46.5
+        },
+        "props": {
+          "textStyle": {
+            "fontFamily": "Arial",
+            "fontSize": 26,
+            "fontWeight": "bold",
+            "textAlign": "center",
+            "textTransform": "none"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -176,
+      "y": 35
+    },
+    "props": {
+      "style": {
+        "classes": "Panel/PopUp"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

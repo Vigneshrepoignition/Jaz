@@ -1,0 +1,2472 @@
+{
+  "custom": {},
+  "params": {
+    "HistoryPage": ""
+  },
+  "propConfig": {
+    "params.HistoryPage": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 769,
+      "width": 1299
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblProductionLine",
+          "tooltip": {
+            "enabled": true,
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Production Line"
+          }
+        },
+        "position": {
+          "height": 0.0403,
+          "width": 0.0979,
+          "x": 0.0396,
+          "y": 0.0196
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "WorkOrder No:",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblWONo",
+          "tooltip": {
+            "enabled": true,
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Production Line"
+          }
+        },
+        "position": {
+          "height": 0.0442,
+          "width": 0.1678,
+          "x": 0.1373,
+          "y": 0.017
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "session.custom.WoNumber"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Common/TextBox_disabled",
+            "textAlign": "left"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblProductionLine_0",
+          "tooltip": {
+            "enabled": true,
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Production Line"
+          }
+        },
+        "position": {
+          "height": 0.0403,
+          "width": 0.0979,
+          "x": 0.0396,
+          "y": 0.0834
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "WorkOrder Qty:",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblWOQty",
+          "tooltip": {
+            "enabled": true,
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Production Line"
+          }
+        },
+        "position": {
+          "height": 0.0442,
+          "width": 0.1678,
+          "x": 0.1373,
+          "y": 0.0808
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "session.custom.WorkOrderQty"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Common/TextBox_disabled",
+            "textAlign": "left"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblProductionLine_1",
+          "tooltip": {
+            "enabled": true,
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Production Line"
+          }
+        },
+        "position": {
+          "height": 0.0403,
+          "width": 0.0979,
+          "x": 0.3483,
+          "y": 0.0834
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Part Name:",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblPartName",
+          "tooltip": {
+            "enabled": true,
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Production Line"
+          }
+        },
+        "position": {
+          "height": 0.0442,
+          "width": 0.1678,
+          "x": 0.446,
+          "y": 0.0808
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "session.custom.Item"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Common/TextBox_disabled",
+            "textAlign": "left"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblProductionLine_2",
+          "tooltip": {
+            "enabled": true,
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Production Line"
+          },
+          "visible": false
+        },
+        "position": {
+          "height": 0.0403,
+          "width": 0.0979,
+          "x": 0.6454,
+          "y": 0.0834
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Part Revision:",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblPartRevision",
+          "tooltip": {
+            "enabled": true,
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Production Line"
+          },
+          "visible": false
+        },
+        "position": {
+          "height": 0.0442,
+          "width": 0.1678,
+          "x": 0.7439,
+          "y": 0.0808
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "session.custom.Revision"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Common/TextBox_disabled",
+            "textAlign": "left"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblProductionLine_3",
+          "tooltip": {
+            "enabled": true,
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Production Line"
+          }
+        },
+        "position": {
+          "height": 0.0403,
+          "width": 0.0979,
+          "x": 0.3483,
+          "y": 0.0196
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "WO Start Date:",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblWOStartDate",
+          "tooltip": {
+            "enabled": true,
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Production Line"
+          }
+        },
+        "position": {
+          "height": 0.0442,
+          "width": 0.1678,
+          "x": 0.446,
+          "y": 0.017
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "session.custom.woStartDate"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Common/TextBox_disabled",
+            "textAlign": "left"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblProductionLine_4",
+          "tooltip": {
+            "enabled": true,
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Production Line"
+          }
+        },
+        "position": {
+          "height": 0.0403,
+          "width": 0.0979,
+          "x": 0.6454,
+          "y": 0.0196
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "WO End Date:",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblWOENdDate",
+          "tooltip": {
+            "enabled": true,
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Production Line"
+          }
+        },
+        "position": {
+          "height": 0.0442,
+          "width": 0.1678,
+          "x": 0.7439,
+          "y": 0.017
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "session.custom.woEndDate"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Common/TextBox_disabled",
+            "textAlign": "left"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblProductionLine_7",
+          "tooltip": {
+            "enabled": true,
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Production Line"
+          }
+        },
+        "position": {
+          "height": 0.0403,
+          "width": 0.0979,
+          "x": 0.6454,
+          "y": 0.0834
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Line Name:",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblLineName",
+          "tooltip": {
+            "enabled": true,
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Production Line"
+          }
+        },
+        "position": {
+          "height": 0.0442,
+          "width": 0.1678,
+          "x": 0.7439,
+          "y": 0.0808
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "session.custom.lineName"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Common/TextBox_disabled",
+            "textAlign": "left"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblProductionLine_10",
+          "tooltip": {
+            "enabled": true,
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Production Line"
+          },
+          "visible": false
+        },
+        "position": {
+          "height": 0.0403,
+          "width": 0.0979,
+          "x": 0.3483,
+          "y": 0.1458
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Factory:",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblFactory",
+          "tooltip": {
+            "enabled": true,
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Production Line"
+          },
+          "visible": false
+        },
+        "position": {
+          "height": 0.0442,
+          "width": 0.1678,
+          "x": 0.446,
+          "y": 0.1419
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "session.custom.Factory"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Common/TextBox_disabled",
+            "textAlign": "left"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\twoNo\u003dself.session.custom.WoNumber\n\t\tWorkorderId\u003dself.session.custom.WorkorderID\n\t\tpartNo\u003dself.getSibling(\"LblPartName\").props.text\n\t\tuserId\u003dself.session.custom.UserId\n\t\tLineId\u003dself.session.custom.LineID\n\t\tUserId\u003dself.session.custom.UserId\t\t\t\n\t\tselectedLineId \u003d self.session.custom.LineID\n\t\tshiftId\u003dAuthentication.getshiftId(selectedLineId)\n\t\tprodScrapDetails\u003dself.getSibling(\"TblReportProScrap\").props.data\t\n\t\ttry:\n\t\t\trowcount \u003d prodScrapDetails.getRowCount()\n\t\texcept:\n\t\t\trowcount\u003d0\t\t\n\t\tbomComponentDetails\u003d[]\n\t\tif rowcount\u003e0:\n\t\t\tfor i in range(rowcount):\n\t\t\t\tbomName\u003dprodScrapDetails.getValueAt(i, \"BOM Name\")\n\t\t\t\tRevision\u003dprodScrapDetails.getValueAt(i, \"Revision\")\n\t\t\t\tDescription\u003dprodScrapDetails.getValueAt(i, \"Description\")\n\t\t\t\tUOM\u003dprodScrapDetails.getValueAt(i, \"UOM\")\n\t\t\t\tUnitUsage\u003dprodScrapDetails.getValueAt(i, \"UnitUsage\")\t\t\n\t\t\t\tScrapByUnit\u003dprodScrapDetails.getValueAt(i, \"ScrapByUnit\")\t\t\t\n\t\t\t\tTotalScrap\u003dprodScrapDetails.getValueAt(i, \"TotalScrap\")\n\t\t\t\tLotNumber\u003dprodScrapDetails.getValueAt(i, \"JE Lot\")\n\t\t\t\tBomDetailsId\u003dprodScrapDetails.getValueAt(i, \"BomDetailsId\")\n\t\t\t\tMstItemId\u003dprodScrapDetails.getValueAt(i, \"MstItemId\")\n\t\t\t\tBomID\u003dprodScrapDetails.getValueAt(i, \"BomID\")\n\t\t\t\tLineID\u003dprodScrapDetails.getValueAt(i, \"LineID\")\n\t\t\t\tMachineID\u003dprodScrapDetails.getValueAt(i, \"MachineID\")\n\t\t\t\tBobbinsId\u003dprodScrapDetails.getValueAt(i, \"BobbinsId\")\n\t\t\t\tHeadName\u003dprodScrapDetails.getValueAt(i, \"HeadName\")\t\n\t\t\t\tbomComponentDetails1\u003d{\n\t\t\t\t\t\t\t\t\t\t  \"bomName\": bomName,\n\t\t\t\t\t\t\t\t\t\t  \"revision\":Revision,\n\t\t\t\t\t\t\t\t\t\t  \"description\": Description,\n\t\t\t\t\t\t\t\t\t\t  \"uom\": UOM,\n\t\t\t\t\t\t\t\t\t\t  \"unitUsage\": UnitUsage,\n\t\t\t\t\t\t\t\t\t\t  \"scrapByUnit\": float(ScrapByUnit),\n\t\t\t\t\t\t\t\t\t\t  \"scrapByFG\": 0,\n\t\t\t\t\t\t\t\t\t\t  \"totalConsumption\": 0,\n\t\t\t\t\t\t\t\t\t\t  \"totalScrap\": TotalScrap,\n\t\t\t\t\t\t\t\t\t\t  \"lotNumber\": LotNumber,\n\t\t\t\t\t\t\t\t\t\t  \"bomDetailsID\": BomDetailsId,\n\t\t\t\t\t\t\t\t\t\t  \"mstItemId\": MstItemId,\n\t\t\t\t\t\t\t\t\t\t  \"bomID\": BomID,\n\t\t\t\t\t\t\t\t\t\t  \"lineID\": LineID,\n\t\t\t\t\t\t\t\t\t\t  \"machineID\": MachineID,\n\t\t\t\t\t\t\t\t\t\t  \"bobbinsId\": BobbinsId,\n\t\t\t\t\t\t\t\t\t\t  \"headName\": HeadName\n\t\t\t\t\t\t\t\t\t\t}\n\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\tbomComponentDetails.append(bomComponentDetails1)\n\t\t\t\t\n\t\t\tsystem.perspective.print(\"bomComponentDetails--\u003e\"+str(bomComponentDetails))\t\t\n\t\t\tscrapReportResult\u003dProductionOperatorConsole.reportProdScrap(woNo,LineId,partNo,userId,bomComponentDetails,WorkorderId)\n\t\t\tsystem.perspective.print(\"scrapReportResult--\u003e\"+str(scrapReportResult))\n\t\t\tif scrapReportResult\u003d\u003d1:\n#\t\t\t\tscreenNo\u003d2\n#\t\t\t\twoNo\u003dself.getSibling(\"LblWONo\").props.text\n#\t\t\t\tWorkorderId\u003dself.session.custom.WorkorderID\n#\t\t\t\tpartNo\u003dself.getSibling(\"LblPartName\").props.text\n#\t\t\t\tfactory\u003dself.getSibling(\"LblFactory\").props.text\n#\t\t\t\trevision\u003dself.getSibling(\"LblPartRevision\").props.text\n#\t\t\t\tpartNoWithoutFactory1\u003d partNo.split(\"_\")\n#\t\t\t\tpartNoWithoutFactory\u003d partNoWithoutFactory1[0]\t\n#\t\t\t\tLineId\u003dself.session.custom.LineID\n#\t\t\t\tUserId\u003dself.session.custom.UserId\n#\t\t\t\tscreenNo\u003d1\n#\t\t\t\tWorkorderId\u003d\u0027PD53135519\u0027\n#\t\t\t\tpartNo\u003d\"999-1010453EN_E_JPD\"\n#\t\t\t\tfactory\u003d\"JPD\"\n#\t\t\t\trevision\u003d\"E\"\n#\t\t\t\tpartNoWithoutFactory\u003d\"999-1010453EN\"\n#\t\t\t\tLineId\u003d2\n#\t\t\t\tUserId\u003d64\n#\t\t\t\t\n#\t\t\t\tproductionScrapHistory\u003dProductionOperatorConsole.getProductionScrapHistory(screenNo,WorkorderId,partNo,factory,revision,partNoWithoutFactory,LineId,UserId)\n#\t\t\t\n#\t\t\t\tsystem.perspective.print(\u0027productionScrapHistory--\u003e\u0027+str(productionScrapHistory))\n#\t\t\t\tself.getSibling(\"TblReportProScrap\").props.data\u003dproductionScrapHistory\n\t\t\t\tmessageType1 \u003d \u0027RefreshTable\u0027\n\t\t\t\tsystem.perspective.sendMessage(messageType1, payload \u003d {\"value\":0,\"SelctedRowIndex\":0}, scope \u003d \"page\")\n\t\t\t\tMessageText\u003d\"Scrap Details Saved Successfully.\"\n\t\t\t\tupdaateStatus\u003d1\n\t\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\n\t\t\telse:\n\t\t\t\tMessageText\u003d\"Fails to save scrap details.\"\n\t\t\t\tupdaateStatus\u003d0\n\t\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\telse:\n\t\t\t\n\t\t\t\tMessageText\u003d\"Can Not Save Scrap Details with empty table\"\n\t\t\t\tupdaateStatus\u003d0\n\t\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\texcept:\n\t\tsystem.perspective.print(\u0027Exception :: Production Scrap Details\u0027)\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)\t\n\t\tmessage\u003d{\"Screen_Event Name\":\u0027Exception :: Refresh\u0027,\"Function Name\":\u0027ProductionOperatorConsole.getProductionScrapHistory\u0027,\"Error Line\":lineno, \"Error Msg\":errorMessage}\n\t\tsystem.perspective.openPopup(\u0027ErrorDiagnostics\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/PopupErrorDiagnosis\u0027,params\u003d{\"message\":message},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\t\t\t\t\t\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BackBtn",
+          "tooltip": {
+            "enabled": true,
+            "location": "bottom-left",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 0.0442,
+          "width": 0.0644,
+          "x": 0.9257,
+          "y": 0.017
+        },
+        "props": {
+          "image": {
+            "height": 15,
+            "width": 45
+          },
+          "style": {
+            "classes": "Common/Button"
+          },
+          "text": "Save",
+          "textStyle": {
+            "fontFamily": "Arial",
+            "fontSize": 11
+          }
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "component": {
+            "onEditCellCommit": {
+              "config": {
+                "script": "\tsystem.perspective.print(\"After Cell Edit \")\n\tdefineKeyColumn \u003d \"EI PartNo\"\n\t#----------------- get selected cell value,row number,column number -----------------  \n\tupdatedValue\u003devent.value  \n\tselRow\u003devent.row  \n\tselColumn\u003dself.props.selection.selectedColumn\n\t#-------------------------------------- End ----------------------------------------\n\t\n\t#----------------- update data back in existing table dataset ----------------------  \n\tdtSet\u003dself.props.data\n\tupdateRowResultDs \u003d {selColumn:updatedValue}\n\tresultpyData \u003d system.dataset.updateRow(dtSet,selRow,updateRowResultDs)  \n\tds\u003d system.dataset.toPyDataSet(resultpyData)\n\tself.props.data\u003dds\n\t#-------------------------------------- End -----------------------------------------      \n\ttabldata\u003dself.props.data  \n\tval\u003dtabldata.getValueAt(selRow, selColumn)\n\tComponents\u003dtabldata.getValueAt(selRow,defineKeyColumn)\n\tcomponentData\u003d[val,Components]\n\tsystem.perspective.print(componentData) "
+              },
+              "enabled": false,
+              "scope": "G",
+              "type": "script"
+            }
+          },
+          "system": {
+            "onStartup": {
+              "config": {
+                "script": "\ttry:\n#\t\tsystem.perspective.openPopup(\u0027LoaderPopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/Loader/LoaderPopup\u0027,draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\tself.getSibling(\"ImageLoader\").meta.visible\u003d1\n\t\tscreenNo\u003d2\n\t\tWorkorderId\u003dself.session.custom.WorkorderID\n#\t\tWorkorderId\u003dself.session.custom.WorkorderID\n\t\tpartNo\u003dself.getSibling(\"LblPartName\").props.text\n\t\tfactory\u003dself.getSibling(\"LblFactory\").props.text\n\t\trevision\u003dself.getSibling(\"LblPartRevision\").props.text\n\t\tpartNoWithoutFactory1\u003d partNo.split(\"_\")\n\t\tpartNoWithoutFactory\u003d partNoWithoutFactory1[0]\t\n\t\tLineId\u003dself.session.custom.LineID\n\t\tUserId\u003dself.session.custom.UserId\n\n\t\tAPIParameters\u003d{\"screenNo\":screenNo,\"WorkorderId\":WorkorderId,\"partNo\":partNo,\"factory\":factory,\"revision\":revision,\"partNoWithoutFactory\":partNoWithoutFactory,\"LineId\":LineId,\"LineId\":LineId}\n\t\tsystem.perspective.print(\"APIParameters:--\"+str(APIParameters))\n\t\tproductionScrapHistory\u003dProductionOperatorConsole.getProductionScrapHistory(screenNo,WorkorderId,partNo,factory,revision,partNoWithoutFactory,LineId,UserId)\n\t\tsystem.perspective.print(\u0027productionScrapHistory--\u003e\u0027+str(productionScrapHistory))\n\t\tself.props.data\u003dproductionScrapHistory\n\t\tif productionScrapHistory\u003d\u003d0:\n\t\t\tMessageText\u003d(\"API \u0027GetScrapDetailsForProductionPEAQA\u0027 Exception. Connect to The administrator\")\n\t\t\tupdaateStatus\u003d0\n\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\n#\t\tsystem.perspective.closePopup(\u0027LoaderPopup\u0027)\n\t\tself.getSibling(\"ImageLoader\").meta.visible\u003d0\t\t\t\t\t\n\texcept:\n\t\tsystem.perspective.print(\u0027Exception :: Production Scrap History Details\u0027)\n\t\tself.getSibling(\"ImageLoader\").meta.visible\u003d0\n#\t\tsystem.perspective.closePopup(\u0027LoaderPopup\u0027)\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "TblReportProScrap"
+        },
+        "position": {
+          "height": 0.8231,
+          "width": 0.9892,
+          "x": 0.0034,
+          "y": 0.1637
+        },
+        "props": {
+          "bodyStyle": {
+            "classes": "Table/RowsBorder"
+          },
+          "cells": {
+            "allowEditOn": "single-click"
+          },
+          "columns": [
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "Sr No",
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Sr No"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": "",
+                "paddingLeft": 5
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 50
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "BOM Name",
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Component Name"
+              },
+              "justify": "left",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "Revision",
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Revision"
+              },
+              "justify": "left",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 40
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "Description",
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Description"
+              },
+              "justify": "left",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 120
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "UOM",
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "UOM"
+              },
+              "justify": "left",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 50
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "UnitUsage",
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Unit Usage"
+              },
+              "justify": "left",
+              "number": "value",
+              "numberFormat": "0,0.000000000000",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 100
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "OperationName",
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Operation"
+              },
+              "justify": "left",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 180
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "EquipmentCode",
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Machine Name"
+              },
+              "justify": "left",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 160
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "HeadName",
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Head"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 80
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "JE Lot",
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "RM Lot"
+              },
+              "justify": "left",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "number",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 80
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "Vendor Lot",
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Vendor Lot"
+              },
+              "justify": "left",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "number",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": 80
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "RemainingQty",
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Remaining Qty"
+              },
+              "justify": "left",
+              "number": "value",
+              "numberFormat": "0,0.000000000000",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "number",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 100
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "ScrapByUnit",
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Scrap By Unit"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "view",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {
+                "rowData": "",
+                "rowIndex": "",
+                "value": 0
+              },
+              "viewPath": "Project_MES_Solution/ProductionOperatorConsole/Templates/ProScrap",
+              "visible": true,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "ScrapByFG",
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Scrap By FG"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.000000000000",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "TotalScrap",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Total Scrap"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.000000000000",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": false,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "BomDetailsId",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "BomDetailsId"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "MstItemId",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "MstItemId"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "BomID",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "BomID"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "LineID",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "LineID"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "MachineID",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "MachineID"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "BobbinsId",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "BobbinsId"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "IsMaterialRequest",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": ""
+            }
+          ],
+          "data": 0,
+          "dragOrderable": false,
+          "emptyMessage": {
+            "noData": {
+              "text": "Records Are Not Available."
+            }
+          },
+          "headerStyle": {
+            "classes": "Table/Header"
+          },
+          "pager": {
+            "bottom": false,
+            "initialOption": 15,
+            "options": [
+              10,
+              15,
+              20,
+              25,
+              50
+            ]
+          },
+          "rows": {
+            "style": {
+              "classes": "Table/Rowsmiddle"
+            },
+            "subviewExpansionMode": "single"
+          },
+          "selection": {
+            "enableColumnSelection": true
+          }
+        },
+        "scripts": {
+          "customMethods": [],
+          "extensionFunctions": null,
+          "messageHandlers": [
+            {
+              "messageType": "updateProdScrap",
+              "pageScope": true,
+              "script": "\ttry:\t\t\n\t\tscrapVal\u003dpayload[\u0027value\u0027]\n\t\tsystem.perspective.print(\"Before Floate: \"+str(scrapVal))\n\t\tselRow\u003dpayload[\u0027SelctedRowIndex\u0027]\n\t\t\n\t\tupdatedValue\u003dfloat(scrapVal)  \n\t\tsystem.perspective.print(\"After Floate: \"+str(updatedValue))  \n\t\tselColumn\u003d\u0027ScrapByUnit\u0027\n\t\tdtSet\u003dself.props.data \n\t\t   \n\t\tupdateRowResultDs \u003d {selColumn:updatedValue}    \n\t\tresultpyData \u003d system.dataset.updateRow(dtSet,selRow,updateRowResultDs)        \n\t\tds\u003d system.dataset.toPyDataSet(resultpyData)    \n\t\tself.props.data\u003dds  \n\t\tsystem.perspective.print(\"MSG Handler Done--\u003e\")  \n\texcept Exception as e:\n\t\t\tsystem.perspective.print(\u0027Exception :msg Handler updatig PEA Scrap Value\u0027)\n\t\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\t\tsystem.perspective.print(errorMessage)\n\t\t\tlineno \u003d tb.tb_lineno\n\t\t\tsystem.perspective.print(lineno)\n\t\t\tsys.exit()",
+              "sessionScope": false,
+              "viewScope": false
+            },
+            {
+              "messageType": "updateCell",
+              "pageScope": true,
+              "script": "\ttry:\t\n\t\t\ttableData\u003dself.props.data\t\t\t\t\n\t\t\tscrapVal\u003dpayload[\u0027value\u0027]\n\t\t\tselRow\u003dpayload[\u0027SelctedRowIndex\u0027]\n\t\t\tpreVal\u003dtableData.getValueAt(selRow, \u0027Original Requirement\u0027)\n\t\t\tcurrentVal\u003dscrapVal\n\t\t\tUpdatedpreVal\u003d(preVal+currentVal)\n\t\t\tsystem.perspective.print(\"preVal--\u003e\"+str(preVal))\n\t\t\tsystem.perspective.print(\"currentVal--\u003e\"+str(currentVal))\n\t\t\tsystem.perspective.print(\"currentVal--\u003e\"+str(currentVal))\n\t\t\tupdatedValue\u003dUpdatedpreVal    \n\t\t\tselColumn\u003d\u0027Original Requirement\u0027\n\t\t\tdtSet\u003dself.props.data    \n\t\t\tupdateRowResultDs \u003d {selColumn:updatedValue}    \n\t\t\tresultpyData \u003d system.dataset.updateRow(dtSet,selRow,updateRowResultDs)        \n\t\t\tds\u003d system.dataset.toPyDataSet(resultpyData)    \n\t\t\tself.props.data\u003dds\n\t\t\tsystem.perspective.print(\"MSG Handler Done For cell Update--\u003e\")  \n\texcept Exception as e:\n\t\t\tsystem.perspective.print(\u0027Exception :msg Handler production updatig Cell\u0027)\n\t\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\t\tsystem.perspective.print(errorMessage)\n\t\t\tlineno \u003d tb.tb_lineno\n\t\t\tsystem.perspective.print(lineno)\n\t\t\tsys.exit()",
+              "sessionScope": false,
+              "viewScope": false
+            },
+            {
+              "messageType": "RefreshTable",
+              "pageScope": true,
+              "script": "\ttry:\n\t\tself.getSibling(\"ImageLoader\").meta.visible\u003d1\n\t\tscreenNo\u003d2\n\t\tWorkorderId\u003dself.session.custom.WorkorderID\n\t#\t\tWorkorderId\u003dself.session.custom.WorkorderID\n\t\tpartNo\u003dself.getSibling(\"LblPartName\").props.text\n\t\tfactory\u003dself.getSibling(\"LblFactory\").props.text\n\t\trevision\u003dself.getSibling(\"LblPartRevision\").props.text\n\t\tpartNoWithoutFactory1\u003d partNo.split(\"_\")\n\t\tpartNoWithoutFactory\u003d partNoWithoutFactory1[0]\t\n\t\tLineId\u003dself.session.custom.LineID\n\t\tUserId\u003dself.session.custom.UserId\n\t\n\t\tAPIParameters\u003d{\"screenNo\":screenNo,\"WorkorderId\":WorkorderId,\"partNo\":partNo,\"factory\":factory,\"revision\":revision,\"partNoWithoutFactory\":partNoWithoutFactory,\"LineId\":LineId,\"LineId\":LineId}\n\t\tsystem.perspective.print(\"APIParameters:--\"+str(APIParameters))\n\t\tproductionScrapHistory\u003dProductionOperatorConsole.getProductionScrapHistory(screenNo,WorkorderId,partNo,factory,revision,partNoWithoutFactory,LineId,UserId)\n\t\tsystem.perspective.print(\u0027productionScrapHistory--\u003e\u0027+str(productionScrapHistory))\n\t\tself.props.data\u003dproductionScrapHistory\n\t\tif productionScrapHistory\u003d\u003d0:\n\t\t\tMessageText\u003d(\"API \u0027GetScrapDetailsForProductionPEAQA\u0027 Exception. Connect to The administrator\")\n\t\t\tupdaateStatus\u003d0\n\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\n\t\tself.getSibling(\"RefreshBtn\").props.text\u003d\u0027Refresh\u0027\n\t\tself.getSibling(\"RefreshBtn\").props.image.icon.path\u003d\u0027\u0027\n\t\tself.getSibling(\"ImageLoader\").meta.visible\u003d0\t\t\t\t\t\t\t\t\n\texcept:\n\t\tself.getSibling(\"ImageLoader\").meta.visible\u003d0\n\t\tself.getSibling(\"RefreshBtn\").props.text\u003d\u0027Refresh\u0027\n\t\tself.getSibling(\"RefreshBtn\").props.image.icon.path\u003d\u0027\u0027\n\t\tsystem.perspective.print(\u0027Exception :: Refresh Production Scrap History Details\u0027)\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)\n\t\tmessage\u003d{\"Screen_Event Name\":\u0027Exception :: Refresh\u0027,\"Function Name\":\u0027ProductionOperatorConsole.getProductionScrapHistory\u0027,\"Error Line\":lineno, \"Error Msg\":errorMessage}\n\t\tsystem.perspective.openPopup(\u0027ErrorDiagnostics\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/PopupErrorDiagnosis\u0027,params\u003d{\"message\":message},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\t\t\t\t\t\t",
+              "sessionScope": false,
+              "viewScope": false
+            }
+          ]
+        },
+        "type": "ia.display.table"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\tPartName\u003d\u00271999-1010437EN\u0027\n\t\tRev\u003d\u0027E\u0027\n\t\tFactory\u003d\u0027JPE\u0027\n\t\tScrapDetails\u003dProductionOperatorConsole.getScrapReport(PartName,Rev,Factory)\n\t\tself.getSibling(\"TblReportProScrap\").props.data\u003dScrapDetails\n#\t\tself.view.params.HistoryPage\u003d0\n\t\tself.getSibling(\"BtnViewHistory\").meta.visible\u003d1\n\t\tself.meta.visible\u003d0\n\texcept:\n\t\tsystem.perspective.print(\u0027Exception :: Production Scrap Edit Details\u0027)\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnViewEdit",
+          "tooltip": {
+            "enabled": true,
+            "location": "bottom-left",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 0.0442,
+          "width": 0.0644,
+          "x": 0.9241,
+          "y": 0.1639
+        },
+        "propConfig": {
+          "meta.visible": {
+            "binding": {
+              "config": {
+                "path": "view.params.HistoryPage"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d1:\n\t\treturn 1\n\telse:\n\t\tpass",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "image": {
+            "height": 15,
+            "icon": {
+              "color": "#1E99B4",
+              "path": "material/edit"
+            },
+            "width": 45
+          },
+          "style": {
+            "backgroundColor": "#D0CDCD",
+            "borderStyle": "none",
+            "classes": "Common/Button"
+          },
+          "text": "Edit",
+          "textStyle": {
+            "color": "#000000",
+            "fontFamily": "Arial",
+            "fontSize": 11
+          }
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\n\t\tmessageType1 \u003d \u0027RefreshTable\u0027\n\t\tsystem.perspective.sendMessage(messageType1, payload \u003d {\"value\":0,\"SelctedRowIndex\":0}, scope \u003d \"page\")\n\t\tself.props.image.icon.path\u003d\u0027material/sync\u0027\n\t\tself.props.text\u003d\u0027Refreshing\u0027\n\t\tsystem.perspective.print(\"Refresh Done\")\n\texcept:\n\t\tsystem.perspective.print(\u0027Exception :: Quality Scrap Details\u0027)\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "RefreshBtn",
+          "tooltip": {
+            "enabled": true,
+            "location": "bottom-left",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 0.0442,
+          "width": 0.0644,
+          "x": 0.9257,
+          "y": 0.0763
+        },
+        "props": {
+          "image": {
+            "height": 15,
+            "width": 45
+          },
+          "style": {
+            "classes": "Common/Button"
+          },
+          "text": "Refresh",
+          "textStyle": {
+            "fontFamily": "Arial",
+            "fontSize": 11
+          }
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "ImageLoader",
+          "visible": 0
+        },
+        "position": {
+          "height": 0.1469,
+          "width": 0.1193,
+          "x": 0.4395,
+          "y": 0.4929
+        },
+        "props": {
+          "fit": {
+            "mode": "cover"
+          },
+          "source": "/system/images/Builtin/icons/32/giphy.gif"
+        },
+        "type": "ia.display.image"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

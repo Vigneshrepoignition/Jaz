@@ -1,0 +1,73 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\tsystem.perspective.print(\"Filter Script\")\n\t\tareaName\u003dself.session.custom.areaName\n\t\tlineName\u003dself.session.custom.lineName\n\t\tif lineName\u003d\u003d\"H01\" or lineName\u003d\u003d\"H02\":\n\t\t\t\n\t#\t\tself.getSibling(\"AlarmStatusTable\").props.filters.active.text \u003d \u0027Assembly\u0027\n\t\t\tself.getChild(\"root\").getChild(\"AlarmStatusTable\").props.filters.active.text\u003d\u0027Assembly\u0027\n\t\t\tsystem.perspective.print(\"Assemblr Filter\")\n\t\telif lineName\u003d\u003d\u0027BA1\u0027 or lineName\u003d\u003d\u0027BA2\u0027:\n\t\t\tself.getChild(\"root\").getChild(\"AlarmStatusTable\").props.filters.active.text\u003d\u0027CNS\u0027\n\t\t\tsystem.perspective.print(\"CNS Filter\")\n\t\telif lineName\u003d\u003d\u00275S101\u0027:\n\t\t\tself.getChild(\"root\").getChild(\"AlarmStatusTable\").props.filters.active.text\u003d\u0027SubAss\u0027\n\t\t\tsystem.perspective.print(\"Subass Filter\")\n\t\telse:\n\t\t\tself.getChild(\"root\").getChild(\"AlarmStatusTable\").props.filters.active.text\u003d\u0027\u0027\n\t\t\tsystem.perspective.print(\"No Filter\")\n\texcept:\n\t\t\tsystem.perspective.print(\"Exception::Checking Machine Status\")\n\t\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\t\tsystem.perspective.print(errorMessage)\n\t\t\tlineno \u003d tb.tb_lineno\n\t\t\tsystem.perspective.print(lineno)\n\t"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "Status": "",
+    "WOQty": "",
+    "WoorkorderNo": ""
+  },
+  "propConfig": {
+    "params.Status": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.WOQty": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.WoorkorderNo": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 199,
+      "width": 327
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Icon"
+        },
+        "position": {
+          "height": 0.392,
+          "width": 0.4465,
+          "x": 0.2768,
+          "y": 0.304
+        },
+        "props": {
+          "color": "#B6A9A9",
+          "path": "material/add_photo_alternate"
+        },
+        "type": "ia.display.icon"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -0.1835,
+      "y": 0.0042
+    },
+    "props": {
+      "mode": "percent",
+      "style": {
+        "classes": "\n"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

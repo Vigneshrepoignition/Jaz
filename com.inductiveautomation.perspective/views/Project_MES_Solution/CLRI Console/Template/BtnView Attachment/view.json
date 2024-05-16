@@ -1,0 +1,120 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\trowData\u003dself.params.rowData\n\tAttachmentsName\u003dstr(rowData[\u0027AttachmentsName\u0027]).strip()\n\tAttachmentsId\u003dstr(rowData[\u0027AttachmentsId\u0027]).strip()\n\tif AttachmentsName\u003d\u003dNone or AttachmentsName.lower()\u003d\u003d\u0027none\u0027 or AttachmentsName\u003d\u003d\u0027\u0027:\n\t\tself.getChild(\"root\").getChild(\"BtnMainScreen\").meta.visible\u003d0\n\telse:\n\t\tself.getChild(\"root\").getChild(\"BtnMainScreen\").meta.visible\u003d1\n\tsystem.perspective.print(\"rowData attachement \u003d \"+str(rowData))"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "column": "value",
+    "columnIndex": "value",
+    "row": "value",
+    "rowData": "value",
+    "rowIndex": "value",
+    "value": "value"
+  },
+  "propConfig": {
+    "params.column": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.columnIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.row": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.value": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 35,
+      "width": 84
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "draggable": false,
+                "id": "lpHlKxBU",
+                "modal": true,
+                "overlayDismiss": false,
+                "resizable": false,
+                "showCloseIcon": false,
+                "type": "open",
+                "viewParams": {
+                  "rowData": "{view.params.rowData}"
+                },
+                "viewPath": "Project_MES_Solution/CLRI Console/Popup/PopupViewCLRIImage",
+                "viewportBound": false
+              },
+              "scope": "C",
+              "type": "popup"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnMainScreen",
+          "tooltip": {
+            "enabled": true,
+            "text": "Click to View Details"
+          }
+        },
+        "position": {
+          "height": 0.9714,
+          "rotate": {
+            "anchor": "-77% 12%"
+          },
+          "width": 0.9762,
+          "x": -0.0119,
+          "y": 0.0143
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#FFFFFF",
+            "borderStyle": "none",
+            "fontFamily": "Arial"
+          },
+          "text": "View",
+          "textStyle": {
+            "color": "#4747FF",
+            "fontFamily": "Arial",
+            "fontSize": 12,
+            "fontWeight": "bold"
+          }
+        },
+        "type": "ia.input.button"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

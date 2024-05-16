@@ -1,0 +1,2299 @@
+{
+  "custom": {
+    "LabelId": "",
+    "woNumber": "0"
+  },
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\tscriptName \u003d \"Packing Configuration: Main Screen: On Startup\" \n\t\tuserID \u003d self.session.custom.UserId\n\t\tsystem.perspective.print(\"UserID: \" + str(userID))\n\t\t\n\t\tif self.session.custom.authorizePrintingAndPackingConfiguration!\u003d1:\n\t\t\tsystem.perspective.navigate(\u0027/LoginScreen\u0027)\n\t\telse:\n\t\t\ttry:\n\t\t\t\tenterpriseID \u003d 0\n\t\t\t\tplantID \u003d 0\n\t\t\t\tareaID \u003d 0\n\t\t\t\tUserId \u003d self.session.custom.UserId\n\t\t\t\tsystem.perspective.print(\u0027Inside the On startup ---\u003e\u0027)\n\t\t\t\tself.getChild(\"root\").getChild(\"CoordinateContainer\").getChild(\"EnterpriseDrpDwn\").props.options\u003dPlantHirarchyAPI.getEnterpriseList(UserId)\n\t\t\t\tself.getChild(\"root\").getChild(\"CoordinateContainer\").getChild(\"PlantDrpDwn\").props.options\u003dPlantHirarchyAPI.getPlantList(enterpriseID,UserId)\n\t\t\t\tself.getChild(\"root\").getChild(\"CoordinateContainer\").getChild(\"AreaDrpDwn\").props.options\u003dPlantHirarchyAPI.getAreaList(enterpriseID,plantID,UserId)\n\t\t\t\tself.getChild(\"root\").getChild(\"CoordinateContainer\").getChild(\"LineDrpDwn\").props.options\u003dPlantHirarchyAPI.getLineList(enterpriseID,plantID,areaID,UserId)\n\t\t\t\t\n\t\t\t\tscriptName \u003d \"PackingConfiguration: Main Screen: Get CompleteWODetailsbyUserID\"\n\t\t\t\tself.getChild(\"root\").getChild(\"CoordinateContainer\").getChild(\"EnterpriseDrpDwn\").focus()\n\t\t\t\tself.getChild(\"root\").getChild(\"CoordinateContainer\").getChild(\"EnterpriseDrpDwn\").props.value\u003d\u0027\u0027\n\t\t\t\tself.getChild(\"root\").getChild(\"CoordinateContainer\").getChild(\"TxtWorkOrderQty\").props.text\u003d\u0027\u0027\n\t\t\t\tself.getChild(\"root\").getChild(\"CoordinateContainer\").getChild(\"TxtProducedQty\").props.text\u003d\u0027\u0027\n\t\t\t\tself.getChild(\"root\").getChild(\"CoordinateContainer\").getChild(\"TxtPartNumber\").props.text\u003d\u0027\u0027\n\t\t\t\t\n\t\t\t\tself.getChild(\"root\").getChild(\"CoordinateContainer\").getChild(\"TxtCustomer\").props.text\u003d\u0027\u0027\n\t\t\t\tself.getChild(\"root\").getChild(\"CoordinateContainer\").getChild(\"TxtConfiguration\").props.text\u003d\u0027\u0027\n\t\t\t\tself.getChild(\"root\").getChild(\"CoordinateContainer\").getChild(\"Txpieceslot\").props.text\u003d\u0027\u0027\n\t\t\t\tself.getChild(\"root\").getChild(\"CoordinateContainer\").getChild(\"Txtlotcontainer\").props.text\u003d\u0027\u0027\n\t\t\t\tself.getChild(\"root\").getChild(\"CoordinateContainer\").getChild(\"Txtlot\").props.text\u003d\u0027\u0027\n\t\t\t\tself.getChild(\"root\").getChild(\"CoordinateContainer\").getChild(\"TxtContainer\").props.text\u003d\u0027\u0027\n\t\t\t\tself.getChild(\"root\").getChild(\"CoordinateContainer\").getChild(\"Txtpallet\").props.text\u003d\u0027\u0027\n\t\t\t\tself.getChild(\"root\").getChild(\"CoordinateContainer\").getChild(\"TxtContainerpallet\").props.text\u003d\u0027\u0027\n\t\t\t\tself.getChild(\"root\").getChild(\"tblPacking\").props.data\u003d[]\n\t\t\t\tself.custom.woNumber\u003d\u00270\u0027\n\t\t\t\tself.session.custom.paginationCurrentPage\u003d0\n\t\t\t\tself.session.custom.paginationCurrentPageLastRecord\u003d0\n\t\t\t\tself.session.custom.paginationTotalRecordPages\u003d0\n\t\t\t\tself.session.custom.machineName\u003d\u0027\u0027\n\t\t\t\t\n\t\t\texcept:\n\t\t\t\timport sys, os\n\t\t\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\t\t\tAuthentication.exceptionLogger(errorMessage)\n\t\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "WoNameToshow": "value"
+  },
+  "propConfig": {
+    "custom.LabelId": {
+      "persistent": true
+    },
+    "params.WoNameToshow": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 754,
+      "width": 1449
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Label"
+        },
+        "position": {
+          "height": 0.035,
+          "width": 0.9986,
+          "x": 0.0015,
+          "y": 0.0028
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#D5D5D594"
+          },
+          "text": "Packing Details",
+          "textStyle": {
+            "classes": "Common/Label_Header",
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "LblLabelType",
+              "visible": false
+            },
+            "position": {
+              "height": 0.165,
+              "width": 0.1022,
+              "x": 0.6721,
+              "y": 0.7673
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "#EDF0F0",
+                "classes": "Common/Label"
+              },
+              "text": "Label Type",
+              "textStyle": {
+                "classes": "Common/OprConsoleLabelText"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\tLabelId\u003dself.props.value\n\tself.view.custom.LabelId \u003d LabelId\n#\twoName \u003d self.view.custom.woNumber\n#\tcontainerData\u003dPackingAndLabelling.GetWorkOrderPackageConfigurationsDetails(woName)\t\n#\tself.parent.parent.getChild(\"tblPacking\").props.data\u003dcontainerData"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "DrpLblType",
+              "visible": false
+            },
+            "position": {
+              "height": 0.1872,
+              "width": 0.0917,
+              "x": 0.7896,
+              "y": 0.7702
+            },
+            "propConfig": {
+              "props.options": {
+                "binding": {
+                  "config": {
+                    "expression": "now(5000)"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\ttry:\n\t\tvalue \u003d ProductionOperatorConsole.GetPackingLabel()\n\t\treturn value\n\texcept:\n\t\treturn []",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "placeholder": {
+                "text": "Select Label Type"
+              },
+              "search": {
+                "noResultsText": "No Type found"
+              },
+              "style": {
+                "classes": "Common/TextBox"
+              }
+            },
+            "type": "ia.input.dropdown"
+          },
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "draggable": false,
+                    "id": "vDlcGKVx",
+                    "modal": true,
+                    "overlayDismiss": false,
+                    "resizable": false,
+                    "showCloseIcon": false,
+                    "type": "open",
+                    "viewParams": {
+                      "LabelId": "{view.custom.LabelId}",
+                      "woNumber": "{view.custom.woNumber}"
+                    },
+                    "viewPath": "Project_MES_Solution/Packing/PopUps/PopupPrintConsole",
+                    "viewportBound": false
+                  },
+                  "scope": "C",
+                  "type": "popup"
+                }
+              }
+            },
+            "meta": {
+              "name": "BtnReprint",
+              "tooltip": {
+                "location": "bottom-right",
+                "style": {
+                  "classes": "Common/ToolTip"
+                },
+                "text": "Click To Hold"
+              },
+              "visible": false
+            },
+            "position": {
+              "height": 0.1872,
+              "width": 0.0868,
+              "x": 0.8845,
+              "y": 0.7702
+            },
+            "propConfig": {
+              "props.enabled": {
+                "binding": {
+                  "config": {
+                    "path": "../DrpLblType.props.value"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tif value !\u003d \u0027\u0027:\n\t\tvalue \u003d 1\n\telse:\n\t\tvalue\u003d 0\n\treturn value",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.style.backgroundColor": {
+                "binding": {
+                  "config": {
+                    "path": "this.props.enabled"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\t\n\tif value \u003d\u003d True:\n\t\tvalue \u003d \u0027#3888CC\u0027\n\t\tself.props.style.borderColor \u003d \"#3888CC\"\n\telse:\n\t\tvalue \u003d str(self.session.custom.disableBtncolour)\n\t\tself.props.style.borderColor \u003d  str(self.session.custom.disableBtncolour)\n\treturn value",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "image": {
+                "width": 50
+              },
+              "style": {
+                "borderColor": "value",
+                "classes": "Common/Button"
+              },
+              "text": "Reprint"
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "meta": {
+              "name": "EnterpriseLbl"
+            },
+            "position": {
+              "height": 0.1504,
+              "width": 0.1019,
+              "x": 0.0175,
+              "y": 0.0219
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "#EDF0F0",
+                "classes": "Common/Label"
+              },
+              "text": "Enterprise",
+              "textStyle": {
+                "classes": "Common/OprConsoleLabelText"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "custom": {
+              "entID": "value",
+              "entName": "value"
+            },
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\tself.getSibling(\"PlantDrpDwn\").props.value\u003d\u0027\u0027\n\tself.getSibling(\"AreaDrpDwn\").props.value\u003d\u0027\u0027\n\tself.getSibling(\"LineDrpDwn\").props.value\u003d\u0027\u0027\n\tself.getSibling(\"MachineDrpDwn\").props.value\u003d\u0027\u0027\n\tself.getSibling(\"WorkOrderNoDrpDwn\").props.value\u003d\u0027\u0027\n\tself.getSibling(\"PlantDrpDwn\").props.value\u003d\u0027\u0027\n\tself.view.custom.woNumber\u003d\u00270\u0027\n\tself.getSibling(\"PlantDrpDwn\").focus()"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "EnterpriseDrpDwn"
+            },
+            "position": {
+              "height": 0.1715,
+              "width": 0.1801,
+              "x": 0.1351,
+              "y": 0.0219
+            },
+            "propConfig": {
+              "props.options": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.UserId"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tuserID \u003d value \n\ttry:\n\t\tvalue \u003d PlantHirarchyAPI.getEnterpriseList(userID)\n\t\tself.view.custom.woNumber\u003d\u00270\u0027\n\t\tself.getSibling(\"PlantDrpDwn\").props.value\u003d\u0027\u0027\n\t\tself.getSibling(\"AreaDrpDwn\").props.value\u003d\u0027\u0027\n\t\tself.getSibling(\"LineDrpDwn\").props.value\u003d\u0027\u0027\n\t\t\n\t\tself.getSibling(\"WorkOrderNoDrpDwn\").props.value\u003d\u0027\u0027\n\t\tself.getSibling(\"TxtWorkOrderQty\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"TxtProducedQty\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"TxtPartNumber\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"TxtCustomer\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"TxtConfiguration\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"Txtpallet\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"TxtContainerpallet\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"Txtlotcontainer\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"TxtContainer\").props.text \u003d\u0027\u0027\n\t\tself.getSibling(\"DrpLblType\").props.value \u003d \u0027\u0027\n\t\tself.parent.parent.getChild(\"tblPacking\").props.data\u003dNone\n\texcept:\n\t\tsystem.perspective.print(\"Exception:To Get enterprise List\")\t\t\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)\t\n\t\tvalue \u003d \u0027\u0027\t\n\treturn value",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "placeholder": {
+                "text": "Select Enterprise"
+              },
+              "style": {
+                "classes": "Common/TextBox"
+              }
+            },
+            "type": "ia.input.dropdown"
+          },
+          {
+            "meta": {
+              "name": "PlantLbl"
+            },
+            "position": {
+              "height": 0.1504,
+              "width": 0.1019,
+              "x": 0.344,
+              "y": 0.0209
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "#EDF0F0",
+                "classes": "Common/Label"
+              },
+              "text": "Plant",
+              "textStyle": {
+                "classes": "Common/OprConsoleLabelText"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\ttry:\n\t\tself.getSibling(\"AreaDrpDwn\").props.value\u003d\u0027\u0027\n\t\tself.getSibling(\"LineDrpDwn\").props.value\u003d\u0027\u0027\n\t#\tself.getSibling(\"MachineDrpDwn\").props.value\u003d\u0027\u0027\n\t\tself.getSibling(\"WorkOrderNoDrpDwn\").props.value\u003d\u0027\u0027\n\t\tself.view.custom.woNumber\u003d\u00270\u0027\n\t\tself.getSibling(\"AreaDrpDwn\").props.value \u003d \u0027\u0027\n\t\tself.getSibling(\"AreaDrpDwn\").props.placeholder.text \u003d \u0027Select Area\u0027\n\t\tself.getSibling(\"LineDrpDwn\").props.value \u003d \u0027\u0027\n\t\tself.getSibling(\"LineDrpDwn\").props.placeholder.text \u003d \u0027Select Line\u0027\n\t\tscriptName \u003d \"PMTC : Plant Dropdown\"\n\t\tenterpriseID \u003d 0\n\t\tUserId \u003d self.session.custom.UserId\n\t\tplantID \u003d self.props.value\n\t\tresultData\u003dPlantHirarchyAPI.getPlantHirarchyDetailsbyPlantId(enterpriseID,UserId)\n\t\tsystem.perspective.print(\u0027ResultDAta \u003d \u0027 + str(resultData))\n\t\tfor i in resultData:\t\n\t\t\tPlantId \u003d i.get(\"PlantId\")\n\t\t\tif PlantId \u003d\u003d plantID:\n\t\t\t\tself.getSibling(\"EnterpriseDrpDwn\").props.value\u003d i.get(\"EnterpriseId\")\n\t\t\t\tself.getSibling(\"EnterpriseDrpDwn\").props.placeholder.text \u003d i.get(\"EnterpriseName\")\n\t\t\t\tsystem.perspective.print(\u0027Enterprise Name is: \u0027 + str(i.get(\"EnterpriseName\")))\n\t\t\t\tsystem.perspective.print(\u0027Enterprise Id is: \u0027 + str(i.get(\"EnterpriseId\")))\n\t\t\t\tbreak\n\t\t\n\t\tself.props.value \u003d plantID\n\t\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: Production Operator Console: Plant Filter: on Action Performed \u0027:\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "PlantDrpDwn"
+            },
+            "position": {
+              "height": 0.1715,
+              "rotate": {
+                "anchor": "25% 50%"
+              },
+              "width": 0.1801,
+              "x": 0.4646,
+              "y": 0.0231
+            },
+            "propConfig": {
+              "props.options": {
+                "binding": {
+                  "config": {
+                    "expression": "{../EnterpriseDrpDwn.props.value}"
+                  },
+                  "enabled": false,
+                  "transforms": [
+                    {
+                      "code": "\tenterpriseID \u003d value\n\tuserID \u003d self.session.custom.UserId\n\ttry:\n\t\tvalue \u003d PlantHirarchyAPI.getPlantList(enterpriseID,userID)\n\t\tself.view.custom.woNumber\u003d\u00270\u0027\n\t\tself.getSibling(\"AreaDrpDwn\").props.value\u003d\u0027\u0027\n\t\tself.getSibling(\"LineDrpDwn\").props.value\u003d\u0027\u0027\n#\t\tself.getSibling(\"MachineDrpDwn\").props.value\u003d\u0027\u0027\n\t\tself.getSibling(\"WorkOrderNoDrpDwn\").props.value\u003d\u0027\u0027\n\t\tself.getSibling(\"TxtWorkOrderQty\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"TxtProducedQty\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"TxtPartNumber\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"TxtCustomer\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"TxtConfiguration\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"Txtpallet\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"TxtContainerpallet\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"Txtlotcontainer\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"TxtContainer\").props.text \u003d\u0027\u0027\n\t\tself.getSibling(\"DrpLblType\").props.value \u003d \u0027\u0027\n\t\tself.parent.parent.getChild(\"tblPacking\").props.data\u003dNone\n\texcept:\n\t\tvalue \u003d \u0027\u0027\n\treturn value",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "options": null,
+              "placeholder": {
+                "text": "Select Plant"
+              },
+              "style": {
+                "classes": "Common/TextBox"
+              }
+            },
+            "type": "ia.input.dropdown"
+          },
+          {
+            "meta": {
+              "name": "AreaLbl"
+            },
+            "position": {
+              "height": 0.1504,
+              "rotate": {
+                "anchor": "-167% 39%"
+              },
+              "width": 0.1019,
+              "x": 0.6721,
+              "y": 0.0209
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "#EDF0F0",
+                "classes": "Common/Label"
+              },
+              "text": "Area",
+              "textStyle": {
+                "classes": "Common/OprConsoleLabelText"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\ttry:\n\t\tself.getSibling(\"LineDrpDwn\").props.value\u003d\u0027\u0027\n#\t\tself.getSibling(\"MachineDrpDwn\").props.value\u003d\u0027\u0027\n\t\tself.getSibling(\"WorkOrderNoDrpDwn\").props.value\u003d\u0027\u0027\n\t\tself.getSibling(\"TxtWorkOrderQty\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"TxtProducedQty\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"TxtPartNumber\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"TxtCustomer\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"TxtConfiguration\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"Txtpallet\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"TxtContainerpallet\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"Txtlotcontainer\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"TxtContainer\").props.text \u003d\u0027\u0027\n\t\tself.getSibling(\"DrpLblType\").props.value \u003d \u0027\u0027\n\t\tself.parent.parent.getChild(\"tblPacking\").props.data\u003dNone\n\t\tself.getSibling(\"LineDrpDwn\").props.value\u003d\u0027\u0027\n\t\tself.getSibling(\"WorkOrderNoDrpDwn\").props.value\u003d\u0027\u0027\n\t\tself.view.custom.woNumber\u003d\u00270\u0027\n\t\tself.getSibling(\"LineDrpDwn\").props.value \u003d \u0027\u0027\n\t\tself.getSibling(\"LineDrpDwn\").props.placeholder.text \u003d \u0027Select Line\u0027\n\t\tenterpriseID \u003d 0\n\t\tplantID \u003d 0\n\t\tUserId \u003d self.session.custom.UserId\n\t\tAreaID \u003d self.props.value\n\t\tresultData\u003dPlantHirarchyAPI.getPlantHirarchyDetailsbyAreaId(enterpriseID,plantID,UserId)\n\n\t\tfor i in resultData:\t\n\t\t\tAreaId \u003d i.get(\"AreaId\")\n\t\t\tif AreaId \u003d\u003d AreaID:\n\t\t\t\tself.getSibling(\"EnterpriseDrpDwn\").props.value \u003d i.get(\"EnterpriseId\")\n\t\t\t\tself.getSibling(\"EnterpriseDrpDwn\").props.placeholder.text \u003d i.get(\"EnterpriseName\")\n\t\t\t\tself.getSibling(\"PlantDrpDwn\").props.value \u003di.get(\"PlantId\")\n\t\t\t\tself.getSibling(\"PlantDrpDwn\").props.placeholder.text \u003d i.get(\"PlantName\")\n\t\t\t\tbreak\n\t\tself.props.value \u003d AreaID\n\t\t\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: Production Operator Console: Area Filter: on Action Performed \u0027:\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "AreaDrpDwn"
+            },
+            "position": {
+              "height": 0.1715,
+              "rotate": {
+                "anchor": "450% 50%"
+              },
+              "width": 0.1801,
+              "x": 0.7896,
+              "y": 0.0231
+            },
+            "propConfig": {
+              "props.options": {
+                "binding": {
+                  "config": {
+                    "expression": "{../PlantDrpDwn.props.value}"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tplantID \u003d value\n\tenterpriseID \u003d self.getSibling(\"EnterpriseDrpDwn\").props.value\n\tuserID \u003d self.session.custom.UserId\n\ttry:\n\t\tvalue \u003d PlantHirarchyAPI.getAreaList(enterpriseID,plantID,userID)\n\t\tself.view.custom.woNumber\u003d\u00270\u0027\n\texcept:\n\t\tvalue \u003d \u0027\u0027\t\n\treturn value",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "placeholder": {
+                "text": "Select Area"
+              },
+              "style": {
+                "classes": "Common/TextBox"
+              }
+            },
+            "type": "ia.input.dropdown"
+          },
+          {
+            "meta": {
+              "name": "LineLbl"
+            },
+            "position": {
+              "height": 0.1504,
+              "width": 0.1019,
+              "x": 0.0172,
+              "y": 0.2133
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "#EDF0F0",
+                "classes": "Common/Label"
+              },
+              "text": "Line",
+              "textStyle": {
+                "classes": "Common/OprConsoleLabelText"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\ttry:\n\t\tself.getSibling(\"WorkOrderNoDrpDwn\").props.value\u003d\u0027\u0027\n\t\tself.getSibling(\"TxtWorkOrderQty\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"TxtProducedQty\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"TxtPartNumber\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"TxtCustomer\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"TxtConfiguration\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"Txtpallet\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"TxtContainerpallet\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"Txtlotcontainer\").props.text\u003d\u0027\u0027\n\t\tself.getSibling(\"TxtContainer\").props.text \u003d\u0027\u0027\n\t\tself.getSibling(\"DrpLblType\").props.value \u003d \u0027\u0027\n\t\tself.parent.parent.getChild(\"tblPacking\").props.data\u003dNone\n\t\tself.getSibling(\"WorkOrderNoDrpDwn\").props.value\u003d\u0027\u0027\n\t\tuserId\u003dself.session.custom.UserId\n\t\tenterpriseID \u003d 0\n\t\tplantID \u003d 0\n\t\tareaID \u003d 0\n\t\tUserId \u003d self.session.custom.UserId\n\t\tLineID \u003d self.props.value\n\t\tresultData\u003dPlantHirarchyAPI.getPlantHirarchyDetailsbyLineId(enterpriseID,plantID,areaID,UserId)\n\t\t\n\t\tfor i in resultData:\t\n\t\t\tLineId \u003d i.get(\"LineId\")\n\t\t\tif LineId \u003d\u003d LineID:\n\t\t\t\tself.getSibling(\"EnterpriseDrpDwn\").props.value \u003d i.get(\"EnterpriseId\")\n\t\t\t\tself.getSibling(\"EnterpriseDrpDwn\").props.placeholder.text \u003d i.get(\"EnterpriseName\")\n\t\t\t\tself.getSibling(\"PlantDrpDwn\").props.value \u003di.get(\"PlantId\")\n\t\t\t\tself.getSibling(\"PlantDrpDwn\").props.placeholder.text \u003d i.get(\"PlantName\")\n\t\t\t\tself.getSibling(\"AreaDrpDwn\").props.value \u003d  i.get(\"AreaId\")\n\t\t\t\tself.getSibling(\"AreaDrpDwn\").props.placeholder.text \u003d i.get(\"AreaName\")\n\t\t\t\tbreak\n\t\t\t\t\n\t\tself.props.value \u003d LineID\n\t\t\t\n\t\tuserId\u003dself.session.custom.UserId\n\t\tmachineID\u003dself.props.value\n#\t\tselectedLine\u003dself.props.value\n#\t\tListOfWOAgainstLineId\u003dProductionOperatorConsole.getWoNumbersByLine(userId,selectedLine)\n\t\tListOfWOAgainstLineId\u003dPackingAndLabelling.getWorkOrderNo(machineID)\n\n\t\tself.getSibling(\"WorkOrderNoDrpDwn\").props.options\u003dListOfWOAgainstLineId\n\t\tself.view.custom.woNumber\u003d\u0027\u0027\n#\t\tself.getSibling(\"MachineDrpDwn\").focus()\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: Production Operator Console: Line Filter: on Action Performed \u0027:\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "LineDrpDwn"
+            },
+            "position": {
+              "height": 0.1715,
+              "width": 0.1801,
+              "x": 0.1351,
+              "y": 0.2175
+            },
+            "propConfig": {
+              "props.options": {
+                "binding": {
+                  "config": {
+                    "expression": "{../AreaDrpDwn.props.value}"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tareaID \u003d value\n\tplantID \u003d self.getSibling(\"PlantDrpDwn\").props.value\n\tenterpriseID \u003d self.getSibling(\"EnterpriseDrpDwn\").props.value\n\tuserID \u003d self.session.custom.UserId\n\ttry:\n\t\tvalue \u003d PlantHirarchyAPI.getLineList(enterpriseID,plantID,areaID,userID)\t\t\n\t\tself.view.custom.woNumber\u003d\u00270\u0027\n#\t\tself.getSibling(\"MachineDrpDwn\").props.value\u003d\u0027\u0027\n#\t\tself.getSibling(\"WorkOrderNoDrpDwn\").props.value\u003d\u0027\u0027\n#\t\tself.getSibling(\"TxtWorkOrderQty\").props.text\u003d\u0027\u0027\n#\t\tself.getSibling(\"TxtProducedQty\").props.text\u003d\u0027\u0027\n#\t\tself.getSibling(\"TxtPartNumber\").props.text\u003d\u0027\u0027\n#\t\tself.getSibling(\"TxtCustomer\").props.text\u003d\u0027\u0027\n#\t\tself.getSibling(\"TxtConfiguration\").props.text\u003d\u0027\u0027\n#\t\tself.getSibling(\"Txtpallet\").props.text\u003d\u0027\u0027\n#\t\tself.getSibling(\"TxtContainerpallet\").props.text\u003d\u0027\u0027\n#\t\tself.getSibling(\"Txtlotcontainer\").props.text\u003d\u0027\u0027\n#\t\tself.getSibling(\"TxtContainer\").props.text \u003d\u0027\u0027\n#\t\tself.getSibling(\"DrpLblType\").props.value \u003d \u0027\u0027\n#\t\tself.parent.parent.getChild(\"tblPacking\").props.data\u003dNone\n\n\texcept:\n\t\tvalue \u003d \u0027\u0027\n\treturn value",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "placeholder": {
+                "text": "Select Line"
+              },
+              "style": {
+                "classes": "Common/TextBox"
+              }
+            },
+            "type": "ia.input.dropdown"
+          },
+          {
+            "custom": {
+              "woNumber": "value"
+            },
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\ttry:\n\t\timport math\n\t\tself.getSibling(\"TxtWorkOrderQty\").props.text \u003d \u0027\u0027\n\t\tself.getSibling(\"TxtProducedQty\").props.text \u003d \u0027\u0027\n\t\tself.getSibling(\"TxtPartNumber\").props.text \u003d \u0027\u0027\n\t\tself.getSibling(\"TxtCustomer\").props.text \u003d \u0027\u0027\n\t\tself.getSibling(\"TxtConfiguration\").props.text \u003d \u0027\u0027\n\t\tself.getSibling(\"Txtpallet\").props.text \u003d \u0027\u0027\n\t\tself.getSibling(\"TxtContainerpallet\").props.text \u003d \u0027\u0027\n\t\tself.getSibling(\"Txtlotcontainer\").props.text \u003d \u0027\u0027\n\t\tself.getSibling(\"TxtContainer\").props.text \u003d \u0027\u0027\n\t\tself.parent.parent.getChild(\"tblPacking\").props.data \u003d []\n\t\tself.view.custom.woNumber\u003d\u00270\u0027\n\t\tself.view.custom.woNumber\u003dself.props.value\n\t\t\t\n\t\tif self.props.value \u003e 0:\n\t\t\twoID\u003dself.props.value\n\t\t\t\n\t\t\tsystem.perspective.print(\"woID Pagination: \"+str(woID))\n\t\t\tself.session.custom.WOIdForPacking\u003dwoID\n\t\t\tWOList\u003dself.props.options\n\t\t\tWorkorderId\u003dwoID\n\t\t\tself.session.custom.WoNoFromPacking\u003dWorkorderId\n\t\t\tNoofList\u003dWOList.getRowCount()\n\t\t\tsystem.perspective.print(\"NoofList Pagination: \"+str(NoofList))\n\t\t\tfor i in range(NoofList):\n\t\t\t\tID\u003dWOList.getValueAt(i, \"ID\")\n\t\t\t\tif woID\u003d\u003dID:\n\t\t\t\t\twoName\u003dWOList.getValueAt(i, \"Name\")\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\telse:\n\t\t\t\t\tpass\n\t\t\t\n\t\t\ttry:\t\t\n\t\t\t\tds\u003dPackingAndLabelling.GetWorkOrderPackageConfigurations(woID)\t\n\t\t\t\t\n\t\t\t\tfor i in ds:\n\t\t\t\t\tworkOrderQty\u003di[\u0027workOrderQty\u0027]\n\t\t\t\t\tworkOrderNumber\u003di[\u0027workOrderNumber\u0027]\n\t\t\t\t\tself.view.params.WoNameToshow\u003dworkOrderNumber\n\t\t\t\t\t\n#--------------------------Production Qty----------------------------------------------------------------------------\n\t\t\t\t\twoNo\u003dworkOrderNumber\n\t\t\t\t\tsystem.perspective.print(\"drop down code workOrderNumber\"+str(WorkorderId))\n\t\t\t\t\tself.session.custom.WoNoFromPacking\u003dWorkorderId\n\t\t\t\t\tgoodQtyWO\u003dProductionOperatorConsole.getGoodQty(WorkorderId)\n\t\t\t\t\tfor j in (goodQtyWO):\n\t\t\t\t\t\ttotal1\u003dj.get(\u0027GoodQTY\u0027)\n\t\t\t\t\t\tcompletedQty\u003dfloat(total1)\n#\t\t\t\t\t\tcompletedQty\u003d6\n#---------------------------------------------------------------------------------------------------------------------\t\n#\t\t\t\t\tcompletedQty\u003di[\u0027completedQty\u0027]\t\n\t\t\t\t\tPlannedLotQty\u003di[\u0027PlannedLotQty\u0027]\n\t\t\t\t\tcontainerConfig\u003di[\u0027containerConfig\u0027]\n#\t\t\t\t\tcontainerConfig\u003d1\n\t\t\t\t\tconfigurationName\u003di[\u0027configurationName\u0027]\n\t\t\t\t\tconfigurationName\u003di[\u0027configurationName\u0027]\n\t\t\t\t\tpalletConfig\u003di[\u0027palletConfig\u0027]\n#\t\t\t\t\tpalletConfig\u003d1\n\t\t\t\t\tsystem.perspective.print(\u0027palletConfig--\u003e\u0027+str(palletConfig))\n\t\t\t\t\tsystem.perspective.print(\u0027workOrderQty--\u003e\u0027+str(workOrderQty))\n\t\t\t\t\tlotConfig\u003di[\u0027lotConfig\u0027]\n\t\t\t\t\tcustomerName\u003di[\u0027customerName\u0027]\n\t\t\t\t\ttry:\n\t\t\t\t\t\tContainerperPallet\u003dfloat(float(palletConfig)/float(containerConfig))\n\t\t\t\t\t\tContainerperPallet\u003dint(math.floor(ContainerperPallet))\n\t\t\t\t\texcept:\n\t\t\t\t\t\tContainerperPallet\u003d0\n\t\t\t\t\t\t\n\t\t\t\t\ttry:\n\t\t\t\t\t\tplannedPalletQty\u003dfloat(float(workOrderQty)/float(palletConfig))\n\t\t\t\t\t\tplannedPalletQty\u003dint(math.floor(plannedPalletQty))\n\t\t\t\t\texcept:\n\t\t\t\t\t\tplannedPalletQty\u003d0\n\t\t\t\t\t\n\t\t\t\t\ttry:\n\t\t\t\t\t\n\t\t\t\t\t\tplannedContainerQty\u003dfloat(float(workOrderQty)/float(containerConfig))\n\t\t\t\t\t\tplannedContainerQty\u003dint(math.floor(plannedContainerQty))\n\t\t\t\t\texcept:\n\t\t\t\t\t\tplannedContainerQty\u003d0\n\t\t\t\t\ttry:\t\n\t\t\t\t\t\tcompletedContainerQty\u003dfloat(float(completedQty)/float(containerConfig))\n\t\t\t\t\t\tcompletedContainerQty\u003dint(math.floor(completedContainerQty))\n\t\t\t\t\texcept:\n\t\t\t\t\t\tcompletedContainerQty\u003d0\n\t\t\t\t\tcompletedPalletQty\u003di[\u0027completedPalletQty\u0027]\n\t\t\t\t\ttry:\n\t\t\t\t\t\n\t\t\t\t\t\tcompletedPalletQty\u003d(float(completedQty)/float(palletConfig))\n\t\t\t\t\t\tcompletedPalletQty\u003dint(math.floor(completedPalletQty))\n\t\t\t\t\texcept:\n\t\t\t\t\t\tcompletedPalletQty\u003d0\n\t\t\t\t\tPackingConfigId\u003di[\u0027PackingConfigId\u0027]\n#\t\t\t\t\tcompletedLotQty\u003di[\u0027completedLotQty\u0027]\n\t\t\t\t\t\n\t\t\t\t\tpartNumber\u003di[\u0027partNumber\u0027]\n#\t\t\t\t\tcompletedQty\u003di[\u0027completedQty\u0027]\n\t\t\t\t\tid\u003di[\u0027id\u0027]\t\t\t\t\t\n\t\t\t\t\tself.getSibling(\"TxtWorkOrderQty\").props.text\u003dworkOrderQty\n\t\t\t\t\tself.getSibling(\"TxtProducedQty\").props.text\u003dcompletedQty\n\t\t\t\t\tself.getSibling(\"TxtPartNumber\").props.text\u003dpartNumber\n\t\t\t\t\tself.getSibling(\"TxtCustomer\").props.text\u003dcustomerName\n\t\t\t\t\tself.getSibling(\"TxtConfiguration\").props.text\u003dconfigurationName\n\t\t\t\t\tself.getSibling(\"Txtlotcontainer\").props.text\u003dcontainerConfig\n\t\t\t\t\tself.getSibling(\"TxtContainerpallet\").props.text\u003dContainerperPallet\n\t\t\t\t\tself.getSibling(\"TxtContainer\").props.text\u003dstr(str(completedContainerQty)+\" / \"+str(plannedContainerQty))\n\t\t\t\t\tself.getSibling(\"Txtpallet\").props.text\u003dstr(str(completedPalletQty)+\" / \"+str(plannedPalletQty))\n\t\t\t\t\tbreak\n\t\t\texcept Exception as e:\n\t\t\t\tsystem.perspective.print(\"Error \u003d \"+str(e))\t\n\t\t\t\tsystem.perspective.print(\u0027Exception :: Global Packing nd Printing\u0027)\n\t\t\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\t\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\t\t\tsystem.perspective.print(errorMessage)\n\t\t\t\tlineno \u003d tb.tb_lineno\n\t\t\t\tsystem.perspective.print(lineno)\n\t\tsystem.perspective.print(\"call  GetWorkOrderPackageConfigurationsDetails  woName \"+str(woName))\t\t\t\n#------------------------------------Pagination Code----------------------------------------------------\n\t\tself.session.custom.paginationCurrentPage\u003d1\n\t\tStart\u003dself.session.custom.paginationCurrentPage\n\t\tSearch\u003d\u0027\u0027\t\t\t\n\t\tself.session.custom.paginationCurrentPageLastRecord\u003d15\n\t\tif Start\u003e0:\n\t\t\tStart\u003dStart-1\n\t\telse:\n\t\t\tpass\n\t\tlength\u003dself.session.custom.paginationCurrentPageLastRecord\t\t\n#\t\tStart\u003d0\n#\t\tlength\u003d15\n#\t\tSearch\u003d\u0027\u0027\n\t\tWorkOrderId\u003dself.session.custom.WOIdForPacking\n#\t\tsystem.perspective.print(\"call  WorkOrderId  Pagination \u003d\" +str(WorkOrderId))\n\t\tds\u003dPackingAndLabelling.GetWorkOrderPackageConfigurationsDetails(Start,length,Search,WorkOrderId)\t\n\t\tsystem.perspective.print(\"call  GetWorkOrderPackageConfigurationsDetails  ds \u003d\" +str(ds))\t\n\t\tself.parent.parent.getChild(\"tblPacking\").props.data\u003dds\n\t\tself.getSibling(\"DrpLblType\").focus()\n\t\tds\u003dsystem.dataset.toPyDataSet(ds)\n\t\tif len(ds)\u003e0 and ds!\u003dNone:\n\t\t\tif len(ds)\u003e0:\n\t\t\t\tcnt\u003d ds[0][\u0027recordsTotal\u0027]\n\t\t\t\tpage\u003dint(cnt/self.session.custom.paginationCurrentPageLastRecord)\n\t\t\t\tmodpage\u003dcnt%self.session.custom.paginationCurrentPageLastRecord\n\t\t\t\tif modpage\u003e0:\n\t\t\t\t\tpage\u003dpage+1\n\t\t\t\tself.session.custom.paginationTotalRecordPages\u003dpage\t\n\texcept Exception as e:\n\t\tsystem.perspective.print(\u0027Exception :: Global Packing nd Printing\u0027)\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "WorkOrderNoDrpDwn"
+            },
+            "position": {
+              "height": 0.1715,
+              "width": 0.1801,
+              "x": 0.4646,
+              "y": 0.2251
+            },
+            "propConfig": {
+              "props.options": {
+                "binding": {
+                  "config": {
+                    "expression": "//{../MachineDrpDwn.props.value}\r\n{../LineDrpDwn.props.value}"
+                  },
+                  "enabled": false,
+                  "transforms": [
+                    {
+                      "code": "\tmachineID\u003dself.getSibling(\"LineDrpDwn\").props.value\n\tmachineID\u003dstr(machineID)\n\tsystem.perspective.print(\"Line to select wo\"+str(machineID))\n\n\ttry:\n\t\tvalue \u003d\tPackingAndLabelling.getWorkOrderNo(machineID)\n\texcept:\n\t\tvalue \u003d \u0027\u0027\t\n\t\n\treturn value",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "options": null,
+              "placeholder": {
+                "text": "Select Workorder"
+              },
+              "style": {
+                "classes": "Common/TextBox"
+              }
+            },
+            "type": "ia.input.dropdown"
+          },
+          {
+            "meta": {
+              "name": "MachienLbl_0"
+            },
+            "position": {
+              "height": 0.1504,
+              "width": 0.1019,
+              "x": 0.344,
+              "y": 0.2123
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "#EDF0F0",
+                "classes": "Common/Label"
+              },
+              "text": "Work Order No",
+              "textStyle": {
+                "classes": "Common/OprConsoleLabelText"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "producedQtyLbl"
+            },
+            "position": {
+              "height": 0.1504,
+              "width": 0.1019,
+              "x": 0.6721,
+              "y": 0.4025
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "#EDF0F0",
+                "classes": "Common/Label"
+              },
+              "text": "Produced Quantity",
+              "textStyle": {
+                "classes": "Common/OprConsoleLabelText"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "workOrderQuantityLbl"
+            },
+            "position": {
+              "height": 0.1504,
+              "width": 0.1019,
+              "x": 0.344,
+              "y": 0.4025
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "#EDF0F0",
+                "classes": "Common/Label"
+              },
+              "text": "Work Order Quantity",
+              "textStyle": {
+                "classes": "Common/OprConsoleLabelText"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "partNumberLbl"
+            },
+            "position": {
+              "height": 0.1504,
+              "width": 0.1019,
+              "x": 0.6721,
+              "y": 0.2123
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "#EDF0F0",
+                "classes": "Common/Label"
+              },
+              "text": "Part Number",
+              "textStyle": {
+                "classes": "Common/OprConsoleLabelText"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "customerLbl"
+            },
+            "position": {
+              "height": 0.1504,
+              "width": 0.1019,
+              "x": 0.0172,
+              "y": 0.4036
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "#EDF0F0",
+                "classes": "Common/Label"
+              },
+              "text": "Customer",
+              "textStyle": {
+                "classes": "Common/OprConsoleLabelText"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "configurationLbl"
+            },
+            "position": {
+              "height": 0.1504,
+              "width": 0.1019,
+              "x": 0.0172,
+              "y": 0.5939
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "#EDF0F0",
+                "classes": "Common/Label"
+              },
+              "text": "Configuration",
+              "textStyle": {
+                "classes": "Common/OprConsoleLabelText"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "TxtWorkOrderQty",
+              "tooltip": {
+                "location": "bottom-right",
+                "style": {
+                  "classes": "Common/ToolTip"
+                }
+              }
+            },
+            "position": {
+              "height": 0.1715,
+              "width": 0.1801,
+              "x": 0.4649,
+              "y": 0.4204
+            },
+            "props": {
+              "enabled": false,
+              "style": {
+                "backgroundColor": "#D5D5D5C2",
+                "classes": "Common/TextBox_disabled Ref_MES/Common/TextBox",
+                "fontSize": 16,
+                "fontWeight": "bold"
+              }
+            },
+            "type": "ia.input.text-field"
+          },
+          {
+            "meta": {
+              "name": "TxtProducedQty",
+              "tooltip": {
+                "location": "bottom-right",
+                "style": {
+                  "classes": "Common/ToolTip"
+                }
+              }
+            },
+            "position": {
+              "height": 0.1715,
+              "width": 0.1801,
+              "x": 0.7896,
+              "y": 0.4259
+            },
+            "props": {
+              "enabled": false,
+              "style": {
+                "backgroundColor": "#D5D5D5C2",
+                "classes": "Common/TextBox_disabled",
+                "fontSize": 16,
+                "fontWeight": "bold"
+              }
+            },
+            "type": "ia.input.text-field"
+          },
+          {
+            "meta": {
+              "name": "TxtPartNumber",
+              "tooltip": {
+                "location": "bottom-right",
+                "style": {
+                  "classes": "Common/ToolTip"
+                }
+              }
+            },
+            "position": {
+              "height": 0.1715,
+              "width": 0.1801,
+              "x": 0.7896,
+              "y": 0.2251
+            },
+            "props": {
+              "enabled": false,
+              "style": {
+                "backgroundColor": "#D5D5D5C2",
+                "classes": "Common/TextBox_disabled",
+                "fontSize": 14,
+                "fontWeight": "bold",
+                "textAlign": "left"
+              }
+            },
+            "type": "ia.input.text-field"
+          },
+          {
+            "meta": {
+              "name": "TxtCustomer",
+              "tooltip": {
+                "location": "bottom-right",
+                "style": {
+                  "classes": "Common/ToolTip"
+                }
+              }
+            },
+            "position": {
+              "height": 0.1715,
+              "width": 0.1801,
+              "x": 0.1351,
+              "y": 0.4131
+            },
+            "props": {
+              "enabled": false,
+              "style": {
+                "backgroundColor": "#D5D5D5C2",
+                "classes": "Common/TextBox_disabled",
+                "fontSize": 10,
+                "fontWeight": "bold",
+                "textAlign": "left"
+              }
+            },
+            "type": "ia.input.text-field"
+          },
+          {
+            "meta": {
+              "name": "TxtConfiguration",
+              "tooltip": {
+                "location": "bottom-right",
+                "style": {
+                  "classes": "Common/ToolTip"
+                }
+              }
+            },
+            "position": {
+              "height": 0.1715,
+              "width": 0.1801,
+              "x": 0.1351,
+              "y": 0.614
+            },
+            "props": {
+              "enabled": false,
+              "style": {
+                "backgroundColor": "#D5D5D5C2",
+                "classes": "Common/TextBox_disabled",
+                "fontSize": 10,
+                "fontWeight": "bold",
+                "textAlign": "left"
+              }
+            },
+            "type": "ia.input.text-field"
+          },
+          {
+            "meta": {
+              "name": "Txtpallet",
+              "tooltip": {
+                "location": "bottom-right",
+                "style": {
+                  "classes": "Common/ToolTip"
+                }
+              }
+            },
+            "position": {
+              "height": 0.1715,
+              "width": 0.1801,
+              "x": 0.4649,
+              "y": 0.8148
+            },
+            "props": {
+              "enabled": false,
+              "style": {
+                "backgroundColor": "#D5D5D5C2",
+                "classes": "Common/TextBox_disabled",
+                "color": "#27A3FE",
+                "fontSize": 15,
+                "fontWeight": "bold"
+              }
+            },
+            "type": "ia.input.text-field"
+          },
+          {
+            "meta": {
+              "name": "palletLbl"
+            },
+            "position": {
+              "height": 0.1703,
+              "width": 0.1021,
+              "x": 0.344,
+              "y": 0.8148
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "#EDF0F0",
+                "classes": "Common/Label"
+              },
+              "text": "Pallet",
+              "textStyle": {
+                "classes": "Common/OprConsoleLabelText"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "containerpalletLbl"
+            },
+            "position": {
+              "height": 0.1898,
+              "width": 0.1021,
+              "x": 0.6721,
+              "y": 0.5929
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "#EDF0F0",
+                "classes": "Common/Label"
+              },
+              "text": "Container / Pallet",
+              "textStyle": {
+                "classes": "Common/OprConsoleLabelText"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "TxtContainerpallet",
+              "tooltip": {
+                "location": "bottom-right",
+                "style": {
+                  "classes": "Common/ToolTip"
+                }
+              }
+            },
+            "position": {
+              "height": 0.1715,
+              "width": 0.1801,
+              "x": 0.7896,
+              "y": 0.6214
+            },
+            "props": {
+              "enabled": false,
+              "style": {
+                "backgroundColor": "#D5D5D5C2",
+                "classes": "Common/TextBox_disabled",
+                "color": "#27A3FE",
+                "fontSize": 15,
+                "fontWeight": "bold"
+              }
+            },
+            "type": "ia.input.text-field"
+          },
+          {
+            "meta": {
+              "name": "Txtlotcontainer",
+              "tooltip": {
+                "location": "bottom-right",
+                "style": {
+                  "classes": "Common/ToolTip"
+                }
+              }
+            },
+            "position": {
+              "height": 0.1715,
+              "width": 0.1801,
+              "x": 0.4649,
+              "y": 0.6162
+            },
+            "props": {
+              "enabled": false,
+              "style": {
+                "backgroundColor": "#D5D5D5C2",
+                "classes": "Common/TextBox_disabled",
+                "color": "#27A3FE",
+                "fontSize": 15,
+                "fontWeight": "bold"
+              }
+            },
+            "type": "ia.input.text-field"
+          },
+          {
+            "meta": {
+              "name": "TxtContainer",
+              "tooltip": {
+                "location": "bottom-right",
+                "style": {
+                  "classes": "Common/ToolTip"
+                }
+              }
+            },
+            "position": {
+              "height": 0.1715,
+              "width": 0.1801,
+              "x": 0.1351,
+              "y": 0.8095
+            },
+            "props": {
+              "enabled": false,
+              "style": {
+                "backgroundColor": "#D5D5D5C2",
+                "classes": "Common/TextBox_disabled",
+                "color": "#27A3FE",
+                "fontSize": 15,
+                "fontWeight": "bold"
+              }
+            },
+            "type": "ia.input.text-field"
+          },
+          {
+            "meta": {
+              "name": "lotContainerLbl"
+            },
+            "position": {
+              "height": 0.1898,
+              "width": 0.1021,
+              "x": 0.344,
+              "y": 0.5929
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "#EDF0F0",
+                "classes": "Common/Label"
+              },
+              "text": "Pieces / Container",
+              "textStyle": {
+                "classes": "Common/OprConsoleLabelText"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "containerLbl"
+            },
+            "position": {
+              "height": 0.1834,
+              "width": 0.1021,
+              "x": 0.0176,
+              "y": 0.7841
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "#EDF0F0",
+                "classes": "Common/Label"
+              },
+              "text": "Container",
+              "textStyle": {
+                "classes": "Common/OprConsoleLabelText"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "CoordinateContainer"
+        },
+        "position": {
+          "height": 0.2546,
+          "width": 0.9952,
+          "x": 0.0003,
+          "y": 0.0374
+        },
+        "props": {
+          "mode": "percent",
+          "style": {
+            "classes": "Basic/OprConsoleHirarchy"
+          }
+        },
+        "type": "ia.container.coord"
+      },
+      {
+        "meta": {
+          "name": "tblPacking"
+        },
+        "position": {
+          "height": 0.6247,
+          "width": 0.9945,
+          "x": 0.0021,
+          "y": 0.3298
+        },
+        "props": {
+          "bodyStyle": {
+            "classes": "Table/RowsBorder"
+          },
+          "columns": [
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "SrNo",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Sr No"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 25
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "Pallet",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Pallet Number"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "Lot",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Lot Number"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "Container",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Container No"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "Template",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "NoOFPrints",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "No Of Prints"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "view",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {
+                "rowData": "value",
+                "rowIndex": "",
+                "value": "value"
+              },
+              "viewPath": "Project_MES_Solution/Packing/Template/NewTemplate/PrintTextBox",
+              "visible": true,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "ContainerPrintHistory",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Container"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "view",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": true,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {
+                "column": "value",
+                "columnIndex": "value",
+                "row": "value",
+                "rowData": "value",
+                "rowIndex": "value",
+                "value": "value",
+                "woNumber": ""
+              },
+              "viewPath": "Project_MES_Solution/Packing/Template/NewTemplate/ContainerPrintHistory",
+              "visible": true,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "PalletPrintHistory",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Pallet"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "view",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {
+                "column": "value",
+                "columnIndex": "value",
+                "row": "value",
+                "rowData": "value",
+                "rowIndex": "value",
+                "value": "value",
+                "woNumber": ""
+              },
+              "viewPath": "Project_MES_Solution/Packing/Template/NewTemplate/PalletContainerPrintHistory",
+              "visible": true,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "IsPalletCompleted",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "IsPalletCompleted"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": ""
+            }
+          ],
+          "data": null,
+          "dragOrderable": false,
+          "emptyMessage": {
+            "noData": {
+              "icon": {
+                "path": "material/warning"
+              },
+              "text": "Records Are Not Available."
+            }
+          },
+          "headerStyle": {
+            "classes": "Table/Header"
+          },
+          "pager": {
+            "bottom": false,
+            "initialOption": 15,
+            "options": [
+              8,
+              10,
+              25,
+              50,
+              100
+            ]
+          },
+          "rows": {
+            "style": {
+              "classes": "Table/Rowsmiddle",
+              "lineHeight": 3
+            },
+            "subviewExpansionMode": "single"
+          },
+          "selection": {
+            "enableRowSelection": false
+          }
+        },
+        "scripts": {
+          "customMethods": [],
+          "extensionFunctions": null,
+          "messageHandlers": [
+            {
+              "messageType": "ContainerPrint",
+              "pageScope": true,
+              "script": "\t# implement your handler here\n\tNoOfPrint\u003dpayload[\u0027NoOfPrint\u0027]\n\tselRow\u003dpayload[\u0027SelctedRow\u0027]\n\tupdatedValue\u003dNoOfPrint    \n\tselColumn\u003d\u0027NoOFPrints\u0027\n\tdtSet\u003dself.props.data    \n\tupdateRowResultDs \u003d {selColumn:updatedValue}    \n\tresultpyData \u003d system.dataset.updateRow(dtSet,selRow,updateRowResultDs)        \n\tds\u003d system.dataset.toPyDataSet(resultpyData)    \n\tself.props.data\u003dds    ",
+              "sessionScope": false,
+              "viewScope": false
+            }
+          ]
+        },
+        "type": "ia.display.table"
+      },
+      {
+        "meta": {
+          "name": "lblSearch",
+          "visible": 1
+        },
+        "position": {
+          "height": 0.0292,
+          "width": 0.0531,
+          "x": 0.0705,
+          "y": 0.2994
+        },
+        "props": {
+          "text": "Search",
+          "textStyle": {
+            "classes": "Ref_MES/Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onKeyPress": {
+              "config": {
+                "script": "\tSearch\u003dself.props.text\n\tSearch\u003dstr(Search).strip()\n\tsystem.perspective.print(\"call search \"+str(Search))\n\tif str(Search)\u003d\u003d\u0027\u0027 or Search\u003d\u003dNone or Search\u003d\u003d\u0027None\u0027 or Search \u003d\u003d\u0027null\u0027:\n\t\tSearch\u003d\u0027\u0027\n\ttry: \n\t\tself.session.custom.paginationCurrentPage\u003d1\n\t\tself.session.custom.paginationCurrentPageLastRecord\u003dself.getSibling(\"ddlSelectRow\").props.value\n\t\tStart\u003d0\n\t\tself.getSibling(\"txtGotoPage\").props.value\u003d1\t\t\t\t\n\t\tself.getSibling(\"txtGotoPage\").meta.visible\u003d1\n\t\tself.getSibling(\"lblGotoPage\").meta.visible\u003d1\n\t\tself.getSibling(\"btnprev\").meta.visible\u003d1\n\t\tself.getSibling(\"btnnext\").meta.visible\u003d1\n\t\tself.getSibling(\"btnfirst\").meta.visible\u003d1\n\t\tself.getSibling(\"btnLast\").meta.visible\u003d1\n\t\tself.getSibling(\"lblCurrentPage\").meta.visible\u003d1\n\t\tself.getSibling(\"ddlSelectRow\").meta.visible\u003d1\n\t\tlength\u003dself.session.custom.paginationCurrentPageLastRecord\n\t\tWorkOrderId\u003dself.session.custom.WOIdForPacking\n\t\tds\u003dPackingAndLabelling.GetWorkOrderPackageConfigurationsDetails(Start,length,Search,WorkOrderId)\n\t\tsystem.perspective.print(\"API Search Result: \"+str(ds))\t\t\n\t\tself.getSibling(\"tblPacking\").props.data\u003d ds\n\t\tif ds!\u003dNone:\n\t\t\tds\u003dsystem.dataset.toPyDataSet(ds)\n\t\t\tif len(ds)\u003e0 and ds!\u003dNone:\n\t\t\t\tif len(ds)\u003e0:\n\t\t\t\t\tcnt\u003d ds[0][\u0027recordsTotal\u0027]\n\t\t\t\t\tpage\u003dint(cnt/self.session.custom.paginationCurrentPageLastRecord)\n\t\t\t\t\tmodpage\u003dcnt%self.session.custom.paginationCurrentPageLastRecord\n\t\t\t\t\tif modpage\u003e0:\n\t\t\t\t\t\tpage\u003dpage+1\n\t\t\t\t\tself.session.custom.paginationTotalRecordPages\u003dpage\t\n\t\t\t\t\tself.session.custom.paginationCurrentPage\u003d1\n\t\telse:\n\t\t\n\t\t\tself.session.custom.paginationCurrentPage\u003d1\t\t\t\n#\t\t\tself.session.custom.paginationCurrentPageLastRecord\u003d0\n\t\t\tself.session.custom.paginationTotalRecordPages\u003d0\t\t\n\t\t\t\n\t\t\tself.getSibling(\"btnprev\").meta.visible\u003d0\n\t\t\tself.getSibling(\"btnnext\").meta.visible\u003d0\n\t\t\tself.getSibling(\"btnfirst\").meta.visible\u003d0\n\t\t\tself.getSibling(\"btnLast\").meta.visible\u003d0\n\t\t\tself.getSibling(\"lblCurrentPage\").meta.visible\u003d0\n\t\t\tself.getSibling(\"ddlSelectRow\").meta.visible\u003d0\n\t\t\tself.getSibling(\"txtGotoPage\").meta.visible\u003d0\n\t\t\tself.getSibling(\"lblGotoPage\").meta.visible\u003d0\n\n\t\t\t\t\t\n\n\texcept Exception as e:\n\t\t\tsystem.perspective.print(\"exceptions in Plant Data while reciving search a data\u003d \" + str(e))\n\t\t\tself.session.custom.paginationCurrentPage\u003d0\n\t\t\tself.session.custom.paginationTotalRecordPages\u003d0\t\n\t\t\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "txtSearch",
+          "visible": 1
+        },
+        "position": {
+          "height": 0.0279,
+          "width": 0.5128,
+          "x": 0.1336,
+          "y": 0.2975
+        },
+        "props": {
+          "deferUpdates": false,
+          "placeholder": "Filter table..",
+          "style": {
+            "classes": "Ref_MES/Common/TextBox"
+          }
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tself.session.custom.paginationCurrentPage\u003d1\n\tStart\u003dself.session.custom.paginationCurrentPage\n\tSearch\u003dself.getSibling(\"txtSearch\").props.text\n\tSearch\u003dstr(Search).strip()\n\tself.session.custom.paginationCurrentPageLastRecord\u003dself.props.value\n\tStart\u003dself.session.custom.paginationCurrentPage\n\t\n\tif Start\u003e0:\n\t\tStart\u003dStart-1\n\telse:\n\t\tpass\n\t\t\n\tlength\u003dself.session.custom.paginationCurrentPageLastRecord\n\tWorkOrderId\u003dself.session.custom.WOIdForPacking\n\tds\u003dPackingAndLabelling.GetWorkOrderPackageConfigurationsDetails(Start,length,Search,WorkOrderId)\n\tself.getSibling(\"tblPacking\").props.data\u003dds\n\tds\u003dsystem.dataset.toPyDataSet(ds)\n\tif len(ds)\u003e0 and ds!\u003dNone:\n\t\tif len(ds)\u003e0:\n\t\t\tcnt\u003d ds[0][\u0027recordsTotal\u0027]\n\t\t\tpage\u003dint(cnt/self.session.custom.paginationCurrentPageLastRecord)\n\t\t\tmodpage\u003dcnt%self.session.custom.paginationCurrentPageLastRecord\n\t\t\tif modpage\u003e0:\n\t\t\t\tpage\u003dpage+1\n\t\t\tself.session.custom.paginationTotalRecordPages\u003dpage\t\n\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "ddlSelectRow",
+          "visible": 1
+        },
+        "position": {
+          "height": 0.0292,
+          "rotate": {
+            "anchor": "25% 0%"
+          },
+          "width": 0.0883,
+          "x": 0.007,
+          "y": 0.9635
+        },
+        "props": {
+          "options": [
+            {
+              "label": "15 rows",
+              "value": 15
+            },
+            {
+              "label": "25 rows",
+              "value": 25
+            },
+            {
+              "label": "50 rows",
+              "value": 50
+            }
+          ],
+          "placeholder": {
+            "icon": {
+              "color": "#C0C0C0"
+            },
+            "text": ""
+          },
+          "style": {
+            "classes": "Ref_MES/Common/TextBox"
+          },
+          "value": 15
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "meta": {
+          "name": "lblCurrentPage",
+          "visible": 1
+        },
+        "position": {
+          "height": 0.0292,
+          "rotate": {
+            "anchor": "14% -19%"
+          },
+          "width": 0.1408,
+          "x": 0.1061,
+          "y": 0.9635
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "expression": "\"Page \"+{session.custom.paginationCurrentPage} +\" of \"+{session.custom.paginationTotalRecordPages}"
+              },
+              "previewEnabled": false,
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "textStyle": {
+            "classes": "Ref_MES/Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\n\t\tSearch\u003dself.getSibling(\"txtSearch\").props.text\n\t\tSearch\u003dstr(Search).strip()\n\t\tself.session.custom.paginationCurrentPage\u003d1\n\t\tStart\u003dself.session.custom.paginationCurrentPage\n\t\tif Start\u003e0:\n\t\t\tStart\u003dStart-1\n\t\telse:\n\t\t\tpass\n\t\tlength\u003dself.session.custom.paginationCurrentPageLastRecord\n\t\tWorkOrderId\u003dself.session.custom.WOIdForPacking\n\t\tAPIParameter\u003d{\"Start\":Start,\"length\":length,\"Search\":Search}\n\t\tsystem.perspective.print(\"APIParameter: \"+str(APIParameter))\n\t\tds\u003dPackingAndLabelling.GetWorkOrderPackageConfigurationsDetails(Start,length,Search,WorkOrderId)\n\t\tsystem.perspective.print(\"First bUtton : \"+str(ds))\n\t\tself.getSibling(\"tblPacking\").props.data\u003d ds\n\t\t\n\texcept Exception as e:\n\t\tsystem.perspective.print(\"error in print \" +str(e))\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "btnfirst",
+          "visible": 1
+        },
+        "position": {
+          "height": 0.0292,
+          "width": 0.0752,
+          "x": 0.2956,
+          "y": 0.9635
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "session.custom.paginationCurrentPage"
+              },
+              "previewEnabled": false,
+              "transforms": [
+                {
+                  "code": "\tif value \u003e 1:\n\t\tvalue\u003d1\n\telse :\n\t\tvalue\u003d0\n\t\t\t\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "text": "\u003c\u003c First"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\n\t\tSearch\u003dself.getSibling(\"txtSearch\").props.text\n\t\tSearch\u003dstr(Search).strip()\n\t\tself.session.custom.paginationCurrentPage\u003dself.session.custom.paginationCurrentPage +1\n\t\tStart\u003dself.session.custom.paginationCurrentPage\n\t\tif Start\u003e0:\n\t\t\tStart\u003dStart-1\n\t\telse:\n\t\t\tpass\n\t\tlength\u003dself.session.custom.paginationCurrentPageLastRecord\n\t\tsystem.perspective.print(\"Start \"+str(Start))\n\t\tsystem.perspective.print(\"length \"+str(length))\n\t\tWorkOrderId\u003dself.session.custom.WOIdForPacking\n\t\tds\u003dPackingAndLabelling.GetWorkOrderPackageConfigurationsDetails(Start,length,Search,WorkOrderId)\n\t\tsystem.perspective.print ( \"Next Result: \"+str(ds))\n\t\tself.getSibling(\"tblPacking\").props.data\u003d ds\n\t\tsystem.perspective.print ( \"printer start\")\n#\t\tBomApiFunction.callprinter()\n\texcept Exception as e:\n\t\tsystem.perspective.print(\"error in print \" +str(e))\t\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "btnnext",
+          "visible": 1
+        },
+        "position": {
+          "height": 0.0292,
+          "width": 0.0749,
+          "x": 0.4912,
+          "y": 0.9635
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "session.custom.paginationCurrentPage"
+              },
+              "transforms": [
+                {
+                  "code": "\tpaginationTotalRecordPages\u003dself.session.custom.paginationTotalRecordPages\n\tif value \u003e\u003d paginationTotalRecordPages:\n\t\tvalue\u003d0\n\telse :\n\t\tvalue\u003d1\n\t\t\t\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "text": "Next \u003e"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tSearch\u003dself.getSibling(\"txtSearch\").props.text\n\tSearch\u003dstr(Search).strip()\n\tself.session.custom.paginationCurrentPage\u003dself.session.custom.paginationCurrentPage - 1\n\tStart\u003dself.session.custom.paginationCurrentPage\n\tif Start\u003e0:\n\t\tStart\u003dStart-1\n\telse:\n\t\tpass\n\tlength\u003dself.session.custom.paginationCurrentPageLastRecord\n\tWorkOrderId\u003dself.session.custom.WOIdForPacking\n\tds\u003dPackingAndLabelling.GetWorkOrderPackageConfigurationsDetails(Start,length,Search,WorkOrderId)\n\tself.getSibling(\"tblPacking\").props.data\u003d ds"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "btnprev",
+          "visible": 1
+        },
+        "position": {
+          "height": 0.0292,
+          "rotate": {
+            "anchor": "50% 0%"
+          },
+          "width": 0.0749,
+          "x": 0.3889,
+          "y": 0.9635
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "session.custom.paginationCurrentPage"
+              },
+              "previewEnabled": false,
+              "transforms": [
+                {
+                  "code": "\tif value \u003e 1:\n\t\tvalue\u003d1\n\telse :\n\t\tvalue\u003d0\n\t\t\t\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "text": "\u003c Previous"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tSearch\u003dself.getSibling(\"txtSearch\").props.text\n\tSearch\u003dstr(Search).strip()\n\tself.session.custom.paginationCurrentPage\u003dself.session.custom.paginationTotalRecordPages\n\tStart\u003dself.session.custom.paginationCurrentPage\n\tif Start\u003e0:\n\t\tStart\u003dStart-1\n\telse:\n\t\tpass\n\tlength\u003dself.session.custom.paginationCurrentPageLastRecord\n\tWorkOrderId\u003dself.session.custom.WOIdForPacking\n\tds\u003dPackingAndLabelling.GetWorkOrderPackageConfigurationsDetails(Start,length,Search,WorkOrderId)\n\tself.getSibling(\"tblPacking\").props.data\u003d ds"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "btnLast",
+          "visible": 1
+        },
+        "position": {
+          "height": 0.0292,
+          "rotate": {
+            "anchor": "50% 0%"
+          },
+          "width": 0.0749,
+          "x": 0.5986,
+          "y": 0.9635
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "session.custom.paginationCurrentPage"
+              },
+              "previewEnabled": false,
+              "transforms": [
+                {
+                  "code": "\tpaginationTotalRecordPages\u003dself.session.custom.paginationTotalRecordPages\n\tif value \u003e\u003d paginationTotalRecordPages:\n\t\tvalue\u003d0\n\telse :\n\t\tvalue\u003d1\n\t\t\t\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "text": "Last \u003e\u003e"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "lblGotoPage",
+          "visible": 1
+        },
+        "position": {
+          "height": 0.0292,
+          "rotate": {
+            "anchor": "14% -19%"
+          },
+          "width": 0.0769,
+          "x": 0.7874,
+          "y": 0.9635
+        },
+        "props": {
+          "text": "Go To Page",
+          "textStyle": {
+            "classes": "Ref_MES/Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\n\t\tgotopage\u003dself.props.value\n\t\tif gotopage\u003e0 and gotopage\u003c\u003dself.session.custom.paginationTotalRecordPages:\n\t\t\tSearch\u003dself.getSibling(\"txtSearch\").props.text\n\t\t\tSearch\u003dstr(Search).strip()\n\t\t\tStart\u003dgotopage\n\t\t\tif Start\u003e0:\n\t\t\t\tStart\u003dStart-1\n\t\t\telse:\n\t\t\t\tpass\n\t\t\tlength\u003dself.session.custom.paginationCurrentPageLastRecord\n\t\t\tWorkOrderId\u003dself.session.custom.WOIdForPacking\n\t\t\tds\u003dPackingAndLabelling.GetWorkOrderPackageConfigurationsDetails(Start,length,Search,WorkOrderId)\n\t\t\tsystem.perspective.print(\"Go to Page:\"+str(ds))\n\t\t\tself.getSibling(\"tblPacking\").props.data\u003d ds\n\t\t\tself.session.custom.paginationCurrentPage\u003dgotopage\n\t\telse:\n\t\t\tself.props.value\u003dself.session.custom.paginationCurrentPage\n\texcept :\n\t\tself.props.value\u003dself.session.custom.paginationCurrentPage"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "txtGotoPage",
+          "visible": 1
+        },
+        "position": {
+          "height": 0.0292,
+          "width": 0.0689,
+          "x": 0.8672,
+          "y": 0.9635
+        },
+        "props": {
+          "enabled": 1,
+          "spinner": {
+            "enabled": 1
+          },
+          "style": {
+            "classes": "Ref_MES/Common/TextBox"
+          },
+          "value": 1
+        },
+        "type": "ia.input.numeric-entry-field"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

@@ -1,0 +1,765 @@
+{
+  "pages": {
+    "/": {
+      "title": "",
+      "viewPath": "Project_MES_Solution/Login/LoginScreen"
+    },
+    "/BaseScreen": {
+      "docks": {
+        "left": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "cover",
+            "handle": "autoHide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "onDemand",
+            "size": 300,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/MenuTree/MenuList"
+          }
+        ],
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 50,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/Header_And_Footer/Title"
+          }
+        ]
+      },
+      "title": "",
+      "viewPath": "Project_MES_Solution/BaseScreen/BaseScreen"
+    },
+    "/CLRI": {
+      "docks": {
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 50,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/Header_And_Footer/Tittle12"
+          }
+        ]
+      },
+      "title": "",
+      "viewPath": "Project_MES_Solution/CLRI Console/ConsoleCLRI"
+    },
+    "/Diagnostics": {
+      "docks": {
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 50,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/Header_And_Footer/Tittle12"
+          }
+        ]
+      },
+      "title": "",
+      "viewPath": "Project_MES_Solution/Diagnosis/MachineMonitoring"
+    },
+    "/ImageCapture": {
+      "docks": {
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 50,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/Header_And_Footer/Tittle12"
+          }
+        ]
+      },
+      "title": "",
+      "viewPath": "Project_MES_Solution/ImageUpload/ImageCapture"
+    },
+    "/LineLeadConsole": {
+      "docks": {
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 50,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/Header_And_Footer/Tittle12"
+          }
+        ]
+      },
+      "title": "",
+      "viewPath": "Project_MES_Solution/ProductionOperatorConsole/QltyscrapandConsumption/LandingView/LineLeadLandingPage"
+    },
+    "/LoginScreen": {
+      "title": "",
+      "viewPath": "Project_MES_Solution/Login/LoginScreen"
+    },
+    "/MaintenanceOperatorConsole": {
+      "docks": {
+        "bottom": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 35,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/Header_And_Footer/FooterMsg"
+          }
+        ],
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 50,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/Header_And_Footer/Tittle12"
+          }
+        ]
+      },
+      "title": "",
+      "viewPath": "Project_MES_Solution/Maint Operator Console/MaintOperatorConsole"
+    },
+    "/MaintenanceTechnicianConsole-Tools": {
+      "docks": {
+        "bottom": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 35,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/Header_And_Footer/FooterMsg"
+          }
+        ],
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 50,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/Header_And_Footer/Tittle12"
+          }
+        ]
+      },
+      "title": "",
+      "viewPath": "Project_MES_Solution/Maint Operator Console/MaintOperatorConsoleTools"
+    },
+    "/Maintenence Operator Console - RM": {
+      "docks": {
+        "bottom": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 35,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/Header_And_Footer/FooterMsg"
+          }
+        ],
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 50,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/Header_And_Footer/Tittle12"
+          }
+        ]
+      },
+      "title": "",
+      "viewPath": "Project_MES_Solution/Maint Operator Console_RM/MaintOperatorConsole_RM"
+    },
+    "/Maintenence Operator Console - RMTools": {
+      "docks": {
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 50,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/Header_And_Footer/Tittle12"
+          }
+        ]
+      },
+      "title": "",
+      "viewPath": "Project_MES_Solution/Maint Operator Console_RM/MaintOperatorConsole_RMTools"
+    },
+    "/MoldComponent": {
+      "docks": {
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 30,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/PDAScreens/Title"
+          }
+        ]
+      },
+      "title": "",
+      "viewPath": "Project_MES_Solution/PDAScreens/Production/MoldLoadingUnloading/OptrConsoleMoldEntry"
+    },
+    "/MoldReport": {
+      "docks": {
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 50,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/Header_And_Footer/Tittle12"
+          }
+        ]
+      },
+      "title": "",
+      "viewPath": "Project_MES_Solution/Reports/MoldReport"
+    },
+    "/PDAAddSparePartReception": {
+      "docks": {
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 30,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/PDAScreens/Title"
+          }
+        ]
+      },
+      "title": "",
+      "viewPath": "Project_MES_Solution/PDAScreens/Maintenance/SparepartReceive/AddSparePartReception"
+    },
+    "/PDAComponents": {
+      "docks": {
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 30,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/PDAScreens/Title"
+          }
+        ]
+      },
+      "title": "",
+      "viewPath": "Project_MES_Solution/PDAScreens/Production/MachineFeeding/OptrConsoleComponentEntry"
+    },
+    "/PDADashboard": {
+      "title": "",
+      "viewPath": "Project_MES_Solution/PDAScreens/Dashboard"
+    },
+    "/PDALineSideStorage": {
+      "docks": {
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 30,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/PDAScreens/Title"
+          }
+        ]
+      },
+      "title": "",
+      "viewPath": "Project_MES_Solution/PDAScreens/Production/LineSideStorage/LineSideStorage"
+    },
+    "/PDAMaterialReturn": {
+      "docks": {
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 30,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/PDAScreens/Title"
+          }
+        ]
+      },
+      "title": "",
+      "viewPath": "Project_MES_Solution/PDAScreens/Production/MaterialReturn/ReturnMaterial"
+    },
+    "/PDAReturnFromSparePartRequest": {
+      "docks": {
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 30,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/PDAScreens/Title"
+          }
+        ]
+      },
+      "title": "",
+      "viewPath": "Project_MES_Solution/PDAScreens/Maintenance/SparepartReturn/ReturnFromSparePartRequest"
+    },
+    "/PDASparePartDelivery": {
+      "docks": {
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 30,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/PDAScreens/Title"
+          }
+        ]
+      },
+      "title": "",
+      "viewPath": "Project_MES_Solution/PDAScreens/Maintenance/SparepartDelivery/SparePartDelivery"
+    },
+    "/PDASparePartReceptPrint": {
+      "docks": {
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 50,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/OperatorConsole/PDAScreen/Title"
+          }
+        ]
+      },
+      "title": "",
+      "viewPath": "Project_MES_Solution/PDAScreens/Maintenance/SparePartPrint/SparePartPrint"
+    },
+    "/PEA": {
+      "docks": {
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 50,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/Header_And_Footer/Title"
+          }
+        ]
+      },
+      "title": "",
+      "viewPath": "Project_MES_Solution/ProductionOperatorConsole/PEA"
+    },
+    "/PRNFileManualTesting": {
+      "docks": {
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 50,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/Header_And_Footer/Tittle12"
+          }
+        ]
+      },
+      "title": "",
+      "viewPath": "Project_MES_Solution/Printing/LabelPrint"
+    },
+    "/PackingConfiguration": {
+      "docks": {
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 50,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/Header_And_Footer/Tittle12"
+          }
+        ]
+      },
+      "title": "",
+      "viewPath": "Project_MES_Solution/Packing/PackingConfiguration"
+    },
+    "/PrinterConfiguration": {
+      "docks": {
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 50,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/Header_And_Footer/Tittle12"
+          }
+        ]
+      },
+      "title": "",
+      "viewPath": "Project_MES_Solution/Printing/PrinterConfiguration"
+    },
+    "/ProductionOperatorConsole": {
+      "docks": {
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 50,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/Header_And_Footer/Tittle12"
+          }
+        ]
+      },
+      "title": "",
+      "viewPath": "Project_MES_Solution/ProductionOperatorConsole/ProductionOperatorConsole"
+    },
+    "/QualityApproveContainer": {
+      "docks": {
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 50,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/Header_And_Footer/Tittle12"
+          }
+        ]
+      },
+      "title": "",
+      "viewPath": "Project_MES_Solution/ProductionOperatorConsole/QltyscrapandConsumption/LandingView/QualityApproveContainer"
+    },
+    "/QualityConsole": {
+      "docks": {
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 50,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/Header_And_Footer/Tittle12"
+          }
+        ]
+      },
+      "title": "",
+      "viewPath": "Project_MES_Solution/QualityConsole/QualityConsole"
+    },
+    "/QualityScrapDetails": {
+      "docks": {
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 50,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/Header_And_Footer/Tittle12"
+          }
+        ]
+      },
+      "title": "",
+      "viewPath": "Project_MES_Solution/ProductionOperatorConsole/QualityScrap"
+    },
+    "/Reworkscreen": {
+      "docks": {
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 50,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/Header_And_Footer/Tittle12"
+          }
+        ]
+      },
+      "title": "",
+      "viewPath": "Project_MES_Solution/Re_work/rework"
+    },
+    "/Setting": {
+      "docks": {
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 50,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/Header_And_Footer/Tittle12"
+          }
+        ]
+      },
+      "title": "",
+      "viewPath": "Project_MES_Solution/Setting/Setting"
+    },
+    "/ToolLoadingUnloading": {
+      "docks": {
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 30,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/PDAScreens/Title"
+          }
+        ]
+      },
+      "title": "",
+      "viewPath": "Project_MES_Solution/PDAScreens/Production/ToolLoadingUnloading/ToolLoadingUnloadingScreen"
+    },
+    "/labelprint": {
+      "docks": {
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 50,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/Header_And_Footer/Tittle12"
+          }
+        ]
+      },
+      "title": "",
+      "viewPath": "Project_MES_Solution/Printing/LabelPrint"
+    },
+    "/productionmainview": {
+      "docks": {
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 50,
+            "viewParams": {},
+            "viewPath": "Project_MES_Solution/Header_And_Footer/Tittle12"
+          }
+        ]
+      },
+      "title": "",
+      "viewPath": "Project_MES_Solution/ProductionOperatorConsole/MainViews/ProductionMainView"
+    }
+  },
+  "sharedDocks": {
+    "cornerPriority": "top-bottom"
+  }
+}

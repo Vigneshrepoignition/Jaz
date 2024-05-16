@@ -1,0 +1,116 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\tsystem.perspective.print(\"On Startup--dddddddddddddddddddddddddddddddddddddddddddddd--\u003e \")\n\tds\u003dself.params.rowData\n\tSelctedRow\u003dself.params.rowIndex\n\tcolumnName\u003dself.params.column\n\tsystem.perspective.print(\"columnName on STRATUP:: \" + str(columnName))\n\tif str(columnName).strip()\u003d\u003d\u0027Production\u0027:\n\t\tself.getChild(\"root\").getChild(\"txtValue\").meta.visible\u003d1\n\t\tself.getChild(\"root\").getChild(\"txtString\").meta.visible\u003d0\n\t\tProduction\u003dds[\u0027Production\u0027]\n\t\tself.getChild(\"root\").getChild(\"txtValue\").props.value\u003dProduction\n\telse:\n\t\tself.getChild(\"root\").getChild(\"txtValue\").meta.visible\u003d0\n\t\tself.getChild(\"root\").getChild(\"txtString\").meta.visible\u003d1\t\n\t\tComment\u003dstr(ds[\u0027Comment\u0027])\n\t\tself.getChild(\"root\").getChild(\"txtString\").props.text\u003dComment"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "column": "value",
+    "columnIndex": "value",
+    "row": "value",
+    "rowData": "value",
+    "rowIndex": "value"
+  },
+  "propConfig": {
+    "params.column": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.columnIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.row": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 39,
+      "width": 152
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\n\t\tupdatedValue\u003dself.props.value\n\t\tds\u003dself.view.params.rowData\n\t\tSelctedRow\u003dself.view.params.rowIndex\n\t\tcolumnName\u003dself.view.params.column\n\t\tsystem.perspective.print(\"productionValue...... \"+str(updatedValue))\n\t\tif updatedValue \u003e 0:\n\t\t\tmessageType \u003d \u0027updateHourlyDetailsTable\u0027\n\t\t\tsystem.perspective.sendMessage(messageType, payload \u003d {\"columnName\":columnName,\"updatedValue\":updatedValue,\"SelctedRow\":SelctedRow}, scope \u003d \"page\")\n\t\telse:\n\t\t\tself.props.value\u003d0\n\texcept:\n\t\tpass"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "txtValue",
+          "visible": 0
+        },
+        "position": {
+          "height": 31,
+          "width": 134,
+          "x": 7
+        },
+        "props": {
+          "align": "center",
+          "format": "none",
+          "spinner": {
+            "enabled": false
+          },
+          "style": {
+            "textAlign": "center"
+          },
+          "value": 0
+        },
+        "type": "ia.input.numeric-entry-field"
+      },
+      {
+        "meta": {
+          "name": "txtString",
+          "visible": 1
+        },
+        "position": {
+          "height": 33,
+          "width": 134,
+          "x": 7
+        },
+        "propConfig": {
+          "props.text": {
+            "onChange": {
+              "enabled": null,
+              "script": "\tupdatedValue\u003dstr(self.props.text)\n\tif str(updatedValue).strip()!\u003d\u0027\u0027 or str(updatedValue).strip()!\u003d\u0027None\u0027:\n\t\tds\u003dself.view.params.rowData\n\t\tSelctedRow\u003dself.view.params.rowIndex\n\t\tcolumnName\u003dself.view.params.column\n\n\t\tmessageType \u003d \u0027updateHourlyDetailsTable\u0027\n\t\tsystem.perspective.sendMessage(messageType, payload \u003d {\"columnName\":columnName,\"updatedValue\":updatedValue,\"SelctedRow\":SelctedRow}, scope \u003d \"page\")"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.input.text-field"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}

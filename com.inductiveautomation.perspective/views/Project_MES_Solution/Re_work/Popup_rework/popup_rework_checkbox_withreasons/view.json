@@ -1,0 +1,408 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\tself.getChild(\"root\").getChild(\"Dropdown_2\").props.options\u003dfpsi_ignition01.Getbadreasonsubtypelist()"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "bomSnapId": ""
+  },
+  "propConfig": {
+    "params.bomSnapId": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 306,
+      "width": 344
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tself.getSibling(\"Dropdown_1\").props.options \u003d \" \"\n\tself.getSibling(\"Dropdown_1\").props.options\u003dfpsi_ignition01.GetResoncode(idd\u003dstr(self.props.value))"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Dropdown_0",
+          "visible": false
+        },
+        "position": {
+          "height": 36,
+          "width": 212.89,
+          "x": 6.7846250000000055,
+          "y": 152
+        },
+        "props": {
+          "options": {
+            "$": [
+              "ds",
+              192,
+              1706072212643
+            ],
+            "$columns": [
+              {
+                "data": [
+                  1,
+                  2,
+                  3
+                ],
+                "name": "s_no",
+                "type": "Integer"
+              },
+              {
+                "data": [
+                  131,
+                  132,
+                  133
+                ],
+                "name": "reasonSubTypeId",
+                "type": "Integer"
+              },
+              {
+                "data": [
+                  "IT_Capacity",
+                  "IT_Availability",
+                  "IT_Performance"
+                ],
+                "name": "reasonSubTypeName",
+                "type": "String"
+              }
+            ]
+          },
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tsystem.perspective.print(self.props.value)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Dropdown_1",
+          "visible": false
+        },
+        "position": {
+          "height": 37,
+          "width": 213.75,
+          "x": 6.584249999999997,
+          "y": 151
+        },
+        "props": {
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "meta": {
+          "name": "Label_0"
+        },
+        "position": {
+          "height": 32,
+          "rotate": {
+            "anchor": "50% 25%"
+          },
+          "width": 140,
+          "x": 54.1437,
+          "y": 58
+        },
+        "props": {
+          "text": "Reason SubType",
+          "textStyle": {
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Label_5"
+        },
+        "position": {
+          "height": 32,
+          "rotate": {
+            "anchor": "50% 38%"
+          },
+          "width": 140,
+          "x": 53.7405,
+          "y": 150
+        },
+        "props": {
+          "text": "Reason Code",
+          "textStyle": {
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 38,
+          "width": 343,
+          "x": 0.19999999999999996,
+          "y": 1
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Scrap Checked",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 10,
+            "textAlign": "Center",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "draggable": false,
+                "id": "0gxHtJeo",
+                "modal": false,
+                "overlayDismiss": false,
+                "resizable": false,
+                "showCloseIcon": false,
+                "type": "close",
+                "viewPath": "Project_MES_Solution/Re_work/Popup_rework/popup_rework_checkbox_withreasons",
+                "viewportBound": false
+              },
+              "scope": "C",
+              "type": "popup"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 34.78,
+          "rotate": {
+            "anchor": "50% 25%"
+          },
+          "width": 36.00000000000006,
+          "x": 306.9215,
+          "y": 0.5899999999999999
+        },
+        "props": {
+          "color": "#FFFFFF",
+          "path": "material/close"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tsystem.perspective.print(\"onaction\")\n\tserialNumber \u003d self.session.custom.bomsnap_serailnumber\n\treasonCode \u003d self.getSibling(\"Dropdown_3\").props.value\n#\tlistOfBomSnapID \u003d []\n#\tidd \u003d int(self.view.params.rowData[\"bomSnapId\"])\n#\tlistOfBomSnapID.append(idd)\n\tlistOfBomSnapID \u003d self.session.custom.bomSnapIdlist\n\tsystem.perspective.print(type(listOfBomSnapID))\n\tsystem.perspective.print(serialNumber)\n\tsystem.perspective.print(reasonCode)\n\tsystem.perspective.print(listOfBomSnapID)\n\ta \u003d fpsi_ignition01.Postbomsnap_scrap(serialNumber,reasonCode,listOfBomSnapID)\n\tsystem.perspective.print(a)\n\tsystem.perspective.sendMessage(\"rework_scrap_table_refresh\",scope \u003d \"session\")\n\tif a \u003d\u003d 1:\n\t\tsystem.perspective.sendMessage(\"rework_scrap_table_refresh\",scope \u003d \"session\")\n\t\tsystem.perspective.closePopup(\"0gxHtJeo\")\n\t\n\n"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Button_1"
+        },
+        "position": {
+          "height": 34,
+          "width": 80,
+          "x": 139.155,
+          "y": 250.5
+        },
+        "props": {
+          "text": "Submit"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "draggable": true,
+                "id": "0gxHtJeo",
+                "modal": false,
+                "overlayDismiss": false,
+                "resizable": true,
+                "showCloseIcon": true,
+                "type": "close",
+                "viewPath": "Project_MES_Solution/Re_work/Popup_rework/popup_rework_checkbox_withreasons",
+                "viewportBound": false
+              },
+              "scope": "C",
+              "type": "popup"
+            }
+          }
+        },
+        "meta": {
+          "name": "Button_2"
+        },
+        "position": {
+          "height": 34,
+          "width": 80,
+          "x": 237.358,
+          "y": 250
+        },
+        "props": {
+          "text": "Cancel"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tself.props.options\u003dfpsi_ignition01.Getbadreasonsubtypelist()\n\tself.getSibling(\"Dropdown_3\").props.options\u003d \" \"\n\tself.getSibling(\"Dropdown_3\").props.options\u003dfpsi_ignition01.GetbadResoncode(idd\u003dstr(self.props.value))"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Dropdown_2"
+        },
+        "position": {
+          "height": 37,
+          "width": 198,
+          "x": 53.9843,
+          "y": 89
+        },
+        "props": {
+          "options": {
+            "$": [
+              "ds",
+              192,
+              1708275640710
+            ],
+            "$columns": [
+              {
+                "data": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7
+                ],
+                "name": "s_no",
+                "type": "Integer"
+              },
+              {
+                "data": [
+                  45,
+                  46,
+                  47,
+                  48,
+                  49,
+                  134,
+                  135
+                ],
+                "name": "reasonSubTypeId",
+                "type": "Integer"
+              },
+              {
+                "data": [
+                  "Arm/Rotor Assembly",
+                  "Endcap/Stator Assembly",
+                  "Rear Housing Assembly",
+                  "Stack/Epoxy Coating",
+                  "Final Assembly",
+                  "A10_SubType",
+                  "A07_SubType"
+                ],
+                "name": "reasonSubTypeName",
+                "type": "String"
+              }
+            ]
+          },
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tsystem.perspective.print(self.props.value)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Dropdown_3"
+        },
+        "position": {
+          "height": 37,
+          "width": 198,
+          "x": 54.1456,
+          "y": 184
+        },
+        "props": {
+          "options": " ",
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.dropdown"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}

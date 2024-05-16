@@ -1,0 +1,79 @@
+{
+  "scope": "DG",
+  "version": 2,
+  "restricted": false,
+  "overridable": true,
+  "files": [
+    "query.sql"
+  ],
+  "attributes": {
+    "useMaxReturnSize": false,
+    "autoBatchEnabled": false,
+    "fallbackValue": "",
+    "maxReturnSize": 300,
+    "cacheUnit": "SEC",
+    "type": "UpdateQuery",
+    "enabled": true,
+    "cacheAmount": 1,
+    "cacheEnabled": false,
+    "database": "JE_MES",
+    "fallbackEnabled": false,
+    "lastModificationSignature": "54d8b726a7491f70a3b8d60a466650c3f01a31f9c45d691d9e3781f93870e68d",
+    "permissions": [
+      {
+        "zone": "",
+        "role": ""
+      },
+      {
+        "zone": "",
+        "role": ""
+      }
+    ],
+    "lastModification": {
+      "actor": "admin",
+      "timestamp": "2023-01-05T04:10:51Z"
+    },
+    "parameters": [
+      {
+        "type": "Parameter",
+        "identifier": "WorkflowId",
+        "sqlType": 2
+      },
+      {
+        "type": "Parameter",
+        "identifier": "WOQty",
+        "sqlType": 2
+      },
+      {
+        "type": "Parameter",
+        "identifier": "WoNumber",
+        "sqlType": 7
+      },
+      {
+        "type": "Parameter",
+        "identifier": "UserId",
+        "sqlType": 2
+      },
+      {
+        "type": "Parameter",
+        "identifier": "Status",
+        "sqlType": 6
+      },
+      {
+        "type": "Parameter",
+        "identifier": "scanBadgeText",
+        "sqlType": 7
+      },
+      {
+        "type": "Parameter",
+        "identifier": "WorkflowOperationsId",
+        "sqlType": 2
+      },
+      {
+        "type": "Parameter",
+        "identifier": "machineId",
+        "sqlType": 2
+      }
+    ]
+  }
+}

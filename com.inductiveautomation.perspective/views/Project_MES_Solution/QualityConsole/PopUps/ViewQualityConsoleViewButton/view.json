@@ -1,0 +1,118 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\tdict\u003dself.params.rowData\n\tif dict!\u003d\u0027\u0027 and dict!\u003dNone:\n\t  self.session.custom.InspectionId \u003d dict.get(\u0027InspectionId\u0027)"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "column": "value",
+    "columnIndex": "value",
+    "row": "value",
+    "rowData": "value",
+    "rowIndex": "value",
+    "value": "value"
+  },
+  "propConfig": {
+    "params.column": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.columnIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.row": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.value": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 35,
+      "width": 84
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": [
+              {
+                "config": {
+                  "script": "\tdict\u003dself.view.params.rowData\n\tif dict!\u003d\u0027\u0027 and dict!\u003dNone:\n\t\tself.session.custom.manuallyTrigger\u003d1\n\t\tself.session.custom.InspectionId \u003d dict.get(\u0027InspectionId\u0027)"
+                },
+                "scope": "G",
+                "type": "script"
+              },
+              {
+                "config": {
+                  "params": {
+                    "dsTbloptr": "{view.params.rowData}",
+                    "rowData": "{view.params.rowData}"
+                  },
+                  "view": "Project_MES_Solution/QualityConsole/PopUps/QualityConsWOSel"
+                },
+                "scope": "C",
+                "type": "nav"
+              }
+            ]
+          }
+        },
+        "meta": {
+          "name": "Button"
+        },
+        "position": {
+          "height": 0.9714,
+          "rotate": {
+            "anchor": "-77% 12%"
+          },
+          "width": 0.9762,
+          "x": -0.0119,
+          "y": 0.0143
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#00000000",
+            "borderStyle": "none",
+            "fontFamily": "Arial"
+          },
+          "text": "View",
+          "textStyle": {
+            "color": "#4747FF",
+            "fontFamily": "Arial",
+            "fontSize": 12,
+            "fontWeight": "bold"
+          }
+        },
+        "type": "ia.input.button"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

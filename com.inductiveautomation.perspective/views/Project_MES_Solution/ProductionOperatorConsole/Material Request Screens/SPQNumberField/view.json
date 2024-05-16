@@ -1,0 +1,107 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\trowData\u003dself.params.rowData\n\t\tSelctedRow\u003dself.params.rowIndex\n\t\tcolumnName\u003dself.params.column\n\t\tFlag\u003drowData[\u0027Flag\u0027]\n\t\tspqNumber\u003drowData[\u0027SPQRequired\u0027]\n\n\t\tif str(columnName).strip()\u003d\u003d\u0027SPQRequired\u0027:\n\t\t\tif Flag !\u003d int(1):\n\t\t\t\tself.getChild(\"root\").getChild(\"txtValue\").props.enabled \u003d 1\n\t\t\t\tself.getChild(\"root\").getChild(\"txtValue\").props.style.backgroundColor \u003d \"#FFFFF\"\n\t\t\t\tself.getChild(\"root\").getChild(\"txtValue\").props.value\u003dspqNumber\n\t\t\telse:\n\t\t\t\tself.getChild(\"root\").getChild(\"txtValue\").props.enabled \u003d 0\n\t\t\t\tself.getChild(\"root\").getChild(\"txtValue\").props.style.backgroundColor\u003d \"#E2EEFB\"\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: SPQ NumberField || On startup || \u0027:\"+ str(exc_obj) + \" || Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "column": "value",
+    "columnIndex": "value",
+    "row": "value",
+    "rowData": "value",
+    "rowIndex": "value"
+  },
+  "propConfig": {
+    "params.column": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.columnIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.row": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 34,
+      "width": 108
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\n\t\tupdatedValue\u003dself.props.value\n\t\tds\u003dself.view.params.rowData\n\t\tSelctedRow\u003dself.view.params.rowIndex\n\t\tcolumnName\u003dself.view.params.column\n\t\tif updatedValue \u003e 0:\n\t\t\tmessageType \u003d \u0027updateSPQNumber\u0027\n\t\t\tsystem.perspective.sendMessage(messageType, payload \u003d {\"columnName\":columnName,\"updatedValue\":updatedValue,\"SelctedRow\":SelctedRow}, scope \u003d \"page\")\n#\t\t\tsystem.perspective.print(\"Message Handler Sent to Table To Update the Table\")\n\t\telse:\n\t\t\tspqNumber\u003dds[\u0027SPQRequired\u0027]\n\t\t\tself.props.value\u003dspqNumber\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: SPQ NumberField || On Action || \u0027:\"+ str(exc_obj) + \" || Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "txtValue",
+          "visible": 1
+        },
+        "position": {
+          "height": 0.9118,
+          "width": 0.8611,
+          "x": 0.0648
+        },
+        "props": {
+          "align": "center",
+          "format": "none",
+          "spinner": {
+            "enabled": false
+          },
+          "style": {
+            "backgroundColor": "#FFFFFF",
+            "textAlign": "center"
+          }
+        },
+        "scripts": {
+          "customMethods": [],
+          "extensionFunctions": null,
+          "messageHandlers": [
+            {
+              "messageType": "RequestDateValidation",
+              "pageScope": true,
+              "script": "\ttry:\n\t\tspqValueOld \u003d payload[\u0027spqValueOld\u0027]\n\t\tselRow \u003d payload[\u0027selRow\u0027]\n\t\tselColumn \u003d payload[\u0027selColumn\u0027]\n\t\ttry:\n\t\t\trowData\u003dself.view.params.rowData\n\t\t\tSelctedRow\u003dself.view.params.rowIndex\n\t\t\tcolumnName\u003dself.view.params.column\n\t\t\tFlag\u003drowData[\u0027Flag\u0027]\n\t\t\tspqNumber\u003drowData[\u0027SPQRequired\u0027]\n\t\t\t\n\t\t\tif str(columnName).strip()\u003d\u003d\u0027SPQRequired\u0027:\n\t\t\t\tif spqNumber \u003d\u003d 0:\n\t\t\t\t\tself.props.value\u003d\u0027\u0027\n\t\t\t\telse:\n\t\t\t\t\tself.props.value\u003dspqNumber\n\t\t\telse:\n\t\t\t\tpass\n\t\texcept:\n\t\t\tpass\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: SPQ NumberField || On Message Handler || \u0027:\"+ str(exc_obj) + \" || Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)",
+              "sessionScope": false,
+              "viewScope": false
+            }
+          ]
+        },
+        "type": "ia.input.numeric-entry-field"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

@@ -1,0 +1,188 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\timport time\n\ttime.sleep(3)\n\tsystem.perspective.closePopup(\u0027MessagePopup\u0027)\n#\tfrom threading import Timer\n#\tdef runThisLater():\n#\t\tsystem.perspective.closePopup(\u0027MessagePopup\u0027)\n#\tTimer(3, runThisLater).start()"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "ErrorVisible": "",
+    "MessageText": "",
+    "SuccessVisible": ""
+  },
+  "propConfig": {
+    "params.ErrorVisible": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.MessageText": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.SuccessVisible": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 122,
+      "width": 247
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 0.1624,
+          "width": 1,
+          "x": -0.0014
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Message Box",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 10,
+            "textAlign": "Center",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "IcnError"
+        },
+        "position": {
+          "height": 0.3642,
+          "width": 0.2446,
+          "x": 0.3758,
+          "y": 0.2401
+        },
+        "propConfig": {
+          "meta.visible": {
+            "binding": {
+              "config": {
+                "path": "view.params.ErrorVisible"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "color": "#D90000",
+          "path": "material/error"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "IcnSuccess"
+        },
+        "position": {
+          "height": 0.4162,
+          "width": 0.2968,
+          "x": 0.3516,
+          "y": 0.2131
+        },
+        "propConfig": {
+          "meta.visible": {
+            "binding": {
+              "config": {
+                "path": "view.params.SuccessVisible"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "color": "#00D900",
+          "path": "material/check_circle"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "Label"
+        },
+        "position": {
+          "height": 0.3959,
+          "width": 0.781,
+          "x": 0.1182,
+          "y": 0.5482
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.MessageText"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "textStyle": {
+            "color": "#2B2B2B",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Icon"
+        },
+        "position": {
+          "height": 0.1523,
+          "width": 0.0865,
+          "x": 0.9035,
+          "y": 0.0051
+        },
+        "props": {
+          "color": "#FFFFFF",
+          "path": "material/close"
+        },
+        "type": "ia.display.icon"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

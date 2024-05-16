@@ -1,0 +1,82 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\t\n\tds\u003dself.view.params.rowData\n\tSelctedRow\u003dself.view.params.rowIndex\n\tcolumnName\u003dself.view.params.column\n\t\n\tInstrumentSerialNumber\u003dds[\u0027InstrumentSerialNumber\u0027]\n#\t\tself.getChild(\"root\").getChild(\"txtInstrumentSerialNo\").text\u003dInstrumentSerialNumber\n\tself.getChild(\"root\").getChild(\"txtInstrumentSerialNo\").props.text\u003dInstrumentSerialNumber"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "column": "value",
+    "columnIndex": "value",
+    "row": "value",
+    "rowData": "value",
+    "rowIndex": "value"
+  },
+  "propConfig": {
+    "params.column": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.columnIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.row": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 29,
+      "width": 163
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "txtInstrumentSerialNo",
+          "visible": 1
+        },
+        "position": {
+          "height": 28,
+          "width": 156,
+          "x": 2
+        },
+        "propConfig": {
+          "props.text": {
+            "onChange": {
+              "enabled": null,
+              "script": "\t\n\tNo\u003dstr(self.props.text)\n\tif str(No).strip()!\u003d\u0027\u0027 or str(No).strip()!\u003d\u0027None\u0027:\n\t\tds\u003dself.view.params.rowData\n\t\tds\u003dself.view.params.rowData\n\t\tSelctedRow\u003dself.view.params.rowIndex\n\t\tcolumnName\u003dself.view.params.column\n\t\tds\u003dself.view.params.rowData\n#\t\tif No \u003e 0:\n\t\tmessageType \u003d \u0027QualityCharConsoleTable\u0027\n\t\tsystem.perspective.sendMessage(messageType, payload \u003d {\"columnName\":columnName,\"ChangeValue\":No,\"SelctedRow\":SelctedRow,\"rowData\":ds}, scope \u003d \"page\")\n"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.input.text-field"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}

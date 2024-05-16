@@ -1,0 +1,95 @@
+{
+  "custom": {},
+  "params": {
+    "rowData": "",
+    "rowIndex": "",
+    "value": 0
+  },
+  "propConfig": {
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.value": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 34,
+      "width": 106
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\t\t\t\n\t\tvalue\u003dfloat(self.props.value)\n\t\trowindex\u003dself.view.params.rowIndex\n\t\trowData\u003dself.view.params.rowData\n\t\tSelctedRow\u003drowindex\t\t\t\n\t\tmessageType1 \u003d \u0027UpdateNoofContainers\u0027\n\t\tsystem.perspective.sendMessage(messageType1, payload \u003d {\"value\":value,\"SelctedRowIndex\":rowindex}, scope \u003d \"page\")\n\n\t\n\texcept:\n\t\t\tsystem.perspective.print(\u0027Exception:Update Scrap\u0027)\n\t\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\t\tsystem.perspective.print(errorMessage)\n\t\t\tlineno \u003d tb.tb_lineno\n\t\t\tsystem.perspective.print(lineno)\n\t\t\tsys.exit()\t\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "NumericEntryField"
+        },
+        "position": {
+          "height": 0.8824,
+          "width": 0.9057,
+          "x": 0.0621,
+          "y": 0.0374
+        },
+        "propConfig": {
+          "props.placeholder": {
+            "binding": {
+              "config": {
+                "path": "view.params.value"
+              },
+              "type": "property"
+            }
+          },
+          "props.value": {
+            "binding": {
+              "config": {
+                "path": "view.params.value"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "align": "center",
+          "inputBounds": {
+            "minimum": 0
+          },
+          "style": {
+            "backgroundColor": "#F5FFFF",
+            "borderStyle": "solid",
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.input.numeric-entry-field"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -0.4151,
+      "y": 1.0588
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

@@ -1,0 +1,275 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\tself.getChild(\"root\").getChild(\"TxtComment\").focus()\t"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "rowData": "value"
+  },
+  "propConfig": {
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 185,
+      "width": 371
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 32,
+          "width": 368
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Complete CLRI ",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 15,
+            "fontWeight": "bold",
+            "margin": 70,
+            "textAlign": "Center",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 30,
+          "width": 30,
+          "x": 332.938
+        },
+        "props": {
+          "path": "material/close",
+          "style": {
+            "color": "#FFFFFF",
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          },
+          "dom": {
+            "onClick": {
+              "config": {
+                "draggable": false,
+                "id": "uf01-dte",
+                "modal": true,
+                "overlayDismiss": false,
+                "resizable": false,
+                "showCloseIcon": false,
+                "type": "close",
+                "viewPath": "Project_MES_Solution/OperatorConsole/PopUps/ResumeOpsPopup",
+                "viewportBound": false
+              },
+              "scope": "C",
+              "type": "popup"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnCancel",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Click to Cancel"
+          }
+        },
+        "position": {
+          "height": 34,
+          "width": 80,
+          "x": 58.438,
+          "y": 127
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "classes": "Common/Button"
+          },
+          "text": "Cancel"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\tscriptName \u003d \"CLRI : Resume Operation: Hold Button\"\n\t\t\n\n\t\tuserID \u003d self.session.custom.UserId\n\t\t\n\t\tscriptName \u003d \"CLRI: Start Operation: Yes Button: On Click\"\n\t\tTabledata\u003dself.view.params.rowData\n\t\tCLRIID \u003d  (Tabledata.get(\"ID\"))\n\t\tuserID \u003d self.session.custom.UserId\n\t\tMachineId\u003dself.session.custom.MachineID\n\t\tReasonCategoryId\u003d0\n\t\tReasonCodeId\u003d0\n\t\tstatusId \u003d 3\n\t\tReasonCodeComments\u003d self.getSibling(\"TxtComment\").props.text\n\t\tReasonCodeComments\u003d(ReasonCodeComments).strip()\n\t\ttry:\n\t\t\tscriptName \u003d \"CLRI: Complete Operation Button\"\n\t\t\tpostAssignDetails \u003d CLRIConsole.OperationStatusConformation(CLRIID,statusId,MachineId,userID,ReasonCategoryId,ReasonCodeId,ReasonCodeComments)\n\t\t\tsystem.perspective.print(\"postAssignDetails \"+str(postAssignDetails))\n\t\t\tif postAssignDetails\u003d\u003d1 or str(postAssignDetails)\u003d\u003d\u00271\u0027:\n#\t\t\t\tself.session.custom.WOOperationStatus\u003d\u0027In-Progress\u0027\n\t\t\t\tself.session.custom.WOOperationStatus\u003d\u0027Completed\u0027\n\t\t\t\tsystem.perspective.sendMessage(\"CLRIStatusforSingleRow\", scope\u003d\u0027page\u0027)\n\t\t\t\tsystem.perspective.print(\"Assigned Successfullt Send Message handler\")\n\n\t\t\t\tself.session.custom.CLRIBackBtnH\u003d0\n\t\t\t\tself.session.custom.screenNavigateFlag\u003d0\n\t\t\t\tsystem.perspective.navigate(\u0027/CLRI\u0027)\n\t\t\tsystem.perspective.closePopup(\u0027\u0027)\n\t\texcept:\n\t\t\timport sys, os\n\t\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\t\tAuthentication.exceptionLogger(errorMessage)\n\t\t\t\n\t\tsystem.perspective.closePopup(\u0027\u0027)\t\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnOk",
+          "tooltip": {
+            "location": "bottom-left",
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Click to Resume"
+          }
+        },
+        "position": {
+          "height": 34,
+          "width": 80,
+          "x": 227,
+          "y": 127
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "expression": "now(1000)"
+              },
+              "enabled": false,
+              "transforms": [
+                {
+                  "code": "\tcommentTxt \u003d self.getSibling(\"TxtComment\").props.text\t\n\tif (commentTxt!\u003d\u0027\u0027):\n\t\tvalue \u003d True\n\t\tself.props.style.backgroundColor \u003d \"#3888CC\"\n\telse:\n\t\tvalue \u003d False\n\t\tself.props.style.backgroundColor \u003d str(self.session.custom.disableBtncolour)\n\t\tself.props.style.borderColor \u003d  str(self.session.custom.disableBtncolour)\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "backgroundColor": "value",
+            "borderColor": "value",
+            "classes": "Common/Button"
+          },
+          "text": "Complete"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "LblComment"
+        },
+        "position": {
+          "height": 32,
+          "width": 95,
+          "x": 14,
+          "y": 35
+        },
+        "props": {
+          "text": "Comment",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "TxtComment"
+        },
+        "position": {
+          "height": 32,
+          "width": 337,
+          "x": 14,
+          "y": 70
+        },
+        "props": {
+          "deferUpdates": false,
+          "placeholder": "Add Comment",
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "LblMsgScan_1",
+          "visible": false
+        },
+        "position": {
+          "height": 24,
+          "width": 10,
+          "x": 77,
+          "y": 42
+        },
+        "props": {
+          "alignVertical": "top",
+          "style": {
+            "classes": "Common/Label_WithOutBackground"
+          },
+          "text": "*",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground",
+            "color": "#FF4747"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "style": {
+        "classes": "Panel/PopUp"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "custom": {},
+  "params": {
+    "rowData": "",
+    "rowIndex": "",
+    "value": ""
+  },
+  "propConfig": {
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.value": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 34,
+      "width": 91
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\t\t\t\n\t\tvalue\u003dself.props.value\n\t\trowindex\u003dself.view.params.rowIndex\n#\t\tsystem.perspective.print(\u0027Rowindex \u0027+ str(rowindex))\n\t\trowData\u003dself.view.params.rowData\n\t\tSelctedRow\u003drowData[\u0027Sr No\u0027]\n#\t\tsystem.perspective.print(\u0027SelctedRow\u0027+ str(SelctedRow))\n\t\tSelctedRow\u003drowindex\t\t\t\n\t\tmessageType1 \u003d \u0027updatePEAScrap\u0027\n\t\tsystem.perspective.sendMessage(messageType1, payload \u003d {\"value\":value,\"SelctedRowIndex\":rowindex}, scope \u003d \"page\")\n#\t\tmessageType2 \u003d \u0027updateCell\u0027\n#\t\tsystem.perspective.sendMessage(messageType2, payload \u003d {\"value\":value,\"SelctedRowIndex\":rowindex}, scope \u003d \"page\")\n#\t\tself.props.value\u003d0\n\t\n\texcept:\n\t\t\tsystem.perspective.print(\u0027Exception:Update PEA Scrap\u0027)\n\t\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\t\tsystem.perspective.print(errorMessage)\n\t\t\tlineno \u003d tb.tb_lineno\n\t\t\tsystem.perspective.print(lineno)\n\t\t\tsys.exit()\t\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "NumericEntryField"
+        },
+        "position": {
+          "height": 0.9412,
+          "width": 0.9011,
+          "x": 0.0584,
+          "y": -0.0209
+        },
+        "propConfig": {
+          "props.placeholder": {
+            "binding": {
+              "config": {
+                "path": "view.params.value"
+              },
+              "type": "property"
+            }
+          },
+          "props.value": {
+            "binding": {
+              "config": {
+                "path": "view.params.value"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "align": "center",
+          "containerStyle": {
+            "backgroundColor": "#C01D1D",
+            "fontFamily": "Arial"
+          },
+          "format": "0,0.0000",
+          "style": {
+            "backgroundColor": "#FFFFFF",
+            "borderStyle": "none",
+            "textAlign": "center"
+          },
+          "tooltipText": "Add Scrap by unit"
+        },
+        "type": "ia.input.numeric-entry-field"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

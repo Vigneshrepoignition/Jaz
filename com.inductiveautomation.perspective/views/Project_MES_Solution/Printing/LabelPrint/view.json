@@ -1,0 +1,142 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\tself.session.custom.printFile\u003d\u0027\u0027\n\tself.getChild(\"root\").getChild(\"CoordinateContainer\").getChild(\"lblMessage\").props.text\u003d\u0027\u0027\n\tself.getChild(\"root\").getChild(\"CoordinateContainer\").getChild(\"Button\").props.enabled\u003d0"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "props": {},
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "events": {
+              "component": {
+                "onFileReceived": {
+                  "config": {
+                    "script": "\timport os\n\tself.session.custom.printFile\u003d\u0027\u0027\n\tfile_path \u003d event.file.name\n\tfiledata \u003d event.file.getBytes()\n\tfilestring\u003devent.file.getString()\n\tself.getSibling(\"lblMessage\").props.text\u003d\u0027\u0027\n\tfile_extension \u003d os.path.splitext(file_path)[1]\n\tif file_extension.lower() \u003d\u003d \".prn\":\n\t\tself.session.custom.printFile\u003dstr(filestring)\n\t\tself.getSibling(\"Button\").props.enabled\u003d1\n\telse:\n\t\tself.getSibling(\"Button\").props.enabled\u003d0\n\t\t\n\t\t\n"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                },
+                "onUploadsCleared": {
+                  "config": {
+                    "script": "\tself.session.custom.printFile\u003d\u0027\u0027\n\tself.getSibling(\"Button\").props.enabled\u003d0\n\tself.getSibling(\"lblMessage\").props.text\u003d\u0027\u0027"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "FileUpload"
+            },
+            "position": {
+              "height": 0.1675,
+              "width": 0.3946,
+              "x": 0.0097,
+              "y": 0.1327
+            },
+            "props": {
+              "supportedFileTypes": [
+                "prn"
+              ]
+            },
+            "type": "ia.input.fileupload"
+          },
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\tprintFile\u003dself.session.custom.printFile\n#\tresult\u003dPrint.printingServer(printFile)\n\tresult\u003dPrint.printingServerUploadFile(printFile)\n\tif result\u003d\u003d1 or result\u003d\u003dTrue:\n\t\tself.getSibling(\"lblMessage\").props.text\u003d\u0027Print Successfully Done\u0027\n\telse:\n\t\tself.getSibling(\"lblMessage\").props.text\u003d\u0027Print Not Done\u0027\n\t"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Button"
+            },
+            "position": {
+              "height": 0.0564,
+              "rotate": {
+                "anchor": "-150% 332%"
+              },
+              "width": 0.0974,
+              "x": 0.4116,
+              "y": 0.141
+            },
+            "props": {
+              "enabled": 0,
+              "text": "Print"
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "meta": {
+              "name": "lblHeader"
+            },
+            "position": {
+              "height": 0.0531,
+              "width": 0.3398,
+              "x": 0.0121,
+              "y": 0.0199
+            },
+            "props": {
+              "text": "V - PRN File Manual Testing",
+              "textStyle": {
+                "classes": "Common/Label_Header"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "lblMessage"
+            },
+            "position": {
+              "height": 0.0531,
+              "rotate": {
+                "anchor": "0% 25%"
+              },
+              "width": 0.3033,
+              "x": 0.0199,
+              "y": 0.3101
+            },
+            "props": {
+              "textStyle": {
+                "classes": "Common/Label_WithOutBackground"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "CoordinateContainer"
+        },
+        "position": {
+          "height": 603,
+          "width": 821
+        },
+        "props": {
+          "mode": "percent"
+        },
+        "type": "ia.container.coord"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}

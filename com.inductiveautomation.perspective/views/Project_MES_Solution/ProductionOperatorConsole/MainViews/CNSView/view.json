@@ -1,0 +1,434 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 557,
+      "width": 1594
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Dashboard"
+        },
+        "position": {
+          "height": 0.4444,
+          "width": 0.9875,
+          "x": 0.0096,
+          "y": 0.0195
+        },
+        "props": {
+          "editingToggle": false,
+          "stretch": {
+            "columnCount": 12
+          },
+          "style": {
+            "borderStyle": "none"
+          },
+          "widgets": [
+            {
+              "body": {
+                "style": {
+                  "classes": ""
+                }
+              },
+              "header": {
+                "enabled": true,
+                "style": {
+                  "classes": "Widgets/WidgetsHeader"
+                },
+                "title": "Workorder Information"
+              },
+              "isConfigurable": false,
+              "minSize": {
+                "columnSpan": 1,
+                "rowSpan": 1
+              },
+              "name": "Workorder Information",
+              "position": {
+                "columnEnd": 5,
+                "columnStart": 1,
+                "rowEnd": 10,
+                "rowStart": 1
+              },
+              "style": {
+                "classes": ""
+              },
+              "viewParams": {},
+              "viewPath": "Project_MES_Solution/ProductionOperatorConsole/Modules/WorkOrderInformation"
+            },
+            {
+              "body": {
+                "style": {
+                  "classes": ""
+                }
+              },
+              "header": {
+                "enabled": true,
+                "style": {
+                  "classes": "Widgets/WidgetsHeader"
+                },
+                "title": "Quality Alerts"
+              },
+              "isConfigurable": false,
+              "minSize": {
+                "columnSpan": 1,
+                "rowSpan": 1
+              },
+              "name": "Quality Alerts",
+              "position": {
+                "columnEnd": 9,
+                "columnStart": 5,
+                "rowEnd": 10,
+                "rowStart": 1
+              },
+              "style": {
+                "classes": ""
+              },
+              "viewParams": {},
+              "viewPath": "Project_MES_Solution/ProductionOperatorConsole/Modules/LotInformation"
+            },
+            {
+              "body": {
+                "style": {
+                  "classes": ""
+                }
+              },
+              "header": {
+                "enabled": true,
+                "style": {
+                  "classes": "Widgets/WidgetsHeader"
+                },
+                "title": "Machine Alarms"
+              },
+              "isConfigurable": false,
+              "minSize": {
+                "columnSpan": 1,
+                "rowSpan": 1
+              },
+              "name": "",
+              "position": {
+                "columnEnd": 13,
+                "columnStart": 9,
+                "rowEnd": 10,
+                "rowStart": 1
+              },
+              "style": {
+                "classes": ""
+              },
+              "viewParams": {},
+              "viewPath": "Project_MES_Solution/ProductionOperatorConsole/Modules/MachineStatus"
+            }
+          ]
+        },
+        "type": "ia.display.dashboard"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "draggable": false,
+                "id": "vDlcGKVx",
+                "modal": true,
+                "overlayDismiss": false,
+                "resizable": false,
+                "showCloseIcon": false,
+                "type": "open",
+                "viewPath": "Project_MES_Solution/ProductionOperatorConsole/PopUps/MachineParams",
+                "viewportBound": false
+              },
+              "scope": "C",
+              "type": "popup"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnReprint",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Click To Hold"
+          },
+          "visible": false
+        },
+        "position": {
+          "height": 0.0808,
+          "width": 0.0577,
+          "x": 0.8686,
+          "y": 0.0304
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "classes": "Common/Button"
+          },
+          "text": "View Machine Params",
+          "textStyle": {
+            "fontSize": 12
+          }
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "draggable": false,
+                "id": "d7cDUbKC",
+                "modal": false,
+                "overlayDismiss": true,
+                "resizable": false,
+                "showCloseIcon": true,
+                "type": "open",
+                "viewPath": "Project_MES_Solution/ProductionOperatorConsole/MainViews/PackingDetailsView",
+                "viewportBound": false
+              },
+              "scope": "C",
+              "type": "popup"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnReprint_0",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Click To Hold"
+          },
+          "visible": false
+        },
+        "position": {
+          "height": 0.07,
+          "width": 0.0657,
+          "x": 0.7302,
+          "y": 0.8972
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "classes": "Common/Button"
+          },
+          "text": "Print Label"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "Dashboard_0"
+        },
+        "position": {
+          "height": 0.5063,
+          "width": 0.9875,
+          "x": 0.0096,
+          "y": 0.4613
+        },
+        "props": {
+          "editingToggle": false,
+          "stretch": {
+            "columnCount": 12
+          },
+          "style": {
+            "borderStyle": "none"
+          },
+          "widgets": [
+            {
+              "body": {
+                "style": {
+                  "classes": ""
+                }
+              },
+              "header": {
+                "enabled": true,
+                "style": {
+                  "classes": "Widgets/WidgetsHeader"
+                },
+                "title": "Tool Information"
+              },
+              "isConfigurable": false,
+              "minSize": {
+                "columnSpan": 1,
+                "rowSpan": 1
+              },
+              "name": "Tool Information",
+              "position": {
+                "columnEnd": 5,
+                "columnStart": 1,
+                "rowEnd": 10,
+                "rowStart": 1
+              },
+              "style": {
+                "classes": ""
+              },
+              "viewParams": {},
+              "viewPath": "Project_MES_Solution/ProductionOperatorConsole/Modules/MoldInformationSwipe"
+            },
+            {
+              "body": {
+                "style": {
+                  "classes": ""
+                }
+              },
+              "header": {
+                "enabled": true,
+                "style": {
+                  "classes": "Widgets/WidgetsHeader"
+                },
+                "title": "PM Tool Details"
+              },
+              "isConfigurable": false,
+              "minSize": {
+                "columnSpan": 1,
+                "rowSpan": 1
+              },
+              "name": "PM Tool Details",
+              "position": {
+                "columnEnd": 9,
+                "columnStart": 5,
+                "rowEnd": 10,
+                "rowStart": 1
+              },
+              "style": {
+                "classes": ""
+              },
+              "viewParams": {},
+              "viewPath": "Project_MES_Solution/ProductionOperatorConsole/Modules/ToolInformationSwipe"
+            },
+            {
+              "body": {
+                "style": {
+                  "classes": ""
+                }
+              },
+              "header": {
+                "enabled": true,
+                "style": {
+                  "classes": "Widgets/WidgetsHeader"
+                },
+                "title": "Scheduled Workorders"
+              },
+              "isConfigurable": false,
+              "minSize": {
+                "columnSpan": 1,
+                "rowSpan": 1
+              },
+              "name": "Scheduled Workorders",
+              "position": {
+                "columnEnd": 13,
+                "columnStart": 9,
+                "rowEnd": 10,
+                "rowStart": 1
+              },
+              "style": {
+                "classes": ""
+              },
+              "viewParams": {},
+              "viewPath": "Project_MES_Solution/ProductionOperatorConsole/Modules/RunningWoSwipe"
+            }
+          ]
+        },
+        "type": "ia.display.dashboard"
+      },
+      {
+        "meta": {
+          "name": "LblMachine_0",
+          "visible": false
+        },
+        "position": {
+          "height": 0.0677,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.0796,
+          "x": 0.9031,
+          "y": 0.4901
+        },
+        "props": {
+          "text": "Lot No: Lot001",
+          "textStyle": {
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Icon",
+          "visible": false
+        },
+        "position": {
+          "height": 0.0359,
+          "width": 0.0226,
+          "x": 0.6844,
+          "y": 0.5634
+        },
+        "props": {
+          "path": "material/east"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "Checkbox",
+          "visible": false
+        },
+        "position": {
+          "height": 0.0485,
+          "width": 0.1142,
+          "x": 0.5352,
+          "y": 0.6031
+        },
+        "propConfig": {
+          "props.selected": {
+            "binding": {
+              "config": {
+                "path": "session.custom.ComponentValidation"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "checkedIcon": {
+            "color": {
+              "enabled": "#00AC00"
+            }
+          },
+          "style": {
+            "fontSize": 12
+          },
+          "text": "Raw Material Feeding",
+          "uncheckedIcon": {
+            "color": {
+              "enabled": "#00AC00"
+            }
+          }
+        },
+        "type": "ia.input.checkbox"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -0.0778,
+      "y": -0.009
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

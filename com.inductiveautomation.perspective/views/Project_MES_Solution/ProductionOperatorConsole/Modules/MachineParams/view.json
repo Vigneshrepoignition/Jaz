@@ -1,0 +1,356 @@
+{
+  "custom": {},
+  "params": {
+    "Cavity": "value",
+    "MachineCode": "",
+    "MachineShots": "value",
+    "MoldCode": "value",
+    "Piece": "value",
+    "ShortRangeMin": "value"
+  },
+  "propConfig": {
+    "params.Cavity": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.MachineCode": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.MachineShots": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.MoldCode": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Piece": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.ShortRangeMin": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 239,
+      "width": 327
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblCavity"
+        },
+        "position": {
+          "height": 0.1376,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.1401,
+          "x": 0.0191,
+          "y": 0.346
+        },
+        "props": {
+          "text": "Cavity",
+          "textStyle": {
+            "classes": "Widgets/WidgetsLabel",
+            "textAlign": "Widgets/WidgetsLabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblPiece"
+        },
+        "position": {
+          "height": 0.1376,
+          "rotate": {
+            "anchor": "-167% 40%"
+          },
+          "width": 0.1752,
+          "x": 0.3986,
+          "y": 0.346
+        },
+        "props": {
+          "text": "Piece",
+          "textStyle": {
+            "classes": "Widgets/WidgetsLabel",
+            "textAlign": "Widgets/WidgetsLabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblMachineShots"
+        },
+        "position": {
+          "height": 0.1351,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.2722,
+          "x": 0.7122,
+          "y": 0.346
+        },
+        "props": {
+          "text": "Machine Shots",
+          "textStyle": {
+            "classes": "Widgets/WidgetsLabel",
+            "textAlign": "left"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblCavityValue",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 0.096,
+          "width": 0.143,
+          "x": 0.0191,
+          "y": 0.4912
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.Cavity"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "textStyle": {
+            "classes": "Widgets/WidgetsData"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblPieceValue",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 0.096,
+          "width": 0.143,
+          "x": 0.3986,
+          "y": 0.4912
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.Piece"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "textStyle": {
+            "classes": "Widgets/WidgetsData"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblMachineShotsValue",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 0.1043,
+          "width": 0.2569,
+          "x": 0.7122,
+          "y": 0.5005
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.MachineShots"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "textStyle": {
+            "classes": "Widgets/WidgetsData"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblMachine"
+        },
+        "position": {
+          "height": 0.1376,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.2738,
+          "x": 0.0192,
+          "y": 0.0116
+        },
+        "props": {
+          "text": "Machine Code",
+          "textStyle": {
+            "classes": "Widgets/WidgetsLabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblMachineValue",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 0.1224,
+          "width": 0.3908,
+          "x": 0.0192,
+          "y": 0.1447
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.MachineCode"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "textStyle": {
+            "classes": "Widgets/WidgetsData"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblMaxShots"
+        },
+        "position": {
+          "height": 0.1266,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.0554,
+          "x": 0.8937,
+          "y": 0.6044
+        },
+        "props": {
+          "text": "Max",
+          "textStyle": {
+            "classes": "Widgets/WidgetsLabel",
+            "fontFamily": "Arial",
+            "fontSize": 10
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblMin"
+        },
+        "position": {
+          "height": 0.1266,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.0554,
+          "x": 0.0369,
+          "y": 0.6044
+        },
+        "props": {
+          "text": "Min",
+          "textStyle": {
+            "classes": "Widgets/WidgetsLabel",
+            "fontFamily": "Arial",
+            "fontSize": 10
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblMinValue",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 0.096,
+          "width": 0.0554,
+          "x": 0.0403,
+          "y": 0.6984
+        },
+        "props": {
+          "text": 0,
+          "textStyle": {
+            "classes": "Widgets/WidgetsData"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblMaxValue",
+          "tooltip": {
+            "location": "bottom-right"
+          }
+        },
+        "position": {
+          "height": 0.096,
+          "width": 0.1446,
+          "x": 0.8415,
+          "y": 0.6984
+        },
+        "props": {
+          "text": 160000,
+          "textStyle": {
+            "classes": "Widgets/WidgetsData"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -0.1835,
+      "y": 0.0042
+    },
+    "props": {
+      "mode": "percent",
+      "style": {
+        "classes": "\n"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

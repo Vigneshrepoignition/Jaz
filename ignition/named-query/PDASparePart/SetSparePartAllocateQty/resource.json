@@ -1,0 +1,65 @@
+{
+  "scope": "DG",
+  "version": 2,
+  "restricted": false,
+  "overridable": true,
+  "files": [
+    "query.sql"
+  ],
+  "attributes": {
+    "useMaxReturnSize": false,
+    "autoBatchEnabled": false,
+    "fallbackValue": "",
+    "maxReturnSize": 100,
+    "cacheUnit": "SEC",
+    "type": "UpdateQuery",
+    "enabled": true,
+    "cacheAmount": 1,
+    "cacheEnabled": false,
+    "database": "JEMESNEW",
+    "fallbackEnabled": false,
+    "lastModificationSignature": "4f9063298f6ee5f66bb35ee898293e5de9a6a15918b9732d57b9e7424a7ef0a2",
+    "permissions": [
+      {
+        "zone": "",
+        "role": ""
+      }
+    ],
+    "lastModification": {
+      "actor": "external",
+      "timestamp": "2024-05-16T06:24:23Z"
+    },
+    "parameters": [
+      {
+        "type": "Parameter",
+        "identifier": "value",
+        "sqlType": 3
+      },
+      {
+        "type": "Parameter",
+        "identifier": "requestId",
+        "sqlType": 3
+      },
+      {
+        "type": "Parameter",
+        "identifier": "warehouseId",
+        "sqlType": 3
+      },
+      {
+        "type": "Parameter",
+        "identifier": "receivedBy",
+        "sqlType": 7
+      },
+      {
+        "type": "Parameter",
+        "identifier": "createdBy",
+        "sqlType": 3
+      },
+      {
+        "type": "Parameter",
+        "identifier": "id",
+        "sqlType": 2
+      }
+    ]
+  }
+}

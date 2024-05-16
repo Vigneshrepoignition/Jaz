@@ -1,0 +1,493 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\t#Added to through the page to Login Screen when there is no any Admin Details ---\u003e \n\tusername \u003d self.session.custom.Username\n\tUserText \u003d str(self.getChild(\"root\").getChild(\"root\").getChild(\"ColumnContainer_3\").getChild(\"Label_3\").props.text)\n\t\n\tif username.strip() \u003d\u003d \"\" or UserText.strip()\u003d\u003d\"\":\n\t\tsystem.perspective.navigate(\"/LoginScreen\")\n\telse:\n\t\tpass"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 39,
+      "width": 376
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "page": "/"
+                      },
+                      "scope": "C",
+                      "type": "nav"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "Icon_4",
+                  "tooltip": {
+                    "enabled": true,
+                    "location": "bottom-left",
+                    "style": {
+                      "classes": "Common/ToolTip"
+                    },
+                    "text": "Click to Logout"
+                  }
+                },
+                "position": {
+                  "breakpoints": [
+                    {
+                      "colIndex": 10,
+                      "name": "sm",
+                      "order": 2,
+                      "rowIndex": 0,
+                      "span": 2
+                    },
+                    {
+                      "colIndex": 10,
+                      "name": "md",
+                      "order": 2,
+                      "rowIndex": 0,
+                      "span": 2
+                    },
+                    {
+                      "colIndex": 10,
+                      "name": "lg",
+                      "order": 2,
+                      "rowIndex": 0,
+                      "span": 2
+                    }
+                  ],
+                  "height": 28,
+                  "width": 0.0228,
+                  "x": 0.8841,
+                  "y": 0.087
+                },
+                "props": {
+                  "color": "#FFFFFF",
+                  "path": "material/person",
+                  "style": {
+                    "fontFamily": "Arial",
+                    "fontSize": 10
+                  }
+                },
+                "type": "ia.display.icon"
+              },
+              {
+                "meta": {
+                  "name": "Label_3"
+                },
+                "position": {
+                  "breakpoints": [
+                    {
+                      "colIndex": 3,
+                      "name": "sm",
+                      "order": 1,
+                      "rowIndex": 0,
+                      "span": 7
+                    },
+                    {
+                      "colIndex": 3,
+                      "name": "md",
+                      "order": 1,
+                      "rowIndex": 0,
+                      "span": 7
+                    },
+                    {
+                      "colIndex": 3,
+                      "name": "lg",
+                      "order": 1,
+                      "rowIndex": 0,
+                      "span": 6
+                    }
+                  ],
+                  "height": 28,
+                  "width": 0.058,
+                  "x": 0.9362,
+                  "y": 0.2229
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.Username"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "alignItems": "stretch",
+                    "color": "#FFFFFF",
+                    "fontSize": 12,
+                    "fontStretch": "expanded",
+                    "fontWeight": "normal",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "page": "/PDADashboard"
+                      },
+                      "scope": "C",
+                      "type": "nav"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "IcnHome",
+                  "tooltip": {
+                    "enabled": true,
+                    "location": "bottom-left",
+                    "style": {
+                      "classes": "Common/ToolTip"
+                    },
+                    "text": "Home"
+                  }
+                },
+                "position": {
+                  "breakpoints": [
+                    {
+                      "colIndex": 1,
+                      "name": "sm",
+                      "order": 0,
+                      "rowIndex": 0,
+                      "span": 2
+                    },
+                    {
+                      "colIndex": 0,
+                      "name": "md",
+                      "order": 0,
+                      "rowIndex": 0,
+                      "span": 2
+                    },
+                    {
+                      "colIndex": 0,
+                      "name": "lg",
+                      "order": 0,
+                      "rowIndex": 0,
+                      "span": 2
+                    }
+                  ],
+                  "height": 28,
+                  "width": 0.0228,
+                  "x": 0.8841,
+                  "y": 0.087
+                },
+                "props": {
+                  "color": "#FFFFFF",
+                  "path": "material/home",
+                  "style": {
+                    "fontFamily": "Arial",
+                    "fontSize": 10
+                  }
+                },
+                "type": "ia.display.icon"
+              }
+            ],
+            "meta": {
+              "name": "ColumnContainer_3",
+              "tooltip": {
+                "location": "bottom-right"
+              }
+            },
+            "position": {
+              "height": 28,
+              "width": 108,
+              "x": 259,
+              "y": -3.34
+            },
+            "props": {
+              "breakpoints": [
+                {
+                  "minWidth": 0,
+                  "name": "sm"
+                },
+                {
+                  "minWidth": 480,
+                  "name": "md"
+                },
+                {
+                  "minWidth": 998,
+                  "name": "lg"
+                }
+              ],
+              "gutters": {
+                "horizontal": 2,
+                "vertical": 1
+              },
+              "style": {
+                "margin": 6
+              }
+            },
+            "type": "ia.container.column"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "position": {
+                  "breakpoints": [
+                    {
+                      "colIndex": 0,
+                      "name": "sm",
+                      "order": 1,
+                      "rowIndex": 0,
+                      "span": 8
+                    },
+                    {
+                      "colIndex": 3,
+                      "name": "md",
+                      "order": 0,
+                      "rowIndex": 0,
+                      "span": 6
+                    },
+                    {
+                      "colIndex": 3,
+                      "name": "lg",
+                      "order": 0,
+                      "rowIndex": 0,
+                      "span": 6
+                    }
+                  ],
+                  "height": 30
+                },
+                "props": {
+                  "style": {
+                    "color": "#FFFFFF",
+                    "fontSize": "calc(0.4vw + 0.4vh + 0.4vmin + 0.4em)",
+                    "fontWeight": "normal"
+                  },
+                  "text": "FactoryMagix",
+                  "textStyle": {
+                    "fontSize": 14,
+                    "fontWeight": "900",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "Label_0"
+                },
+                "position": {
+                  "breakpoints": [
+                    {
+                      "colIndex": 8,
+                      "name": "sm",
+                      "order": 1,
+                      "rowIndex": 0,
+                      "span": 4
+                    },
+                    {
+                      "colIndex": 9,
+                      "name": "md",
+                      "order": 2,
+                      "rowIndex": 0,
+                      "span": 2
+                    },
+                    {
+                      "colIndex": 9,
+                      "name": "lg",
+                      "order": 2,
+                      "rowIndex": 0,
+                      "span": 2
+                    }
+                  ],
+                  "height": 32
+                },
+                "props": {
+                  "text": "Build 3.0.0",
+                  "textStyle": {
+                    "classes": "Login/ButtonText",
+                    "fontFamily": "Arial",
+                    "fontSize": 10,
+                    "fontStyle": "italic",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "ColumnContainer"
+            },
+            "position": {
+              "height": 32,
+              "width": 155,
+              "x": 2.8,
+              "y": 1.83
+            },
+            "props": {
+              "breakpoints": [
+                {
+                  "minWidth": 0,
+                  "name": "sm"
+                },
+                {
+                  "minWidth": 400,
+                  "name": "md"
+                },
+                {
+                  "minWidth": 998,
+                  "name": "lg"
+                }
+              ],
+              "gutters": {
+                "horizontal": 2,
+                "vertical": 0
+              }
+            },
+            "type": "ia.container.column"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label_2"
+                },
+                "position": {
+                  "breakpoints": [
+                    {
+                      "colIndex": 0,
+                      "name": "sm",
+                      "order": 0,
+                      "rowIndex": 0,
+                      "span": 10
+                    },
+                    {
+                      "colIndex": 2,
+                      "name": "md",
+                      "order": 0,
+                      "rowIndex": 0,
+                      "span": 8
+                    },
+                    {
+                      "colIndex": 2,
+                      "name": "lg",
+                      "order": 0,
+                      "rowIndex": 0,
+                      "span": 8
+                    }
+                  ],
+                  "height": 30
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "expression": "now(1000)"
+                      },
+                      "transforms": [
+                        {
+                          "formatType": "datetime",
+                          "formatValue": {
+                            "date": "medium"
+                          },
+                          "type": "format"
+                        }
+                      ],
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "color": "#FFFFFF",
+                    "fontSize": "7px",
+                    "fontStyle": "italic",
+                    "fontWeight": "normal"
+                  },
+                  "textStyle": {
+                    "classes": "Common/ContainerTextbox"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "ColumnContainer_0"
+            },
+            "position": {
+              "height": 30.000000000000004,
+              "width": 113,
+              "x": 164.24,
+              "y": 2.27
+            },
+            "props": {
+              "breakpoints": [
+                {
+                  "minWidth": 0,
+                  "name": "sm"
+                },
+                {
+                  "minWidth": 480,
+                  "name": "md"
+                },
+                {
+                  "minWidth": 980,
+                  "name": "lg"
+                }
+              ]
+            },
+            "type": "ia.container.column"
+          }
+        ],
+        "meta": {
+          "name": "root",
+          "tooltip": {}
+        },
+        "position": {
+          "height": 38,
+          "width": 375,
+          "x": 0.08,
+          "y": 1.07
+        },
+        "propConfig": {
+          "meta.tooltip.width": {
+            "binding": {
+              "config": {
+                "path": "session.custom.ScreenWidth"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "alignSelf": "auto",
+            "backgroundColor": "#307492",
+            "resize": "both"
+          }
+        },
+        "type": "ia.container.coord"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}

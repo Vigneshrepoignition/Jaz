@@ -1,0 +1,125 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\tscriptName\u003d\u0027Quality Check box Value\u0027\n\t\tds\u003dself.view.params.rowData\n\t\tcharacteristicType\u003dds[\u0027characteristicType\u0027]\n\t\tcharacteristicType\u003dint(characteristicType)\n\t\tSelctedRow\u003dself.view.params.rowIndex\n\t\tcolumnName\u003dself.view.params.column\n\t\tif str(columnName).strip()\u003d\u003d\u0027ActualValue\u0027:\n#\t\t\tif characteristicType\u003d\u003d2:\n\t\t\tActualuValue\u003dds[\u0027ActualValue\u0027]\n\t\t\tif str(ActualuValue).strip()\u003d\u003d\u0027\u0027 or str(ActualuValue).strip()\u003d\u003d\u0027None\u0027 or str(ActualuValue).strip()\u003d\u003d\u00270\u0027:\n\t\t\t\tActualuValue\u003d2\n\t\t\tActualuValue\u003dint(ActualuValue)\n\t\t\tif str(ActualuValue).lower()\u003d\u003d\u00272\u0027 or  ActualuValue\u003d\u003d2:\n\t\t\t\tself.getChild(\"root\").getChild(\"chkYes\").props.selected\u003dFalse\n\t\t\t\tself.getChild(\"root\").getChild(\"chkNo\").props.selected\u003dTrue\n\t\t\t\tself.getChild(\"root\").getChild(\"chkNo\").props.style.backgroundColor\u003d\"RED\"\n\t\t\t\tself.getChild(\"root\").getChild(\"chkNo\").props.style.color\u003d\"WHITE\"\n\t\t\telif  str(ActualuValue).lower()\u003d\u003d\u00271\u0027 or  ActualuValue \u003d\u003d1 :\n\t\t\t\t\tself.getChild(\"root\").getChild(\"chkNo\").props.selected\u003dFalse\t\n\t\t\t\t\tself.getChild(\"root\").getChild(\"chkYes\").props.selected\u003dTrue\n\t\t\t\t\tself.getChild(\"root\").getChild(\"chkNo\").props.style.backgroundColor\u003d\"WHITE\"\n\t\t\t\t\tself.getChild(\"root\").getChild(\"chkNo\").props.style.color\u003d\"BLACK\"\n\n\n\t\t\n\n\texcept:\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d scriptName + \"Error:\"+ str(exc_obj)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print (\u0027errorMessage:\u0027+ errorMessage)\n\t\tsystem.perspective.print (\u0027lineno:\u0027+ lineno)"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "column": "value",
+    "columnIndex": "value",
+    "dataset": "value",
+    "row": "value",
+    "rowData": "value",
+    "rowIndex": "value",
+    "value": "value"
+  },
+  "propConfig": {
+    "params.column": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.columnIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.dataset": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.row": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.value": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 35,
+      "width": 178
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tisSelect\u003dself.props.selected\n\tif isSelect\u003d\u003dTrue:\n\t\tself.getSibling(\"chkNo\").props.selected\u003dFalse\n\t\tself.getSibling(\"chkNo\").props.style.backgroundColor\u003d\"WHITE\"\n\t\tself.getSibling(\"chkNo\").props.style.color\u003d\"BLACK\"\n\t\t\n\t\t\n\t\tisSelect\u003d1\n\t\tds\u003dself.view.params.rowData\n\t\tSelctedRow\u003dself.view.params.rowIndex\n\t\tcolumnName\u003dself.view.params.column\n\t\tmessageType \u003d \u0027QualityCharConsoleTable\u0027\n\t\tsystem.perspective.sendMessage(messageType, payload \u003d {\"columnName\":columnName,\"ChangeValue\":isSelect,\"SelctedRow\":SelctedRow,\"rowData\":ds}, scope \u003d \"page\")\t\n\telse:\n\t\tself.getSibling(\"chkNo\").props.selected\u003dTrue\t\n\t\tisSelect\u003d2\n\t\tself.getSibling(\"chkNo\").props.style.backgroundColor\u003d\"RED\"\n\t\tself.getSibling(\"chkNo\").props.style.color\u003d\"WHITE\"\n\t\tds\u003dself.view.params.rowData\n\t\tSelctedRow\u003dself.view.params.rowIndex\n\t\tcolumnName\u003dself.view.params.column\n\t\tmessageType \u003d \u0027QualityCharConsoleTable\u0027\n\t\tsystem.perspective.sendMessage(messageType, payload \u003d {\"columnName\":columnName,\"ChangeValue\":isSelect,\"SelctedRow\":SelctedRow,\"rowData\":ds}, scope \u003d \"page\")\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "chkYes"
+        },
+        "position": {
+          "height": 0.7286,
+          "width": 0.1598,
+          "x": 0.1084,
+          "y": 0.114
+        },
+        "props": {
+          "enabled": 1,
+          "text": "Ok"
+        },
+        "type": "ia.input.checkbox"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tisSelect\u003dself.props.selected\n\tif isSelect\u003d\u003dTrue:\n\t\tself.getSibling(\"chkYes\").props.selected\u003dFalse\n\t\tisSelect\u003d2\n\n\t\tself.props.style.backgroundColor\u003d\"RED\"\n\t\tself.props.style.color\u003d\"WHITE\"\n\t\tds\u003dself.view.params.rowData\n\t\tSelctedRow\u003dself.view.params.rowIndex\n\t\tcolumnName\u003dself.view.params.column\n\t\tmessageType \u003d \u0027QualityCharConsoleTable\u0027\n\t\tsystem.perspective.sendMessage(messageType, payload \u003d {\"columnName\":columnName,\"ChangeValue\":isSelect,\"SelctedRow\":SelctedRow,\"rowData\":ds}, scope \u003d \"page\")\t\n\t\t\n\t\t\n\telse:\n\t\tself.getSibling(\"chkYes\").props.selected\u003dTrue\n\t\tself.props.style.backgroundColor\u003d\"WHITE\"\n\t\tself.props.style.color\u003d\"BLACK\"\n\t\tisSelect\u003d1\n\t\tds\u003dself.view.params.rowData\n\t\tSelctedRow\u003dself.view.params.rowIndex\n\t\tcolumnName\u003dself.view.params.column\n\t\tmessageType \u003d \u0027QualityCharConsoleTable\u0027\n\t\tsystem.perspective.sendMessage(messageType, payload \u003d {\"columnName\":columnName,\"ChangeValue\":isSelect,\"SelctedRow\":SelctedRow,\"rowData\":ds}, scope \u003d \"page\")\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "chkNo"
+        },
+        "position": {
+          "height": 0.7286,
+          "width": 0.5324,
+          "x": 0.3951,
+          "y": 0.114
+        },
+        "props": {
+          "enabled": 1,
+          "selected": true,
+          "text": "Not Ok"
+        },
+        "type": "ia.input.checkbox"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

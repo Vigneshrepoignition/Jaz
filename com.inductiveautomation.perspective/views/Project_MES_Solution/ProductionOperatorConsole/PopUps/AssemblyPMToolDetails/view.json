@@ -1,0 +1,197 @@
+{
+  "custom": {},
+  "params": {
+    "CurrentMachineId": ""
+  },
+  "propConfig": {
+    "params.CurrentMachineId": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 390,
+      "width": 1354
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "height": 0.8,
+              "width": 0.1775,
+              "x": 0.4212,
+              "y": 0.1484
+            },
+            "props": {
+              "style": {
+                "color": "#FFFFFF",
+                "fontWeight": "bold"
+              },
+              "text": "PM Tool Details"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\tsystem.perspective.closePopup(\u0027\u0027)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Icon"
+            },
+            "position": {
+              "height": 0.75,
+              "width": 0.0382,
+              "x": 0.9597,
+              "y": 0.1239
+            },
+            "props": {
+              "color": "#FFFFFF",
+              "path": "material/clear"
+            },
+            "type": "ia.display.icon"
+          }
+        ],
+        "meta": {
+          "name": "CoordinateContainer"
+        },
+        "position": {
+          "height": 31.68,
+          "width": "100%"
+        },
+        "props": {
+          "mode": "percent",
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          }
+        },
+        "type": "ia.container.coord"
+      },
+      {
+        "meta": {
+          "name": "Dashboard"
+        },
+        "position": {
+          "height": 347.99,
+          "width": 1340,
+          "x": 3.96,
+          "y": 38.27
+        },
+        "props": {
+          "editingToggle": false,
+          "stretch": {
+            "columnGutterSize": 8,
+            "rowCount": 12,
+            "rowGutterSize": 8
+          },
+          "widgets": [
+            {
+              "body": {
+                "style": {
+                  "classes": ""
+                }
+              },
+              "header": {
+                "enabled": true,
+                "style": {
+                  "classes": "MachineSettingReport/ModuleHeader"
+                },
+                "title": "Tool Information"
+              },
+              "isConfigurable": false,
+              "minSize": {
+                "columnSpan": 1,
+                "rowSpan": 1
+              },
+              "name": "Tool Information",
+              "position": {
+                "columnEnd": 5,
+                "columnStart": 1,
+                "rowEnd": 13,
+                "rowStart": 1
+              },
+              "style": {
+                "classes": ""
+              },
+              "viewParams": {
+                "PrevWosListForCarasoul": ""
+              },
+              "viewPath": "Project_MES_Solution/ProductionOperatorConsole/Modules/MoldInformationSwipe"
+            },
+            {
+              "body": {
+                "style": {
+                  "classes": ""
+                }
+              },
+              "header": {
+                "enabled": true,
+                "style": {
+                  "classes": "MachineSettingReport/ModuleHeader"
+                },
+                "title": "PM Tool Details"
+              },
+              "isConfigurable": false,
+              "minSize": {
+                "columnSpan": 1,
+                "rowSpan": 1
+              },
+              "name": "PM Tool Details",
+              "position": {
+                "columnEnd": 9,
+                "columnStart": 5,
+                "rowEnd": 13,
+                "rowStart": 1
+              },
+              "style": {
+                "classes": ""
+              },
+              "viewParams": {
+                "currentWosListForCarasoul": ""
+              },
+              "viewPath": "Project_MES_Solution/ProductionOperatorConsole/Modules/ToolInformationSwipe"
+            }
+          ]
+        },
+        "type": "ia.display.dashboard"
+      },
+      {
+        "meta": {
+          "name": "ImageLoader",
+          "visible": 0
+        },
+        "position": {
+          "height": 98.43,
+          "width": 190.87,
+          "x": 704.03,
+          "y": 146
+        },
+        "props": {
+          "fit": {
+            "mode": "cover"
+          },
+          "source": "/system/images/Builtin/icons/32/giphy.gif"
+        },
+        "type": "ia.display.image"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 447,
+      "width": 609
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "PieChart"
+        },
+        "position": {
+          "height": 0.98,
+          "width": 0.8949,
+          "x": 0.0352
+        },
+        "props": {
+          "colors": [
+            "#4FC86C",
+            "#EC4B3D",
+            "#3366CC",
+            "#00A9C6",
+            "#E69300",
+            "#D5D5D5"
+          ],
+          "data": [
+            {
+              "count": 36,
+              "flavor": "Production"
+            },
+            {
+              "count": 17,
+              "flavor": "Downtime"
+            },
+            {
+              "count": 14,
+              "flavor": "Idle"
+            }
+          ],
+          "labels": {
+            "align": false
+          },
+          "legend": {
+            "fontSize": 12
+          },
+          "legendLabelColor": "#000000",
+          "selection": {
+            "enabled": true
+          },
+          "style": {
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "textAlign": "left"
+          },
+          "title": "Shift Wise Production Status",
+          "titleColor": "#000000"
+        },
+        "scripts": {
+          "customMethods": [],
+          "extensionFunctions": null,
+          "messageHandlers": [
+            {
+              "messageType": "UpdateProductionChart",
+              "pageScope": true,
+              "script": "\tshiftData \u003d payload[\u0027tblData\u0027]\n\ttable \u003d shiftData\n\tdata \u003d system.dataset.toPyDataSet(table)\n\ttotal \u003d 0\n\tfor row in data:\n\t\ttotal +\u003d row[4]\n\t\ttotal +\u003d row[5]\n\t\ttotal +\u003d row[6]\n\t\ttotal +\u003d row[7]\n\t\ttotal +\u003d row[8]\n\t\t\n\tsystem.perspective.print(\"Total\" +str(total))\n\t\n\t",
+              "sessionScope": false,
+              "viewScope": false
+            }
+          ]
+        },
+        "type": "ia.chart.pie"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

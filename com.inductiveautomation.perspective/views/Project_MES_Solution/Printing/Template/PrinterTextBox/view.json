@@ -1,0 +1,240 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\t\n\tds\u003dself.view.params.rowData\n\tSelctedRow\u003dself.view.params.rowIndex\n\tcolumnName\u003dself.view.params.column\n\tsystem.perspective.print(\"columnName\" +str(columnName))\n\tif str(columnName).strip()\u003d\u003d\u0027Port\u0027:\n\t\tself.getChild(\"root\").getChild(\"txtPortNo\").meta.visible\u003d1\n\t\tself.getChild(\"root\").getChild(\"txtPrinterName\").meta.visible\u003d0\n\t\tself.getChild(\"root\").getChild(\"txtHostName\").meta.visible\u003d0\n\t\tPort\u003dint(ds[\u0027Port\u0027])\n\t\tsystem.perspective.print(\"columnName Port\u003d \" +str(Port))\n#\t\tself.getChild(\"root\").getChild(\"txtValue\").props.value\u003dPort\n\t\tself.getChild(\"root\").getChild(\"txtPortNo\").props.value\u003dPort\n\t\t\n\telif str(columnName).strip()\u003d\u003d\u0027PrinterName\u0027:\n\t\tself.getChild(\"root\").getChild(\"txtPortNo\").meta.visible\u003d0\n\t\tself.getChild(\"root\").getChild(\"txtPrinterName\").meta.visible\u003d1\n\t\tself.getChild(\"root\").getChild(\"txtHostName\").meta.visible\u003d0\n\t\tPrinterName\u003dstr(ds[\u0027PrinterName\u0027])\n\t\tself.getChild(\"root\").getChild(\"txtPrinterName\").props.text\u003dPrinterName\n\telse:\n\t\tself.getChild(\"root\").getChild(\"txtPortNo\").meta.visible\u003d0\n\t\tself.getChild(\"root\").getChild(\"txtPrinterName\").meta.visible\u003d0\n\t\tself.getChild(\"root\").getChild(\"txtHostName\").meta.visible\u003d1\n\t\tPrinterIP\u003dstr(ds[\u0027PrinterIP\u0027])\n\t\tself.getChild(\"root\").getChild(\"txtHostName\").props.text\u003dPrinterIP"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "column": "value",
+    "columnIndex": "value",
+    "row": "value",
+    "rowData": "value",
+    "rowIndex": "value"
+  },
+  "propConfig": {
+    "params.column": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.columnIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.row": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 29,
+      "width": 164
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tNo\u003dself.props.value\n\tds\u003dself.view.params.rowData\n\tSelctedRow\u003dself.view.params.rowIndex\n\tSelctedRow\u003dint(ds[\u0027SRNo\u0027])\n\tSelctedRow\u003dSelctedRow-1\n\tcolumnName\u003dself.view.params.column\n\tsystem.perspective.print(\"No...... \"+str(No))\n\tif No \u003e 0:\n\t\tmessageType \u003d \u0027PrinterConfigurationHandler\u0027\n\t\tsystem.perspective.sendMessage(messageType, payload \u003d {\"columnName\":columnName,\"ChangeValue\":No,\"SelctedRow\":SelctedRow}, scope \u003d \"page\")\n\telse:\n\t\tself.props.value\u003d0\n\t\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "txtPortNo",
+          "tooltip": {
+            "enabled": true
+          },
+          "visible": 0
+        },
+        "position": {
+          "height": 28,
+          "width": 150,
+          "x": 7
+        },
+        "propConfig": {
+          "meta.tooltip.text": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizePrintingAndPackingConfigurationReadOnly"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d1:\n\t\tresult\u003d\u0027Read Only Access\u0027\n\telse :\n\t\tresult\u003d\u0027\u0027\n\treturn result",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizePrintingAndPackingConfigurationReadOnly"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value \u003d\u003d 1 or str(value).strip().lower()\u003d\u003d\u0027true\u0027:\n\t\treturn 0\n\telse:\n\t\treturn 1",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "align": "center",
+          "format": 0,
+          "inputBounds": {
+            "maximum": 10000,
+            "minimum": 0
+          },
+          "spinner": {
+            "enabled": false
+          },
+          "style": {
+            "textAlign": "center"
+          },
+          "value": 0
+        },
+        "type": "ia.input.numeric-entry-field"
+      },
+      {
+        "meta": {
+          "name": "txtPrinterName",
+          "tooltip": {
+            "enabled": true
+          },
+          "visible": 0
+        },
+        "position": {
+          "height": 28,
+          "width": 159,
+          "x": 2
+        },
+        "propConfig": {
+          "meta.tooltip.text": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizePrintingAndPackingConfigurationReadOnly"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d1:\n\t\tresult\u003d\u0027Read Only Access\u0027\n\telse :\n\t\tresult\u003d\u0027\u0027\n\treturn result",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizePrintingAndPackingConfigurationReadOnly"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value \u003d\u003d 1 or str(value).strip().lower()\u003d\u003d\u0027true\u0027:\n\t\treturn 0\n\telse:\n\t\treturn 1",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.text": {
+            "onChange": {
+              "enabled": null,
+              "script": "\t\n\tNo\u003dstr(self.props.text)\n\tif str(No).strip()!\u003d\u0027\u0027 and str(No).strip()!\u003d\u0027None\u0027:\n\t\tds\u003dself.view.params.rowData\n\t\tSelctedRow\u003dself.view.params.rowIndex\n\t\tcolumnName\u003dself.view.params.column\n\t\tSelctedRow\u003dint(ds[\u0027SRNo\u0027])\n\t\tSelctedRow\u003dSelctedRow-1\n\t\t\n#\t\tif No \u003e 0:\n\t\tmessageType \u003d \u0027PrinterConfigurationHandler\u0027\n\t\tsystem.perspective.sendMessage(messageType, payload \u003d {\"columnName\":columnName,\"ChangeValue\":No,\"SelctedRow\":SelctedRow}, scope \u003d \"page\")\n"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "txtHostName",
+          "tooltip": {
+            "enabled": true
+          },
+          "visible": 1
+        },
+        "position": {
+          "height": 28,
+          "width": 159,
+          "x": 2
+        },
+        "propConfig": {
+          "meta.tooltip.text": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizePrintingAndPackingConfigurationReadOnly"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d1:\n\t\tresult\u003d\u0027Read Only Access\u0027\n\telse :\n\t\tresult\u003d\u0027\u0027\n\treturn result",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizePrintingAndPackingConfigurationReadOnly"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value \u003d\u003d 1 or str(value).strip().lower()\u003d\u003d\u0027true\u0027:\n\t\treturn 0\n\telse:\n\t\treturn 1",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.text": {
+            "onChange": {
+              "enabled": null,
+              "script": "\t\n\tNo\u003dstr(self.props.text)\n\tif str(No).strip()!\u003d\u0027\u0027 or str(No).strip()!\u003d\u0027None\u0027:\n\t\tds\u003dself.view.params.rowData\n\t\tSelctedRow\u003dself.view.params.rowIndex\n\t\tcolumnName\u003dself.view.params.column\n\t\tSelctedRow\u003dint(ds[\u0027SRNo\u0027])\n\t\tSelctedRow\u003dSelctedRow-1\n\t\t\n#\t\tif No \u003e 0:\n\t\tmessageType \u003d \u0027PrinterConfigurationHandler\u0027\n\t\tsystem.perspective.sendMessage(messageType, payload \u003d {\"columnName\":columnName,\"ChangeValue\":No,\"SelctedRow\":SelctedRow}, scope \u003d \"page\")\n"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.input.text-field"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}

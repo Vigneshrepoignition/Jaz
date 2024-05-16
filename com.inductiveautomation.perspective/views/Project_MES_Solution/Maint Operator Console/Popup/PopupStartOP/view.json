@@ -1,0 +1,195 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 200,
+      "width": 350
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\n\t\tscriptName \u003d \"PMTC : Start Yes Button\"\t\n\t\tWoNumber \u003d self.session.custom.WoNumber\n\t\tuserID \u003d self.session.custom.UserId\n\t\tPMOrderID \u003d self.session.custom.PMOrderID\t\n\t\ttry:\n\t\t\tsaveResult \u003d MaintenanceOCAPI.startOperation(PMOrderID,WoNumber,userID)\n\t\t\tsystem.perspective.sendMessage(\"Ref_PrevMaintancePop\", scope\u003d\u0027page\u0027)\n\t\t\tlogger \u003d system.util.getLogger(\"MES Application\")\n\t\t\tlogger.info(\"Work Started SuccessFully for WoNumber\" +str(WoNumber))\n\t\texcept:\n\t\t\tlogger \u003d system.util.getLogger(\"MES Application\")\n\t\t\tlogger.error(\"Work Start Error in Maintenance Op Console\" + str(saveResult))\n\t\tsystem.perspective.closePopup(\u0027\u0027)\n\texcept:\t\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnYes"
+        },
+        "position": {
+          "height": 34,
+          "width": 110,
+          "x": 43.5,
+          "y": 143
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "classes": "Common/Button"
+          },
+          "text": "Yes"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnNo"
+        },
+        "position": {
+          "height": 34,
+          "width": 110,
+          "x": 194.5,
+          "y": 143
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "classes": "Common/Button"
+          },
+          "text": "No"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 32,
+          "width": 348
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Are you sure",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 10,
+            "textAlign": "Center",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 30,
+          "width": 30,
+          "x": 315.938
+        },
+        "props": {
+          "path": "material/close",
+          "style": {
+            "color": "#FFFFFF",
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "LblMsg"
+        },
+        "position": {
+          "height": 30,
+          "width": 211,
+          "x": 68.5,
+          "y": 48
+        },
+        "props": {
+          "alignVertical": "top",
+          "text": "Start Maintenance for",
+          "textStyle": {
+            "fontFamily": "Arial",
+            "fontSize": 22
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblMsg_0"
+        },
+        "position": {
+          "height": 33,
+          "width": 177,
+          "x": 85.5,
+          "y": 90
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "session.custom.WoNumber"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "alignVertical": "top",
+          "textStyle": {
+            "fontFamily": "Arial",
+            "fontSize": 26,
+            "fontWeight": "bold"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "style": {
+        "classes": "Panel/PopUp"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

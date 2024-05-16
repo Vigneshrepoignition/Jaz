@@ -1,0 +1,613 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\tself.getChild(\"root\").getChild(\"TxtScan\").focus()\n\tuserId \u003d self.session.custom.UserId\n\ttry:\n\t\tmainReasonTypeId \u003d 1\n\t\tsubReasonTypeId \u003d 0\n\t\treasonData  \u003d ProductionOperatorConsole.getReasonsCodes(mainReasonTypeId,subReasonTypeId,userId)\n\t\tself.getChild(\"root\").getChild(\"DrpDwnReason_Main\").props.options \u003d reasonData\n\texcept Exception as e:\n\t\terrorMessage\u003d \"Operator Console Hold operation :- Exception while binding data to dropdown.Exception : \" +  str(e)\n\t\tAuthentication.exceptionLogger(errorMessage)"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 382,
+      "width": 371
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 32,
+          "width": "100%"
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Hold Production",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 15,
+            "fontWeight": "bold",
+            "margin": 70,
+            "textAlign": "Center",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 31,
+          "width": 29,
+          "x": 331.94
+        },
+        "props": {
+          "path": "material/close",
+          "style": {
+            "color": "#FFFFFF",
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "LblMsgScan"
+        },
+        "position": {
+          "height": 24,
+          "width": 78,
+          "x": 17,
+          "y": 46
+        },
+        "props": {
+          "alignVertical": "top",
+          "style": {
+            "classes": "Common/Label_WithOutBackground"
+          },
+          "text": "Scan Badge",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onKeyPress": {
+              "config": {
+                "script": "\tif str(event.key).lower() \u003d\u003d str(\u0027Enter\u0027).lower():\n\t\tself.getSibling(\"DrpDwnReason_Main\").focus()"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "TxtScan",
+          "tooltip": {
+            "enabled": true,
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 32,
+          "width": 280,
+          "x": 17,
+          "y": 72
+        },
+        "props": {
+          "placeholder": "Scan Badge",
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "LblMsgReason"
+        },
+        "position": {
+          "height": 24,
+          "width": 94,
+          "x": 17,
+          "y": 186
+        },
+        "props": {
+          "alignVertical": "top",
+          "style": {
+            "classes": "Common/Label_WithOutBackground"
+          },
+          "text": "Code Name",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tself.getSibling(\"TxtComment\").focus()"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "DrpDwnReason",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 32,
+          "width": 332,
+          "x": 17,
+          "y": 212.72
+        },
+        "propConfig": {
+          "props.options": {
+            "binding": {
+              "config": {
+                "path": "../DrpDwnReason_Main.props.value"
+              },
+              "transforms": [
+                {
+                  "code": "\ttry:\n\t\tmainReasonTypeId \u003d 1\n\t\tsubReasonTypeId \u003d int(value)\n\t\tuserId \u003d self.session.custom.UserId\n\t\treasonData  \u003d ProductionOperatorConsole.getReasonsCodes(mainReasonTypeId,subReasonTypeId,userId)\t\t\n\texcept Exception as e:\n\t\terrorMessage\u003d \"Operator Console Hold Operation :- Exception while binding data to reason code dropdown.Exception : \" +  str(e)\n\t\tAuthentication.exceptionLogger(errorMessage)\n\t\treasonData \u003d []\n\n\treturn reasonData",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "placeholder": {
+            "text": "Select Code Name"
+          },
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "meta": {
+          "name": "ImgBarcode"
+        },
+        "position": {
+          "height": 25,
+          "width": 33,
+          "x": 16.5,
+          "y": 3.5
+        },
+        "props": {
+          "source": "/system/images/Builtin/icons/16/barcode.png"
+        },
+        "type": "ia.display.image"
+      },
+      {
+        "meta": {
+          "name": "ImgScanner"
+        },
+        "position": {
+          "height": 32,
+          "width": 33,
+          "x": 318.81,
+          "y": 71
+        },
+        "props": {
+          "fit": {
+            "mode": "fill"
+          },
+          "source": "/system/images/Builtin/icons/16/barcodesmall.png  "
+        },
+        "type": "ia.display.image"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027HOldPopup\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          },
+          "dom": {
+            "onClick": {
+              "config": {
+                "draggable": false,
+                "id": "uf01-dte",
+                "modal": true,
+                "overlayDismiss": false,
+                "resizable": false,
+                "showCloseIcon": false,
+                "type": "close",
+                "viewPath": "Project_MES_Solution/OperatorConsole/PopUps/ConfirmationOpHold",
+                "viewportBound": false
+              },
+              "scope": "C",
+              "type": "popup"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnCancel",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Click To Cancel"
+          }
+        },
+        "position": {
+          "height": 34,
+          "width": 80,
+          "x": 73.438,
+          "y": 331
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "classes": "Common/Button"
+          },
+          "text": "Cancel"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\tWoNumber \u003d self.session.custom.WoNumber\n\t\tWorkOrderId \u003d selectedWorkorderId \u003d self.session.custom.WorkorderID\n\t\tScanBadge\u003dself.getSibling(\"TxtScan\").props.text\n\t\tUserId\u003d int(self.session.custom.UserId)   \t\t\n\t\tWorkorderType \u003d self.session.custom.WOType\t\t\n\t\tWorkOrderStatusId\u003d2\n\t\tHoldReasonCodeId\u003dself.getSibling(\"DrpDwnReason\").props.value\n\t\tComment\u003dself.getSibling(\"TxtComment\").props.text\n\n\t\tif (str(WorkorderType) \u003d\u003d str(2)):\n\t\t\tClubbedWo \u003d MaterialRequestAPI.getCNSClubbedWorkorderDetailsbyworkorderId(selectedWorkorderId)\n\t\t\tIsWorkOrderClubbed \u003d ClubbedWo.getValueAt(0,\u0027IsWorkOrderClubbed\u0027)\n\t\t\t\n\t\t\tif IsWorkOrderClubbed \u003d\u003d True or str(IsWorkOrderClubbed).lower() \u003d\u003d str(\"true\").lower():\n\t\t\t\tsystem.perspective.print(\"Print 1: CNS : In Clubbed Workorder\")\n\t\t\t\tprimaryWorkorderId \u003d ClubbedWo.getValueAt(0,\u0027PrimaryWorkOrderId\u0027)\n\t\t\t\tif selectedWorkorderId\u003d\u003dprimaryWorkorderId:\n\t\t\t\t\tIsClubbed\u003dTrue\n\t\t\t\t\tComment\u003d\u0027\u0027\n\t\t\t\t\tWoStartAck\u003dProductionOperatorConsole.UpdateWoOperationStatus(WorkOrderId,IsClubbed,UserId,WorkOrderStatusId,ScanBadge,HoldReasonCodeId,Comment)\n\t\t\t\t\tself.session.custom.WOOperationStatus \u003d \u0027On-Hold\u0027 #To write in Start Session\n\t \t\t\t\tself.session.custom.woStatus\u003d\u0027On-Hold\u0027\n\t \t\t\t\tsystem.perspective.closePopup(\u0027\u0027) \n \t\t\t\telse:\n \t\t\t\t\tsystem.perspective.closePopup(\u0027\u0027) \n\t\t\t\t\tPrimaryWorkorderNo \u003d ClubbedWo.getValueAt(0,\u0027PrimaryWorkorderNo\u0027)\n\t\t\t\t\tMessageText\u003d \"Please hold the operation againt main part workorder only : \" + str(PrimaryWorkorderNo)\n\t\t\t\t\tupdaateStatus\u003d0\n\t\t\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\telse:\n\t\t\t\tsystem.perspective.print(\"Print 2: CNS : Not A Clubbed Workorder\")\n\t\t\t\tIsClubbed\u003dFalse\n\t\t\t\tComment\u003d\u0027\u0027\n\t\t\t\tWoStartAck\u003dProductionOperatorConsole.UpdateWoOperationStatus(WorkOrderId,IsClubbed,UserId,WorkOrderStatusId,ScanBadge,HoldReasonCodeId,Comment)\n\t\t\t\tself.session.custom.WOOperationStatus \u003d \u0027On-Hold\u0027 #To write in Start Session\n\t\t\t\tself.session.custom.woStatus\u003d\u0027On-Hold\u0027\n\t\t\t\tsystem.perspective.closePopup(\u0027\u0027)\n\t\telse:\n\t\t\tsystem.perspective.print(\"Print 3: Assembly Workorder\")\n\t\t\tIsClubbed\u003dFalse\n\t\t\tComment\u003d\u0027\u0027\n\t\t\tWoStartAck\u003dProductionOperatorConsole.UpdateWoOperationStatus(WorkOrderId,IsClubbed,UserId,WorkOrderStatusId,ScanBadge,HoldReasonCodeId,Comment)\n\t\t\tself.session.custom.WOOperationStatus \u003d \u0027On-Hold\u0027 #To write in Start Session\n\t\t\tself.session.custom.woStatus\u003d\u0027On-Hold\u0027\n\t\t\tsystem.perspective.closePopup(\u0027\u0027)\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: Production Operator Console: View WO: Hold WO: \u0027:\"+ str(exc_obj) + \" || Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnOk",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Click To Hold"
+          }
+        },
+        "position": {
+          "height": 34,
+          "width": 80,
+          "x": 206,
+          "y": 331
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "expression": "now(10)"
+              },
+              "transforms": [
+                {
+                  "code": "\tscanTxt \u003d self.getSibling(\"TxtScan\").props.text\n\treason \u003d str(self.getSibling(\"DrpDwnReason\").props.value)\n\tcomment \u003d str(self.getSibling(\"TxtComment\").props.text).strip()\n\t\n\tif (str(scanTxt).strip()!\u003d\"\") and (str(reason).strip() !\u003d\"\"):\n\t\tvalue \u003d True\n\t\tself.props.style.backgroundColor \u003d \"#3888CC\"\n\t\tself.props.style.borderColor \u003d \"#3888CC\"\n\telse:\n\t\tvalue \u003d False\n\t\tself.props.style.backgroundColor \u003d str(self.session.custom.disableBtncolour)\n\t\tself.props.style.borderColor \u003d str(self.session.custom.disableBtncolour)\n\treturn value\t\t\t",
+                  "type": "script"
+                }
+              ],
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "backgroundColor": "value",
+            "borderColor": "value",
+            "classes": "Common/Button",
+            "cursor": "auto"
+          },
+          "text": "Hold"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "LblComment"
+        },
+        "position": {
+          "height": 32,
+          "width": 95,
+          "x": 17,
+          "y": 251
+        },
+        "props": {
+          "text": "Comment",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "TxtComment",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 32,
+          "width": 332,
+          "x": 17,
+          "y": 283
+        },
+        "propConfig": {
+          "props.style.borderColor": {
+            "binding": {
+              "config": {
+                "path": "this.props.text"
+              },
+              "transforms": [
+                {
+                  "code": "\tif str(value).strip() !\u003d \u0027\u0027:\n\t\tvalue \u003d \"#3888CC\"\n\telse:\n\t\tvalue \u003d  str(self.session.custom.disableBtncolour)\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "deferUpdates": false,
+          "placeholder": "Add Comment",
+          "style": {
+            "backgroundColor": "value",
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "LblMsgScan_0"
+        },
+        "position": {
+          "height": 24,
+          "width": 10,
+          "x": 93,
+          "y": 46
+        },
+        "props": {
+          "alignVertical": "top",
+          "style": {
+            "classes": "Common/Label_WithOutBackground"
+          },
+          "text": "*",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground",
+            "color": "#FF4747"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblMsgScan_1"
+        },
+        "position": {
+          "height": 24,
+          "width": 10,
+          "x": 93,
+          "y": 186
+        },
+        "props": {
+          "alignVertical": "top",
+          "style": {
+            "classes": "Common/Label_WithOutBackground"
+          },
+          "text": "*",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground",
+            "color": "#FF4747"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblMsgScan_3"
+        },
+        "position": {
+          "height": 24,
+          "width": 10,
+          "x": 106,
+          "y": 117
+        },
+        "props": {
+          "alignVertical": "top",
+          "style": {
+            "classes": "Common/Label_WithOutBackground"
+          },
+          "text": "*",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground",
+            "color": "#FF4747"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblMsgReason_0"
+        },
+        "position": {
+          "height": 24,
+          "width": 94,
+          "x": 17,
+          "y": 117
+        },
+        "props": {
+          "alignVertical": "top",
+          "style": {
+            "classes": "Common/Label_WithOutBackground"
+          },
+          "text": "Code Subtype",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tself.getSibling(\"DrpDwnReason\").focus()"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "DrpDwnReason_Main",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 32,
+          "width": 332,
+          "x": 17,
+          "y": 144
+        },
+        "props": {
+          "options": {
+            "$": [
+              "ds",
+              192,
+              1687848131844
+            ],
+            "$columns": [
+              {
+                "data": [
+                  40,
+                  54,
+                  56,
+                  68,
+                  69,
+                  70,
+                  71,
+                  72,
+                  73,
+                  74,
+                  75,
+                  76,
+                  77,
+                  78
+                ],
+                "name": "ReasonCodeId",
+                "type": "Long"
+              },
+              {
+                "data": [
+                  "Material Issue",
+                  "Hold_Test1",
+                  "子类1",
+                  "子类2",
+                  "Model  Changeover 转型号",
+                  "Quality Abnormal 品质异常",
+                  "Planned Maintenance 计划保养",
+                  "Line Tuning( PV,PPAP,Sample) 试产做样板",
+                  "Planned Shutdown 计划停产",
+                  "Material Abnormal 物料异常",
+                  "Machine broken down 设备故障",
+                  "Mold broken down 模具故障",
+                  "Tooling broken down 工具故障",
+                  "Other "
+                ],
+                "name": "ReasonCodeName",
+                "type": "String"
+              }
+            ]
+          },
+          "placeholder": {
+            "text": "Select Code Subtype"
+          },
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.dropdown"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -10.0625,
+      "y": 0
+    },
+    "props": {
+      "style": {
+        "classes": "Panel/PopUp"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

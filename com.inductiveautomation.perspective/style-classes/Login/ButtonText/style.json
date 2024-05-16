@@ -1,0 +1,17 @@
+{
+  "base": {
+    "style": {
+      "borderWidth": "0px",
+      "borderTopLeftRadius": "0px",
+      "borderTopRightRadius": "0px",
+      "borderBottomLeftRadius": "0px",
+      "borderBottomRightRadius": "0px",
+      "color": "#FFFFFF",
+      "fontFamily": "Cambria",
+      "fontSize": "14px",
+      "fontWeight": "normal",
+      "outlineWidth": "0px",
+      "textAlign": "center"
+    }
+  }
+}

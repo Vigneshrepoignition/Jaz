@@ -1,0 +1,587 @@
+{
+  "custom": {
+    "LineList": "[]"
+  },
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\t\n\t\tareaId\u003dself.params.AreaId\n\t\tsystem.perspective.print(\"areaId \"+str(areaId))\n\t\tEnterpriseId\u003dself.session.custom.EnterpriseId\n\t\tPlantID\u003dself.session.custom.PlantID\n\t\tUserID \u003d self.session.custom.UserId\n\t\tds\u003dPlantHirarchyAPI.GetEnterPrisePlantLinesOnAreaChange(areaId)\n\t\tlistline\u003d[]\n\t\tfor i in ds:\n\t\t\tlistline.append(int(i[0]))\n\t\tself.custom.LineList \u003d listline\n\t\tprint \tlistline\n\t\tself.getChild(\"root\").getChild(\"txtPrinterName\").props.text\u003d\u0027\u0027\n\t\tself.getChild(\"root\").getChild(\"txtPrinterName_0\").props.text\u003d\u0027\u0027\n\t\tself.getChild(\"root\").getChild(\"txtPrinterName_1\").props.value\u003d0\n\t\tif len(ds) \u003e 0:\n\t\t\n\t\t\tself.getChild(\"root\").getChild(\"TablePEA\").props.data\u003dds\n\t\t\tself.getChild(\"root\").getChild(\"btnSAve\").props.enabled\u003d1\n\t\telse:\n\t\t\tself.getChild(\"root\").getChild(\"TablePEA\").props.data\u003dNone\n\t\t\tself.getChild(\"root\").getChild(\"btnSAve\").props.enabled\u003d0\t\n\texcept:\n\t\tsystem.perspective.print(\"Exception::Loading Data to Printer Popup\")\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "AreaId": "value",
+    "rowData": "value"
+  },
+  "propConfig": {
+    "custom.LineList": {
+      "persistent": true
+    },
+    "params.AreaId": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 656,
+      "width": 703
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 38,
+          "width": 703
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Add Printer",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 10,
+            "textAlign": "Center",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 34.78,
+          "rotate": {
+            "anchor": "-168% 75%"
+          },
+          "width": 28.07,
+          "x": 670,
+          "y": 2.25667
+        },
+        "props": {
+          "color": "#FFFFFF",
+          "path": "material/close"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\timport re\n\t\timport json\n\t\timport urllib2, urllib\n\t\tURLPath \u003d system.tag.read(\"[default]JMES_InternalTags/urlAPI\").value\n\t\tscriptName\u003d\"Printer Configuration Add printer Line wise\"\n\t\ta\u003dself.getSibling(\"TablePEA\").props.data\n\t\tUserId\u003dself.session.custom.UserId\n\t\tprintName\u003dself.getSibling(\"txtPrinterName\").props.text\n\t\tprintName\u003dstr(printName).strip()\n\t\tprintIP\u003dself.getSibling(\"txtPrinterName_0\").props.text\n\t\tprintIP\u003dstr(printIP).strip()\n\t\tprintPort\u003dself.getSibling(\"txtPrinterName_1\").props.value\n\t\tprintPort\u003dstr(printPort).strip()\n\t\tlistline\u003dself.view.custom.LineList\n\t\tprinterId\u003d0\n\t#\tsystem.perspective.closePopup(\u0027\u0027)\n\t\tlineList \u003d list(listline)\n\t\tIsEnabled\u003d1\n\t\tIsActive\u003d1\n\t\tresult\u003dPrinterConfiguration.addLineWisePrinter(lineList,printName,printIP,printPort,UserId,printerId,IsEnabled,IsActive)\n\t\tsystem.perspective.print(result)\n\t\tif result\u003d\u003d1:\n\t\t\tsystem.perspective.closePopup(\u0027\u0027)\n\t\t\tmessageType \u003d \u0027PrinterConfigurationTableRefresh\u0027\n\t\t\tsystem.perspective.sendMessage(messageType, payload \u003d {}, scope \u003d \"page\")\n\t\t\tMessageText\u003d\u0027Linewise Printer Added Succefully\u0027\n\t\t\tupdaateStatus\u003d1\n\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\telse:\n\t\t\tMessageText\u003d\u0027Linewise Printer Added Failed \u0027\n\t\t\tupdaateStatus\u003d2\n\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t#\t\n#\t\tscriptName\u003d\"API:/ PrinterConfiguration/CreatePrinterConfiguration\"\n#\t\tapiPath \u003d \"PrinterConfiguration/CreatePrinterConfiguration\"\n#\t\tlistline \u003d list(listline)\n#\t\turl \u003d URLPath + apiPath\t\n#\t\twriteData\u003d{\n#\t\t  \"printerId\": printerId,\n#\t\t  \"printerName\": printName,\n#\t\t  \"printerIP\": printIP,\n#\t\t  \"port\": printPort,\n#\t\t  \"isEnabled\": True,\n#\t\t  \"lineId\": 0,\n#\t\t  \"lineIdList\": listline,\n#\t\t  \"isActive\": True,\n#\t\t  \"createdBy\": UserId,\n#\t\t  \"createdOn\": \"2023-02-20T18:46:05.63Z\",\n#\t\t  \"modifiedBy\": 0,\n#\t\t  \"modifiedOn\": \"2023-02-20T18:46:05.63Z\",\n#\t\t  \"isArchive\": True\n#\t\t}\n#\t\tjsonParams \u003d system.util.jsonEncode(writeData)\t\t\n#\t\tresultDetails \u003d 0\n#\t\tresultDetails \u003d system.net.httpPost(url,\u0027application/json\u0027,jsonParams)\n##\t\t\tsystem.perspective.print(\"resultDetails \u003d \",resultDetails)\n#\t\tprint resultDetails\n#\t\t\n#\t\tsystem.perspective.print(\"result\" +str(resultDetails))\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tprint errorMessage\n\t\tAuthentication.exceptionLogger(errorMessage)\t\n\t\tsystem.perspective.print(\"errorMessage\" +str(errorMessage))"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "btnSAve",
+          "tooltip": {
+            "enabled": true,
+            "location": "bottom-left",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 39,
+          "rotate": {
+            "anchor": "-220% 896%"
+          },
+          "width": 89,
+          "x": 235.029,
+          "y": 572.656
+        },
+        "props": {
+          "image": {
+            "height": 20,
+            "width": 45
+          },
+          "style": {
+            "classes": "Common/Button"
+          },
+          "text": "Save",
+          "textStyle": {
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "LblProductionLine_0",
+          "tooltip": {
+            "enabled": true,
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Production Line"
+          }
+        },
+        "position": {
+          "height": 31.02,
+          "width": 110.00000000000001,
+          "x": 107.8,
+          "y": 366.1
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Printer Name :",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "txtPrinterName"
+        },
+        "position": {
+          "height": 32,
+          "width": 240,
+          "x": 236,
+          "y": 365.1
+        },
+        "props": {
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "TablePEA"
+        },
+        "position": {
+          "height": 275,
+          "width": 245,
+          "x": 237,
+          "y": 61.44
+        },
+        "props": {
+          "bodyStyle": {
+            "classes": "Table/RowsBorder"
+          },
+          "columns": [
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "lineId",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Sr No"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": 40
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "lineName",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Defect Id"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 100
+            }
+          ],
+          "data": null,
+          "dragOrderable": false,
+          "enableHeader": false,
+          "headerStyle": {
+            "classes": "Table/Header"
+          },
+          "pager": {
+            "bottom": false,
+            "initialOption": 15,
+            "options": [
+              10,
+              15,
+              20,
+              25,
+              50
+            ]
+          },
+          "rows": {
+            "style": {
+              "classes": "Table/Rowsmiddle"
+            },
+            "subviewExpansionMode": "single"
+          },
+          "selection": {
+            "enableRowSelection": false
+          }
+        },
+        "type": "ia.display.table"
+      },
+      {
+        "meta": {
+          "name": "LblProductionLine_1",
+          "tooltip": {
+            "enabled": true,
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Production Line"
+          }
+        },
+        "position": {
+          "height": 31.02,
+          "width": 121.00000000000001,
+          "x": 108.8,
+          "y": 418.1
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Printer Host Name:",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "txtPrinterName_0"
+        },
+        "position": {
+          "height": 32,
+          "width": 240,
+          "x": 237,
+          "y": 417.1
+        },
+        "props": {
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "LblProductionLine_2",
+          "tooltip": {
+            "enabled": true,
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Production Line"
+          }
+        },
+        "position": {
+          "height": 31.02,
+          "width": 110.00000000000001,
+          "x": 106.8,
+          "y": 470.1
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Printer Port :",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblProductionLine_3",
+          "tooltip": {
+            "enabled": true,
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Production Line"
+          }
+        },
+        "position": {
+          "height": 31.02,
+          "width": 110.00000000000001,
+          "x": 104.8,
+          "y": 62.1
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Line :",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "btnCancel",
+          "tooltip": {
+            "enabled": true,
+            "location": "bottom-left",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 39,
+          "rotate": {
+            "anchor": "-220% 896%"
+          },
+          "width": 89,
+          "x": 395.529,
+          "y": 571.656
+        },
+        "props": {
+          "image": {
+            "height": 20,
+            "width": 45
+          },
+          "style": {
+            "classes": "Common/Button"
+          },
+          "text": "Cacel",
+          "textStyle": {
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "txtPrinterName_1"
+        },
+        "position": {
+          "height": 32,
+          "width": 240,
+          "x": 237,
+          "y": 469
+        },
+        "props": {
+          "inputBounds": {
+            "minimum": 0
+          },
+          "spinner": {
+            "enabled": false
+          },
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.numeric-entry-field"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}

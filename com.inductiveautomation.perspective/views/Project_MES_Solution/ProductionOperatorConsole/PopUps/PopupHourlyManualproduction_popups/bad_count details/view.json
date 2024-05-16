@@ -1,0 +1,490 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {},
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "height": 44,
+              "width": 66,
+              "x": 7.03,
+              "y": 11.2
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "#EDF0F0"
+              },
+              "text": "Shift",
+              "textStyle": {
+                "classes": "Common/OprConsoleLabelText"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Label_0"
+            },
+            "position": {
+              "height": 44,
+              "width": 117,
+              "x": 84.03,
+              "y": 11.2
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "#D5D5D5",
+                "classes": "Common/TextBox",
+                "paddingLeft": 5
+              },
+              "text": "A",
+              "textStyle": {
+                "padding": 50
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Label_1"
+            },
+            "position": {
+              "height": 44,
+              "width": 96.99999999999997,
+              "x": 213.03,
+              "y": 11.2
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "#EDF0F0"
+              },
+              "text": "Hour of Shift",
+              "textStyle": {
+                "classes": "Common/OprConsoleLabelText"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Label_2"
+            },
+            "position": {
+              "height": 44,
+              "width": 117,
+              "x": 324.03,
+              "y": 11.2
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "#D5D5D5",
+                "classes": "Common/TextBox",
+                "paddingLeft": 5
+              },
+              "text": "1 to 2",
+              "textStyle": {
+                "margin": 20
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Icon"
+                },
+                "position": {
+                  "breakpoints": [
+                    {
+                      "colIndex": 5,
+                      "name": "sm",
+                      "order": 0,
+                      "rowIndex": 0,
+                      "span": 3
+                    },
+                    {
+                      "colIndex": 0,
+                      "name": "md",
+                      "order": 1,
+                      "rowIndex": 0,
+                      "span": 4
+                    }
+                  ],
+                  "height": 37
+                },
+                "props": {
+                  "path": "material/delete"
+                },
+                "type": "ia.display.icon"
+              },
+              {
+                "meta": {
+                  "name": "Icon_0"
+                },
+                "position": {
+                  "breakpoints": [
+                    {
+                      "colIndex": 8,
+                      "name": "sm",
+                      "order": 1,
+                      "rowIndex": 0,
+                      "span": 3
+                    },
+                    {
+                      "colIndex": 10,
+                      "name": "md",
+                      "order": 2,
+                      "rowIndex": 0,
+                      "span": 1
+                    }
+                  ],
+                  "height": 36
+                },
+                "props": {
+                  "path": "material/add"
+                },
+                "type": "ia.display.icon"
+              }
+            ],
+            "meta": {
+              "name": "ColumnContainer"
+            },
+            "position": {
+              "height": 44,
+              "width": 200,
+              "x": 581,
+              "y": 11.2
+            },
+            "props": {
+              "breakpoints": [
+                {
+                  "minWidth": 20,
+                  "name": "sm"
+                },
+                {
+                  "minWidth": 480,
+                  "name": "md"
+                },
+                {
+                  "minWidth": 996,
+                  "name": "lg"
+                }
+              ],
+              "gutters": {
+                "horizontal": 2,
+                "vertical": 2
+              }
+            },
+            "type": "ia.container.column"
+          }
+        ],
+        "meta": {
+          "name": "CoordinateContainer"
+        },
+        "position": {
+          "height": 61,
+          "width": 803,
+          "x": -3,
+          "y": 43
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#FAFAFB"
+          }
+        },
+        "type": "ia.container.coord"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Table"
+            },
+            "position": {
+              "height": 711,
+              "width": 795,
+              "y": 1
+            },
+            "props": {
+              "columns": [
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": true,
+                  "field": "count",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "center",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "center",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "justify": "center",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": ""
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": true,
+                  "field": "reasons",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "center",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "justify": "center",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": ""
+                }
+              ],
+              "data": [
+                {
+                  "count": 2,
+                  "reasons": "reaosn 1"
+                },
+                {
+                  "count": 2,
+                  "reasons": "reaosn 1"
+                },
+                {
+                  "count": 2,
+                  "reasons": "reaosn 1"
+                },
+                {
+                  "count": 2,
+                  "reasons": "reaosn 1"
+                },
+                {
+                  "count": 2,
+                  "reasons": "reaosn 1"
+                },
+                {
+                  "count": 2,
+                  "reasons": "reaosn 1"
+                }
+              ],
+              "filter": {
+                "enabled": true
+              },
+              "headerStyle": {
+                "classes": "Table/Header",
+                "fontFamily": "Arial",
+                "fontSize": 15
+              },
+              "selection": {
+                "data": [
+                  {
+                    "count": 2,
+                    "reasons": "reaosn 1"
+                  }
+                ],
+                "selectedColumn": "count",
+                "selectedRow": 0
+              }
+            },
+            "type": "ia.display.table"
+          }
+        ],
+        "meta": {
+          "name": "CoordinateContainer_0"
+        },
+        "position": {
+          "height": 655,
+          "width": 798,
+          "x": 3,
+          "y": 106
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#FAFAFB"
+          }
+        },
+        "type": "ia.container.coord"
+      },
+      {
+        "meta": {
+          "name": "Label_8"
+        },
+        "position": {
+          "height": 30.999999999999996,
+          "width": 262,
+          "x": 2.9956300000000002,
+          "y": 7.98
+        },
+        "props": {
+          "text": "Bad count details",
+          "textStyle": {
+            "color": "#000000",
+            "fontFamily": "Arial",
+            "fontSize": 20,
+            "fontWeight": "bold"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "style": {
+        "backgroundColor": "#D5D5D5",
+        "borderColor": "#D5D5D5",
+        "borderStyle": "solid"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

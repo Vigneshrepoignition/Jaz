@@ -1,0 +1,1205 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 499,
+      "width": 380
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "position": {
+                  "breakpoints": [
+                    {
+                      "colIndex": 0,
+                      "name": "sm",
+                      "order": 0,
+                      "rowIndex": 0,
+                      "span": 6
+                    },
+                    {
+                      "colIndex": 0,
+                      "name": "md",
+                      "order": 0,
+                      "rowIndex": 0,
+                      "span": 6
+                    },
+                    {
+                      "colIndex": 0,
+                      "name": "lg",
+                      "order": 0,
+                      "rowIndex": 0,
+                      "span": 6
+                    }
+                  ],
+                  "height": 35
+                },
+                "props": {
+                  "style": {
+                    "classes": "Login/ButtonText",
+                    "fontSize": 20,
+                    "margin": 8,
+                    "textAlign": "left"
+                  },
+                  "text": "Dashboard",
+                  "textStyle": {
+                    "classes": "BaseScreen",
+                    "color": "#FFFFFF"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\tself.session.custom.Username\u003d\u0027\u0027\n\tsystem.perspective.navigate(\"/LoginScreen\")"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "Icon"
+                },
+                "position": {
+                  "breakpoints": [
+                    {
+                      "colIndex": 10,
+                      "name": "sm",
+                      "order": 2,
+                      "rowIndex": 0,
+                      "span": 2
+                    },
+                    {
+                      "colIndex": 10,
+                      "name": "md",
+                      "order": 2,
+                      "rowIndex": 0,
+                      "span": 1
+                    },
+                    {
+                      "colIndex": 10,
+                      "name": "lg",
+                      "order": 2,
+                      "rowIndex": 0,
+                      "span": 1
+                    }
+                  ],
+                  "height": 30
+                },
+                "props": {
+                  "color": "#FFFFFF",
+                  "path": "material/account_circle",
+                  "style": {
+                    "marginTop": 12
+                  }
+                },
+                "type": "ia.display.icon"
+              },
+              {
+                "meta": {
+                  "name": "loginId",
+                  "tooltip": {
+                    "enabled": true,
+                    "location": "bottom-right",
+                    "style": {
+                      "classes": "Common/ToolTip"
+                    },
+                    "text": "User Details"
+                  }
+                },
+                "position": {
+                  "breakpoints": [
+                    {
+                      "colIndex": 7,
+                      "name": "sm",
+                      "order": 1,
+                      "rowIndex": 0,
+                      "span": 3
+                    },
+                    {
+                      "colIndex": 7,
+                      "name": "md",
+                      "order": 1,
+                      "rowIndex": 0,
+                      "span": 3
+                    },
+                    {
+                      "colIndex": 7,
+                      "name": "lg",
+                      "order": 1,
+                      "rowIndex": 0,
+                      "span": 3
+                    }
+                  ],
+                  "height": 40,
+                  "width": 0.2403,
+                  "x": 0.6445,
+                  "y": 0.3248
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.Username"
+                      },
+                      "previewEnabled": false,
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "alignItems": "center",
+                    "color": "#FFFFFF",
+                    "fontSize": 14,
+                    "fontStretch": "normal",
+                    "fontWeight": "normal",
+                    "margin": 8,
+                    "textAlign": "justify-all"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "ColumnContainer"
+            },
+            "position": {
+              "breakpoints": [
+                {
+                  "colIndex": 0,
+                  "name": "sm",
+                  "order": 1,
+                  "rowIndex": 0,
+                  "span": 12
+                },
+                {
+                  "colIndex": 0,
+                  "name": "md",
+                  "order": 1,
+                  "rowIndex": 0,
+                  "span": 12
+                },
+                {
+                  "colIndex": 0,
+                  "name": "lg",
+                  "order": 1,
+                  "rowIndex": 0,
+                  "span": 12
+                }
+              ],
+              "height": 60
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "#227995"
+              }
+            },
+            "type": "ia.container.column"
+          },
+          {
+            "children": [
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\tsystem.perspective.navigate(\"/PDAScreen\")"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "BtnOprConsole",
+                  "visible": false
+                },
+                "position": {
+                  "height": 0.5143,
+                  "width": 0.2047,
+                  "x": 0.0682,
+                  "y": 0.2081
+                },
+                "props": {
+                  "image": {
+                    "icon": {
+                      "path": "material/engineering"
+                    },
+                    "position": "top"
+                  },
+                  "style": {
+                    "classes": "Ref_MES/Common/ButtonDashboard"
+                  },
+                  "text": "Operator Console",
+                  "textStyle": {
+                    "fontSize": 10
+                  }
+                },
+                "type": "ia.input.button"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\timport time\n\tisReadOnly \u003d self.session.custom.authorizePDAScanComponentReadOnly\n\tif isReadOnly \u003d\u003d1 or str(isReadOnly).strip().lower()\u003d\u003d\u0027true\u0027:\n\t\tself.meta.tooltip.text \u003d \"Read Only Access\"\n\t\tself.getSibling(\"LblValidationMSG\").props.text \u003d \u0027Read Only Access For Scan Component\u0027\n\t\tself.getSibling(\"LblValidationMSG\").meta.visible \u003d True\n\telse:\t\n\t\tsystem.perspective.navigate(\"/PDAComponents\")\n\t\tself.getSibling(\"LblValidationMSG\").props.text \u003d \u0027\u0027\n\t\tself.getSibling(\"LblValidationMSG\").meta.visible \u003d False\n\tif self.getSibling(\"LblValidationMSG\").meta.visible\u003d\u003dTrue:\n\t\ttime.sleep(4)\n\t\tsystem.perspective.print(\"Close error\")\n\t\tself.getSibling(\"LblValidationMSG\").props.text \u003d \u0027\u0027\n\t\tself.getSibling(\"LblValidationMSG\").meta.visible \u003d False"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "BtnOprConsoleComponent",
+                  "tooltip": {
+                    "enabled": true
+                  }
+                },
+                "position": {
+                  "height": 0.5143,
+                  "width": 0.2047,
+                  "x": 0.3827,
+                  "y": 0.2405
+                },
+                "propConfig": {
+                  "meta.tooltip.text": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.authorizePDAScanComponent"
+                      },
+                      "transforms": [
+                        {
+                          "code": "\tif value\u003d\u003d0:\n\t\tresult\u003d\u0027Access Denied\u0027\n\telse :\n\t\tresult\u003d\u0027\u0027\n\treturn result",
+                          "type": "script"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  },
+                  "props.enabled": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.authorizePDAScanComponent"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "image": {
+                    "icon": {
+                      "path": "material/sticky_note_2"
+                    },
+                    "position": "top"
+                  },
+                  "style": {
+                    "classes": "Ref_MES/Common/ButtonDashboard"
+                  },
+                  "text": "Scan Component",
+                  "textStyle": {
+                    "fontSize": 10
+                  }
+                },
+                "type": "ia.input.button"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\tsystem.perspective.navigate(\"/PDAMaintaiceTechnicianConsole\")\t"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "BtnDemendDeneration",
+                  "visible": false
+                },
+                "position": {
+                  "height": 0.5143,
+                  "width": 0.2047,
+                  "x": 0.5493,
+                  "y": 0.2081
+                },
+                "props": {
+                  "enabled": false,
+                  "image": {
+                    "icon": {
+                      "path": "material/handyman"
+                    },
+                    "position": "top"
+                  },
+                  "style": {
+                    "classes": "Ref_MES/Common/ButtonDashboard"
+                  },
+                  "text": "Maintaice Technician Console",
+                  "textStyle": {
+                    "fontSize": 10
+                  }
+                },
+                "type": "ia.input.button"
+              },
+              {
+                "events": {
+                  "component": {
+                    "onActionPerformed": {
+                      "config": {
+                        "script": "\tsystem.perspective.navigate(\"/PDAPicking\")\t"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "BtnDemendDeneration_0",
+                  "tooltip": {
+                    "enabled": 1
+                  },
+                  "visible": false
+                },
+                "position": {
+                  "height": 0.5143,
+                  "width": 0.2047,
+                  "x": 0.7246,
+                  "y": 0.216
+                },
+                "props": {
+                  "enabled": 1,
+                  "image": {
+                    "icon": {
+                      "path": "material/add_to_photos"
+                    },
+                    "position": "top"
+                  },
+                  "style": {
+                    "classes": "Ref_MES/Common/ButtonDashboard"
+                  },
+                  "text": "Material Picking",
+                  "textStyle": {
+                    "fontSize": 10
+                  }
+                },
+                "type": "ia.input.button"
+              },
+              {
+                "events": {
+                  "component": {
+                    "onActionPerformed": {
+                      "config": {
+                        "script": "\timport time\n\tisReadOnly \u003d self.session.custom.authorizePDALineSideStorageReadOnly\n#\tformAccess \u003d session.custom.authorizePDALineSideStorage\n\t\n\tif isReadOnly\u003d\u003d1 or str(isReadOnly).strip().lower()\u003d\u003d\u0027true\u0027:\n\t\tself.meta.tooltip.text \u003d \"Read Only Access\"\n\t\tself.getSibling(\"LblValidationMSG\").props.text \u003d \u0027Read Only Access For Line Side Storage\u0027\n\t\tself.getSibling(\"LblValidationMSG\").meta.visible \u003d True\n#\t\ttime.sleep(5)\n#\t\tself.getSibling(\"LblValidationMSG\").props.text \u003d \u0027\u0027\n#\t\tself.getSibling(\"LblValidationMSG\").meta.visible \u003d False\n\telse:\t\t\t\n\t\tsystem.perspective.navigate(\"/PDALineSideStorage\")\t\n\t\tself.getSibling(\"LblValidationMSG\").props.text \u003d \u0027\u0027\n\t\tself.getSibling(\"LblValidationMSG\").meta.visible \u003d False\n\tif self.getSibling(\"LblValidationMSG\").meta.visible\u003d\u003dTrue:\n\t\ttime.sleep(4)\n\t\tsystem.perspective.print(\"Close error\")\n\t\tself.getSibling(\"LblValidationMSG\").props.text \u003d \u0027\u0027\n\t\tself.getSibling(\"LblValidationMSG\").meta.visible \u003d False"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "BtnLSA",
+                  "tooltip": {
+                    "enabled": true
+                  }
+                },
+                "position": {
+                  "height": 0.5143,
+                  "width": 0.2047,
+                  "x": 0.0716,
+                  "y": 0.2568
+                },
+                "propConfig": {
+                  "meta.tooltip.text": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.authorizePDALineSideStorage"
+                      },
+                      "transforms": [
+                        {
+                          "code": "\tif value\u003d\u003d0:\n\t\tresult\u003d\u0027Access Denied\u0027\n#\t\tself.getSibling(\"LblValidationMSG\").props.text \u003d \u0027Form Access Denied\u0027\n#\t\tself.getSibling(\"LblValidationMSG\").meta.visible \u003d True\n\telse :\n\t\tresult\u003d\u0027\u0027\n#\t\tself.getSibling(\"LblValidationMSG\").props.text \u003d \u0027\u0027\n#\t\tself.getSibling(\"LblValidationMSG\").meta.visible \u003d False\n\treturn result",
+                          "type": "script"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  },
+                  "props.enabled": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.authorizePDALineSideStorage"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "image": {
+                    "icon": {
+                      "path": "material/store"
+                    },
+                    "position": "top"
+                  },
+                  "style": {
+                    "classes": "Ref_MES/Common/ButtonDashboard"
+                  },
+                  "text": "Line side Storage",
+                  "textStyle": {
+                    "fontSize": 10
+                  }
+                },
+                "type": "ia.input.button"
+              },
+              {
+                "events": {
+                  "component": {
+                    "onActionPerformed": {
+                      "config": {
+                        "script": "\timport time\n\tisReadOnly \u003d self.session.custom.authorizePDAScanPartReturnReadOnly\n\tif isReadOnly\u003d\u003d1 or str(isReadOnly).strip().lower()\u003d\u003d\u0027true\u0027:\n\t\tself.meta.tooltip.text \u003d \"Read Only Access\"\n\t\tself.getSibling(\"LblValidationMSG\").props.text \u003d \u0027Read Only Access For Material Return\u0027\n\t\tself.getSibling(\"LblValidationMSG\").meta.visible \u003d True\n\telse:\t\t\n\t\tsystem.perspective.navigate(\"/PDAMaterialReturn\")\t\n\t\tself.getSibling(\"LblValidationMSG\").props.text \u003d \u0027\u0027\n\t\tself.getSibling(\"LblValidationMSG\").meta.visible \u003d False\n\tif self.getSibling(\"LblValidationMSG\").meta.visible\u003d\u003dTrue:\n\t\ttime.sleep(4)\n\t\tsystem.perspective.print(\"Close error\")\n\t\tself.getSibling(\"LblValidationMSG\").props.text \u003d \u0027\u0027\n\t\tself.getSibling(\"LblValidationMSG\").meta.visible \u003d False"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "BtnMatrlRtn",
+                  "tooltip": {
+                    "enabled": true
+                  }
+                },
+                "position": {
+                  "height": 0.5143,
+                  "width": 0.2047,
+                  "x": 0.698,
+                  "y": 0.2404
+                },
+                "propConfig": {
+                  "meta.tooltip.text": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.authorizePDAMaterialReturn"
+                      },
+                      "transforms": [
+                        {
+                          "code": "\tif value\u003d\u003d0:\n\t\tresult\u003d\u0027Access Denied\u0027\n\telse :\n\t\tresult\u003d\u0027\u0027\n\treturn result",
+                          "type": "script"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  },
+                  "props.enabled": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.authorizePDAMaterialReturn"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "image": {
+                    "icon": {
+                      "path": "material/arrow_back"
+                    },
+                    "position": "top"
+                  },
+                  "style": {
+                    "classes": "Ref_MES/Common/ButtonDashboard"
+                  },
+                  "text": "Material Return",
+                  "textStyle": {
+                    "fontSize": 10
+                  }
+                },
+                "type": "ia.input.button"
+              },
+              {
+                "meta": {
+                  "name": "LblValidationMSG",
+                  "visible": false
+                },
+                "position": {
+                  "height": 0.1302,
+                  "width": 0.8271,
+                  "x": 0.0692,
+                  "y": 0.0244
+                },
+                "propConfig": {
+                  "meta.visible": {
+                    "binding": {
+                      "config": {
+                        "path": "this.meta.visible"
+                      },
+                      "enabled": false,
+                      "transforms": [
+                        {
+                          "code": "\tqtyEnter\u003dself.getSibling(\"txtQty\").props.value\n\tQty\u003dself.view.custom.Qty\n\tsystem.perspective.print(\u0027Qty is : \u0027+ str(Qty))\n\tif qtyEnter \u003e Qty :\n\t\tvalue\u003d1\n\telse:\t\n\t\tvalue\u003d0\n\treturn value",
+                          "type": "script"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "Ref_MES/Common/Label_PDAValidation"
+                  },
+                  "textStyle": {
+                    "classes": "PDA/lblWarning",
+                    "color": "#FF0000"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "CoordinateContainer",
+              "tooltip": {
+                "location": "center"
+              }
+            },
+            "position": {
+              "breakpoints": [
+                {
+                  "colIndex": 0,
+                  "name": "sm",
+                  "order": 0,
+                  "rowIndex": 2,
+                  "span": 12
+                },
+                {
+                  "colIndex": 0,
+                  "name": "md",
+                  "order": 0,
+                  "rowIndex": 1,
+                  "span": 12
+                },
+                {
+                  "colIndex": 0,
+                  "name": "lg",
+                  "order": 2,
+                  "rowIndex": 2,
+                  "span": 12
+                }
+              ],
+              "height": 123
+            },
+            "props": {
+              "mode": "percent",
+              "style": {
+                "backgroundColor": "#E0E3E4",
+                "borderBottomLeftRadius": 15,
+                "borderBottomRightRadius": 15,
+                "borderTopLeftRadius": 15,
+                "borderTopRightRadius": 15
+              }
+            },
+            "type": "ia.container.coord"
+          },
+          {
+            "children": [
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\timport time\n\tisReadOnly \u003d self.session.custom.authorizePDALoadUnloadToolReadOnly\n\tif isReadOnly\u003d\u003d1 or str(isReadOnly).strip().lower()\u003d\u003d\u0027true\u0027:\n\t\tself.meta.tooltip.text \u003d \"Read Only Access\"\n\t\tself.getSibling(\"LblValidationMSG\").props.text \u003d \u0027Read Only Access For Load Unload Other Tools\u0027\n\t\tself.getSibling(\"LblValidationMSG\").meta.visible \u003d True\n\telse:\t\t\t\n\t\tsystem.perspective.navigate(\"/ToolLoadingUnloading\")\n\t\tself.getSibling(\"LblValidationMSG\").props.text \u003d \u0027\u0027\n\t\tself.getSibling(\"LblValidationMSG\").meta.visible \u003d False\n\tif self.getSibling(\"LblValidationMSG\").meta.visible\u003d\u003dTrue:\n\t\ttime.sleep(4)\n\t\tsystem.perspective.print(\"Close error\")\n\t\tself.getSibling(\"LblValidationMSG\").props.text \u003d \u0027\u0027\n\t\tself.getSibling(\"LblValidationMSG\").meta.visible \u003d False"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "BtnToolLoadUnload",
+                  "tooltip": {
+                    "enabled": true
+                  }
+                },
+                "position": {
+                  "height": 0.5143,
+                  "width": 0.2047,
+                  "x": 0.3827,
+                  "y": 0.2561
+                },
+                "propConfig": {
+                  "meta.tooltip.text": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.authorizePDALoadUnloadTool"
+                      },
+                      "transforms": [
+                        {
+                          "code": "\tif value\u003d\u003d0:\n\t\tresult\u003d\u0027Access Denied\u0027\n\telse :\n\t\tresult\u003d\u0027\u0027\n\treturn result",
+                          "type": "script"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  },
+                  "props.enabled": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.authorizePDALoadUnloadTool"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "image": {
+                    "icon": {
+                      "path": "material/construction"
+                    },
+                    "position": "top"
+                  },
+                  "style": {
+                    "classes": "Ref_MES/Common/ButtonDashboard"
+                  },
+                  "text": "Load/Unload Other Tools",
+                  "textStyle": {
+                    "fontSize": 10
+                  }
+                },
+                "type": "ia.input.button"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "newTab": true,
+                        "url": "https://docs.inductiveautomation.com/"
+                      },
+                      "scope": "C",
+                      "type": "nav"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "BtnHelp",
+                  "visible": false
+                },
+                "position": {
+                  "height": 0.5143,
+                  "width": 0.2047,
+                  "x": 0.52,
+                  "y": 0.2
+                },
+                "props": {
+                  "image": {
+                    "icon": {
+                      "path": "material/help_outline"
+                    },
+                    "position": "top"
+                  },
+                  "style": {
+                    "classes": "Ref_MES/Common/ButtonDashboard"
+                  },
+                  "text": "Help",
+                  "textStyle": {
+                    "fontSize": 10
+                  }
+                },
+                "type": "ia.input.button"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\timport time\n\tisReadOnly \u003d self.session.custom.authorizePDALoadUnloadMoldReadOnly\n\tif isReadOnly\u003d\u003d1 or str(isReadOnly).strip().lower()\u003d\u003d\u0027true\u0027:\n\t\tself.meta.tooltip.text \u003d \"Read Only Access\"\n\t\tself.getSibling(\"LblValidationMSG\").props.text \u003d \u0027Read Only Access For Scan Component\u0027\n\t\tself.getSibling(\"LblValidationMSG\").meta.visible \u003d True\n\t\t\n\telse:\t\t\t\n\t\tsystem.perspective.navigate(\"/MoldComponent\")\n\t\tself.getSibling(\"LblValidationMSG\").props.text \u003d \u0027\u0027\t\n\t\tself.getSibling(\"LblValidationMSG\").meta.visible \u003d False\n\tif self.getSibling(\"LblValidationMSG\").meta.visible\u003d\u003dTrue:\n\t\ttime.sleep(4)\n\t\tsystem.perspective.print(\"Close error\")\n\t\tself.getSibling(\"LblValidationMSG\").props.text \u003d \u0027\u0027\n\t\tself.getSibling(\"LblValidationMSG\").meta.visible \u003d False"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "BtnMold",
+                  "tooltip": {
+                    "enabled": true
+                  }
+                },
+                "position": {
+                  "height": 0.5143,
+                  "width": 0.2047,
+                  "x": 0.0703,
+                  "y": 0.2561
+                },
+                "propConfig": {
+                  "meta.tooltip.text": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.authorizePDALoadUnloadMold"
+                      },
+                      "transforms": [
+                        {
+                          "code": "\tif value\u003d\u003d0:\n\t\tresult\u003d\u0027Access Denied\u0027\n\telse :\n\t\tresult\u003d\u0027\u0027\n\treturn result",
+                          "type": "script"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  },
+                  "props.enabled": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.authorizePDALoadUnloadMold"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "image": {
+                    "icon": {
+                      "path": "material/all_inbox"
+                    },
+                    "position": "top"
+                  },
+                  "style": {
+                    "classes": "Ref_MES/Common/ButtonDashboard"
+                  },
+                  "text": "Load/Unload Mold",
+                  "textStyle": {
+                    "fontSize": 10
+                  }
+                },
+                "type": "ia.input.button"
+              },
+              {
+                "meta": {
+                  "name": "LblValidationMSG",
+                  "visible": false
+                },
+                "position": {
+                  "height": 0.1302,
+                  "width": 0.8271,
+                  "x": 0.0692,
+                  "y": 0.0244
+                },
+                "propConfig": {
+                  "meta.visible": {
+                    "binding": {
+                      "config": {
+                        "path": "this.meta.visible"
+                      },
+                      "enabled": false,
+                      "transforms": [
+                        {
+                          "code": "\tqtyEnter\u003dself.getSibling(\"txtQty\").props.value\n\tQty\u003dself.view.custom.Qty\n\tsystem.perspective.print(\u0027Qty is : \u0027+ str(Qty))\n\tif qtyEnter \u003e Qty :\n\t\tvalue\u003d1\n\telse:\t\n\t\tvalue\u003d0\n\treturn value",
+                          "type": "script"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "Ref_MES/Common/Label_PDAValidation"
+                  },
+                  "textStyle": {
+                    "classes": "PDA/lblWarning",
+                    "color": "#FF0000"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "CoordinateContainer_0"
+            },
+            "position": {
+              "breakpoints": [
+                {
+                  "colIndex": 0,
+                  "name": "sm",
+                  "order": 1,
+                  "rowIndex": 3,
+                  "span": 12
+                },
+                {
+                  "colIndex": 0,
+                  "name": "md",
+                  "order": 1,
+                  "rowIndex": 1,
+                  "span": 12
+                },
+                {
+                  "colIndex": 0,
+                  "name": "lg",
+                  "order": 2,
+                  "rowIndex": 3,
+                  "span": 12
+                }
+              ],
+              "height": 123
+            },
+            "props": {
+              "mode": "percent",
+              "style": {
+                "backgroundColor": "#E0E3E4",
+                "borderBottomLeftRadius": 15,
+                "borderBottomRightRadius": 15,
+                "borderTopLeftRadius": 15,
+                "borderTopRightRadius": 15
+              }
+            },
+            "type": "ia.container.coord"
+          },
+          {
+            "children": [
+              {
+                "events": {
+                  "component": {
+                    "onActionPerformed": {
+                      "config": {
+                        "script": "\timport time\n\tisReadOnly \u003d self.session.custom.authorizePDAScanPartReceptionReadOnly\n\tif isReadOnly\u003d\u003d1 or str(isReadOnly).strip().lower()\u003d\u003d\u0027true\u0027:\n\t\tself.meta.tooltip.text \u003d \"Read Only Access\"\n\t\tself.getSibling(\"LblValidationMSG\").props.text \u003d \u0027Read Only Access For Spare Part Reception \u0027\n\t\tself.getSibling(\"LblValidationMSG\").meta.visible \u003d True\n\telse:\t\t\t\t\n\t\tsystem.perspective.navigate(\"/PDAAddSparePartReception\")\t\n\t\tself.getSibling(\"LblValidationMSG\").props.text \u003d \u0027\u0027\n\t\tself.getSibling(\"LblValidationMSG\").meta.visible \u003d False\n\tif self.getSibling(\"LblValidationMSG\").meta.visible\u003d\u003dTrue:\n\t\ttime.sleep(4)\n\t\tsystem.perspective.print(\"Close error\")\n\t\tself.getSibling(\"LblValidationMSG\").props.text \u003d \u0027\u0027\n\t\tself.getSibling(\"LblValidationMSG\").meta.visible \u003d False"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "BtnAddSparePart",
+                  "tooltip": {
+                    "enabled": true
+                  },
+                  "visible": 1
+                },
+                "position": {
+                  "height": 0.5143,
+                  "width": 0.2047,
+                  "x": 0.0715,
+                  "y": 0.2376
+                },
+                "propConfig": {
+                  "meta.tooltip.text": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.authorizePDAScanPartReception"
+                      },
+                      "transforms": [
+                        {
+                          "code": "\tif value\u003d\u003d0:\n\t\tresult\u003d\u0027Access Denied\u0027\n\telse :\n\t\tresult\u003d\u0027\u0027\n\treturn result",
+                          "type": "script"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  },
+                  "props.enabled": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.authorizePDAScanPartReception"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "image": {
+                    "icon": {
+                      "path": "material/library_add"
+                    },
+                    "position": "top"
+                  },
+                  "style": {
+                    "classes": "Ref_MES/Common/ButtonDashboard"
+                  },
+                  "text": "Spare Part Reception",
+                  "textStyle": {
+                    "fontSize": 10
+                  }
+                },
+                "type": "ia.input.button"
+              },
+              {
+                "events": {
+                  "component": {
+                    "onActionPerformed": {
+                      "config": {
+                        "script": "\timport time\n\tisReadOnly \u003d self.session.custom.authorizePDAScanPartDeliveryReadOnly\n\tif isReadOnly\u003d\u003d1 or str(isReadOnly).strip().lower()\u003d\u003d\u0027true\u0027:\n\t\tself.meta.tooltip.text \u003d \"Read Only Access\"\n\t\tself.getSibling(\"LblValidationMSG\").props.text \u003d \u0027Read Only Access For Spare Part Delivery \u0027\n\t\tself.getSibling(\"LblValidationMSG\").meta.visible \u003d True\n\telse:\t\t\t\t\t\n\t\tsystem.perspective.navigate(\"/PDASparePartDelivery\")\n\t\tself.getSibling(\"LblValidationMSG\").props.text \u003d \u0027\u0027\n\t\tself.getSibling(\"LblValidationMSG\").meta.visible \u003d False\t\n\tif self.getSibling(\"LblValidationMSG\").meta.visible\u003d\u003dTrue:\n\t\ttime.sleep(4)\n\t\tsystem.perspective.print(\"Close error\")\n\t\tself.getSibling(\"LblValidationMSG\").props.text \u003d \u0027\u0027\n\t\tself.getSibling(\"LblValidationMSG\").meta.visible \u003d False"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "BtnSparePartDelivery",
+                  "tooltip": {
+                    "enabled": true
+                  }
+                },
+                "position": {
+                  "height": 0.5143,
+                  "width": 0.2047,
+                  "x": 0.3815,
+                  "y": 0.2376
+                },
+                "propConfig": {
+                  "meta.tooltip.text": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.authorizePDAScanPartDelivery"
+                      },
+                      "transforms": [
+                        {
+                          "code": "\tif value\u003d\u003d0:\n\t\tresult\u003d\u0027Access Denied\u0027\n\telse :\n\t\tresult\u003d\u0027\u0027\n\treturn result",
+                          "type": "script"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  },
+                  "props.enabled": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.authorizePDAScanPartDelivery"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "image": {
+                    "icon": {
+                      "path": "material/assignment_turned_in"
+                    },
+                    "position": "top"
+                  },
+                  "style": {
+                    "classes": "Ref_MES/Common/ButtonDashboard"
+                  },
+                  "text": "Spare Part Delivery",
+                  "textStyle": {
+                    "fontSize": 10
+                  }
+                },
+                "type": "ia.input.button"
+              },
+              {
+                "events": {
+                  "component": {
+                    "onActionPerformed": {
+                      "config": {
+                        "script": "\timport time\n\tisReadOnly \u003d self.session.custom.authorizePDAScanPartReturnReadOnly\n\tif isReadOnly\u003d\u003d1 or str(isReadOnly).strip().lower()\u003d\u003d\u0027true\u0027:\n\t\tself.meta.tooltip.text \u003d \"Read Only Access\"\n\t\tself.getSibling(\"LblValidationMSG\").props.text \u003d \u0027Read Only Access For Spare Part Return \u0027\n\t\tself.getSibling(\"LblValidationMSG\").meta.visible \u003d True\n\telse:\t\t\t\t\n\t\tsystem.perspective.navigate(\"/PDAReturnFromSparePartRequest\")\t\n\t\tself.getSibling(\"LblValidationMSG\").props.text \u003d \u0027\u0027\n\t\tself.getSibling(\"LblValidationMSG\").meta.visible \u003d False\n\tif self.getSibling(\"LblValidationMSG\").meta.visible\u003d\u003dTrue:\n\t\ttime.sleep(4)\n\t\tsystem.perspective.print(\"Close error\")\n\t\tself.getSibling(\"LblValidationMSG\").props.text \u003d \u0027\u0027\n\t\tself.getSibling(\"LblValidationMSG\").meta.visible \u003d False"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "BtnMatrlRtn",
+                  "tooltip": {
+                    "enabled": true
+                  }
+                },
+                "position": {
+                  "height": 0.5143,
+                  "width": 0.2047,
+                  "x": 0.6974,
+                  "y": 0.2376
+                },
+                "propConfig": {
+                  "meta.tooltip.text": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.authorizePDAScanPartReturn"
+                      },
+                      "transforms": [
+                        {
+                          "code": "\tif value\u003d\u003d0:\n\t\tresult\u003d\u0027Access Denied\u0027\n\telse :\n\t\tresult\u003d\u0027\u0027\n\treturn result",
+                          "type": "script"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  },
+                  "props.enabled": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.authorizePDAScanPartReturn"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "image": {
+                    "icon": {
+                      "path": "material/arrow_back"
+                    },
+                    "position": "top"
+                  },
+                  "style": {
+                    "classes": "Ref_MES/Common/ButtonDashboard"
+                  },
+                  "text": "Spare Part Return",
+                  "textStyle": {
+                    "fontSize": 10
+                  }
+                },
+                "type": "ia.input.button"
+              },
+              {
+                "meta": {
+                  "name": "LblValidationMSG",
+                  "visible": false
+                },
+                "position": {
+                  "height": 0.1302,
+                  "width": 0.8271,
+                  "x": 0.0692,
+                  "y": 0.0244
+                },
+                "propConfig": {
+                  "meta.visible": {
+                    "binding": {
+                      "config": {
+                        "path": "this.meta.visible"
+                      },
+                      "enabled": false,
+                      "transforms": [
+                        {
+                          "code": "\tqtyEnter\u003dself.getSibling(\"txtQty\").props.value\n\tQty\u003dself.view.custom.Qty\n\tsystem.perspective.print(\u0027Qty is : \u0027+ str(Qty))\n\tif qtyEnter \u003e Qty :\n\t\tvalue\u003d1\n\telse:\t\n\t\tvalue\u003d0\n\treturn value",
+                          "type": "script"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "Ref_MES/Common/Label_PDAValidation"
+                  },
+                  "textStyle": {
+                    "classes": "PDA/lblWarning",
+                    "color": "#FF0000"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "CoordinateContainer_1"
+            },
+            "position": {
+              "breakpoints": [
+                {
+                  "colIndex": 0,
+                  "name": "sm",
+                  "order": 1,
+                  "rowIndex": 3,
+                  "span": 12
+                },
+                {
+                  "colIndex": 0,
+                  "name": "md",
+                  "order": 1,
+                  "rowIndex": 1,
+                  "span": 12
+                },
+                {
+                  "colIndex": 0,
+                  "name": "lg",
+                  "order": 2,
+                  "rowIndex": 3,
+                  "span": 12
+                }
+              ],
+              "height": 123
+            },
+            "props": {
+              "mode": "percent",
+              "style": {
+                "backgroundColor": "#E0E3E4",
+                "borderBottomLeftRadius": 15,
+                "borderBottomRightRadius": 15,
+                "borderTopLeftRadius": 15,
+                "borderTopRightRadius": 15
+              }
+            },
+            "type": "ia.container.coord"
+          }
+        ],
+        "meta": {
+          "name": "ColumnContainer"
+        },
+        "position": {
+          "height": 1,
+          "width": 0.9947
+        },
+        "props": {
+          "breakpoints": [
+            {
+              "minWidth": 0,
+              "name": "sm"
+            },
+            {
+              "minWidth": 350,
+              "name": "md"
+            },
+            {
+              "minWidth": 996,
+              "name": "lg"
+            }
+          ]
+        },
+        "type": "ia.container.column"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": 417,
+      "y": 9
+    },
+    "props": {
+      "mode": "percent",
+      "style": {
+        "backgroundColor": "#FFFFFF",
+        "borderBottomLeftRadius": 4,
+        "borderBottomRightRadius": 4,
+        "borderColor": "#1088CA",
+        "borderStyle": "solid",
+        "borderTopLeftRadius": 4,
+        "borderTopRightRadius": 4,
+        "borderWidth": 1,
+        "marginLeft": 0,
+        "marginTop": 0,
+        "opacity": "1",
+        "outlineStyle": "none",
+        "paddingBottom": 2,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

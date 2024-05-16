@@ -1,0 +1,365 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\tUserId\u003dself.session.custom.UserId\n\tif UserId\u003d\u003dNone or str(UserId)\u003d\u003d\u0027None\u0027 or str(UserId).strip()\u003d\u003d\u0027\u0027  or str(UserId).lower().strip()\u003d\u003d\u0027null\u0027:\n\t\tsystem.perspective.navigate(\u0027/LoginScreen\u0027)\n#\ttemp\u003d1\n#\tself.getChild(\"root\").getChild(\"CntDashBoard_0\").getChild(\"BtnSettings\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoardPlantHierarchy\").getChild(\"BtnDiagnostics\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoardPlantHierarchy\").getChild(\"BtnMachineMonitor\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoardPlanning\").getChild(\"BtnNotifications\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoardOrderExe\").getChild(\"tnDashboardOrderExe\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnOperatorConsole\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnDashRoleMaster\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnDashMaintOptrConsole\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnDashMaintOptrConsole_RM\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnDashWarehouseOptrConsole\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnQualityConsole\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnOperatorConsole_0\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnPEA\").meta.visible\u003dtemp\n#\troleId\u003d1\n#\tds\u003dAuthentication.GetModulesForRole(roleId)\n#\tfor i in ds:\n#\t\tmoduleName\u003d\tstr(i[\u0027moduleName\u0027]).lower().strip()\n#\t\tif \tmoduleName\u003d\u003d\u0027production\u0027:\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnOperatorConsole\").meta.visible\u003d1\t\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnPEA\").meta.visible\u003d1\n#\t\tif \tmoduleName\u003d\u003d\u0027Quality\u0027.lower():\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnDashRoleMaster\").meta.visible\u003d1\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnQualityConsole\").meta.visible\u003d1\n#\t\tif \tmoduleName\u003d\u003d\u0027Maintenance\u0027.lower():\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnDashMaintOptrConsole\").meta.visible\u003d1\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnDashMaintOptrConsole_RM\").meta.visible\u003d1\n#\t\tif \tmoduleName\u003d\u003d\u0027Warehouse\u0027.lower():\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnDashWarehouseOptrConsole\").meta.visible\u003d1\n#\t\tif \tmoduleName\u003d\u003d\u0027Administration\u0027.lower():\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoard_0\").getChild(\"BtnSettings\").meta.visible\u003d1\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoardPlantHierarchy\").getChild(\"BtnDiagnostics\").meta.visible\u003d1\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoardPlanning\").getChild(\"BtnNotifications\").meta.visible\u003d1\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoardPlantHierarchy\").getChild(\"BtnMachineMonitor\").meta.visible\u003d1\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoardOrderExe\").getChild(\"tnDashboardOrderExe\").meta.visible\u003d1"
+        },
+        "enabled": false,
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "propConfig": {
+    "props.defaultSize.height": {
+      "binding": {
+        "config": {
+          "path": "session.custom.ScreenHeight"
+        },
+        "type": "property"
+      }
+    },
+    "props.defaultSize.width": {
+      "binding": {
+        "config": {
+          "path": "session.custom.ScreenWidth"
+        },
+        "type": "property"
+      }
+    }
+  },
+  "props": {
+    "defaultSize": {}
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "page": "/ProductionOperatorConsole"
+                  },
+                  "scope": "C",
+                  "type": "nav"
+                },
+                "onMouseLeave": {
+                  "config": {
+                    "script": "\tself.props.style.backgroundColor \u003d \u0027#FFFFFF\u0027"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                },
+                "onMouseOver": {
+                  "config": {
+                    "script": "\tself.props.style.backgroundColor \u003d \u0027#CCFFFF9C\u0027"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "BtnOperatorConsole_0",
+              "tooltip": {
+                "enabled": true
+              },
+              "visible": 1
+            },
+            "position": {
+              "height": 0.65,
+              "width": 0.1733,
+              "x": 0.0347,
+              "y": 0.1727
+            },
+            "propConfig": {
+              "meta.tooltip.text": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.authorizeProduction"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tif value\u003d\u003d0:\n\t\tresult\u003d\u0027Access Denied\u0027\n\telse :\n\t\tresult\u003d\u0027\u0027\n\treturn result",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.enabled": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.authorizeProduction"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "image": {
+                "height": 40,
+                "icon": {
+                  "color": "#555555",
+                  "path": "material/engineering"
+                },
+                "position": "top",
+                "style": {
+                  "backgroundColor": "#FFFFFF"
+                },
+                "width": 40
+              },
+              "style": {
+                "backgroundColor": "#FFFFFF",
+                "classes": "Ref_MES/Common/ButtonDashboard"
+              },
+              "text": "Production Operator Console"
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "page": "/Reworkscreen"
+                  },
+                  "scope": "C",
+                  "type": "nav"
+                },
+                "onMouseLeave": {
+                  "config": {
+                    "script": "\tself.props.style.backgroundColor \u003d \u0027#FFFFFF\u0027"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                },
+                "onMouseOver": {
+                  "config": {
+                    "script": "\tself.props.style.backgroundColor \u003d \u0027#CCFFFF9C\u0027"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "BtnPEA",
+              "visible": 1
+            },
+            "position": {
+              "height": 0.65,
+              "width": 0.1733,
+              "x": 0.5555,
+              "y": 0.1727
+            },
+            "props": {
+              "image": {
+                "height": 40,
+                "icon": {
+                  "color": "#555555",
+                  "path": "material/work_outline"
+                },
+                "position": "top",
+                "style": {
+                  "backgroundColor": "#FFFFFF"
+                },
+                "width": 40
+              },
+              "style": {
+                "classes": "Ref_MES/Common/ButtonDashboard"
+              },
+              "text": "Re-Work"
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "page": "/LineLeadConsole"
+                  },
+                  "scope": "C",
+                  "type": "nav"
+                },
+                "onMouseLeave": {
+                  "config": {
+                    "script": "\tself.props.style.backgroundColor \u003d \u0027#FFFFFF\u0027"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                },
+                "onMouseOver": {
+                  "config": {
+                    "script": "\tself.props.style.backgroundColor \u003d \u0027#CCFFFF9C\u0027"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "BtnLineLeadConsole",
+              "tooltip": {
+                "enabled": true
+              },
+              "visible": 1
+            },
+            "position": {
+              "height": 0.65,
+              "width": 0.1733,
+              "x": 0.2867,
+              "y": 0.1727
+            },
+            "propConfig": {
+              "meta.tooltip.text": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.authorizeLineLeadConsole"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tif value\u003d\u003d0:\n\t\tresult\u003d\u0027Access Denied\u0027\n\telse :\n\t\tresult\u003d\u0027\u0027\n\treturn result",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.enabled": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.authorizeLineLeadConsole"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "image": {
+                "height": 40,
+                "icon": {
+                  "color": "#555555",
+                  "path": "material/insert_chart_outlined"
+                },
+                "position": "top",
+                "style": {
+                  "backgroundColor": "#FFFFFF"
+                },
+                "width": 40
+              },
+              "style": {
+                "classes": "Ref_MES/Common/ButtonDashboard"
+              },
+              "text": "Line Lead Console"
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "page": "/PEA"
+                  },
+                  "scope": "C",
+                  "type": "nav"
+                },
+                "onMouseLeave": {
+                  "config": {
+                    "script": "\tself.props.style.backgroundColor \u003d \u0027#FFFFFF\u0027"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                },
+                "onMouseOver": {
+                  "config": {
+                    "script": "\tself.props.style.backgroundColor \u003d \u0027#CCFFFF9C\u0027"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "BtnPEA_0",
+              "visible": 1
+            },
+            "position": {
+              "height": 0.65,
+              "width": 0.1733,
+              "x": 0.7916,
+              "y": 0.1741
+            },
+            "propConfig": {
+              "meta.visible": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.authorizeProduction"
+                  },
+                  "enabled": false,
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "image": {
+                "height": 40,
+                "icon": {
+                  "color": "#555555",
+                  "path": "material/fact_check"
+                },
+                "position": "top",
+                "style": {
+                  "backgroundColor": "#FFFFFF"
+                },
+                "width": 40
+              },
+              "style": {
+                "classes": "Ref_MES/Common/ButtonDashboard"
+              },
+              "text": "PEA"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "CntDashBoard"
+        },
+        "position": {
+          "height": 0.9844,
+          "width": 0.6088,
+          "x": 0.0014,
+          "y": 0.0115
+        },
+        "props": {
+          "mode": "percent",
+          "style": {
+            "backgroundColor": "#E0E3E4"
+          }
+        },
+        "type": "ia.container.coord"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -0.0213,
+      "y": -0.005
+    },
+    "props": {
+      "mode": "percent",
+      "style": {
+        "backgroundColor": "#E0E3E4"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

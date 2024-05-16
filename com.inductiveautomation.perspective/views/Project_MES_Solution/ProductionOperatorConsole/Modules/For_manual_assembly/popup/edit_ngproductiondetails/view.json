@@ -1,0 +1,446 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\tself.getChild(\"root\").getChild(\"Dropdown_1\").props.options \u003d \" \"\n\tself.getChild(\"root\").getChild(\"Dropdown_2\").props.options \u003d \" \"\n\tself.getChild(\"root\").getChild(\"Dropdown_1\").props.options\u003dfpsi_ignition01.Getbadreasonsubtypelist()"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "rowdata": "value"
+  },
+  "propConfig": {
+    "params.rowdata": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 330,
+      "width": 520
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 38,
+          "width": 520
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Bad Product Details",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 10,
+            "textAlign": "Center",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "draggable": false,
+                "id": "jTZHtbkw",
+                "modal": false,
+                "overlayDismiss": false,
+                "resizable": false,
+                "showCloseIcon": false,
+                "type": "close",
+                "viewPath": "Project_MES_Solution/ProductionOperatorConsole/PopUps/DL and IDL operator information/PopupUserAssignmentDL",
+                "viewportBound": false
+              },
+              "scope": "C",
+              "type": "popup"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 34.78,
+          "width": 35,
+          "x": 482.59,
+          "y": 0.59
+        },
+        "props": {
+          "color": "#FFFFFF",
+          "path": "material/close"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "id_field",
+          "visible": false
+        },
+        "position": {
+          "height": 32,
+          "width": 150,
+          "x": 41.46875,
+          "y": 230
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "hourofshift"
+        },
+        "position": {
+          "height": 34.12,
+          "width": 203.26,
+          "x": 19.46,
+          "y": 75.3
+        },
+        "props": {
+          "enabled": false,
+          "style": {
+            "backgroundColor": "#FAFAFB",
+            "borderColor": "#000000",
+            "borderStyle": "inset",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "LblProductionLine",
+          "tooltip": {
+            "enabled": true,
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Production Line"
+          }
+        },
+        "position": {
+          "height": 31.14,
+          "width": 127.22,
+          "x": 19.42,
+          "y": 39.9
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Start Time",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "target"
+        },
+        "position": {
+          "height": 34.12,
+          "width": 203.26,
+          "x": 284.6,
+          "y": 75.3
+        },
+        "props": {
+          "enabled": false,
+          "style": {
+            "backgroundColor": "#FAFAFB",
+            "borderColor": "#000000",
+            "borderStyle": "inset",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "LblProductionLine_2",
+          "tooltip": {
+            "enabled": true,
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Production Line"
+          }
+        },
+        "position": {
+          "height": 31.14,
+          "width": 127.22,
+          "x": 285.1,
+          "y": 39.9
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "End Time",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblProductionLine_1",
+          "tooltip": {
+            "enabled": true,
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Production Line"
+          }
+        },
+        "position": {
+          "height": 31.14,
+          "width": 159.00000000000003,
+          "x": 19.4669,
+          "y": 133.9
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Reason SubType",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": [
+              {
+                "config": {
+                  "script": "\t#try:\n\tsystem.perspective.print(\"return\")\n\tsystem.perspective.print(self.view.params.rowdata)\n\tID \u003d int(self.getSibling(\"id_field\").props.text)\n\tgoodqty \u003d int(self.getSibling(\"good_qty\").props.value)\n\tbadqty \u003d int(self.getSibling(\"badqty\").props.value)\n\tsystem.perspective.print(ID)\n\ta\u003dJEMESSetupapi.PostShiftProductionDetails(ID,goodqty,badqty)\n\tif a \u003d\u003d1:\n\t\tsystem.perspective.closePopup(\"jTZHtbkw\")\n\telse:\n\t\tpass\n\tsystem.perspective.print(\"Not Posted\")\n\tsystem.perspective.print(a)\n\t#except Exception as e:    \n#\t\tscriptName \u003d \"Operator Console:AdhocAPIZAC.PostOPRInfo...\"\n#\t\terrorMessage\u003dscriptName  +\u0027 Exception - \u0027+  str(e)\n#\t\tAuthentication.exceptionLogger(errorMessage)\n#\t\tsystem.perspective.print(errorMessage)\n#\t"
+                },
+                "scope": "G",
+                "type": "script"
+              },
+              {
+                "config": {
+                  "script": "\tmessageType \u003d \u0027popupuserassignment_get_table_data\u0027\n\tsystem.perspective.sendMessage(messageType)"
+                },
+                "enabled": false,
+                "scope": "G",
+                "type": "script"
+              }
+            ]
+          }
+        },
+        "meta": {
+          "name": "Button"
+        },
+        "position": {
+          "height": 33.12,
+          "width": 79.98,
+          "x": 274.12,
+          "y": 281.862
+        },
+        "props": {
+          "text": "submit"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "draggable": true,
+                "id": "jTZHtbkw",
+                "modal": false,
+                "overlayDismiss": false,
+                "resizable": true,
+                "showCloseIcon": true,
+                "type": "close",
+                "viewPath": "Project_MES_Solution/ProductionOperatorConsole/PopUps/DL and IDL operator information/PopupUserAssignmentDL",
+                "viewportBound": false
+              },
+              "scope": "C",
+              "type": "popup"
+            }
+          }
+        },
+        "meta": {
+          "name": "Button_0"
+        },
+        "position": {
+          "height": 33.12,
+          "width": 79.98,
+          "x": 402.952125,
+          "y": 281.73775
+        },
+        "props": {
+          "text": "cancel"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tself.getSibling(\"Dropdown_2\").props.options\u003d \" \"\n\tself.getSibling(\"Dropdown_2\").props.options\u003dfpsi_ignition01.GetbadResoncode(idd\u003dstr(self.props.value))"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Dropdown_1"
+        },
+        "position": {
+          "height": 37,
+          "width": 198,
+          "x": 19.58,
+          "y": 167
+        },
+        "props": {
+          "options": null,
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "meta": {
+          "name": "LblProductionLine_4",
+          "tooltip": {
+            "enabled": true,
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Production Line"
+          }
+        },
+        "position": {
+          "height": 31.14,
+          "width": 159.00000000000003,
+          "x": 285.1,
+          "y": 133.9
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Reason Code",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tsystem.perspective.print(self.props.value)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Dropdown_2"
+        },
+        "position": {
+          "height": 37,
+          "width": 198,
+          "x": 284.6,
+          "y": 167
+        },
+        "props": {
+          "options": " ",
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "meta": {
+          "name": "LblProductionLine_5",
+          "tooltip": {
+            "enabled": true,
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Production Line"
+          }
+        },
+        "position": {
+          "height": 29,
+          "width": 72.18,
+          "x": 285.1,
+          "y": 231.691
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Bad Qty",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "good_qty_0"
+        },
+        "position": {
+          "height": 36,
+          "width": 103.00000000000003,
+          "x": 379.6,
+          "y": 226.001
+        },
+        "props": {
+          "mode": "button",
+          "style": {
+            "classes": "Common/TextBox "
+          },
+          "value": 983872
+        },
+        "type": "ia.input.numeric-entry-field"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}

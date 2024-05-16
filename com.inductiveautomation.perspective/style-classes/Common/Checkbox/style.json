@@ -1,0 +1,13 @@
+{
+  "base": {
+    "style": {
+      "borderStyle": "none",
+      "borderRadius": "0px",
+      "color": "#2B2B2B",
+      "fontFamily": "Arial",
+      "fontSize": "12px",
+      "fontWeight": "normal",
+      "outlineWidth": "0"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "base": {
+    "style": {
+      "backgroundColor": "#2D6695",
+      "color": "#F8F5F5",
+      "fontFamily": "Arial",
+      "fontSize": "10px",
+      "marginBottom": "1px",
+      "marginTop": "1px"
+    }
+  }
+}

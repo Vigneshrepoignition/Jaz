@@ -1,0 +1,11 @@
+{
+  "base": {
+    "style": {
+      "backgroundColor": "#D5D5D5",
+      "borderStyle": "ridge",
+      "fontSize": "16px",
+      "fontWeight": "bold",
+      "opacity": "1"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "base": {
+    "style": {
+      "borderColor": "#EDF1F2",
+      "borderStyle": "solid",
+      "borderWidth": "1px",
+      "color": "#2B2B2B",
+      "fontFamily": "Arial",
+      "fontSize": "22px",
+      "fontWeight": "bold",
+      "margin": "15px"
+    }
+  }
+}

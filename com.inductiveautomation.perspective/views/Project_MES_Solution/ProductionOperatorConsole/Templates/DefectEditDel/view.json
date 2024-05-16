@@ -1,0 +1,83 @@
+{
+  "custom": {},
+  "params": {
+    "rowData": "",
+    "rowIndex": ""
+  },
+  "propConfig": {
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 26,
+      "width": 59
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\t\n\t\trowData \u003d self.view.params.rowData\n\t\tsystem.perspective.print(\u0027rowData :\u0027 +str(rowData))\n\t\tPEAStatus \u003d rowData.get(\u0027IsPEAAnalyzed\u0027)\n\t\tif PEAStatus!\u003d \u0027Analysed\u0027:\n\t\t\tsystem.perspective.openPopup(\u0027EditDefect\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/EditDefect\u0027,params\u003d{\"rowdata\":rowData,},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\telse:\n\t\t\tupdaateStatus\u003d0\n\t\t\tMessageText \u003d \u0027Can not performer edit action as, Defect is analysed by PEA\u0027\n\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\n\t\t\t\n\texcept:\n\t\t\t\n\t\t\tsystem.perspective.print(\u0027Exception :Edit Defect\u0027)\n\t\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\t\tsystem.perspective.print(errorMessage)\n\t\t\tlineno \u003d tb.tb_lineno\n\t\t\tsystem.perspective.print(lineno)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnEdit"
+        },
+        "position": {
+          "height": 20,
+          "width": 20,
+          "x": 5.49,
+          "y": 3.5
+        },
+        "props": {
+          "path": "material/edit"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\t\n\t\trowData \u003d self.view.params.rowData\n\t\tsystem.perspective.print(\u0027rowData :\u0027 +str(rowData))\n\t\tPEAStatus \u003d rowData.get(\u0027IsPEAAnalyzed\u0027)\n\t\tif PEAStatus!\u003d\u0027Analysed\u0027:\n\t\t\tsystem.perspective.openPopup(\u0027DeleteDefect\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/DefectDeleteConfirmation\u0027,params\u003d{\"rowData\":rowData,},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\telse:\n\t\t\tupdaateStatus\u003d0\n\t\t\tMessageText \u003d \u0027Can not performer delete action as, Defect is analysed by PEA\u0027\n\t\t\tsystem.perspective.openPopup(\u0027DeleteDefect\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\t\n\t\t\t\n\texcept:\n\t\t\t\n\t\t\tsystem.perspective.print(\u0027Exception :Edit Defect\u0027)\n\t\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\t\tsystem.perspective.print(errorMessage)\n\t\t\tlineno \u003d tb.tb_lineno\n\t\t\tsystem.perspective.print(lineno)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnDel"
+        },
+        "position": {
+          "height": 21,
+          "width": 20,
+          "x": 33.47,
+          "y": 2.97
+        },
+        "props": {
+          "path": "material/close"
+        },
+        "type": "ia.display.icon"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}

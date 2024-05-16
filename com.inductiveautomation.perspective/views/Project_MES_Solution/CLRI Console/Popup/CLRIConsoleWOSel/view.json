@@ -1,0 +1,3712 @@
+{
+  "custom": {
+    "CLRIComplete": 0,
+    "CLRIID": "value"
+  },
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\t\n\ttry: \n\t\tif self.session.custom.authorizeCLRI !\u003d 1 :\n\t\t\tsystem.perspective.navigate(\u0027/LoginScreen\u0027)\n\t\telse:\n\t\t            \n\t\t\tscriptName \u003d \"CLRI:  Select :On Startup\"\t            \n\t\t\tself.getChild(\"root\").getChild(\"HeaderContainer\").getChild(\"CoordinateContainer\").getChild(\"LblSelEnterprise\").props.text\u003dself.session.custom.enterpriseName\n\t\t\tself.getChild(\"root\").getChild(\"HeaderContainer\").getChild(\"CoordinateContainer\").getChild(\"LblSelPlant\").props.text\u003dself.session.custom.plantName\n\t\t\tself.getChild(\"root\").getChild(\"HeaderContainer\").getChild(\"CoordinateContainer\").getChild(\"LblSelArea\").props.text\u003dself.session.custom.areaName\n\t\t\tself.getChild(\"root\").getChild(\"HeaderContainer\").getChild(\"CoordinateContainer\").getChild(\"LblSelLine\").props.text\u003dself.session.custom.lineName\n\t\t\tself.getChild(\"root\").getChild(\"HeaderContainer\").getChild(\"CoordinateContainer\").getChild(\"LblSelMachine\").props.text\u003dself.session.custom.machineName\n\t\t\tTabledata\u003dself.params.rowData\n\t\t\tsystem.perspective.print(\"Tabledata \"+str(Tabledata))\n\t\t\tChecksheetInfo \u003d []\n\t\t\tuserId \u003d self.session.custom.UserId\n\t\t\tself.session.custom.CLRIBackBtnH\u003d1\n\t\t\tself.getChild(\"root\").getChild(\"MainViewContainer\").getChild(\"TabContainer\").getChild(\"CntInputs\").getChild(\"chkSelAll\").props.selected\u003dTrue\n\t\t\tdata \u003d []\n\t\t\t\n\t\t\tif userId !\u003d 0 or userId!\u003d\"\":\n\t\t\t\tif Tabledata\u003d\u003d[]:\n\t\t\t\t\tsystem.perspective.print(\"empty\")\n\t\t\t\t\tpass\n\t\t\t\telse:\n\t\t\t\t\tSrNo\u003d1\n\t\t\t\t\tid \u003d Tabledata.get(\"ID\")\n\t\t\t\t\tself.custom.CLRIID\u003d Tabledata.get(\"ID\")\n\t\t\t\t\tname \u003d Tabledata.get(\"Name\")\n\t\t\t\t\tsbcNumber \u003d Tabledata.get(\"SBCNumber\")\n\t\t\t\t\tmakeName \u003d Tabledata.get(\"Make\")\n\t\t\t\t\tmodelName \u003d Tabledata.get(\"Model\")\n\t\t\t\t\trevision \u003d Tabledata.get(\"Rivision\")\n\t\t\t\t\tcomment \u003d Tabledata.get(\"Comment\")\n\t\t\t\t\tLastModifiedBy \u003d Tabledata.get(\"LastModifiedBy\")\n\t\t\t\t\tLastModifiedOn \u003d Tabledata.get(\"LastModifiedOn\")\n\t\t\t\t\tStatus \u003d Tabledata.get(\"Status\")\n\t\t\t\t\tself.session.custom.WOOperationStatus \u003d Tabledata.get(\u0027Status\u0027)\n\t\t\t\t\tMachineName \u003d Tabledata.get(\"Machine\")\n\t\t\t\t\tself.session.custom.machineName\u003dMachineName\n\t\t\t\t\tself.session.custom.EnterpriseId \u003d Tabledata.get(\"EnterpriseId\")\n\t\t\t\t\tself.session.custom.enterpriseName \u003d Tabledata.get(\"EnterpriseName\")\n\t\t\t\t\tself.session.custom.PlantID \u003d Tabledata.get(\"PlantId\")\n\t\t\t\t\tself.session.custom.plantName \u003d Tabledata.get(\"PlantName\")\n\t\t\t\t\tself.session.custom.AreaID \u003d Tabledata.get(\"AreaId\")\n\t\t\t\t\tself.session.custom.areaName \u003d Tabledata.get(\"AreaName\")\n\t\t\t\t\tself.session.custom.LineID \u003d Tabledata.get(\"LineId\")\n\t\t\t\t\tself.session.custom.lineName \u003d Tabledata.get(\"LineName\")\n\t\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\tmyList \u003d [SrNo,id, name, sbcNumber,revision,MachineName,Status,makeName,modelName,comment,LastModifiedBy,LastModifiedOn]\n\t\t\t\t\tdata.append(myList)\n\t\t\t\t\t\n\t\t\t\t\theaders \u003d [\"SrNo\",\"ID\", \"Name\", \"SBCNumber\", \"Rivision\",\"Machine\",\"Status\",\"Make\", \"Model\", \"Comment\",\"LastModifiedBy\",\"LastModifiedOn\"]\t\n\t\t\t\t\tresultDetails \u003d system.dataset.toDataSet(headers,data)\n\t\t\t\t\tds \u003d system.dataset.toPyDataSet(resultDetails)\n\t\t\t\t\tself.getChild(\"root\").getChild(\"MainViewContainer\").getChild(\"Table\").props.data\u003dds\t\n\t\t\t\t\tCLRIID\u003d Tabledata.get(\"ID\")\n\t\t\t\t\tsystem.perspective.print(\"CLRIID \u003d \"+str(CLRIID))\n\t\t\t\t\tds\u003dCLRIConsole.GetActionForCLRIWorkflow(CLRIID)\n\t\t\t\t\t\n\t\t\t\t\tself.getChild(\"root\").getChild(\"MainViewContainer\").getChild(\"TabContainer\").getChild(\"CntInputs\").getChild(\"Table\").props.data\u003dds\t\t\n\t\t\t\t\tds\u003dsystem.dataset.toPyDataSet(ds)\n\t\t\t\t\tself.custom.CLRIComplete\u003d1\n\t\t\t\t\tif len(ds) \u003e 0 and self.session.custom.authorizeCLRIReadOnly\u003d\u003d1:\n\t\t\t\t\t\tself.getChild(\"root\").getChild(\"MainViewContainer\").getChild(\"TabContainer\").getChild(\"CntInputs\").getChild(\"chkSelAll\").meta.visible\u003d1\n\t\t\t\t\telse:\n\t\t\t\t\t\tself.getChild(\"root\").getChild(\"MainViewContainer\").getChild(\"TabContainer\").getChild(\"CntInputs\").getChild(\"chkSelAll\").meta.visible\u003d0\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\tfor i in ds:\n\t\t\t\t\t\tisCompleted\u003di[\u0027IsCompleted\u0027]\n\t\t\t\t\t\tif isCompleted\u003d\u003d0  or isCompleted\u003d\u003dFalse:\n\t\t\t\t\t\t\tself.custom.CLRIComplete\u003d0\n\t\t\t\t\t\t\tself.getChild(\"root\").getChild(\"MainViewContainer\").getChild(\"TabContainer\").getChild(\"CntInputs\").getChild(\"chkSelAll\").props.selected\u003dFalse\n\t\t\t\t\t\t\tbreak\n\t\t\t\t\tif self.params.IsStartCLRI\u003d\u003d1:\n\t\t\t\t\t\tself.session.custom.WOOperationStatus\u003d\u0027In-Progress\u0027\n\t\t\t\t\t\tsystem.perspective.sendMessage(\"CLRIStatusforSingleRow\", scope\u003d\u0027page\u0027)\n\t\t\t\t\t\tsystem.perspective.sendMessage(\"CLRIStart\", scope\u003d\u0027page\u0027)\n\t\n\t\t\t\t\t\n\t\t\telse:\n\t\t\t\tsystem.perspective.print(\"In Else Condition\")\n\t\t\t\tsystem.perspective.closePopup(\u0027\u0027)\n\t\t\t\tsystem.perspective.Navigate(\"/LoginScreen\")\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)\n\t\tsystem.perspective.print(errorMessage)"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "IsStartCLRI": 0,
+    "IsVisible": 1,
+    "dsTbloptr": "value",
+    "rowData": ""
+  },
+  "propConfig": {
+    "custom.CLRIComplete": {
+      "persistent": true
+    },
+    "custom.CLRIID": {
+      "persistent": true
+    },
+    "params.IsStartCLRI": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.IsVisible": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.dsTbloptr": {
+      "paramDirection": "output",
+      "persistent": true
+    },
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 751,
+      "width": 1320
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "EnterpriseLbl"
+                },
+                "position": {
+                  "height": 0.7222,
+                  "width": 0.0506,
+                  "x": 0.0151,
+                  "y": 0.1417
+                },
+                "props": {
+                  "style": {
+                    "backgroundColor": "#EDF0F0",
+                    "classes": "Common/Label"
+                  },
+                  "text": "Enterprise",
+                  "textStyle": {
+                    "classes": "Common/OprConsoleLabelText",
+                    "color": "#000000",
+                    "fontWeight": "lighter"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "PlantLbl"
+                },
+                "position": {
+                  "height": 0.7222,
+                  "width": 0.0551,
+                  "x": 0.1747,
+                  "y": 0.1458
+                },
+                "props": {
+                  "style": {
+                    "backgroundColor": "#EDF0F0",
+                    "classes": "Common/Label"
+                  },
+                  "text": "Plant",
+                  "textStyle": {
+                    "classes": "Common/OprConsoleLabelText",
+                    "color": "#000000",
+                    "fontWeight": "lighter"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "AreaLbl"
+                },
+                "position": {
+                  "height": 0.7222,
+                  "rotate": {
+                    "anchor": "-167% 39%"
+                  },
+                  "width": 0.048,
+                  "x": 0.3452,
+                  "y": 0.15
+                },
+                "props": {
+                  "style": {
+                    "backgroundColor": "#EDF0F0",
+                    "classes": "Common/Label"
+                  },
+                  "text": "Area",
+                  "textStyle": {
+                    "classes": "Common/OprConsoleLabelText",
+                    "color": "#000000",
+                    "fontWeight": "lighter"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "LineLbl"
+                },
+                "position": {
+                  "height": 0.7222,
+                  "width": 0.048,
+                  "x": 0.5105,
+                  "y": 0.15
+                },
+                "props": {
+                  "style": {
+                    "backgroundColor": "#EDF0F0",
+                    "classes": "Common/Label"
+                  },
+                  "text": "Line",
+                  "textStyle": {
+                    "classes": "Common/OprConsoleLabelText",
+                    "color": "#000000",
+                    "fontWeight": "lighter"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "MachienLbl"
+                },
+                "position": {
+                  "height": 0.7222,
+                  "width": 0.048,
+                  "x": 0.6693,
+                  "y": 0.15
+                },
+                "props": {
+                  "style": {
+                    "backgroundColor": "#EDF0F0",
+                    "classes": "Common/Label"
+                  },
+                  "text": "Machine",
+                  "textStyle": {
+                    "classes": "Common/OprConsoleLabelText",
+                    "color": "#000000",
+                    "fontWeight": "lighter"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "LblSelEnterprise"
+                },
+                "position": {
+                  "height": 0.7222,
+                  "width": 0.0906,
+                  "x": 0.0715,
+                  "y": 0.1458
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.enterpriseName"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "backgroundColor": "#D5D5D5",
+                    "classes": "Common/TextBox"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "LblSelPlant"
+                },
+                "position": {
+                  "height": 0.7222,
+                  "width": 0.0906,
+                  "x": 0.2364,
+                  "y": 0.1458
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.plantName"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "backgroundColor": "#D5D5D5",
+                    "classes": "Common/TextBox"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "LblSelArea"
+                },
+                "position": {
+                  "height": 0.6939,
+                  "width": 0.0903,
+                  "x": 0.4008,
+                  "y": 0.1604
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.areaName"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "backgroundColor": "#D5D5D5",
+                    "classes": "Common/TextBox"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "LblSelLine"
+                },
+                "position": {
+                  "height": 0.6735,
+                  "width": 0.0903,
+                  "x": 0.566,
+                  "y": 0.1708
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.lineName"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "backgroundColor": "#D5D5D5",
+                    "classes": "Common/TextBox"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "LblSelMachine"
+                },
+                "position": {
+                  "height": 0.6735,
+                  "width": 0.2192,
+                  "x": 0.7199,
+                  "y": 0.1696
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "session.custom.machineName"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "backgroundColor": "#D5D5D5",
+                    "classes": "Common/TextBox"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": [
+                      {
+                        "config": {
+                          "script": "\t\n\tself.session.custom.CLRIBackBtnH\u003d1\n\tself.session.custom.screenNavigateFlag\u003d6\n\tTabledata\u003dself.view.params.rowData\n\tself.session.custom.LineID \u003d Tabledata.get(\"LineId\")\n\tself.session.custom.MachineID\u003d Tabledata.get(\"MachineId\")\n#\tfrom threading import Timer\n#\tdef runThisLater():\n#\t\tself.session.custom.CLRIBackBtnH\u003d0\n#\tTimer(20.0, runThisLater).start()\n\tsystem.perspective.navigate(\u0027/CLRI\u0027)\n\t"
+                        },
+                        "scope": "G",
+                        "type": "script"
+                      },
+                      {
+                        "config": {
+                          "page": "/CLRI"
+                        },
+                        "enabled": false,
+                        "scope": "C",
+                        "type": "nav"
+                      }
+                    ]
+                  }
+                },
+                "meta": {
+                  "name": "backBtn",
+                  "tooltip": {
+                    "enabled": true,
+                    "location": "bottom-left",
+                    "style": {
+                      "classes": "Common/ToolTip"
+                    },
+                    "text": "Click To Back"
+                  }
+                },
+                "position": {
+                  "height": 0.6596,
+                  "rotate": {
+                    "anchor": "25% 0%"
+                  },
+                  "width": 0.0475,
+                  "x": 0.9498,
+                  "y": 0.183
+                },
+                "props": {
+                  "enabled": 1,
+                  "image": {
+                    "height": 15,
+                    "width": 45
+                  },
+                  "style": {
+                    "classes": "Common/Button"
+                  },
+                  "text": "Back",
+                  "textStyle": {
+                    "fontFamily": "Arial",
+                    "fontSize": 14
+                  }
+                },
+                "type": "ia.input.button"
+              }
+            ],
+            "meta": {
+              "name": "CoordinateContainer"
+            },
+            "position": {
+              "height": 0.45,
+              "width": 0.99,
+              "x": 0.0055,
+              "y": 0.4351
+            },
+            "props": {
+              "mode": "percent",
+              "style": {
+                "classes": "Basic/OprConsoleHirarchy"
+              }
+            },
+            "type": "ia.container.coord"
+          },
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "height": 0.2385,
+              "width": 0.5356,
+              "x": 0.0047,
+              "y": 0.0886
+            },
+            "props": {
+              "text": "CLRI Console",
+              "textStyle": {
+                "classes": "Common/Label_Header"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "HeaderContainer"
+        },
+        "position": {
+          "height": 0.1412,
+          "width": 1
+        },
+        "props": {
+          "mode": "percent",
+          "style": {
+            "backgroundColor": "#EDF0F0"
+          }
+        },
+        "type": "ia.container.coord"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "script": "\ttry:\n\t\twarningClass \u003d \u0027Common/Label_Warning\u0027\n\t\tsuccessClass \u003d \u0027Common/Label_Success\u0027\n\t\tscriptName\u003d\u0027CLRI Check List Submit\u0027\t\n\t\tisFlagCLRIComplete\u003d1\n\t\tdsCheckList \u003d self.getSibling(\"Table\").props.data\n\t\tdsCheckList\u003dsystem.dataset.toPyDataSet(dsCheckList)\n\t\tuserID \u003d self.session.custom.UserId\n\t\tfor i in dsCheckList:\n\t\t\tactionID\u003di[\u0027id\u0027]\n\t\t\tisCompleted\u003di[\u0027IsCompleted\u0027]\n\t\t\tvisualAction\u003di[\u0027visualAction\u0027]\n\t\t\tif visualAction\u003d\u003dTrue or visualAction\u003d\u003dstr(\u0027True\u0027):\n\t\t\t\tvisualAction\u003d1\n\t\t\telif visualAction\u003d\u003dFalse or visualAction\u003d\u003dstr(\u0027False\u0027):\n\t\t\t\tvisualAction\u003d0\n\t\t\tphysicalAction\u003di[\u0027physicalAction\u0027]\n\t\t\tif physicalAction\u003d\u003dTrue or physicalAction\u003d\u003dstr(\u0027True\u0027):\n\t\t\t\tphysicalAction\u003d1\n\t\t\telif physicalAction\u003d\u003dFalse or physicalAction\u003d\u003dstr(\u0027False\u0027):\n\t\t\t\tphysicalAction\u003d0\n\n\t\t\tsystem.perspective.print(\"isCompleted \"+str(isCompleted))\n\t\t\t\n\t\t\tif isCompleted \u003d\u003d 0 or str(isCompleted)\u003d\u003d\u00270\u0027:\n\t\t\t\tisFlagCLRIComplete\u003d0\n\n\t\t\tresultDetails\u003dCLRIConsole.UpdateActionForCLRIWorkflowOperatorConsole(actionID,isCompleted,visualAction,physicalAction,userID)\n\n\t\t\tif resultDetails \u003d\u003d int(1) or resultDetails \u003d\u003d str(\u00271\u0027) or resultDetails \u003d\u003d 1:\n\t\t\t\tsystem.perspective.print(\"resultDetails \"+str(resultDetails))\n\t\t\t\tself.getSibling(\"Warning Value_Refresh\").props.style.classes \u003d str(successClass)\n#\t\t\t\tself.getSibling(\"Warning Value_Refresh\").props.text\n\t\t\t\tself.getSibling(\"Warning Value_Refresh\").props.text \u003d \"Saved Succefully.\"\n\t\t\t\tself.getSibling(\"Warning Value_Refresh\").meta.visible \u003d True\n\t\t\telse:\n\t\t\t\tself.getSibling(\"Warning Value_Refresh\").props.style.classes \u003d str(warningClass)\n\t\t\t\tself.getSibling(\"Warning Value_Refresh\").props.text \u003d \"Save Failed Please Try Again.\"\n\t\t\t\tself.getSibling(\"Warning Value_Refresh\").meta.visible \u003d True\t\n\t\tif  isFlagCLRIComplete\u003d\u003d0: \t\t\t\t\n\t\t\tself.view.custom.CLRIComplete\u003d0\n\t\telse:\n\t\t\tself.view.custom.CLRIComplete\u003d1\n\t\tsystem.perspective.print(\"self.view.custom.CLRIComplete \u003d\"+str(self.view.custom.CLRIComplete))\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)\n\t\tsystem.perspective.print(errorMessage)"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "btnSubmitRequest",
+                      "tooltip": {
+                        "enabled": true,
+                        "location": "bottom-left"
+                      },
+                      "visible": 0
+                    },
+                    "position": {
+                      "height": 0.094,
+                      "width": 0.0729,
+                      "x": 0.8409,
+                      "y": 0.0262
+                    },
+                    "propConfig": {
+                      "meta.tooltip.text": {
+                        "binding": {
+                          "config": {
+                            "path": "session.custom.WOOperationStatus"
+                          },
+                          "transforms": [
+                            {
+                              "code": "\tif value \u003d\u003d str(\"In-Progress\").strip():\n\t\tvalue \u003d \"Click To Submit\"\n\telif value \u003d\u003d str(\"Assigned\").strip():\n\t\tvalue \u003d \"Please Start The Process first\"\n\telif value \u003d\u003d str(\"On-Hold\").strip():\n\t\tvalue \u003d \"Not Able To submit On-Hold\"\n\treturn value",
+                              "type": "script"
+                            }
+                          ],
+                          "type": "property"
+                        }
+                      },
+                      "props.enabled": {
+                        "binding": {
+                          "config": {
+                            "path": "session.custom.WOOperationStatus"
+                          },
+                          "transforms": [
+                            {
+                              "code": "\tif str(value).lower().strip()\u003d\u003d\u0027In-Progress\u0027.lower() or str(value).lower().strip()\u003d\u003d\u0027In Progress\u0027.lower():\n\t\tvalue\u003d1\n\telse:\n\t\tvalue\u003d0\t\n\treturn value",
+                              "type": "script"
+                            }
+                          ],
+                          "type": "property"
+                        }
+                      },
+                      "props.style.backgroundColor": {
+                        "binding": {
+                          "config": {
+                            "path": "this.props.enabled"
+                          },
+                          "transforms": [
+                            {
+                              "code": "\tif value \u003d\u003d True:\n\t\tvalue \u003d\"#3888CC\"\n\t\tself.props.style.borderColor \u003d \"#3888CC\"\n\telse:\n\t\tvalue \u003d  str(self.session.custom.disableBtncolour)\n\t\tself.props.style.borderColor \u003d str(self.session.custom.disableBtncolour)\n\treturn value",
+                              "type": "script"
+                            }
+                          ],
+                          "type": "property"
+                        }
+                      }
+                    },
+                    "props": {
+                      "image": {
+                        "height": 20,
+                        "width": 50
+                      },
+                      "style": {
+                        "borderColor": "value",
+                        "classes": "Common/Button"
+                      },
+                      "text": "Submit",
+                      "textStyle": {
+                        "fontFamily": "Arial",
+                        "fontSize": 16
+                      }
+                    },
+                    "type": "ia.input.button"
+                  },
+                  {
+                    "meta": {
+                      "name": "Table"
+                    },
+                    "position": {
+                      "height": 0.9262,
+                      "width": 0.9642,
+                      "x": 0.005,
+                      "y": 0.0374
+                    },
+                    "props": {
+                      "bodyStyle": {
+                        "classes": "Table/RowsBorder"
+                      },
+                      "columns": [
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "SrNo",
+                          "filter": {
+                            "boolean": {
+                              "condition": ""
+                            },
+                            "date": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "enabled": false,
+                            "number": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "string": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "visible": "on-hover"
+                          },
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": "Sr No"
+                          },
+                          "justify": "left",
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": true,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": true,
+                          "width": 50
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "id",
+                          "filter": {
+                            "boolean": {
+                              "condition": ""
+                            },
+                            "date": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "enabled": false,
+                            "number": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "string": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "visible": "on-hover"
+                          },
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "justify": "left",
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": true,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": false,
+                          "width": ""
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "taskName",
+                          "filter": {
+                            "boolean": {
+                              "condition": ""
+                            },
+                            "date": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "enabled": false,
+                            "number": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "string": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "visible": "on-hover"
+                          },
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": "CheckPoint"
+                          },
+                          "justify": "left",
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": true,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": true,
+                          "width": ""
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "taskType",
+                          "filter": {
+                            "boolean": {
+                              "condition": ""
+                            },
+                            "date": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "enabled": false,
+                            "number": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "string": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "visible": "on-hover"
+                          },
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "justify": "auto",
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": true,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": false,
+                          "width": ""
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "taskDescription",
+                          "filter": {
+                            "boolean": {
+                              "condition": ""
+                            },
+                            "date": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "enabled": false,
+                            "number": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "string": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "visible": "on-hover"
+                          },
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": "Description"
+                          },
+                          "justify": "left",
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": true,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": true,
+                          "width": ""
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "visualActionAndphysicalAction",
+                          "filter": {
+                            "boolean": {
+                              "condition": ""
+                            },
+                            "date": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "enabled": false,
+                            "number": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "string": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "visible": "on-hover"
+                          },
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": "CheckPointMethod"
+                          },
+                          "justify": "left",
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "view",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": true,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {
+                            "column": "value",
+                            "columnIndex": "value",
+                            "dataset": "value",
+                            "row": "value",
+                            "rowData": "value",
+                            "rowIndex": "value",
+                            "value": "value"
+                          },
+                          "viewPath": "Project_MES_Solution/CLRI Console/Template/BtnViewCheck",
+                          "visible": true,
+                          "width": ""
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "FrequencyName",
+                          "filter": {
+                            "boolean": {
+                              "condition": ""
+                            },
+                            "date": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "enabled": false,
+                            "number": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "string": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "visible": "on-hover"
+                          },
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": "Frequency"
+                          },
+                          "justify": "left",
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": true,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": true,
+                          "width": ""
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "taskQty",
+                          "filter": {
+                            "boolean": {
+                              "condition": ""
+                            },
+                            "date": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "enabled": false,
+                            "number": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "string": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "visible": "on-hover"
+                          },
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": "Frequency Qty"
+                          },
+                          "justify": "left",
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": true,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": true,
+                          "width": ""
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "taskComment",
+                          "filter": {
+                            "boolean": {
+                              "condition": ""
+                            },
+                            "date": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "enabled": false,
+                            "number": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "string": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "visible": "on-hover"
+                          },
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": "Comment"
+                          },
+                          "justify": "left",
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": true,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": true,
+                          "width": ""
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "AttachmentsPath",
+                          "filter": {
+                            "boolean": {
+                              "condition": ""
+                            },
+                            "date": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "enabled": false,
+                            "number": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "string": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "visible": "on-hover"
+                          },
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": "Attachments"
+                          },
+                          "justify": "left",
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "view",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": true,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "Project_MES_Solution/CLRI Console/Template/BtnView Attachment",
+                          "visible": true,
+                          "width": ""
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "IsCompleted",
+                          "filter": {
+                            "boolean": {
+                              "condition": ""
+                            },
+                            "date": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "enabled": false,
+                            "number": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "string": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "visible": "on-hover"
+                          },
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "right",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": "Completed"
+                          },
+                          "justify": "left",
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "view",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": true,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {
+                            "column": "value",
+                            "columnIndex": "value",
+                            "dataset": "value",
+                            "row": "value",
+                            "rowData": "value",
+                            "rowIndex": "value",
+                            "value": "value"
+                          },
+                          "viewPath": "Project_MES_Solution/CLRI Console/Template/CheckBoxSelect",
+                          "visible": true,
+                          "width": ""
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "visualAction",
+                          "filter": {
+                            "boolean": {
+                              "condition": ""
+                            },
+                            "date": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "enabled": false,
+                            "number": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "string": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "visible": "on-hover"
+                          },
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "justify": "left",
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": true,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": false,
+                          "width": ""
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "physicalAction",
+                          "filter": {
+                            "boolean": {
+                              "condition": ""
+                            },
+                            "date": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "enabled": false,
+                            "number": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "string": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "visible": "on-hover"
+                          },
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "justify": "left",
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": true,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": false,
+                          "width": ""
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "AttachmentsName",
+                          "filter": {
+                            "boolean": {
+                              "condition": ""
+                            },
+                            "date": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "enabled": false,
+                            "number": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "string": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "visible": "on-hover"
+                          },
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": "AttachmentsName"
+                          },
+                          "justify": "left",
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": true,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": false,
+                          "width": ""
+                        }
+                      ],
+                      "data": {
+                        "$": [
+                          "ds",
+                          192,
+                          1676020053164
+                        ],
+                        "$columns": [
+                          {
+                            "data": [],
+                            "name": "SrNo",
+                            "type": "Integer"
+                          },
+                          {
+                            "data": [],
+                            "name": "id",
+                            "type": "Integer"
+                          },
+                          {
+                            "data": [],
+                            "name": "taskName",
+                            "type": "String"
+                          },
+                          {
+                            "data": [],
+                            "name": "taskType",
+                            "type": "String"
+                          },
+                          {
+                            "data": [],
+                            "name": "taskDescription",
+                            "type": "String"
+                          },
+                          {
+                            "data": [],
+                            "name": "taskComment",
+                            "type": "String"
+                          },
+                          {
+                            "data": [],
+                            "name": "Attachments",
+                            "type": "String"
+                          },
+                          {
+                            "data": [],
+                            "name": "AttachmentsName",
+                            "type": "String"
+                          },
+                          {
+                            "data": [],
+                            "name": "AttachmentsPath",
+                            "type": "String"
+                          },
+                          {
+                            "data": [],
+                            "name": "AttachmentsId",
+                            "type": "String"
+                          },
+                          {
+                            "data": [],
+                            "name": "taskQty",
+                            "type": "Double"
+                          },
+                          {
+                            "data": [],
+                            "name": "IsCompleted",
+                            "type": "Integer"
+                          },
+                          {
+                            "data": [],
+                            "name": "FrequencyName",
+                            "type": "String"
+                          },
+                          {
+                            "data": [],
+                            "name": "visualActionAndphysicalAction",
+                            "type": "Object"
+                          },
+                          {
+                            "data": [],
+                            "name": "Action",
+                            "type": "String"
+                          },
+                          {
+                            "data": [],
+                            "name": "visualAction",
+                            "type": "Boolean"
+                          },
+                          {
+                            "data": [],
+                            "name": "physicalAction",
+                            "type": "Boolean"
+                          }
+                        ]
+                      },
+                      "emptyMessage": {
+                        "noData": {
+                          "icon": {
+                            "color": "#C0C0C0",
+                            "path": "material/hourglass_empty"
+                          },
+                          "textStyle": {
+                            "fontSize": 22
+                          }
+                        }
+                      },
+                      "headerStyle": {
+                        "classes": "Table/Header"
+                      },
+                      "pager": {
+                        "bottom": false
+                      },
+                      "rows": {
+                        "style": {
+                          "backgroundColor": "#FFFFFF",
+                          "classes": "Table/Rowsmiddle"
+                        },
+                        "subviewExpansionMode": "single"
+                      },
+                      "selection": {
+                        "enableRowSelection": false
+                      }
+                    },
+                    "scripts": {
+                      "customMethods": [],
+                      "extensionFunctions": null,
+                      "messageHandlers": [
+                        {
+                          "messageType": "CLRICheckList",
+                          "pageScope": true,
+                          "script": "\t# implement your handler here\n\ttry:\n\t\tValue\u003dpayload[\u0027Value\u0027]\n\t\tsystem.perspective.print(\u0027Value \u003d\u003d \u0027+str(Value))\n\t\tselRow\u003dpayload[\u0027SelctedRow\u0027]\n\t\tupdatedValue\u003dValue\n\t\tselColumn\u003dpayload[\u0027columnName\u0027]\n\t\tdtSet\u003dself.props.data    \n\t\tupdateRowResultDs \u003d {selColumn:updatedValue}    \n\t\tresultpyData \u003d system.dataset.updateRow(dtSet,selRow,updateRowResultDs)        \n\t\tds\u003d system.dataset.toPyDataSet(resultpyData)    \n\t\tself.props.data\u003dds    \n\t\tsystem.perspective.print(\"Message Handler DS \"+str(ds))\n\t\tself.getSibling(\"Warning Value_Refresh\").meta.visible\u003d0\n\t\tisFlagCLRIComplete\u003d1\n\t\tdsCheckList\u003dsystem.dataset.toPyDataSet(ds)\n\t\tuserID \u003d self.session.custom.UserId\n\t\tfor i in dsCheckList:\n\t\t\tactionID\u003di[\u0027id\u0027]\n\t\t\tisCompleted\u003di[\u0027IsCompleted\u0027]\n\t\t\tvisualAction\u003di[\u0027visualAction\u0027]\n\t\t\tif visualAction\u003d\u003dTrue or visualAction\u003d\u003dstr(\u0027True\u0027):\n\t\t\t\tvisualAction\u003d1\n\t\t\telif visualAction\u003d\u003dFalse or visualAction\u003d\u003dstr(\u0027False\u0027):\n\t\t\t\tvisualAction\u003d0\n\t\t\tphysicalAction\u003di[\u0027physicalAction\u0027]\n\t\t\tif physicalAction\u003d\u003dTrue or physicalAction\u003d\u003dstr(\u0027True\u0027):\n\t\t\t\tphysicalAction\u003d1\n\t\t\telif physicalAction\u003d\u003dFalse or physicalAction\u003d\u003dstr(\u0027False\u0027):\n\t\t\t\tphysicalAction\u003d0\n\n\t\t\tsystem.perspective.print(\"isCompleted \"+str(isCompleted))\n\t\t\t\n\t\t\tif isCompleted \u003d\u003d 0 or str(isCompleted)\u003d\u003d\u00270\u0027:\n\t\t\t\tisFlagCLRIComplete\u003d0\n\t\t\t\t\n\t\t\tresultDetails\u003dCLRIConsole.UpdateActionForCLRIWorkflowOperatorConsole(actionID,isCompleted,visualAction,physicalAction,userID)\n\t\t\n\t\t\tif resultDetails \u003d\u003d int(1) or resultDetails \u003d\u003d str(\u00271\u0027) or resultDetails \u003d\u003d 1:\n\t\t\t\tsystem.perspective.print(\"resultDetails \"+str(resultDetails))\n\n\t\tself.view.custom.CLRIComplete\u003disFlagCLRIComplete\t\n\t\tif self.view.custom.CLRIComplete \u003d\u003d 0 or str(self.view.custom.CLRIComplete)\u003d\u003d\u00270\u0027:\n\t\t\tself.getSibling(\"chkSelAll\").props.selected\u003dFalse\n\t\telse:\n\t\t\tself.getSibling(\"chkSelAll\").props.selected\u003dTrue\n\t\t\n\texcept Exception as e:\n\t\timport sys, os\n\t\tsystem.perspective.print(\u0027Exception In CLRICheckListt MSG handler\u0027)\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)",
+                          "sessionScope": false,
+                          "viewScope": false
+                        },
+                        {
+                          "messageType": "CLRIStart",
+                          "pageScope": true,
+                          "script": "\t# implement your handler here\n\ttry:\n\t\tsystem.perspective.print(\"Start Message Handler CLRIStart Workflow\")\n\t\tscriptName\u003d\u0027Message Handler CLRIStart Workflow\u0027\n\n\t\tdsCheckList \u003d self.props.data\n\t\tdsCheckList\u003dsystem.dataset.toPyDataSet(dsCheckList)\n#\t\tself.props.data\u003dNone\n\t\tuserID \u003d self.session.custom.UserId\n\t\tscriptName\u003d\u0027Message Handler CLRIStart Workflow before loop\u0027\n\t\tfor i in dsCheckList:\n\t\t\tactionID\u003di[\u0027id\u0027]\n\t\t\tisCompleted\u003d0\n\t\t\tvisualAction\u003di[\u0027visualAction\u0027]\n\t\t\tif visualAction\u003d\u003dTrue or str(visualAction)\u003d\u003dstr(\u0027True\u0027):\n\t\t\t\tvisualAction\u003d1\n\t\t\telif visualAction\u003d\u003dFalse or str(visualAction)\u003d\u003dstr(\u0027False\u0027):\n\t\t\t\tvisualAction\u003d0\n\t\t\tphysicalAction\u003di[\u0027physicalAction\u0027]\n\t\t\tif physicalAction\u003d\u003dTrue or str(physicalAction)\u003d\u003dstr(\u0027True\u0027):\n\t\t\t\tphysicalAction\u003d1\n\t\t\telif physicalAction\u003d\u003dFalse or str(physicalAction)\u003d\u003dstr(\u0027False\u0027):\n\t\t\t\tphysicalAction\u003d0\n\t\t\tresultDetails\u003dCLRIConsole.UpdateActionForCLRIWorkflowOperatorConsole(actionID,isCompleted,visualAction,physicalAction,userID)\n\t\t\tsystem.perspective.print(\"Message Handler CLRIStart resultDetails \"+str(resultDetails))\n\t\tTabledata\u003dself.view.params.rowData\n\t\n\t\tCLRIID\u003dTabledata.get(\"ID\")\n\t\tself.view.custom.CLRIComplete\u003d0\n\t\tself.getSibling(\"chkSelAll\").props.selected\u003dFalse\n\t\tds\u003dCLRIConsole.GetActionForCLRIWorkflow(CLRIID)\n\t\tself.props.data\u003dNone\n\t\t\n\t\tfrom threading import Timer\n\t\tdef runThisLater():\n\t\t\tself.props.data\u003dds\n\t\tTimer(2.0, runThisLater).start()\n\texcept:\t\t\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)\t\n\t\tsystem.perspective.print(errorMessage)",
+                          "sessionScope": false,
+                          "viewScope": false
+                        },
+                        {
+                          "messageType": "CLRIRefreshTable",
+                          "pageScope": true,
+                          "script": "\t# implement your handler here\n#\tCID\u003dpayload[\u0027CLRIID\u0027]\n\timport system\n\timport re\n\ttry:\n\t\tscriptName\u003d\"Message Handlrt CLRIRefreshTable\"\n\t\tCLRIID\u003dself.view.custom.CLRIID\n\t\tsystem.perspective.print(\"call mesage handler CLRIRefreshTable before\")\n#\t\tds\u003dCLRIConsole.GetActionForCLRIWorkflow(CLRIID)\t\t\n#\t\tsystem.perspective.print(\"call mesage handler CLRIRefreshTable ds \"+str(ds))\t\t\n\n\n\t\t\t\t\n\n\t\tfrom threading import Timer\n\t\tdef runThisLater():\n\t\t\tds\u003dCLRIConsole.GetActionForCLRIWorkflow(CLRIID)\t\n\t\t\tself.props.data\u003dds\t\n\t\tTimer(0.5, runThisLater).start()\n\texcept:\t\t\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)\t\n\t\tsystem.perspective.print(errorMessage)\n\t\t\t\t",
+                          "sessionScope": false,
+                          "viewScope": true
+                        },
+                        {
+                          "messageType": "CLRIAssignStart",
+                          "pageScope": true,
+                          "script": "\t# implement your handler here\n\tCLRIID\u003dpayload[\u0027CLRIID\u0027]\n\tdsCheckList\u003dCLRIConsole.GetActionForCLRIWorkflow(CLRIID)\n\tuserID \u003d self.session.custom.UserId\n\tscriptName\u003d\u0027Message Handler CLRIStart Workflow before loop\u0027\n\tfor i in dsCheckList:\n\t\tactionID\u003di[\u0027id\u0027]\n\t\tisCompleted\u003d0\n\t\tvisualAction\u003di[\u0027visualAction\u0027]\n\t\tif visualAction\u003d\u003dTrue or str(visualAction)\u003d\u003dstr(\u0027True\u0027):\n\t\t\tvisualAction\u003d1\n\t\telif visualAction\u003d\u003dFalse or str(visualAction)\u003d\u003dstr(\u0027False\u0027):\n\t\t\tvisualAction\u003d0\n\t\tphysicalAction\u003di[\u0027physicalAction\u0027]\n\t\tif physicalAction\u003d\u003dTrue or str(physicalAction)\u003d\u003dstr(\u0027True\u0027):\n\t\t\tphysicalAction\u003d1\n\t\telif physicalAction\u003d\u003dFalse or str(physicalAction)\u003d\u003dstr(\u0027False\u0027):\n\t\t\tphysicalAction\u003d0\n\t\tresultDetails\u003dCLRIConsole.UpdateActionForCLRIWorkflowOperatorConsole(actionID,isCompleted,visualAction,physicalAction,userID)",
+                          "sessionScope": false,
+                          "viewScope": false
+                        }
+                      ]
+                    },
+                    "type": "ia.display.table"
+                  },
+                  {
+                    "meta": {
+                      "name": "Warning Value_Refresh",
+                      "visible": 0
+                    },
+                    "position": {
+                      "height": 0.0744,
+                      "width": 0.1135,
+                      "x": 0.7,
+                      "y": 0.039
+                    },
+                    "props": {
+                      "text": "Saved Succefully.",
+                      "textStyle": {
+                        "textAlign": "right"
+                      }
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "script": "\ttry:\n\t\tisSelect\u003dself.props.selected\n\t\tresultpyData\u003dself.getSibling(\"Table\").props.data\n\t\tresultpyData\u003dsystem.dataset.toPyDataSet(resultpyData)\n\t\tself.getSibling(\"Table\").props.data\u003dNone\n\t\tCLRIID\u003dself.view.custom.CLRIID\t\n#\t\t\n\t\tcolumnName\u003d\u0027IsCompleted\u0027\n\t\tselColumn\u003d\u0027IsCompleted\u0027\n\t\tif isSelect\u003d\u003dTrue:\n\t\t\tisSelect\u003d1\n\t\t\tupdatedValue\u003d1\n\t\t\tValue\u003d1\n\t\t\tfor i in range(len(resultpyData)):\n\t\t\t\tselRow\u003di\n\t\t\t\tupdatedValue\u003dValue\n\t\t\t\tupdateRowResultDs \u003d {selColumn:updatedValue}    \n\t\t\t\tresultpyData \u003d system.dataset.updateRow(resultpyData,selRow,updateRowResultDs)        \n\t\t\t\tresultpyData\u003d system.dataset.toPyDataSet(resultpyData)    \n\n\t\t\tisFlagCLRIComplete\u003d1\n\t\t\tdsCheckList\u003dresultpyData\n\t\t\tuserID \u003d self.session.custom.UserId\n\t\t\tfor i in dsCheckList:\n\t\t\t\tactionID\u003di[\u0027id\u0027]\n\t\t\t\tisCompleted\u003di[\u0027IsCompleted\u0027]\n\t\t\t\tvisualAction\u003di[\u0027visualAction\u0027]\n\t\t\t\tif visualAction\u003d\u003dTrue or visualAction\u003d\u003dstr(\u0027True\u0027):\n\t\t\t\t\tvisualAction\u003d1\n\t\t\t\telif visualAction\u003d\u003dFalse or visualAction\u003d\u003dstr(\u0027False\u0027):\n\t\t\t\t\tvisualAction\u003d0\n\t\t\t\tphysicalAction\u003di[\u0027physicalAction\u0027]\n\t\t\t\tif physicalAction\u003d\u003dTrue or physicalAction\u003d\u003dstr(\u0027True\u0027):\n\t\t\t\t\tphysicalAction\u003d1\n\t\t\t\telif physicalAction\u003d\u003dFalse or physicalAction\u003d\u003dstr(\u0027False\u0027):\n\t\t\t\t\tphysicalAction\u003d0\n\t\n\t\t\t\tsystem.perspective.print(\"isCompleted \"+str(isCompleted))\n\t\t\t\t\n\t\t\t\tif isCompleted \u003d\u003d 0 or str(isCompleted)\u003d\u003d\u00270\u0027:\n\t\t\t\t\tisFlagCLRIComplete\u003d0\n\t\t\t\t\t\n\t\t\t\tresultDetails\u003dCLRIConsole.UpdateActionForCLRIWorkflowOperatorConsole(actionID,isCompleted,visualAction,physicalAction,userID)\n\t\t\t\n\t\t\t\tif resultDetails \u003d\u003d int(1) or resultDetails \u003d\u003d str(\u00271\u0027) or resultDetails \u003d\u003d 1:\n\t\t\t\t\tsystem.perspective.print(\"resultDetails \"+str(resultDetails))\n\n\t\t\tself.view.custom.CLRIComplete\u003disFlagCLRIComplete\t\n#\t\t\tself.getSibling(\"Table\").props.data\u003dNone\n\t\t\t\n\n#\t\t\tCLRIID\u003dself.view.custom.CLRIID\n#\t\t\tsystem.perspective.print(\"CLRIID \"+str(CLRIID))\n#\t\t\tds\u003dCLRIConsole.GetActionForCLRIWorkflow(CLRIID)\n#\t\t\tsystem.perspective.print(\"CLRIID ds \"+str(ds))\n#\t\t\tself.getSibling(\"Table\").props.data\u003dds\n\n\t\telse:\n\t\t\tisSelect\u003d0\n\t\t\tupdatedValue\u003d0\n\t\t\tValue\u003d0\n\t\t\tfor i in range(len(resultpyData)):\n\t\t\t\tselRow\u003di\n\t\t\t\tupdatedValue\u003dValue\n\t\t\t\tupdateRowResultDs \u003d {selColumn:updatedValue}    \n\t\t\t\tresultpyData \u003d system.dataset.updateRow(resultpyData,selRow,updateRowResultDs)        \n\t\t\t\tresultpyData\u003d system.dataset.toPyDataSet(resultpyData)    \n\n\t\t\tisFlagCLRIComplete\u003d1\n\t\t\tdsCheckList\u003dresultpyData\n\t\t\tuserID \u003d self.session.custom.UserId\n\t\t\tfor i in dsCheckList:\n\t\t\t\tactionID\u003di[\u0027id\u0027]\n\t\t\t\tisCompleted\u003di[\u0027IsCompleted\u0027]\n\t\t\t\tvisualAction\u003di[\u0027visualAction\u0027]\n\t\t\t\tif visualAction\u003d\u003dTrue or visualAction\u003d\u003dstr(\u0027True\u0027):\n\t\t\t\t\tvisualAction\u003d1\n\t\t\t\telif visualAction\u003d\u003dFalse or visualAction\u003d\u003dstr(\u0027False\u0027):\n\t\t\t\t\tvisualAction\u003d0\n\t\t\t\tphysicalAction\u003di[\u0027physicalAction\u0027]\n\t\t\t\tif physicalAction\u003d\u003dTrue or physicalAction\u003d\u003dstr(\u0027True\u0027):\n\t\t\t\t\tphysicalAction\u003d1\n\t\t\t\telif physicalAction\u003d\u003dFalse or physicalAction\u003d\u003dstr(\u0027False\u0027):\n\t\t\t\t\tphysicalAction\u003d0\n\t\n\t\t\t\tsystem.perspective.print(\"isCompleted \"+str(isCompleted))\n\t\t\t\t\n\t\t\t\tif isCompleted \u003d\u003d 0 or str(isCompleted)\u003d\u003d\u00270\u0027:\n\t\t\t\t\tisFlagCLRIComplete\u003d0\n\t\t\t\t\t\n\t\t\t\tresultDetails\u003dCLRIConsole.UpdateActionForCLRIWorkflowOperatorConsole(actionID,isCompleted,visualAction,physicalAction,userID)\n\t\t\t\n\t\t\t\tif resultDetails \u003d\u003d int(1) or resultDetails \u003d\u003d str(\u00271\u0027) or resultDetails \u003d\u003d 1:\n\t\t\t\t\tsystem.perspective.print(\"resultDetails \"+str(resultDetails))\n\n\t\t\tself.view.custom.CLRIComplete\u003disFlagCLRIComplete\n\t\t\t\n\n\n\t\tpayload\u003d{}\n\t\tmessageType\u003d\u0027CLRIRefreshTable\u0027\n#\t\tsystem.perspective.sendMessage(messageType, scope \u003d \u0027page\u0027)\t\n\t\tsystem.perspective.sendMessage(messageType, scope \u003d \u0027view\u0027)\n\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003d\u0027 Exception:Select All : \u0027+  str(sys.exc_info()[1])\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(\"Select All lineno \u003d\" +str(lineno))"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "chkSelAll"
+                    },
+                    "position": {
+                      "height": 0.0667,
+                      "width": 0.0693,
+                      "x": 0.8556,
+                      "y": 0.0404
+                    },
+                    "propConfig": {
+                      "meta.visible": {
+                        "binding": {
+                          "config": {
+                            "path": "session.custom.authorizeCLRIReadOnly"
+                          },
+                          "transforms": [
+                            {
+                              "code": "\t\n\tif value\u003d\u003d0:\n\t\tres\u003dFalse\n\telse:\n\t\tres\u003dTrue\n\treturn res",
+                              "type": "script"
+                            }
+                          ],
+                          "type": "property"
+                        }
+                      },
+                      "props.enabled": {
+                        "binding": {
+                          "config": {
+                            "path": "session.custom.authorizeCLRIReadOnly"
+                          },
+                          "type": "property"
+                        }
+                      }
+                    },
+                    "props": {
+                      "checkedIcon": {
+                        "style": {
+                          "color": "#FFFFFF"
+                        }
+                      },
+                      "selected": true,
+                      "style": {
+                        "color": "#FFFFFF",
+                        "fontFamily": "Arial",
+                        "fontSize": 13,
+                        "fontWeight": "bold"
+                      },
+                      "text": "SelectAll"
+                    },
+                    "type": "ia.input.checkbox"
+                  }
+                ],
+                "events": {
+                  "system": {
+                    "onStartup": {
+                      "config": {
+                        "script": "\t\n\tTabledata\u003dself.view.params.rowData\n\n\tself.getChild(\"Warning Value_Refresh\").meta.visible\u003d0\n\t\n\tself.view.custom.CLRIID\u003dTabledata.get(\"ID\")\n\tCLRIID \u003d Tabledata.get(\"ID\")\n#\tds\u003dCLRIConsole.GetActionForCLRIWorkflow(CLRIID)\n#\t\n#\tself.getChild(\"Table\").props.data\u003dds"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "CntInputs",
+                  "tooltip": {
+                    "width": "Auto"
+                  }
+                },
+                "props": {
+                  "mode": "percent",
+                  "style": {
+                    "backgroundColor": "#FFFFFF",
+                    "backgroundRepeat": "repeat"
+                  }
+                },
+                "type": "ia.container.coord"
+              }
+            ],
+            "meta": {
+              "name": "TabContainer"
+            },
+            "position": {
+              "height": 0.7081,
+              "width": 0.9962,
+              "x": -0.003,
+              "y": 0.2626
+            },
+            "props": {
+              "menuType": "modern",
+              "style": {
+                "backgroundColor": "#EDF0F0"
+              },
+              "tabSize": {
+                "height": 35,
+                "width": 180
+              },
+              "tabStyle": {
+                "active": {
+                  "boxSizing": "content-box",
+                  "classes": "Common/ActiveTabStyle"
+                },
+                "inactive": {
+                  "classes": "Common/InActiveTabStyle"
+                }
+              },
+              "tabs": [
+                "Check Point"
+              ]
+            },
+            "type": "ia.container.tab"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": [
+                  {
+                    "config": {
+                      "draggable": false,
+                      "id": "g78hF5yz",
+                      "modal": true,
+                      "overlayDismiss": false,
+                      "resizable": false,
+                      "showCloseIcon": false,
+                      "type": "open",
+                      "viewParams": {
+                        "rowData": "{view.params.rowData}"
+                      },
+                      "viewPath": "Project_MES_Solution/CLRI Console/Popup/PopupStartOP",
+                      "viewportBound": false
+                    },
+                    "scope": "C",
+                    "type": "popup"
+                  },
+                  {
+                    "config": {
+                      "script": "\tself.parent.getChild(\"TabContainer\").getChild(\"CntInputs\").getChild(\"btnSubmitRequest\").props.enabled \u003d False\n\tself.parent.getChild(\"TabContainer\").getChild(\"CntInputs\").getChild(\"btnSubmitRequest\").meta.tooltip.text \u003d \"Please Enter RequestQty to Submit\""
+                    },
+                    "scope": "G",
+                    "type": "script"
+                  }
+                ]
+              }
+            },
+            "meta": {
+              "name": "StartWOBtn",
+              "tooltip": {
+                "location": "bottom-left",
+                "style": {
+                  "classes": "Common/ToolTip"
+                }
+              },
+              "visible": 0
+            },
+            "position": {
+              "height": 0.05,
+              "width": 0.06,
+              "x": 0.6658,
+              "y": 0.0181
+            },
+            "propConfig": {
+              "meta.visible": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.IsVisible"
+                  },
+                  "enabled": false,
+                  "type": "property"
+                }
+              },
+              "props.enabled": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.WOOperationStatus"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tif str(value).strip()\u003d\u003d(\"Assigned\").strip() and self.session.custom.authorizeCLRIReadOnly\u003d\u003d1:\n\t\tvalue\u003d1\n\t\tself.props.style.backgroundColor \u003d \"#3888CC\"\t\n\t\tself.props.style.borderColor \u003d \"#3888CC\"\t\t\t\n\telse:\n\t\tvalue\u003d0\n\t\tself.props.style.backgroundColor \u003d str(self.session.custom.disableBtncolour)\n\t\tself.props.style.borderColor \u003d  str(self.session.custom.disableBtncolour)\t\t\t\t\t\n\t\t\n\treturn value",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "image": {
+                "height": 20,
+                "width": 50
+              },
+              "style": {
+                "backgroundColor": "value",
+                "borderColor": "value",
+                "classes": "Common/Button"
+              },
+              "text": "Start",
+              "textStyle": {
+                "fontFamily": "Arial",
+                "fontSize": 14
+              }
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "draggable": false,
+                    "id": "-evw-V83",
+                    "modal": true,
+                    "overlayDismiss": false,
+                    "resizable": false,
+                    "showCloseIcon": false,
+                    "type": "open",
+                    "viewParams": {
+                      "rowData": "{view.params.rowData}"
+                    },
+                    "viewPath": "Project_MES_Solution/CLRI Console/Popup/PopupConfirmationOpHold",
+                    "viewportBound": false
+                  },
+                  "scope": "C",
+                  "type": "popup"
+                }
+              }
+            },
+            "meta": {
+              "name": "HoldWoBtn",
+              "tooltip": {
+                "enabled": true,
+                "location": "bottom-left",
+                "style": {
+                  "classes": "Common/ToolTip"
+                }
+              }
+            },
+            "position": {
+              "height": 0.05,
+              "width": 0.06,
+              "x": 0.7521,
+              "y": 0.0182
+            },
+            "propConfig": {
+              "meta.tooltip.text": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.authorizeCLRIReadOnly"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tif value\u003d\u003d0:\n\t\tresult\u003d\u0027Read Only Access\u0027\n\telse :\n\t\tresult\u003d\u0027\u0027\n\treturn result",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "meta.visible": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.IsVisible"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.enabled": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.WOOperationStatus"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tif value\u003d\u003dstr(\"In-Progress\").strip() and self.session.custom.authorizeCLRIReadOnly\u003d\u003d1:\n\t\tvalue\u003d True\n\t\tself.props.style.backgroundColor \u003d \"#3888CC\"\n\t\tself.props.style.borderColor \u003d  \"#3888CC\"\t\t\n\telse:\n\t\tvalue\u003d False\n\t\tself.props.style.backgroundColor \u003d str(self.session.custom.disableBtncolour)\n\t\tself.props.style.borderColor \u003d  str(self.session.custom.disableBtncolour)\t\t\t\t\n\treturn value",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "image": {
+                "height": 20,
+                "width": 50
+              },
+              "style": {
+                "backgroundColor": "value",
+                "borderColor": "value",
+                "classes": "Common/Button"
+              },
+              "text": "Hold",
+              "textStyle": {
+                "fontFamily": "Arial",
+                "fontSize": 14
+              }
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": [
+                  {
+                    "config": {
+                      "script": "\ttry:\n\t\tscriptName \u003d \"RMTC: Complete Button: On Click\"\n\t\tdefaultPath \u003d system.tag.read(\"[default]JMES_InternalTags/DafaultTagPath\").value\n\t\tsystem.perspective.print(\"defaultPath: \" +str(defaultPath))\n\t\tmachineName \u003d self.session.custom.Machine\n\t\trepairPath \u003d str(defaultPath) + str(machineName)+ \"/Repair.value\"\n\t\tmachineStatus \u003d str(defaultPath) + str(machineName)+ \"/MachineStatus.value\"\n\t\tmachineRepairStatus \u003d system.tag.read(repairPath).value\n\t\tmachineStatusTag \u003d system.tag.read(machineStatus).value\n\t\t\n\t\tmaintenanceType\u003dself.session.custom.ReactiveMaintenanceType\n\t\t\n\t\tif maintenanceType !\u003d str(\"Manual\") or str(maintenanceType).lower() !\u003d str(\"Manual\").lower() :\n\t\t\tif machineRepairStatus \u003d\u003d 2 or machineStatusTag \u003d\u003d 5:\n\t\t\t\tself.meta.tooltip.text \u003d str(\"Please Check Machine Repair Status\")\n\t\t\t\tsystem.perspective.openPopup(\u0027myPopupId\u0027,\u0027Project_MES_Solution/Maint Operator Console_RM/Popup/MessageBox\u0027,draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\telse:\n\t\t\t\tsystem.perspective.openPopup(\u0027myPopupId\u0027,\u0027Project_MES_Solution/Maint Operator Console_RM/Popup/PopupCompleteOperation\u0027,draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\telse:\n\t\t\tsystem.perspective.openPopup(\u0027myPopupId\u0027,\u0027Project_MES_Solution/Maint Operator Console_RM/Popup/PopupCompleteOperation\u0027,draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)"
+                    },
+                    "enabled": false,
+                    "scope": "G",
+                    "type": "script"
+                  },
+                  {
+                    "config": {
+                      "draggable": false,
+                      "id": "XY9nHbCF",
+                      "modal": true,
+                      "overlayDismiss": false,
+                      "resizable": false,
+                      "showCloseIcon": false,
+                      "type": "open",
+                      "viewParams": {
+                        "rowData": "{view.params.rowData}"
+                      },
+                      "viewPath": "Project_MES_Solution/CLRI Console/Popup/PopupCompleteOperation",
+                      "viewportBound": false
+                    },
+                    "scope": "C",
+                    "type": "popup"
+                  }
+                ]
+              }
+            },
+            "meta": {
+              "name": "CompleteWOBtn",
+              "tooltip": {
+                "enabled": true,
+                "location": "bottom-left",
+                "style": {
+                  "classes": "Common/ToolTip"
+                }
+              }
+            },
+            "position": {
+              "height": 0.05,
+              "width": 0.06,
+              "x": 0.9172,
+              "y": 0.0182
+            },
+            "propConfig": {
+              "meta.tooltip.text": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.authorizeCLRIReadOnly"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tif value\u003d\u003d0:\n\t\tresult\u003d\u0027Read Only Access\u0027\n\telse :\n\t\tresult\u003d\u0027\u0027\n\treturn result",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "meta.visible": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.IsVisible"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.enabled": {
+                "binding": {
+                  "config": {
+                    "expression": "if ({view.custom.CLRIComplete} \u0026\u0026 {session.custom.WOOperationStatus}\u003d\u0027In-Progress\u0027,1,0)"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tCLRIComplete\u003dint(self.view.custom.CLRIComplete)\n\tWOOperationStatus\u003dself.session.custom.WOOperationStatus\n\tif CLRIComplete\u003d\u003d1 and  (str(WOOperationStatus).lower().strip()\u003d\u003d\u0027In-Progress\u0027.lower() or str(WOOperationStatus).lower().strip()\u003d\u003d\u0027In Progress\u0027.lower()) and self.session.custom.authorizeCLRIReadOnly\u003d\u003d1:\n\t\tself.props.enabled\u003d1\n\t\tself.props.style.backgroundColor \u003d \"#3888CC\"\n\t\tself.props.style.borderColor \u003d   \"#3888CC\"\n\telse:\n\t\tself.props.enabled\u003d0\n\t\tself.props.style.backgroundColor \u003d str(self.session.custom.disableBtncolour)\n\t\tself.props.style.borderColor \u003d  str(self.session.custom.disableBtncolour)\n\treturn value",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "image": {
+                "height": 20,
+                "width": 50
+              },
+              "style": {
+                "backgroundColor": "value",
+                "borderColor": "value",
+                "classes": "Common/Button"
+              },
+              "text": "Complete",
+              "textStyle": {
+                "fontFamily": "Arial",
+                "fontSize": 14
+              }
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": [
+                  {
+                    "config": {
+                      "draggable": false,
+                      "id": "m9iJjCcd",
+                      "modal": true,
+                      "overlayDismiss": false,
+                      "resizable": true,
+                      "showCloseIcon": false,
+                      "type": "open",
+                      "viewParams": {
+                        "rowData": "{view.params.rowData}"
+                      },
+                      "viewPath": "Project_MES_Solution/CLRI Console/Popup/PopupResumeOp",
+                      "viewportBound": false
+                    },
+                    "scope": "C",
+                    "type": "popup"
+                  },
+                  {
+                    "config": {
+                      "script": "\tself.parent.getChild(\"TabContainer\").getChild(\"CntInputs\").getChild(\"btnSubmitRequest\").props.enabled \u003d True"
+                    },
+                    "scope": "G",
+                    "type": "script"
+                  }
+                ]
+              }
+            },
+            "meta": {
+              "name": "ResumeWoBtn",
+              "tooltip": {
+                "enabled": true,
+                "location": "bottom-left",
+                "style": {
+                  "classes": "Common/ToolTip"
+                }
+              }
+            },
+            "position": {
+              "height": 0.05,
+              "width": 0.06,
+              "x": 0.8361,
+              "y": 0.0182
+            },
+            "propConfig": {
+              "meta.tooltip.text": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.authorizeCLRIReadOnly"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tif value\u003d\u003d0:\n\t\tresult\u003d\u0027Read Only Access\u0027\n\telse :\n\t\tresult\u003d\u0027\u0027\n\treturn result",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "meta.visible": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.IsVisible"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.enabled": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.WOOperationStatus"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tif value\u003d\u003dstr(\"On-Hold\").strip() and self.session.custom.authorizeCLRIReadOnly\u003d\u003d1:\n\t\t\tvalue\u003d1\n\t\t\tself.props.style.backgroundColor \u003d \"#3888CC\"\t\n\t\t\tself.props.style.borderColor \u003d   \"#3888CC\"\t\t\t\t\t\n\telse:\n\t\tvalue\u003d0\n\t\tself.props.style.backgroundColor \u003d str(self.session.custom.disableBtncolour)\n\t\tself.props.style.borderColor \u003d  str(self.session.custom.disableBtncolour)\t\t\t\t\n\treturn value",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "image": {
+                "height": 20,
+                "width": 50
+              },
+              "style": {
+                "backgroundColor": "value",
+                "borderColor": "value",
+                "classes": "Common/Button"
+              },
+              "text": "Resume",
+              "textStyle": {
+                "fontFamily": "Arial",
+                "fontSize": 14
+              }
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "meta": {
+              "name": "Table"
+            },
+            "position": {
+              "height": 0.1763,
+              "width": 0.9962,
+              "x": -0.0001,
+              "y": 0.0863
+            },
+            "props": {
+              "bodyStyle": {
+                "classes": "Table/RowsBorder"
+              },
+              "columns": [
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "SrNo",
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "center",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "SR No"
+                  },
+                  "justify": "center",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": 50
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "ID",
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "center",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "ID"
+                  },
+                  "justify": "center",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": false,
+                  "width": 50
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "Name",
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Name"
+                  },
+                  "justify": "auto",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": 70
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "SBCNumber",
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "SBCNumber"
+                  },
+                  "justify": "auto",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": ""
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "Rivision",
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Revision"
+                  },
+                  "justify": "auto",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": 60
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "Make",
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Make"
+                  },
+                  "justify": "auto",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": 60
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "Model",
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Model"
+                  },
+                  "justify": "auto",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": 60
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "Machine",
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "justify": "auto",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": 150
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "Status",
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "justify": "auto",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": 50
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "Comment",
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "justify": "auto",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": 135
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "LastModifiedBy",
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Updated By"
+                  },
+                  "justify": "auto",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": 75
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "LastModifiedOn",
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Last Updated On"
+                  },
+                  "justify": "auto",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": 90
+                }
+              ],
+              "data": {
+                "$": [
+                  "ds",
+                  192,
+                  1675959780169
+                ],
+                "$columns": [
+                  {
+                    "data": [],
+                    "name": "ID",
+                    "type": "String"
+                  },
+                  {
+                    "data": [],
+                    "name": "WoNumber",
+                    "type": "String"
+                  },
+                  {
+                    "data": [],
+                    "name": "Line",
+                    "type": "String"
+                  },
+                  {
+                    "data": [],
+                    "name": "RM Type",
+                    "type": "String"
+                  },
+                  {
+                    "data": [],
+                    "name": "Machine",
+                    "type": "String"
+                  },
+                  {
+                    "data": [],
+                    "name": "Status",
+                    "type": "String"
+                  },
+                  {
+                    "data": [],
+                    "name": "ActualStartDate",
+                    "type": "String"
+                  },
+                  {
+                    "data": [],
+                    "name": "PriorityName",
+                    "type": "String"
+                  },
+                  {
+                    "data": [],
+                    "name": "ActualCmpDateTime",
+                    "type": "String"
+                  },
+                  {
+                    "data": [],
+                    "name": "RMOrderID",
+                    "type": "String"
+                  }
+                ]
+              },
+              "headerStyle": {
+                "classes": "Table/Header"
+              },
+              "pager": {
+                "bottom": false
+              },
+              "rows": {
+                "style": {
+                  "classes": "Table/Rowsmiddle"
+                },
+                "subviewExpansionMode": "single"
+              },
+              "selection": {
+                "enableRowSelection": false
+              }
+            },
+            "scripts": {
+              "customMethods": [],
+              "extensionFunctions": null,
+              "messageHandlers": [
+                {
+                  "messageType": "CLRIStatusforSingleRow",
+                  "pageScope": true,
+                  "script": "\ttry:\n\t\tscriptName\u003d\u0027Message Handler CLRIStatusforSingleRow\u0027\n\t\tTabledata\u003dself.view.params.rowData\n\t\tsystem.perspective.print(\"Tabledata \"+str(Tabledata))\n\t\tChecksheetInfo \u003d []\n\t\tuserId \u003d self.session.custom.UserId\n\t\tdata \u003d []\n\t\t\n\t\tif userId !\u003d 0 or userId!\u003d\"\":\n\t\t\tif Tabledata\u003d\u003d[]:\n\t\t\t\tsystem.perspective.print(\"empty\")\n\t\t\t\tpass\n\t\t\telse:\n\t\t\t\tSrNo\u003d1\n\t\t\t\tid \u003d Tabledata.get(\"id\")\n\t\t\t\tname \u003d Tabledata.get(\"Name\")\n\t\t\t\tsbcNumber \u003d Tabledata.get(\"SBCNumber\")\n\t\t\t\tmakeName \u003d Tabledata.get(\"Make\")\n\t\t\t\tmodelName \u003d Tabledata.get(\"Model\")\n\t\t\t\trevision \u003d Tabledata.get(\"Rivision\")\n\t\t\t\tcomment \u003d Tabledata.get(\"Comment\")\n\t\t\t\tLastModifiedBy\u003d Tabledata.get(\"LastModifiedBy\")\n\t\t\t\tLastModifiedOn\u003d Tabledata.get(\"LastModifiedOn\")\n\t\t\t\tStatus \u003d self.session.custom.WOOperationStatus\n\t\t\t\tMachineName \u003d Tabledata.get(\"Machine\")\n\t\t\t\t\n\t\t\t\tmyList \u003d [SrNo,id, name, sbcNumber,revision,MachineName,Status,makeName,modelName,comment,LastModifiedBy,LastModifiedOn]\n\t\t\t\tdata.append(myList)\n\t\t\t\t\n\t\t\t\theaders \u003d [\"SrNo\",\"ID\", \"Name\", \"SBCNumber\", \"Rivision\",\"Machine\",\"Status\",\"Make\", \"Model\", \"Comment\",\"LastModifiedBy\",\"LastModifiedOn\"]\t\n\t\t\t\tresultDetails \u003d system.dataset.toDataSet(headers,data)\n\t\t\t\tds \u003d system.dataset.toPyDataSet(resultDetails)\n\t\t\t\tself.props.data\u003dds\t\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)",
+                  "sessionScope": false,
+                  "viewScope": false
+                }
+              ]
+            },
+            "type": "ia.display.table"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "draggable": false,
+                    "id": "p630jdiA",
+                    "modal": true,
+                    "overlayDismiss": false,
+                    "resizable": false,
+                    "showCloseIcon": false,
+                    "type": "open",
+                    "viewParams": {
+                      "rowData": "{view.params.rowData}"
+                    },
+                    "viewPath": "Project_MES_Solution/CLRI Console/Popup/PopupViewShopNotes",
+                    "viewportBound": false
+                  },
+                  "scope": "C",
+                  "type": "popup"
+                }
+              }
+            },
+            "meta": {
+              "name": "ShopNotesBtn",
+              "tooltip": {
+                "enabled": true,
+                "location": "bottom-left",
+                "style": {
+                  "classes": "Common/ToolTip"
+                }
+              }
+            },
+            "position": {
+              "height": 0.05,
+              "rotate": {
+                "anchor": "50% 25%"
+              },
+              "width": 0.06,
+              "x": 0.6658,
+              "y": 0.0182
+            },
+            "propConfig": {
+              "meta.tooltip.text": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.authorizeCLRIReadOnly"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tif value\u003d\u003d0:\n\t\tresult\u003d\u0027Read Only Access\u0027\n\telse :\n\t\tresult\u003d\u0027\u0027\n\treturn result",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "meta.visible": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.IsVisible"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.enabled": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.authorizeCLRIReadOnly"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "image": {
+                "height": 20,
+                "width": 50
+              },
+              "style": {
+                "backgroundColor": "value",
+                "borderColor": "value",
+                "classes": "Common/Button"
+              },
+              "text": "Add Notes",
+              "textStyle": {
+                "fontFamily": "Arial",
+                "fontSize": 14
+              }
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "draggable": false,
+                    "id": "p630jdiA",
+                    "modal": true,
+                    "overlayDismiss": false,
+                    "resizable": false,
+                    "showCloseIcon": false,
+                    "type": "open",
+                    "viewParams": {
+                      "rowData": "{view.params.rowData}"
+                    },
+                    "viewPath": "Project_MES_Solution/CLRI Console/Popup/PopupViewShopNotes",
+                    "viewportBound": false
+                  },
+                  "scope": "C",
+                  "type": "popup"
+                }
+              }
+            },
+            "meta": {
+              "name": "ShopNotesBtn_0",
+              "tooltip": {
+                "enabled": true,
+                "location": "bottom-left",
+                "style": {
+                  "classes": "Common/ToolTip"
+                }
+              }
+            },
+            "position": {
+              "height": 0.05,
+              "rotate": {
+                "anchor": "50% 25%"
+              },
+              "width": 0.06,
+              "x": 0.6658,
+              "y": 0.0182
+            },
+            "propConfig": {
+              "meta.tooltip.text": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.authorizeCLRIReadOnly"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tif value\u003d\u003d0:\n\t\tresult\u003d\u0027Read Only Access\u0027\n\telse :\n\t\tresult\u003d\u0027\u0027\n\treturn result",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "meta.visible": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.IsVisible"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.enabled": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.authorizeCLRIReadOnly"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tif self.session.custom.authorizeCLRIReadOnly\u003d\u003d1:\n\t\tvalue\u003d 1\n\t\tself.props.style.backgroundColor \u003d \"#3888CC\"\n\t\tself.props.style.borderColor \u003d  \"#3888CC\"\t\t\n\telse:\n\t\tvalue\u003d 0\n\t\tself.props.style.backgroundColor \u003d str(self.session.custom.disableBtncolour)\n\t\tself.props.style.borderColor \u003d  str(self.session.custom.disableBtncolour)\t\n\treturn \tvalue",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "image": {
+                "height": 20,
+                "width": 50
+              },
+              "style": {
+                "backgroundColor": "#3888CC",
+                "borderColor": "#3888CC",
+                "classes": "Common/Button"
+              },
+              "text": "Add Notes",
+              "textStyle": {
+                "fontFamily": "Arial",
+                "fontSize": 14
+              }
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "MainViewContainer"
+        },
+        "position": {
+          "height": 0.8575,
+          "width": 1,
+          "y": 0.141
+        },
+        "props": {
+          "mode": "percent"
+        },
+        "type": "ia.container.coord"
+      }
+    ],
+    "custom": {
+      "tblSparePart": {
+        "$": [
+          "ds",
+          192,
+          1662533384286
+        ],
+        "$columns": [
+          {
+            "data": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "name": "ID",
+            "type": "Integer"
+          },
+          {
+            "data": [
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            "name": "SparePart",
+            "type": "String"
+          },
+          {
+            "data": [
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            "name": "SparePartCode",
+            "type": "String"
+          },
+          {
+            "data": [
+              null,
+              0,
+              0,
+              0,
+              0
+            ],
+            "name": "OnHandQty",
+            "type": "Integer"
+          },
+          {
+            "data": [
+              null,
+              0,
+              0,
+              0,
+              0
+            ],
+            "name": "AllocatedQty",
+            "type": "Integer"
+          },
+          {
+            "data": [
+              null,
+              0,
+              0,
+              0,
+              0
+            ],
+            "name": "RequestedQty",
+            "type": "Integer"
+          },
+          {
+            "data": [
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            "name": "Action",
+            "type": "String"
+          },
+          {
+            "data": [
+              null,
+              0,
+              0,
+              0,
+              0
+            ],
+            "name": "SparePartId",
+            "type": "Integer"
+          }
+        ]
+      }
+    },
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -0.003,
+      "y": 0.0286
+    },
+    "props": {
+      "mode": "percent",
+      "style": {
+        "backgroundColor": "#E0E3E4\n"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

@@ -1,0 +1,425 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 166,
+      "width": 313
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onEditCellCommit": {
+              "config": {
+                "script": "\tsystem.perspective.print(\"After Cell Edit Component Table \")\n\tdefineKeyColumn \u003d \"Id\"\n\t#----------------- get selected cell value,row number,column number -----------------\t\n\tupdatedValue\u003devent.value\t\n\tselRow\u003devent.row\t\n\tselColumn\u003dself.props.selection.selectedColumn\n\tsystem.perspective.print(selColumn)\t\t\n\t#-------------------------------------- End ----------------------------------------\n\t\n\t#----------------- update data back in existing table dataset ----------------------\t\n\t\n\tdtSet\u003dself.props.data\t\n\tupdateRowResultDs \u003d {selColumn:updatedValue}\t\n\tresultpyData \u003d system.dataset.updateRow(dtSet,selRow,updateRowResultDs)\t\t\n\tds\u003d system.dataset.toPyDataSet(resultpyData)\t\n\tself.props.data\u003dds\t\n\ttabldata\u003dself.props.data\t\t\n\tval\u003dtabldata.getValueAt(selRow, selColumn)\t\n\t\n\tComponents\u003dtabldata.getValueAt(selRow,defineKeyColumn)\t\n\tcomponentData\u003d[val,Components]\t\n\tsystem.perspective.print(componentData)\n\tsystem.perspective.print(selColumn)\t\t\n\t\n\t#--------------------------------Post Component Data ----------------------------------\n\t\n\tWorkflowOperationsId \u003d self.session.custom.WorkflowOperationsId\t\n\tWoNumber \u003dself.session.custom.WoNumber\t\n\tWorkflowId \u003d self.session.custom.WorkflowId\t\t\t\t\n\t\t\t\n\toperatorConsoleComponentId \u003d 0\t\t\t\t\n\tuserId \u003d self.session.custom.UserId\n\ttry:\t\t\t\n\t\tselectedItemId \u003d tabldata.getValueAt(selRow,\"Id\")\t\t\t\t\n\texcept:\t\t\n\t\tsystem.perspective.print(\"Unable to read Parameter value\")\n\t\tpass\n\t\t\t\t\t\t\t\t\t\n\ttry:\n\t\tserialNo \u003d tabldata.getValueAt(selRow,\"SerialNumber\")\n\t\tsystem.perspective.print(\"SerialNo value\")\n\t\tsystem.perspective.print(serialNo)\n\texcept:\n\t\tsystem.perspective.print(\"Unable to read SerialNumber value\")\t\t\n\t\tpass\n\t\n\ttry:\n\t\tlotNo \u003d tabldata.getValueAt(selRow,\"LotNumber\")\t\n\t\tsystem.perspective.print(\"LotNumber value\")\n\t\tsystem.perspective.print(lotNo)\n\texcept:\n\t\tsystem.perspective.print(\"Unable to read LotNumber value\")\t\t\n\t\tpass\n\ttry:\n\t\tconsumeQty \u003d tabldata.getValueAt(selRow,\"ConsumeQty\")\t\n\t\tsystem.perspective.print(\"consumeQty value\")\n\t\tsystem.perspective.print(consumeQty)\n\texcept:\n\t\tsystem.perspective.print(\"Unable to read consumeQty value\")\t\t\n\t\tpass\n\t\t\t\n\tresult \u003d WorkOrderDetailsAPI.postComponentDetails(WorkflowOperationsId,WoNumber,WorkflowId,operatorConsoleComponentId,selectedItemId,serialNo,lotNo,consumeQty,userId)\t\n\tsystem.perspective.print(\"Post API values for Component...\")\n"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "TblComponent"
+        },
+        "position": {
+          "height": 120,
+          "width": 295,
+          "x": 9.02,
+          "y": 37.85
+        },
+        "props": {
+          "columns": [
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "Id",
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": "Basic/ShortTableHeader"
+                },
+                "title": "ID"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": true,
+              "style": {
+                "classes": "Basic/ShortTableEntries"
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 50
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "Parameter",
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": "Basic/ShortTableHeader"
+                },
+                "title": "Components"
+              },
+              "justify": "left",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": "Basic/ShortTableEntries"
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": true,
+              "field": "SerialNumber",
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": "Basic/ShortTableHeader"
+                },
+                "title": "Serial No*"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": "Basic/ShortTableEntries"
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": 50
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": true,
+              "field": "LotNumber",
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": "Basic/ShortTableHeader"
+                },
+                "title": "Lot No*"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": "Basic/ShortTableEntries"
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 50
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": true,
+              "field": "ConsumeQty",
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": "Basic/ShortTableHeader"
+                },
+                "title": "Consume Qty*"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": "Basic/ShortTableEntries"
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": ""
+            }
+          ],
+          "dragOrderable": false,
+          "pager": {
+            "bottom": false
+          },
+          "rows": {
+            "subview": {
+              "enabled": true
+            }
+          },
+          "selection": {
+            "enableColumnSelection": true
+          }
+        },
+        "scripts": {
+          "customMethods": [],
+          "extensionFunctions": null,
+          "messageHandlers": [
+            {
+              "messageType": "componentSubviewHandler",
+              "pageScope": true,
+              "script": "\t# implement your handler here\n\tpartName \u003d \"Part1\"\n\tmyData \u003d []\n\tresult \u003d filter(lambda i:i[1]\u003d\u003dpartName,myData)\n\theaderData \u003d [\"SrNo\",\"Part Name\",\"Lot Name\",\"Lot qty\"]\n\tresultDetails \u003d system.dataset.toDataSet(headerData,result)\n\tself.props.data \u003d resultDetails",
+              "sessionScope": false,
+              "viewScope": false
+            }
+          ]
+        },
+        "type": "ia.display.table"
+      },
+      {
+        "meta": {
+          "name": "Label"
+        },
+        "position": {
+          "height": 32,
+          "width": 141,
+          "x": 10,
+          "y": 5
+        },
+        "props": {
+          "text": "Subview Part"
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}

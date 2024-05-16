@@ -1,0 +1,158 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\tUserId\u003dself.session.custom.UserId\n\tif UserId\u003d\u003dNone or str(UserId)\u003d\u003d\u0027None\u0027 or str(UserId).strip()\u003d\u003d\u0027\u0027  or str(UserId).lower().strip()\u003d\u003d\u0027null\u0027:\n\t\tsystem.perspective.navigate(\u0027/LoginScreen\u0027)\n#\ttemp\u003d1\n#\tself.getChild(\"root\").getChild(\"CntDashBoard_0\").getChild(\"BtnSettings\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoardPlantHierarchy\").getChild(\"BtnDiagnostics\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoardPlantHierarchy\").getChild(\"BtnMachineMonitor\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoardPlanning\").getChild(\"BtnNotifications\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoardOrderExe\").getChild(\"tnDashboardOrderExe\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnOperatorConsole\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnDashRoleMaster\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnDashMaintOptrConsole\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnDashMaintOptrConsole_RM\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnDashWarehouseOptrConsole\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnQualityConsole\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnOperatorConsole_0\").meta.visible\u003dtemp\n#\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnPEA\").meta.visible\u003dtemp\n#\troleId\u003d1\n#\tds\u003dAuthentication.GetModulesForRole(roleId)\n#\tfor i in ds:\n#\t\tmoduleName\u003d\tstr(i[\u0027moduleName\u0027]).lower().strip()\n#\t\tif \tmoduleName\u003d\u003d\u0027production\u0027:\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnOperatorConsole\").meta.visible\u003d1\t\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnPEA\").meta.visible\u003d1\n#\t\tif \tmoduleName\u003d\u003d\u0027Quality\u0027.lower():\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnDashRoleMaster\").meta.visible\u003d1\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnQualityConsole\").meta.visible\u003d1\n#\t\tif \tmoduleName\u003d\u003d\u0027Maintenance\u0027.lower():\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnDashMaintOptrConsole\").meta.visible\u003d1\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnDashMaintOptrConsole_RM\").meta.visible\u003d1\n#\t\tif \tmoduleName\u003d\u003d\u0027Warehouse\u0027.lower():\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoard\").getChild(\"BtnDashWarehouseOptrConsole\").meta.visible\u003d1\n#\t\tif \tmoduleName\u003d\u003d\u0027Administration\u0027.lower():\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoard_0\").getChild(\"BtnSettings\").meta.visible\u003d1\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoardPlantHierarchy\").getChild(\"BtnDiagnostics\").meta.visible\u003d1\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoardPlanning\").getChild(\"BtnNotifications\").meta.visible\u003d1\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoardPlantHierarchy\").getChild(\"BtnMachineMonitor\").meta.visible\u003d1\n#\t\t\tself.getChild(\"root\").getChild(\"CntDashBoardOrderExe\").getChild(\"tnDashboardOrderExe\").meta.visible\u003d1"
+        },
+        "enabled": false,
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "propConfig": {
+    "props.defaultSize.height": {
+      "binding": {
+        "config": {
+          "path": "session.custom.ScreenHeight"
+        },
+        "type": "property"
+      }
+    },
+    "props.defaultSize.width": {
+      "binding": {
+        "config": {
+          "path": "session.custom.ScreenWidth"
+        },
+        "type": "property"
+      }
+    }
+  },
+  "props": {
+    "defaultSize": {}
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "page": "/QualityConsole"
+                  },
+                  "scope": "C",
+                  "type": "nav"
+                },
+                "onMouseLeave": {
+                  "config": {
+                    "script": "\tself.props.style.backgroundColor \u003d \u0027#FFFFFF\u0027"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                },
+                "onMouseOver": {
+                  "config": {
+                    "script": "\tself.props.style.backgroundColor \u003d \u0027#CCFFFF9C\u0027"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "BtnQualityConsole",
+              "tooltip": {
+                "enabled": true
+              },
+              "visible": 1
+            },
+            "position": {
+              "height": 0.65,
+              "width": 0.218,
+              "x": 0.0398,
+              "y": 0.1765
+            },
+            "propConfig": {
+              "meta.tooltip.text": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.authorizeQuality"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tif value\u003d\u003d0:\n\t\tresult\u003d\u0027Access Denied\u0027\n\telse :\n\t\tresult\u003d\u0027\u0027\n\treturn result",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.enabled": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.authorizeQuality"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "image": {
+                "height": 45,
+                "icon": {
+                  "color": "#555555",
+                  "path": "material/grading"
+                },
+                "position": "top",
+                "style": {
+                  "backgroundColor": "#FFFFFF"
+                },
+                "width": 45
+              },
+              "style": {
+                "classes": "Ref_MES/Common/ButtonDashboard"
+              },
+              "text": "Quality Operator Console"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "CntDashBoardPlantHierarchy"
+        },
+        "position": {
+          "height": 0.9842,
+          "width": 0.5275,
+          "x": 0.0016,
+          "y": 0.0077
+        },
+        "props": {
+          "mode": "percent",
+          "style": {
+            "backgroundColor": "#E0E3E4"
+          }
+        },
+        "type": "ia.container.coord"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -98,
+      "y": 5
+    },
+    "props": {
+      "mode": "percent",
+      "style": {
+        "backgroundColor": "#E0E3E4"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

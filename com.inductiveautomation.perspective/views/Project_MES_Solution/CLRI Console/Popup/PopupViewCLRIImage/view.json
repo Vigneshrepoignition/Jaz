@@ -1,0 +1,306 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\trowData \u003d self.params.rowData\n#\t\tsystem.perspective.print(\u0027Row DAta on Pop: \u0027 + str(rowData))\n\t\tImageFilePath \u003d rowData[\u0027AttachmentsPath\u0027]\n\t\tAttachmentsName\u003d rowData[\u0027AttachmentsName\u0027]\n\t\t\n\t\topeningUrl \u003d system.tag.read(\"[default]JMES_InternalTags/AttachmentUrl\").value\t\n\t\tname \u003d str(ImageFilePath).strip()\n\t\tImageFilePath \u003d ImageFilePath.split(\u0027,\u0027)\n\t\timagelist\u003d[]\n\t\t\n\t\tAttachment \u003d AttachmentsName\n\t\tAttachment \u003d Attachment.split(\u0027,\u0027)\n\n\t\theaders\u003d[\"AttachmentsName\",\"fileName\"]\n\t\tj\u003d0\t\n\t\tfor i in ImageFilePath:\n\t\t\tname \u003d str(i).strip()\n\t\t\n\t\t\tif name !\u003d str(\"\"):\n\t\t\t\tname \u003dname.replace(\u0027\\\\\u0027,\u0027/\u0027)\n\t\t\t\tname \u003dname.replace(\u0027\\\\\u0027,\u0027/\u0027)\n\t\t\t\tname \u003dname.replace(\u0027\\\\\u0027,\u0027/\u0027)\n\t\t\t\tname \u003dname.replace(\u0027//\u0027,\u0027/\u0027)\n\t#\t\t\tname \u003dname.replace(\u0027//\u0027,\u0027/\u0027)\n\t\t\t\t\n\t\t\t\turl \u003d openingUrl+name\n#\t\t\t\tsystem.perspective.print(\u0027url: \u0027 + str(url))\n\t\t\t\tAttachmenttype\u003dAttachment[j].strip()\n\t\t\t\tmyList\u003d[Attachmenttype,url]\n\t\t\t\tj\u003dj+1\n\t\t\t\timagelist.append(myList)\n\t\tresultDetails\u003dsystem.dataset.toDataSet(headers,imagelist)\t\t\n\t\tresultDetails\u003dsystem.dataset.toPyDataSet(resultDetails)\n\t\tself.getChild(\"root\").getChild(\"tblImageUpload\").props.data\u003dresultDetails\n\texcept:\n\t\tpass"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "rowData": "value"
+  },
+  "propConfig": {
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 700,
+      "width": 1000
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 32,
+          "width": 995,
+          "x": 0.99,
+          "y": 0.99
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 10,
+            "textAlign": "Center",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 30,
+          "width": 30,
+          "x": 963.878,
+          "y": 2.92057
+        },
+        "props": {
+          "path": "material/close",
+          "style": {
+            "color": "#FFFFFF",
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "tblImageUpload"
+        },
+        "position": {
+          "height": 655,
+          "width": 990,
+          "x": 6,
+          "y": 39
+        },
+        "props": {
+          "columns": [
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "fileName",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Image / File Name"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "view",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {
+                "rowData": "value",
+                "value": "value"
+              },
+              "viewPath": "Project_MES_Solution/CLRI Console/Template/CLRIViewImage",
+              "visible": true,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "AttachmentsName",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": ""
+            }
+          ],
+          "data": null,
+          "headerStyle": {
+            "classes": "Ref_MES/Table/Header"
+          },
+          "pager": {
+            "bottom": false
+          }
+        },
+        "type": "ia.display.table"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -176,
+      "y": 35
+    },
+    "props": {
+      "style": {
+        "classes": "Panel/PopUp"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

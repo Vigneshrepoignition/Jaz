@@ -1,0 +1,990 @@
+{
+  "custom": {
+    "BomdetailsId": "",
+    "ItemId": "",
+    "ItemName": "1100-1020351_G_JPD",
+    "SlotId": "",
+    "SlotName": "",
+    "WONumber": "",
+    "dsMaterial": null,
+    "scanPartList": [],
+    "slotInhandQty": "",
+    "slotMaximumQty": ""
+  },
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\tuserId \u003d self.session.custom.UserId\n\t\tself.session.custom.UserId \u003d userId\n\t\tif self.session.custom.authorizePDALineSideStorage !\u003d 1 :\n\t\t\tsystem.perspective.navigate(\u0027/LoginScreen\u0027)\n\t\telse:\n\t\t\tself.getChild(\"root\").getChild(\"DrpdwnAutoLines\").props.value   \u003d \"\"\n\t\t\tself.getChild(\"root\").getChild(\"DrpdwnAutoLines\").props.options\u003dNone\n\t\t\tself.getChild(\"root\").getChild(\"DrpdwnWorkorderNo\").props.value \u003d \"\"\n\t\t\tself.getChild(\"root\").getChild(\"DrpdwnWorkorderNo\").props.options\u003dNone\n\t\t\tself.getChild(\"root\").getChild(\"Table\").props.data\u003dNone\n\n\n\t\t\tself.custom.slotMaximumQty \u003d \u0027\u0027\n\t\t\tself.custom.slotInhandQty \u003d \u0027\u0027\n\t\t\tself.custom.ItemId \u003d \u0027\u0027\n\t\t\tself.custom.SlotId  \u003d \u0027\u0027\n\t\t\tself.custom.SlotName \u003d \u0027\u0027 \n\t\t\tself.view.custom.BomdetailsId \u003d \u0027\u0027\n\t\t\t\n\t\t\tself.getChild(\"root\").getChild(\"TxtScanComponentQR\").props.text\u003d\"\"\n\t\t\tself.getChild(\"root\").getChild(\"LblValidateSlotBarcode\").meta.visible\u003d0\n\t\t\tself.custom.dsMaterial\u003dNone\n\n\t\t\ttry:\n\t\t\t\tLineData \u003d MaterialRequestAPI.getLinesByUserID(userId)\n\t\t\t\tself.getChild(\"root\").getChild(\"DrpdwnAutoLines\").props.options \u003d LineData\n\t\t\t\tself.getChild(\"root\").getChild(\"DrpdwnAutoLines\").focus()\n\t\t\texcept:\n\t\t\t\tpass\n\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: PDA :: Line Side Storage : On Startup\u0027:\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "propConfig": {
+    "custom.BomdetailsId": {
+      "persistent": true
+    },
+    "custom.ItemId": {
+      "persistent": true
+    },
+    "custom.ItemName": {
+      "persistent": true
+    },
+    "custom.SlotId": {
+      "persistent": true
+    },
+    "custom.SlotName": {
+      "persistent": true
+    },
+    "custom.WONumber": {
+      "persistent": true
+    },
+    "custom.dsMaterial": {
+      "persistent": true
+    },
+    "custom.scanPartList": {
+      "persistent": true
+    },
+    "custom.slotInhandQty": {
+      "persistent": true
+    },
+    "custom.slotMaximumQty": {
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 497,
+      "width": 380
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Table"
+        },
+        "position": {
+          "height": 283,
+          "width": 359,
+          "x": 9.99,
+          "y": 207.97
+        },
+        "props": {
+          "bodyStyle": {
+            "classes": "Table/RowsBorder",
+            "fontSize": 10,
+            "fontWeight": "bold"
+          },
+          "cells": {
+            "allowEditOn": "single-click"
+          },
+          "columns": [
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "SrNo",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 50
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "ComponentName",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Component Name"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 170
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "Uom",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "UOM"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 50
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "DeltaQty",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Delta Qty"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 65
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "ItemId",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "SubInventoryName",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": ""
+            }
+          ],
+          "data": null,
+          "emptyMessage": {
+            "noData": {
+              "icon": {
+                "color": "#C0C0C0",
+                "path": "material/hourglass_empty"
+              },
+              "text": "No Requested Components available"
+            }
+          },
+          "headerStyle": {
+            "classes": "Table/Header"
+          },
+          "pager": {
+            "bottom": false
+          },
+          "rows": {
+            "highlight": {
+              "color": "#F7F5DD"
+            },
+            "style": {
+              "classes": "Ref_MES/Table/Rowsmiddle"
+            },
+            "subview": {
+              "enabled": 0
+            }
+          }
+        },
+        "type": "ia.display.table"
+      },
+      {
+        "meta": {
+          "name": "LblOprMachine"
+        },
+        "position": {
+          "height": 16,
+          "width": 355,
+          "x": 8.5,
+          "y": 30
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Line/Division: "
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "custom": {
+          "ItemId": "",
+          "SlotId": "",
+          "SlotName": "",
+          "slotInhandQty": "",
+          "slotMaximumQty": ""
+        },
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\n\t\tredColour \u003d \"#FF0000\"\n\t\tgreenColour \u003d \"#00AC00\"\n\t\tself.getSibling(\"DrpdwnWorkorderNo\").props.value \u003d \u0027\u0027\n\t\tself.getSibling(\"DrpdwnWorkorderNo\").props.options \u003d None\n\t\tself.getSibling(\"LblValidateSlotBarcode\").meta.visible\u003d0\n\t\tself.getSibling(\"DrpdwnWorkorderNo\").props.value\u003d \"\"\n\t\tself.getSibling(\"Table\").props.data\u003d[]\n\n\t\tuserId \u003d self.session.custom.UserId\n\t\tselectedLine \u003d self.props.value\n\t\t\n\t\t#-----Custom Values Clearing\n\t\tself.custom.slotMaximumQty \u003d \u0027\u0027\n\t\tself.custom.slotInhandQty \u003d \u0027\u0027\n\t\tself.custom.ItemId \u003d \u0027\u0027\n\t\tself.custom.SlotId  \u003d \u0027\u0027\n\t\tself.custom.SlotName \u003d \u0027\u0027\n\t\tself.view.custom.BomdetailsId \u003d \u0027\u0027\n\t\tself.getSibling(\"TxtScanComponentQR\").props.text\u003d\"\"\n\t\tself.getSibling(\"LblValidateSlotBarcode\").meta.visible\u003d0\n\t\t#---------------------------Dropdown-------------------------------------------\n\t\tds \u003d self.props.options\n\n\t\tds\u003dsystem.dataset.toPyDataSet(ds)\n\t\tfor i in ds:\n\t\t\tId\u003di[1]\n\t\t\tif selectedLine\u003d\u003dId:\n\t\t\t\tIsValidatinginPou \u003di[0]\n\t\t\t\tbreak\n\n\t\tif IsValidatinginPou \u003d\u003d False:\n\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.textStyle.color \u003d redColour\n\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.text\u003d\"Warning: Line side storage is not required, feed material directly to machine\"\n\t\t\tself.getSibling(\"LblValidateSlotBarcode\").meta.visible\u003d1\n\t\telse:\n\t\t\tself.getSibling(\"LblValidateSlotBarcode\").meta.visible\u003d0\n\t\t\tdrpDwnWoNumberData \u003d WorkOrderDetailsAPI.getWoNumbersByLine(userId,selectedLine)\n\t\t\tself.getSibling(\"DrpdwnWorkorderNo\").props.options \u003d drpDwnWoNumberData\n\t\t\tself.getSibling(\"DrpdwnWorkorderNo\").focus()\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: PDA :: Line Side Storage : Line Dropdown\u0027:\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "DrpdwnAutoLines",
+          "tooltip": {
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Select Operation/Machine"
+          }
+        },
+        "position": {
+          "height": 25,
+          "width": 360,
+          "x": 7.9,
+          "y": 51.5
+        },
+        "props": {
+          "options": null,
+          "placeholder": {
+            "text": "Select Line/Division"
+          },
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "meta": {
+          "name": "LblWorkorderNo"
+        },
+        "position": {
+          "height": 16,
+          "width": 354,
+          "x": 8.5,
+          "y": 87.5
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Work-Order  No:",
+          "textStyle": {
+            "classes": "PDA/PDALabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "custom": {
+          "ItemId": "",
+          "SlotId": "",
+          "SlotName": "",
+          "slotInhandQty": "",
+          "slotMaximumQty": ""
+        },
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\n\t\tredColour \u003d \"#FF0000\"\n\t\tgreenColour \u003d \"#00AC00\"\n\t\tsearchParams\u003dself.props.search.searchParam\n\t\tself.getSibling(\"Table\").props.data\u003dNone\n\t\tself.getSibling(\"TxtScanComponentQR\").props.text\u003d\"\"\n\t\tself.getSibling(\"LblValidateSlotBarcode\").meta.visible\u003d0\n\n\t\t#-----Custom Values Clearing\n\t\tself.custom.slotMaximumQty \u003d \u0027\u0027\n\t\tself.custom.slotInhandQty \u003d \u0027\u0027\n\t\tself.custom.ItemId \u003d \u0027\u0027\n\t\tself.custom.SlotId  \u003d \u0027\u0027\n\t\tself.custom.SlotName \u003d \u0027\u0027\n\t\tself.view.custom.BomdetailsId \u003d \u0027\u0027\n\n\t\tselectedLineId \u003d self.getSibling(\"DrpdwnAutoLines\").props.value\n\t\tselectedWorkorderId \u003d self.getSibling(\"DrpdwnWorkorderNo\").props.value\n\n\t\trequestedComponents \u003d PDAComponentScanning.GetRequestedComponentsDetails(selectedWorkorderId,selectedLineId)\n\n\t\ttry:\n\t\t\trequestedComponentsCount\u003d requestedComponents.getRowCount()\n\t\texcept:\n\t\t\trequestedComponentsCount \u003d \"None\"\n\n\t\tif int(requestedComponentsCount) \u003e int(0):\n\t\t\tself.getSibling(\"LblValidateSlotBarcode\").meta.visible\u003d0\n\t\t\tself.getSibling(\"Table\").props.data \u003d requestedComponents\n\t\t\tself.getSibling(\"TxtScanComponentQR\").focus()\n\t\telse:\n\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.textStyle.color \u003d redColour\n\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.text\u003d\"Warning: Material are not requested for selected workorder\"\n\t\t\tself.getSibling(\"LblValidateSlotBarcode\").meta.visible\u003d1\n\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: PDA :: Line Side Storage : Workorder Dropdown\u0027:\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          },
+          "dom": {
+            "onFocus": {
+              "config": {
+                "script": "\tself.props.enabled\u003d1\n\tself.props.placeholder.text\u003dstr(\"Select Work Order Number\")"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "DrpdwnWorkorderNo",
+          "tooltip": {
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Select Operation/Machine"
+          }
+        },
+        "position": {
+          "height": 25,
+          "width": 360,
+          "x": 7.9,
+          "y": 103
+        },
+        "props": {
+          "enabled": 1,
+          "options": null,
+          "placeholder": {
+            "text": "Select Work Order Number"
+          },
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "page": "/PDADashboard"
+              },
+              "scope": "C",
+              "type": "nav"
+            }
+          }
+        },
+        "meta": {
+          "name": "NavigateBackButton"
+        },
+        "position": {
+          "height": 22,
+          "width": 31.57,
+          "y": 3
+        },
+        "props": {
+          "path": "material/arrow_back"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 22,
+          "width": 171.53,
+          "x": 29.47,
+          "y": 4
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDAHeader"
+          },
+          "text": "Line Side Storage"
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Lblscanpart"
+        },
+        "position": {
+          "height": 19,
+          "width": 357,
+          "x": 11,
+          "y": 137
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Scan Component:",
+          "textStyle": {
+            "classes": "PDA/PDALabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tself.getSibling(\"LblValidateSlotBarcode\").meta.visible \u003d 0\n"
+              },
+              "scope": "G",
+              "type": "script"
+            },
+            "onKeyPress": {
+              "config": {
+                "script": "\tevent.key()\n\tsystem.perspective.print(\u0027Key Pressed is :\u0027 + str(event.key()))"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "TxtScanComponentQR",
+          "tooltip": {
+            "enabled": null
+          }
+        },
+        "position": {
+          "height": 25,
+          "width": 298,
+          "x": 7.9,
+          "y": 157.1
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizePDALineSideStorageReadOnly"
+              },
+              "type": "property"
+            }
+          },
+          "props.style.backgroundColor": {
+            "binding": {
+              "config": {
+                "path": "this.props.enabled"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value \u003d\u003d False:\n\t\tvalue \u003d \u0027#D5D5D573\u0027\n\telse:\n\t\tvalue \u003d \u0027#FFFFFF\u0027\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.text": {
+            "onChange": {
+              "enabled": null,
+              "script": "\ttry:\n\t\tredColour \u003d \"#FF0000\"\n\t\tgreenColour \u003d \"#00AC00\"\n\t\tscriptName\u003d\"PDA API call\"\n\t\t\n\t\tscannedComponent\u003dself.props.text\n\t\tif str(scannedComponent).strip()!\u003d\u0027\u0027 and str(scannedComponent)!\u003dNone  and str(scannedComponent).strip()!\u003d\u0027None\u0027:\n\t\t\tselectedWorkorderId \u003d self.getSibling(\"DrpdwnWorkorderNo\").props.value\n\t\t\tselectedLineId \u003d self.getSibling(\"DrpdwnAutoLines\").props.value\n\t\t\tuserId \u003d self.session.custom.UserId\n\t\t\tif str(selectedLineId) !\u003d str(\"\").strip():\n\t\t\t\tif str(selectedLineId) !\u003d str(\"\").strip() and str(selectedWorkorderId) !\u003d str(\"\").strip():\n\t\t\t\t\tscannedComponent\u003dstr(scannedComponent).lower().strip()\n\t\t\t\t\tcomponentsTableData\u003dself.getSibling(\"Table\").props.data\n\t\t\t\t\tcomponentsTableData\u003dsystem.dataset.toPyDataSet(componentsTableData)\n\t\t\t\t\t\n\t\t\t\t\t#Reading Scanned Barcode String and Identifying Barcode Label type i.e EO/LO\n\t\t\t\t\tscannedString \u003d self.props.text\n\t\t\t\t\tscannedString \u003d str(scannedString).strip()\n\t\t\t\t\tscannedStrArray \u003d (scannedString.split(\"|\"))\n\t\t\t\t\tscannedBarcodeType \u003d str(scannedStrArray[0]).strip()\n\n\t\t\t\t\tif str(scannedBarcodeType).strip().lower() \u003d\u003d str(\u0027L0\u0027).lower():\n\t\t\t\t\t\tlabelType \u003d 1\n\t\t\t\t\t\tscannedpartMaterialNumber \u003d str(scannedStrArray[1]).strip()\n\t\t\t\t\t\tscannedpartRevision \u003d str(scannedStrArray[2]).strip()\n\t\t\t\t\t\treceivedLotNumber \u003d  str(scannedStrArray[3]).strip()\n\t\t\t\t\t\treceivedQuantity \u003d scannedStrArray[4]\n\t\t\t\t\t\tscannedFactory \u003d str(scannedStrArray[5]).strip()\n\t\t\t\t\t\tscannedSubInventory \u003d str(scannedStrArray[6]).strip()\n\t\t\t\t\t\tscannedVendorLot \u003d str(scannedStrArray[8]).strip()\n\t\t\t\t\telse:\n\t\t\t\t\t\tmovementTypeId \u003d 2\n\t\t\t\t\t\tlabelType \u003d 2\n\t\t\t\t\t\t#Other than MES Label Will Be Scanned Here------------\u003e\n\t\t\t\t\t\tscannedpartMaterialNumber \u003d str(scannedStrArray[1]).strip()\n\t\t\t\t\t\tscannedpartRevision \u003d str(scannedStrArray[2]).strip()\n\t\t\t\t\t\tscannedVendorLot \u003d str(scannedStrArray[3]).strip()\n\t\t\t\t\t\treceivedQuantity \u003d str(scannedStrArray[4]).strip()\n\t\t\t\t\t\tscannedComponent \u003d scannedpartMaterialNumber + \u0027_\u0027+ scannedpartRevision\n\n\n\t\t\t\t\t\tfor i in componentsTableData:\n\t\t\t\t\t\t\trequestedComponentName \u003d i[\u0027ComponentName\u0027]\n\t\t\t\t\t\t\tscannedStrArray \u003d (requestedComponentName.split(\"_\"))\n\t\t\t\t\t\t\trequestedComponentNameTable \u003d str(scannedStrArray[0]).strip()+\u0027_\u0027+str(scannedStrArray[1]).strip()\n\t\t\t\t\t\t\tscannedFactory \u003d str(scannedStrArray[2]).strip()\n\t\t\t\t\t\t\tif str(requestedComponentNameTable).strip().upper() \u003d\u003d str(scannedComponent).strip().upper():\n\t\t\t\t\t\t\t\tselectedItemId \u003d i[\u0027ItemId\u0027]\n\t\t\t\t\t\t\t\tbreak\n\n\t\t\t\t\t\treceivedLotNumber \u003d \u0027\u0027\n\t\t\t\t\t\tscannedSubInventory \u003d \u0027\u0027\n\n#\t\t\t\t\tsystem.perspective.print(\u0027scannedpartMaterialNumber : \u0027 + str(scannedpartMaterialNumber) + \u0027 || scannedpartRevision : \u0027 + str(scannedpartRevision) + \u0027 || receivedLotNumber : \u0027 + str(receivedLotNumber))\n#\t\t\t\t\tsystem.perspective.print(\u0027receivedQuantity : \u0027 + str(receivedQuantity) + \u0027 || scannedFactory : \u0027 + str(scannedFactory))\n#\t\t\t\t\tsystem.perspective.print(\u0027receivedLotNumber : \u0027 + str(receivedLotNumber) + \u0027 || scannedSubInventory : \u0027 + str(scannedSubInventory))\n\n\t\t\t\t\tscannedComponent \u003d str((scannedpartMaterialNumber)+\"_\"+str(scannedpartRevision))+\"_\"+str(scannedFactory)\n\t\t\t\t\tcomponentNameIndex \u003d componentsTableData.getColumnIndex(\"ComponentName\")\t\t\n\t\t\t\t\tcomponentList \u003d componentsTableData.getColumnAsList(componentNameIndex)\n\n\t\t\t\t\tif (str(scannedComponent).upper() not in componentList):\n\t\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.textStyle.color \u003d redColour\n\t\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.text\u003d\"Warning: Please scan correct raw material\"\n\t\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").meta.visible\u003d1\n\t\t\t\t\t\tself.props.text \u003d str(\"\")\n\t\t\t\t\t\tsystem.perspective.vibrateDevice(150)\n\t\t\t\t\telse:\n\t\t\t\t\t\tfor i in componentsTableData:\n\t\t\t\t\t\t\trequestedComponentName \u003d i[\u0027ComponentName\u0027]\n\t\t\t\t\t\t\tif requestedComponentName \u003d\u003d scannedComponent:\n\t\t\t\t\t\t\t\tselectedItemId \u003d i[\u0027ItemId\u0027]\n\t\t\t\t\t\t\t\tscannedComponentSlotData\u003dPDAComponentScanning.getComponentSlotDetails(selectedLineId,selectedItemId)\n\t\t\t\t\t\t\t\ttry:\n\t\t\t\t\t\t\t\t\tscannedComponentSlotCount\u003d scannedComponentSlotData.getRowCount()\n\t\t\t\t\t\t\t\texcept:\n\t\t\t\t\t\t\t\t\tscannedComponentSlotCount \u003d 0\n\n\t\t\t\t\t\t\t\tif scannedComponentSlotCount \u003e 0:\n\t\t\t\t\t\t\t\t\tscannedLotNumber \u003d receivedLotNumber\n\t\t\t\t\t\t\t\t\tscannedLotQty \u003d receivedQuantity\n\t\t\t\t\t\t\t\t\tmovementTypeId \u003d 2\n\t\t\t\t\t\t\t\t\tmachineLocator \u003d \u0027\u0027\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\ttry:\n\t\t\t\t\t\t\t\t\t\tcomponentValidation\u003dPDAComponentScanning.getValidationStatus(selectedItemId,scannedLotNumber,selectedLineId,scannedLotQty,movementTypeId,selectedWorkorderId,machineLocator,labelType,scannedVendorLot)\n\t\t\t\t\t\t\t\t\texcept:\n\t\t\t\t\t\t\t\t\t\tcomponentValidation \u003d []\n\t\t\t\t\t\t\t\t\ttry:\n\t\t\t\t\t\t\t\t\t\tIsLotAvailable\u003d componentValidation.getValueAt(0,\u0027AvailableLot\u0027)\n\t\t\t\t\t\t\t\t\t\tIsAvailableQty \u003d  componentValidation.getValueAt(0,\u0027AvailableQTY\u0027)\n\t\t\t\t\t\t\t\t\t\tIsExpired \u003d  componentValidation.getValueAt(0,\u0027IsExpired\u0027)\n\t\t\t\t\t\t\t\t\texcept:\n\t\t\t\t\t\t\t\t\t\tIsLotAvailable \u003d 0\n\t\t\t\t\t\t\t\t\t\tIsAvailableQty \u003d 0\n\t\t\t\t\t\t\t\t\t\tIsExpired \u003d 0\n\n#\t\t\t\t\t\t\t\t\tsystem.perspective.print(\u0027IsLotAvailable----\u003e  :\u0027 + str(IsLotAvailable))\n#\t\t\t\t\t\t\t\t\tsystem.perspective.print(\u0027IsAvailableQty----\u003e :\u0027 + str(IsAvailableQty))\n#\t\t\t\t\t\t\t\t\tsystem.perspective.print(\u0027IsExpired----\u003e :\u0027 + str(IsExpired))\n\n\t\t\t\t\t\t\t\t\tif int(IsLotAvailable) \u003d\u003d int(1):\n\t\t\t\t\t\t\t\t\t\tif float(receivedQuantity) \u003e float(0.0):\n\t\t\t\t\t\t\t\t\t\t\tif float(IsAvailableQty) \u003e\u003d float(receivedQuantity):\n\t\t\t\t\t\t\t\t\t\t\t\tif int(IsExpired) \u003d\u003d int(0):\n\t\t\t\t\t\t\t\t\t\t\t\t\tAvailableSlotCapacity \u003d float(scannedComponentSlotData.getValueAt(0,\u0027SlotCapacity\u0027))\n\t\t\t\t\t\t\t\t\t\t\t\t\tslotName \u003d str(scannedComponentSlotData.getValueAt(0,\u0027slotName\u0027))\n\t\t\t\t\t\t\t\t\t\t\t\t\tif float(AvailableSlotCapacity) \u003e\u003d float(receivedQuantity):\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tslotID \u003d 0\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tbomDetailsId \u003d 0\n\t\t\t\t\t\t\t\t\t\t\t\t\t\taddSlotDetails\u003dPDAComponentScanning.AddComponentsinPOU(selectedWorkorderId,selectedLineId,selectedItemId,slotID,bomDetailsId,receivedLotNumber,receivedQuantity,userId,labelType,scannedVendorLot)\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.textStyle.color \u003d greenColour\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.text\u003d\"Success: scanned material quantity is added to the slot\"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").meta.visible\u003d1\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.props.text\u003dstr(\u0027\u0027)\n\t\t\t\t\t\t\t\t\t\t\t\t\t\trequestedComponents \u003d PDAComponentScanning.GetRequestedComponentsDetails(selectedWorkorderId,selectedLineId)\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"Table\").props.data \u003d requestedComponents\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.focus()\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tsystem.perspective.vibrateDevice(40)\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tbreak\n\t\t\t\t\t\t\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.textStyle.color \u003d redColour\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.text\u003d\"Warning: Space is not available in Slot \"+ str(slotName)+ \" ,Please increase slot capacity in Warehouse Hierarchy\"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").meta.visible\u003d1\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tself.props.text\u003dstr(\u0027\u0027)\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tsystem.perspective.vibrateDevice(150)\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tbreak\n\t\t\t\t\t\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.textStyle.color \u003d redColour\n\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.text\u003d\"Warning: Scanned component is expired\"\n\t\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").meta.visible\u003d1\n\t\t\t\t\t\t\t\t\t\t\t\t\tself.props.text\u003dstr(\u0027\u0027)\n\t\t\t\t\t\t\t\t\t\t\t\t\tsystem.perspective.vibrateDevice(150)\n\t\t\t\t\t\t\t\t\t\t\t\t\tbreak\n\t\t\t\t\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.textStyle.color \u003d redColour\n\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.text\u003d\"Warning: Scanned component lot quantity is greater than dispatched Lot quantity (\"+str(IsAvailableQty)+\")\"\n\t\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").meta.visible\u003d1\n\t\t\t\t\t\t\t\t\t\t\t\tself.props.text\u003dstr(\u0027\u0027)\n\t\t\t\t\t\t\t\t\t\t\t\tsystem.perspective.vibrateDevice(150)\n\t\t\t\t\t\t\t\t\t\t\t\tbreak\n\t\t\t\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.textStyle.color \u003d redColour\n\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.text\u003d\"Warning: Scanned component quantity should be greater than zero\"\n\t\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").meta.visible\u003d1\n\t\t\t\t\t\t\t\t\t\t\tself.props.text\u003dstr(\u0027\u0027)\n\t\t\t\t\t\t\t\t\t\t\tsystem.perspective.vibrateDevice(150)\n\t\t\t\t\t\t\t\t\t\t\tbreak\n\t\t\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.textStyle.color \u003d redColour\n\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.text\u003d\"Warning: Scanned component lot is not recieved from ERP\"\n\t\t\t\t\t\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").meta.visible\u003d1\n\t\t\t\t\t\t\t\t\t\tself.props.text\u003dstr(\u0027\u0027)\n\t\t\t\t\t\t\t\t\t\tsystem.perspective.vibrateDevice(150)\n\t\t\t\t\t\t\t\t\t\tbreak\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.textStyle.color \u003d redColour\n\t\t\t\t\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.text \u003d \"Warning: Slot is not configured for scanned component, please configure slot in Warehouse Hierarchy\"\n\t\t\t\t\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").meta.visible\u003d1\n\t\t\t\t\t\t\t\t\tself.props.text\u003dstr(\u0027\u0027)\n\t\t\t\t\t\t\t\t\tsystem.perspective.vibrateDevice(150)\n\t\t\t\t\t\t\t\t\tbreak\n\t\t\t\telse:\n\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.textStyle.color \u003d str(redColour)\n\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.text\u003d\"Warning: Please select the workorder first\"\n\t\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").meta.visible\u003d1\n\t\t\t\t\tself.getSibling(\"DrpdwnWorkorderNo\").focus()\n\t\t\t\t\tself.props.text\u003dstr(\u0027\u0027)\n\t\t\t\t\tsystem.perspective.vibrateDevice(150)\n\t\t\telse:\n\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.textStyle.color \u003d str(redColour)\n\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").props.text\u003d\"Warning: Please select the line first\"\n\t\t\t\tself.getSibling(\"LblValidateSlotBarcode\").meta.visible\u003d1\n\t\t\t\tself.getSibling(\"DrpdwnAutoLines\").focus()\n\t\t\t\tself.props.text\u003dstr(\u0027\u0027)\n\t\t\t\tsystem.perspective.vibrateDevice(150)\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: Line Side Storage Component Scanning ::\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)\n\t\tsystem.perspective.vibrateDevice(150)\n\t\tself.getSibling(\"LblValidateSlotBarcode\").props.textStyle.color \u003d redColour\n\t\tself.getSibling(\"LblValidateSlotBarcode\").props.text\u003d\"Warning: Please scan correct barcode string\"\n\t\tself.getSibling(\"LblValidateSlotBarcode\").meta.visible\u003d1\n\t\tself.props.text\u003dstr(\u0027\u0027)"
+            }
+          }
+        },
+        "props": {
+          "deferUpdates": false,
+          "placeholder": "Scan Component Lot",
+          "rejectUpdatesWhileFocused": false,
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "Image_2"
+        },
+        "position": {
+          "height": 25,
+          "width": 30,
+          "x": 337.9,
+          "y": 157.1
+        },
+        "props": {
+          "fit": {
+            "mode": "fill"
+          },
+          "source": "/system/images/Builtin/icons/16/barcodesmall.png"
+        },
+        "type": "ia.display.image"
+      },
+      {
+        "meta": {
+          "name": "LblValidateSlotBarcode",
+          "visible": 0
+        },
+        "position": {
+          "height": 18,
+          "width": 352,
+          "x": 12.62,
+          "y": 186.97
+        },
+        "props": {
+          "style": {
+            "classes": "Ref_MES/Common/Label_PDAValidation"
+          },
+          "text": "Warning: Error in scanning raw material",
+          "textStyle": {
+            "classes": "PDA/lblWarning",
+            "color": "#FF0000",
+            "fontSize": 11
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tself.getSibling(\"TxtScanComponentQR\").props.text\u003d \"\"\n\tself.getSibling(\"TxtScanComponentQR\").focus()"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Icon",
+          "tooltip": {
+            "text": "Click to clear machine"
+          }
+        },
+        "position": {
+          "height": 26,
+          "width": 32,
+          "x": 307,
+          "y": 156
+        },
+        "props": {
+          "path": "material/arrow_back"
+        },
+        "type": "ia.display.icon"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}

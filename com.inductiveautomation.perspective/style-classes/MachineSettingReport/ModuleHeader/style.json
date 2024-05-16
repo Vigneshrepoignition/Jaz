@@ -1,0 +1,10 @@
+{
+  "base": {
+    "style": {
+      "backgroundColor": "#0D86C4",
+      "color": "#FFFFFF",
+      "fontFamily": "Arial",
+      "fontSize": "12px"
+    }
+  }
+}

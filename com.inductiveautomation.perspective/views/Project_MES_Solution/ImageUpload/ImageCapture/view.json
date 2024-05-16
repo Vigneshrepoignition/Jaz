@@ -1,0 +1,181 @@
+{
+  "custom": {
+    "imageCaptureBytes": "",
+    "imageName": ""
+  },
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\tself.custom.imageName\u003d\u0027\u0027\n#\t\timport re\n#\t\timport json\n#\t\timport urllib2, urllib\n#\t\tglobal system\n#\t\timport system   \n#\t\timport java.lang.Exception\n#\t\t\n#\t\turl \u003d \"https://172.28.3.206/API/api/ContainerType/GetContainerTypes\" \n#\t\trequest \u003d urllib2.Request(url)\n#\t\tresponse\u003durllib2.urlopen(request)\n#\t\tdata \u003d system.net.httpGet(url)\n#\t\tresultData\u003d system.util.jsonDecode(data)\n#\t\tsystem.perspective.print(\"resultData \"+str(resultData))\n#\t\tresultData\u003dsystem.dataset.toDataSet(resultData)\n#\t\tself.getChild(\"root\").getChild(\"Table\").props.data\u003dresultData\n\texcept Exception as e:\n\t\tsystem.perspective.print(\"error \"+str(e))"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "propConfig": {
+    "custom.imageCaptureBytes": {
+      "persistent": true
+    },
+    "custom.imageName": {
+      "persistent": true
+    }
+  },
+  "props": {},
+  "root": {
+    "children": [
+      {
+        "custom": {
+          "imageName": "value"
+        },
+        "events": {
+          "component": {
+            "onFileReceived": {
+              "config": {
+                "script": "\ttry:\n\t\timport os\n\t\timport sys\n\t\timport os\n\t\timport re\n\t\timport json\n\t\timport urllib2, urllib\n\t\timport base64\n\t\timport json\n#\t\tsystem.perspective.print(\"event.file.name \u003d \" +str(event.file.name))\n\n\t\tfile_path \u003d event.file.name\n\t\tfileBytes \u003d event.file.getBytes()\n\t\tfilestring\u003devent.file.getString()\n\t\tself.view.custom.imageCaptureBytes\u003dfileBytes\n\n\t\n\t\tmyObj \u003d [base64.b64encode(fileBytes)]\n\t\tmyObj\u003dstr(myObj)\n\t\tmyObj \u003d myObj.replace(\"[\", \"\" )\n\t\tmyObj \u003d myObj.replace(\"]\", \"\" )\n\t\tmyObj \u003d myObj.replace(\"\u0027\", \"\" )\n\t\tmyObj \u003d str(\"data:image/jpeg;base64,\"+str(myObj))\n\t\n\t\t\n\n#\t\tsystem.perspective.print(\"BYTES \u003d \" +str(fileBytes))\n#\t\tsystem.perspective.print(\"myObj BYTES \u003d \" +str(myObj))\n\n\t\n\t\ttry:\n\t\t\tURLPath \u003d system.tag.read(\"[default]JMES_InternalTags/urlAPI\").value\n\t\t\tapiPath \u003d \"MaintenanceLeadConsole​/CreateManualOrder\"\n\t\t\turl \u003d URLPath + apiPath\t\n\t\t\turl \u003d\"http://172.28.3.206/FactoryMagixWebAPI/api/MaintenanceLeadConsole/CreateManualOrder\"\n\t\t\tprint url\n\t\t\twriteData \u003d {\n\t\t\t  \"id\": 0,\n\t\t\t  \"alert\": \"\",\n\t\t\t  \"workOrderNo\": \"\",\n\t\t\t  \"workflowOperationsId\": 0,\n\t\t\t  \"type\": 0,\n\t\t\t  \"name\": \"\",\n\t\t\t  \"breakDownTime\": \"2022-11-24T09:38:28.858Z\",\n\t\t\t  \"line\": 0,\n\t\t\t  \"assignTo\": 0,\n\t\t\t  \"createdOn\": \"2022-11-24T09:38:28.858Z\",\n\t\t\t  \"modifiedOn\": \"2022-11-24T09:38:28.858Z\",\n\t\t\t  \"userRemark\": \"\",\n\t\t\t  \"createdBy\": 0,\n\t\t\t  \"modifiedBy\": 0,\n\t\t\t  \"isActive\": True,\n\t\t\t  \"priorityId\": 0,\n\t\t\t  \"machineId\": 0,\n\t\t\t  \"reasonCodeId\": 0,\n\t\t\t  \"make\": 0,\n\t\t\t  \"model\": 0,\n\t\t\t  \"reasonTypeId\": 0,\n\t\t\t  \"reasonTypeName\": \"\",\n\t\t\t  \"reasonSubType\": 0,\n\t\t\t  \"imgPathBefore\": myObj,\n\t\t\t  \"imgPathAfter\": myObj,\n\t\t\t  \"ImgPathSegment\":\"\"\n\t\t\t  \n\t\t\t  \n\t\t\t}\n\t\t\t\n\t\t\n\t\t\tjsonParams \u003d system.util.jsonEncode(writeData)\t\t\n#\t\t\tsystem.perspective.print(\"Image upload jsonParams Sagar \u003d\"+str(jsonParams))\n\t\t\tresult \u003d 1\n\t\t\ttry:\n\t\t\t\tpostReturn \u003d system.net.httpPost(url,\u0027application/json\u0027,jsonParams)\t\n\t\t#\t\tpostReturn\u003d1\n\t\t\t\tsystem.perspective.print(\"postReturn 2:\"+str(postReturn))\t\n\t\t\t\t\n\t\t\t\tdict\u003djson.loads(postReturn)\n\t\t\t\tif dict!\u003dNone:\n\t\t\t\t\n\t\t\t\t\t \n\t\t\t\t\tname \u003d dict[\"imgPathAfter\"]\n\t\t\t\t\tsystem.perspective.print(\"name url \"+str(name))\n\t\t\t\t\tname \u003d dict[\"imgPathBefore\"]\n\t\t\t\t\tsystem.perspective.print(\"name url \"+str(name))\n\t\t\t\t\tname \u003dname.replace(\u0027\\\\\u0027,\u0027/\u0027)\n\t\t\t\t\tname \u003dname.replace(\u0027\\\\\u0027,\u0027/\u0027)\n\t\t\t\t\tname \u003dname.replace(\u0027//\u0027,\u0027/\u0027)\n\t\t\t\t\t\n\t\t\t\t\topeningUrl \u003d system.tag.read(\"[default]JMES_InternalTags/AttachmentUrl\").value                \n\t\t\t\t\turl \u003d openingUrl+name    \n\t\t\t\t\tself.view.custom.imageName\u003durl\n\t\t\t\t\tsystem.perspective.print(\"url \"+str(url))\n\t\t\t\t\t\n\t\t\texcept Exception as e:\n\t\t\t\tsystem.perspective.print(\"postReturn Image upload error \"+str(e))\n\n\t\texcept Exception as e:\n\t\t\tsystem.perspective.print(\"Image upload error \"+str(e))\n\n\texcept Exception as e:\n\t\tsystem.perspective.print(\"Image upload error \"+str(e))\n\t"
+              },
+              "scope": "G",
+              "type": "script"
+            },
+            "onUploadsCleared": {
+              "config": {
+                "script": "\t#\tself.custom.imageName\u003d\u0027\u0027\n\ttry:\n\t\tself.view.custom.imageName\u003d\u0027\u0027\n\t\timport os\n#\t\tfilePath \u003d \"E:\\imagesss\\\\test.jpg\"\n#\t\tos.remove(filePath)\n\t\t\n#\t\timport os\n#\t\timport glob\n# \t\tfilePath \u003d \"E:\\imagesss\"\n#\t\timport os\n#\t\t\n#\t\t# folder path\n#\t\tdir_path \u003d r\u0027E:\\\\imagesss\\\\\u0027\n#\t\t\n#\t\t# list to store files\n#\t\tres \u003d []\n#\t\t\n#\t\t# Iterate directory\n#\t\tfor path in os.listdir(dir_path):\n#\t\t    # check if current path is a file\n#\t\t    if os.path.isfile(os.path.join(dir_path, path)):\n#\t\t    \tdeletfilePath\u003ddir_path+str(path)\n#\t\t    \tos.remove(deletfilePath)\n#\t\t        res.append(path)\n#\t\tprint(res)\n\t\t\n\texcept Exception as e:\n\t\tsystem.perspective.print(\"File Clear Error \u003d \" +str(e))"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "FileUCamera"
+        },
+        "position": {
+          "height": 89,
+          "width": 308,
+          "x": 33,
+          "y": 83
+        },
+        "props": {
+          "fileSizeLimit": 50,
+          "supportedFileTypes": [
+            "jpg",
+            "png",
+            "jpeg"
+          ]
+        },
+        "type": "ia.input.fileupload"
+      },
+      {
+        "meta": {
+          "name": "imgFileUpload"
+        },
+        "position": {
+          "height": 154,
+          "width": 143,
+          "x": 57,
+          "y": 217
+        },
+        "propConfig": {
+          "meta.visible": {
+            "binding": {
+              "config": {
+                "path": "view.custom.imageName"
+              },
+              "previewEnabled": false,
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d\u0027\u0027 or str(value).strip()\u003d\u003d\u0027\u0027.strip() or str(value).strip()\u003d\u003d\u0027value\u0027 or  str(value).strip()\u003d\u003d\u0027None\u0027:\n\t\tvalue\u003d0\n\telse:\n\t\tvalue\u003d1\t\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.source": {
+            "binding": {
+              "config": {
+                "path": "view.custom.imageName"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "fit": {
+            "mode": "fill"
+          }
+        },
+        "type": "ia.display.image"
+      },
+      {
+        "meta": {
+          "name": "Label"
+        },
+        "position": {
+          "height": 47,
+          "width": 256,
+          "x": 33,
+          "y": 26
+        },
+        "props": {
+          "text": "Select / Upload Image",
+          "textStyle": {
+            "classes": "Common/Label_Header"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "imgByte"
+        },
+        "position": {
+          "height": 100,
+          "width": 100,
+          "x": 535,
+          "y": 64
+        },
+        "props": {
+          "fit": {
+            "mode": "fill"
+          },
+          "source": "http://172.28.3.206/FactoryMagix/assets/UploadedFiles/WorkInstruction/test.jpg"
+        },
+        "type": "ia.display.image"
+      },
+      {
+        "meta": {
+          "name": "imgByte_0"
+        },
+        "position": {
+          "height": 100,
+          "width": 100,
+          "x": 40,
+          "y": 209
+        },
+        "propConfig": {
+          "props.source": {
+            "binding": {
+              "config": {
+                "path": "view.custom.imageName"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "fit": {
+            "mode": "fill"
+          }
+        },
+        "type": "ia.display.image"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}

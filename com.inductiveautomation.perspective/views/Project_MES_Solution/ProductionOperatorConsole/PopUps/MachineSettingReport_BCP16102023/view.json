@@ -1,0 +1,383 @@
+{
+  "custom": {},
+  "params": {
+    "CurrentMachineId": ""
+  },
+  "propConfig": {
+    "params.CurrentMachineId": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 757,
+      "width": 1600
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "system": {
+            "onStartup": {
+              "config": {
+                "script": "\timport time\n#---------------------------------------Current Workorder Information---------------------------------------\n\ttry:\n\t\tself.getSibling(\"ImageLoader\").meta.visible\u003d1\n\t\tWorkorderId\u003dself.session.custom.WorkorderID\t\t\n\t\tlistofworkorders \u003d []\n#---------------------------------------------------Check workorder is clubbed or not---------------------------\n\t\tclubinformation\u003dProductionWorkorderStartReport.getClubbedWorkorders(WorkorderId)\n\t\tfor club in (clubinformation):\n\t\t\tIsclubbed\u003dclub.get(\u0027IsWorkOrderClubbed\u0027)\t\t\t\n\t\t\tif Isclubbed\u003d\u003dTrue or Isclubbed\u003d\u003d\u0027true\u0027 or Isclubbed\u003d\u003d1:\n\t\t\t\twoNumberA\u003dclub.get(\u0027WorkOrderNo\u0027)\n\t\t\t\tClubbedWororderdId\u003dclub.get(\u0027WorkOrderId\u0027)\n\t\t\t\tlistofworkorders.append(ClubbedWororderdId)\n\t\t\telse:\n\t\t\t\tlistofworkorders.append(WorkorderId)\n\t\tsystem.perspective.print(\"listofworkorders:\"+str(listofworkorders))\n\t\tlistofClubbbedWos\u003d[]\n\t\tduplicateWos\u003d[]\n\t\tduplicateMachine\u003d[]\n\t\tmachineList\u003d[]\n\t\tCurrentWopartNo\u003d[]\n\t\tfor woIds in range(len(listofworkorders)):\n\t\t\tWorkorderId\u003d listofworkorders[woIds]\t\t\n\t\t\tresultData \u003d ProductionWorkorderStartReport.GetCurrentWorkorderInfo(WorkorderId)\n#\t\t\tsystem.perspective.print(\"API Result Current Wo Info :\"+str(resultData))\t\t\t\t\t\t\n\t\t\tfor i in (resultData):\t\t\t\t\n\t\t\t\tWorkorderName \u003d i.get(\u0027WorkorderName\u0027)\n\t\t\t\tworkorderStatusId \u003d i.get(\u0027WorkorderStatus\u0027)\n\t\t\t\tif workorderStatusId\u003d\u003d2:\n\t\t\t\t\tworkorderStatus\u003d\u0027On-Hold\u0027\n\t\t\t\t\tself.props.widgets[0].viewParams.LBLHoldCompletedDate\u003d\u0027Holding Date\u0027\n\t\t\t\telif workorderStatusId\u003d\u003d3:\n\t\t\t\t\tworkorderStatus\u003d\u0027Completed\u0027\n\t\t\t\t\tself.props.widgets[0].viewParams.LBLHoldCompletedDate\u003d\u0027Completion Date\u0027\n\t\t\t\telif workorderStatusId\u003d\u003d0:\n\t\t\t\t\tworkorderStatus\u003d\u0027Not-Started\u0027\n\t\t\t\telif workorderStatusId\u003d\u003d1:\n\t\t\t\t\tworkorderStatus\u003d\u0027In-Progress\u0027\t\n\t\t\t\tCompletionDate \u003d i.get(\u0027ActualCompletionDate\u0027)\n\t\t\t\tPartNumber \u003d i.get(\u0027PartNumber\u0027)\n\t\t\t\tPartRevision \u003d i.get(\u0027PartRevision\u0027)\n\t\t\t\tFactoryName \u003d  i.get(\u0027FactoryName\u0027)\n\t\t\t\t\n\t\t\t\t\n\t\t\t\tPartWithRevision\u003dstr(PartNumber)+\u0027_\u0027+str(PartRevision)+\u0027_\u0027+str(FactoryName)\n\t\t\t\t\n\t\t\t\tCurrentWopartNo.append(PartWithRevision)\n\t\t\t\tPlannedQty \u003d i.get(\u0027PlannedQty\u0027)\n\t\t\t\tQtyCompleted \u003d i.get(\u0027QtyCompleted\u0027)\n#\t\t\t\ttempVariable \u003dProductionOperatorConsole.getGoodQty(WorkorderId)\n#\t\t\t\tfor i in (tempVariable):\n#\t\t\t\t\ttotal1\u003di.get(\u0027GoodQTY\u0027)\n#\t\t\t\t\tQtyCompleted\u003dfloat(total1)\n                    \n\t\t\t\tMachineId \u003d i.get(\u0027MachineId\u0027)\n\t\t\t\tMachineName \u003d i.get(\u0027MachineName\u0027)\n\t\t\t\t\n\t\t\t\tmachineList1\u003d(MachineId,MachineName)\n\t\t\t\tif MachineName not in (duplicateMachine):\t\n\t\t\t\t\tmachineList.append(machineList1)\n\t\t\t\t\tduplicateMachine.append(MachineName)\n#------------------------Pass this parameters to carasaul--------------------------------\n\t\t\tsystem.perspective.print(\"machineList:\"+str(machineList))\t\t\t\t\t\t\t\t\t\t\n\t\t\theaders \u003d [\"Id\",\"MachineName\"]\n\t\t\tif machineList!\u003d[]:\n\t\t\t\tresultDetails \u003d system.dataset.toDataSet(headers,machineList)\n\t\t\t\tsystem.perspective.print(\"resultDetails: \"+str(resultDetails))\n\t\t\t\tself.getSibling(\"DrpdwnMachineName\").props.options\u003dresultDetails\n\t\t\telse:\n\t\t\t\tself.getSibling(\"LblDataValidation\").props.text \u003d \u0027Machines are not available for selected workorder.\u0027\n\t\n\t\t\tif WorkorderName not in (duplicateWos):\t\t\t\t\n\t\t\t\tcurrentWosList\u003d{\"CurrentWoNo\":WorkorderName,\"CurrentWOStatus\":workorderStatus,\"CurrentCompletionDate\":CompletionDate,\"CurrentPartNo\":PartWithRevision,\"CurrentPlannedQty\":PlannedQty,\"CurrentCompletedQty\":QtyCompleted}\t\n\t\t\t\tduplicateWos.append(WorkorderName)\t\t\t\t\n\t\t\t\tlistofClubbbedWos.append(currentWosList)\n\t\t\telse:\n\t\t\t\tpass\n\t\t\t\t\n\t\tsystem.perspective.print(\"listofClubbbedWos:\"+str(listofClubbbedWos))\n\t\tself.props.widgets[1].viewParams.currentWosListForCarasoul\u003d\tlist(listofClubbbedWos)\t\t\t\n\n\t\n#-----------------Previous completed workorders information--------------------------\n\n\t\tLineId\u003dself.session.custom.LineID\t\t\t\t\t\t\t\t\t\n\t\tmachineId\u003dMachineId #-------The machine Id we feteched from current workorder Information function----------\n\t\tuserId\u003dself.session.custom.UserId\n\t\tworkflowId\u003d0\t\t\t\t\t\t\t\t\t#--------------No need to Pass the workflow Id Now----------------------------\n\t\tCurrentWorderId \u003d self.session.custom.WorkorderID\n\t\tresultData\u003dProductionWorkorderStartReport.GetListofPreviousCompletedWorkorders(LineId,machineId,userId,workflowId,CurrentWorderId)\n\t\tsystem.perspective.print(\"API Result Previous Wo Info :\"+str(resultData))\n\t\tself.getSibling(\"DrpdwnMachineName\").props.value \u003d machineId\n\t\t\n\t\tlistofPrevClubbbedWos \u003d []\n\t\tWorkOrderId \u003d0\n\t\tPrevWoNo \u003d0\n\t\tif resultData !\u003d[]:\n\t\t\tfor i in (resultData):\t\t\t\t\n\t\t\t\tPrevWoNo \u003d i.get(\u0027WorkorderName\u0027)\n\t\t\t\tworkorderStatusId \u003d i.get(\u0027WorkorderStatus\u0027)\n\t\t\t\tif workorderStatusId\u003d\u003d2:\n\t\t\t\t\tPrevWOStatus\u003d\u0027On-Hold\u0027\n\t\t\t\t\t\n\t\t\t\telif workorderStatusId\u003d\u003d3:\n\t\t\t\t\tPrevWOStatus\u003d\u0027Completed\u0027\n\t\n\t\t\t\telif workorderStatusId\u003d\u003d1:\n\t\t\t\t\tPrevWOStatus\u003d\u0027In-Progress\u0027\n\t\t\t\telse:\t\t\t\n\t\t\t\t\tPrevWOStatus\u003d\u0027\u0027\n\t\t\t\tPrevCompletionDate \u003d i.get(\u0027ActualCompletionDate\u0027)\n\t\t\t\tPartNumber \u003d i.get(\u0027PartNumber\u0027)\n\t\t\t\tPartRevision \u003d i.get(\u0027PartRevision\u0027)\n\t\t\t\tFactoryName \u003d  i.get(\u0027FactoryName\u0027)\n\t\t\t\tPrevPartNo\u003dstr(PartNumber)+\u0027_\u0027+str(PartRevision)+\u0027_\u0027+str(FactoryName)\n\t\t\t\tPrevPlannedQty \u003d i.get(\u0027PlannedQty\u0027)\n\t\t\t\tPrevCompletedQty \u003d i.get(\u0027QtyCompleted\u0027)\n\t\t\t\tWorkOrderId \u003d i.get(\u0027Id\u0027)\n\t\t\t\t\n\t\t\t\tPrevWosList\u003d{\"PrevWoNo\":PrevWoNo,\"PrevWOStatus\":PrevWOStatus,\"PrevCompletionDate\":PrevCompletionDate,\"PrevPartNo\":PrevPartNo,\"PrevPlannedQty\":PrevPlannedQty,\"PrevCompletedQty\":PrevCompletedQty}\t\n\t\t\t\t\t\t\t\t\n\t\t\t\tlistofPrevClubbbedWos.append(PrevWosList)\n\t\t\n\t\t\tself.props.widgets[0].viewParams.PrevWosListForCarasoul \u003d listofPrevClubbbedWos \t\t\t\t\n\t\telse:\n\t\t\tsystem.perspective.print(\u0027Previous Workorder Data is not available\u0027)\n\t\t\tself.getSibling(\"LblDataValidation\").props.text \u003d \u0027Active/Hold/Completed workorders detail is not available.\u0027\n#--------------------------------------------Previous Loaded Material On Machine---------------------\n\t\n\t\tmachineDetails\u003dself.getSibling(\"DrpdwnMachineName\").props.options\n\t\tMachineId \u003d self.getSibling(\"DrpdwnMachineName\").props.value\n\t\tnoofmachines\u003dmachineDetails.getRowCount()\n\t\tfor machine in range(noofmachines):\t\t\n\t\t\tMACHINEID\u003dmachineDetails.getValueAt(machine, \u0027Id\u0027)\n\t\t\tif machineId\u003d\u003dMACHINEID:\n\t\t\t\tmachineName\u003dmachineDetails.getValueAt(machine, \u0027MachineName\u0027)\n\t\t\t\tmachineName1 \u003d machineName.split(\u0027|\u0027)\n\t\t\t\tmachineName\u003dmachineName1[0]\n\t\t\t\tbreak\n\t\t\telse:\n\t\t\t\tpass\n\t\t\n\t\tUserId\u003dself.session.custom.UserId\n\t\n\t\tworkOrderId\u003dWorkOrderId\n\t\twoNumber\u003dPrevWoNo\n\t\tAPIPara \u003d {\"UserId\":UserId,\"workOrderId\":workOrderId,\"woNumber\":woNumber,\"machineName\":machineName} \n\t\tlistOfLoadedMaterial \u003d ProductionWorkorderStartReport.PreviousLoadedMaterialOnMachine(workOrderId ,MachineId)\t\t\t\n#\t\tlistOfLoadedMaterial\u003dProductionWorkorderStartReport.CurrentLoadedMaterialOnMachine(UserId,workOrderId ,woNumber,machineName)\n\t\tsystem.perspective.print(\"API Result Previous Loaded Info :\"+str(listOfLoadedMaterial))\n\t\tPrevMaterialRowCount \u003d listOfLoadedMaterial.getRowCount()\n\t\tif PrevMaterialRowCount!\u003d0:\n\t\t\tself.getSibling(\"Dashboard\").props.widgets[2].viewParams.PreviousLoadedMaterial\u003dlistOfLoadedMaterial\n\t\telse:\n\t\t\tsystem.perspective.print(\"Row Count\" +str(PrevMaterialRowCount))\n#\t\t\t\tsystem.perspective.print(\"Row Count\" +str(PrevClubWoRowCount))\n\t\t\tif resultData!\u003d[]:\n\t\t\t\tsystem.perspective.print(\"Material Is not avalable\")\n\t\t\t\tself.getSibling(\"LblDataValidation\").props.text \u003d \u0027Hold / Completed Workorder Material detail is not available for selected machine.\u0027\n\t\t\telse:\n\t\t\t\tself.getSibling(\"LblDataValidation\").props.text \u003d \u0027Hold/Completed workorder detail is not available for selected machine.\u0027\n\t\t\t\n#-------------------------------------Current Loaded Material On Machine------------------------------------\n\t\tUserId\u003dself.session.custom.UserId\n\t\tworkOrderId\u003dself.session.custom.WorkorderID\n\t\twoNumber\u003dself.session.custom.WoNumber\n\t\tlistOfLoadedMaterial\u003dProductionWorkorderStartReport.CurrentLoadedMaterialOnMachine(UserId,workOrderId ,woNumber,machineName)\n\t\tsystem.perspective.print(\"API Result Current Loaded Info :\"+str(listOfLoadedMaterial))\n\t\tif listOfLoadedMaterial!\u003d[]:\n\t\t\tself.props.widgets[3].viewParams.CurrentLoadedMaterial\u003dlistOfLoadedMaterial\n\t\telse:\n\t\t\tpass\n\n#----------------------------------Previous Loaded Molds On Machine-----------------------------------\t\t\t\t\t\t\n\t\tWorkorderId\u003dWorkOrderId\n\t\tmachineID\u003dself.getSibling(\"DrpdwnMachineName\").props.value\n\t\tlistOfPreLoadedMold\u003dProductionWorkorderStartReport.PreviousLoadedMoldOnMachine(WorkorderId,machineID)\n\t\tsystem.perspective.print(\"API Result Pre Loaded Mold Info :\"+str(listOfPreLoadedMold))\n\t\tif listOfPreLoadedMold!\u003d[]:\n\t\t\tself.props.widgets[4].viewParams.PreviousLoadedMolds \u003d listOfPreLoadedMold\n\t\telse:\n\t\t\tpass\t\t\n\t\t\n#----------------------------------Current Loaded Molds On Machine-----------------------------------\t\t\t\t\t\t\n\t\tWorkorderId\u003dself.session.custom.WorkorderID\n\t\tmachineID\u003dself.getSibling(\"DrpdwnMachineName\").props.value\n\t\tlistOfCurrLoadedMold\u003dProductionWorkorderStartReport.CurrentPossibleLoadedMoldOnMachine(WorkorderId,machineID)\n\t\tsystem.perspective.print(\"API Result Pre Loaded Mold Info :\"+str(listOfCurrLoadedMold))\n\t\tif listOfCurrLoadedMold!\u003d[]:\n\t\t\tself.props.widgets[5].viewParams.CurrentLoadedMolds\u003dlistOfCurrLoadedMold\n\t\telse:\n\t\t\tpass\n\t\tself.getSibling(\"ImageLoader\").meta.visible\u003d0\n\t\tmessageType1\u003d\u0027CurrentWoInfo\u0027\n\t\tsystem.perspective.sendMessage(messageType1, payload \u003d {\"value\":0,\"SelctedRowIndex\":0}, scope \u003d \"page\")\n\t\tmessageType1\u003d\u0027PrevWoInfo\u0027\n\t\tsystem.perspective.sendMessage(messageType1, payload \u003d {\"value\":0,\"SelctedRowIndex\":0}, scope \u003d \"page\")\n\t\t\n#----------------------------------Previous Part Workinstruction-----------------------------------\t\t\t\t\t\t\n\t\t\n\t\ttry:\n\t\t\tListofPrevWorkinstruction\u003dProductionWorkorderStartReport.GetListofWorkinstruction(PartNumber,PartRevision,FactoryName)\n\t\t\tsystem.perspective.print(\"API Result Pre WI Info :\"+str(ListofPrevWorkinstruction))\n\t\t\tif ListofPrevWorkinstruction!\u003d[]:\n\t\t\t\tself.props.widgets[6].viewParams.PreviousWorkinstruction\u003dListofPrevWorkinstruction\n\t\t\telse:\n\t\t\t\tpass\n\t\texcept:\n\t\t\tpass\n#----------------------------------Current Part Workinstruction-----------------------------------\t\n\t\ttry:\t\t\t\t\t\n\t\t\tmyList\u003d[]\n\t\t\tSrNo\u003d0\n\t\t\tWorkinstruction\u003d\u0027\u0027\n\t\t\tComment\u003d\u0027\u0027\n\t\t\tmyList1 \u003d (SrNo,Workinstruction,Comment)\n\t\t\tmyList.append(myList1)\t\t\t\t\t\t\n\t\t\theaders \u003d [\"SrNo\",\"Workinstruction\",\"Comment\"]\n\t\t\tListofCurrWorkinstruction1 \u003d system.dataset.toDataSet(headers,myList)\t\t\n\t\t\tsystem.perspective.print(\"API Result Current WI Info :\"+str(ListofCurrWorkinstruction1))\n\t\n\t\t\tfor CurrentWoList in range(len(CurrentWopartNo)):\n\t\n\t\t\t\tPartNumberwithRevFact \u003d CurrentWopartNo[CurrentWoList]\n\t\t\t\tPartNumberwithRevFact \u003d PartNumberwithRevFact.split(\u0027_\u0027)\n\t\t\t\tPartNumber\u003dPartNumberwithRevFact[0]\n\t\t\t\tPartRevision\u003dPartNumberwithRevFact[1]\n\t\t\t\tFactoryName\u003dPartNumberwithRevFact[2]\t\t\t\n\t\n\t\t\t\tListofCurrWorkinstruction\u003dProductionWorkorderStartReport.GetListofWorkinstruction(PartNumber,PartRevision,FactoryName)\n\t\t\n\t\t\t\tsystem.dataset.appendDataset(ListofCurrWorkinstruction1, ListofCurrWorkinstruction)\n\t\t\tif ListofPrevWorkinstruction!\u003d[]:\n\t\t\t\t self.props.widgets[7].viewParams.CurrentPartWorkinstruction\u003d ListofCurrWorkinstruction\n\t\t\telse:\n\t\t\t\tpass\n\t\texcept:\n\t\t\tpass\n\t\t\n\t\n\texcept:\n\t\tself.getSibling(\"ImageLoader\").meta.visible\u003d0\n\t\tsystem.perspective.print(\"Exception: Loading Data To Work ORder Start Report\")\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Dashboard"
+        },
+        "position": {
+          "height": 0.9406,
+          "width": 0.9967,
+          "x": 0.0025,
+          "y": 0.0532
+        },
+        "props": {
+          "editingToggle": false,
+          "stretch": {
+            "columnGutterSize": 8,
+            "rowCount": 20,
+            "rowGutterSize": 8
+          },
+          "widgets": [
+            {
+              "body": {
+                "style": {
+                  "classes": ""
+                }
+              },
+              "header": {
+                "enabled": true,
+                "style": {
+                  "classes": "MachineSettingReport/ModuleHeader"
+                },
+                "title": "Hold / Completed Workorder On Machine"
+              },
+              "isConfigurable": false,
+              "minSize": {
+                "columnSpan": 1,
+                "rowSpan": 1
+              },
+              "name": "Hold/Completed Workorder On Machine",
+              "position": {
+                "columnEnd": 5,
+                "columnStart": 1,
+                "rowEnd": 6,
+                "rowStart": 1
+              },
+              "style": {
+                "classes": ""
+              },
+              "viewParams": {
+                "PrevWosListForCarasoul": ""
+              },
+              "viewPath": "Project_MES_Solution/ProductionOperatorConsole/Modules/WorkorderStartReport/SwipePrevworkorderinfo"
+            },
+            {
+              "body": {
+                "style": {
+                  "classes": ""
+                }
+              },
+              "header": {
+                "enabled": true,
+                "style": {
+                  "classes": "MachineSettingReport/ModuleHeader"
+                },
+                "title": "Current Workorder to be start"
+              },
+              "isConfigurable": false,
+              "minSize": {
+                "columnSpan": 1,
+                "rowSpan": 1
+              },
+              "name": "Current Workorder",
+              "position": {
+                "columnEnd": 9,
+                "columnStart": 5,
+                "rowEnd": 6,
+                "rowStart": 1
+              },
+              "style": {
+                "classes": ""
+              },
+              "viewParams": {
+                "currentWosListForCarasoul": ""
+              },
+              "viewPath": "Project_MES_Solution/ProductionOperatorConsole/Modules/WorkorderStartReport/Swipecurrentworkorderinfo"
+            },
+            {
+              "body": {
+                "style": {
+                  "classes": ""
+                }
+              },
+              "header": {
+                "enabled": true,
+                "style": {
+                  "classes": "MachineSettingReport/ModuleHeader"
+                },
+                "title": "Hold / Completed Workorder Material On Machine"
+              },
+              "isConfigurable": false,
+              "minSize": {
+                "columnSpan": 1,
+                "rowSpan": 1
+              },
+              "name": "Active / Hold / Completed Workorder Material On Machine",
+              "position": {
+                "columnEnd": 5,
+                "columnStart": 1,
+                "rowEnd": 13,
+                "rowStart": 6
+              },
+              "style": {
+                "classes": ""
+              },
+              "viewParams": {
+                "PrevWoLoader": "",
+                "PreviousLoadedMaterial": ""
+              },
+              "viewPath": "Project_MES_Solution/ProductionOperatorConsole/Modules/WorkorderStartReport/PreviousLoadedMaterialOnMachine"
+            },
+            {
+              "body": {
+                "style": {
+                  "classes": ""
+                }
+              },
+              "header": {
+                "enabled": true,
+                "style": {
+                  "classes": "MachineSettingReport/ModuleHeader"
+                },
+                "title": "Current Workorder Material On Machine"
+              },
+              "isConfigurable": false,
+              "minSize": {
+                "columnSpan": 1,
+                "rowSpan": 1
+              },
+              "name": "Current Workorder",
+              "position": {
+                "columnEnd": 10,
+                "columnStart": 5,
+                "rowEnd": 13,
+                "rowStart": 6
+              },
+              "style": {
+                "classes": ""
+              },
+              "viewParams": {
+                "CurrentLoadedMaterial": "",
+                "CurrentMaterialLoader": ""
+              },
+              "viewPath": "Project_MES_Solution/ProductionOperatorConsole/Modules/WorkorderStartReport/CurrentLoadedMaterialOnMachine"
+            },
+            {
+              "body": {
+                "style": {
+                  "classes": ""
+                }
+              },
+              "header": {
+                "enabled": true,
+                "style": {
+                  "classes": "MachineSettingReport/ModuleHeader"
+                },
+                "title": "Loaded Tools On Machine (If Any)"
+              },
+              "isConfigurable": false,
+              "minSize": {
+                "columnSpan": 1,
+                "rowSpan": 1
+              },
+              "name": "Current Mold Loaded On Machine",
+              "position": {
+                "columnEnd": 5,
+                "columnStart": 1,
+                "rowEnd": 22,
+                "rowStart": 13
+              },
+              "style": {
+                "classes": ""
+              },
+              "viewParams": {
+                "PreviousLoadedMolds": ""
+              },
+              "viewPath": "Project_MES_Solution/ProductionOperatorConsole/Modules/WorkorderStartReport/PreviousLoadedMoldOnMachine"
+            },
+            {
+              "body": {
+                "style": {
+                  "classes": ""
+                }
+              },
+              "header": {
+                "enabled": true,
+                "style": {
+                  "classes": "MachineSettingReport/ModuleHeader"
+                },
+                "title": "Possible Tools Can be Loaded On Machine"
+              },
+              "isConfigurable": false,
+              "minSize": {
+                "columnSpan": 1,
+                "rowSpan": 1
+              },
+              "name": "Possible Molds Can be Loaded On Machine",
+              "position": {
+                "columnEnd": 10,
+                "columnStart": 5,
+                "rowEnd": 22,
+                "rowStart": 13
+              },
+              "style": {
+                "classes": ""
+              },
+              "viewParams": {
+                "CurrentLoadedMolds": "",
+                "CurrentMoldLoader": ""
+              },
+              "viewPath": "Project_MES_Solution/ProductionOperatorConsole/Modules/WorkorderStartReport/CurrentLoadedMoldOnMachine"
+            }
+          ]
+        },
+        "type": "ia.display.dashboard"
+      },
+      {
+        "meta": {
+          "name": "ImageLoader",
+          "visible": 0
+        },
+        "position": {
+          "height": 0.13,
+          "width": 0.1193,
+          "x": 0.4407,
+          "y": 0.3777
+        },
+        "props": {
+          "fit": {
+            "mode": "cover"
+          },
+          "source": "/system/images/Builtin/icons/32/giphy.gif"
+        },
+        "type": "ia.display.image"
+      },
+      {
+        "meta": {
+          "name": "LblScanMchine"
+        },
+        "position": {
+          "height": 0.0393,
+          "width": 0.1167,
+          "x": 0.0243,
+          "y": 0.0031
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Machine Name:",
+          "textStyle": {
+            "classes": "PDA/PDALabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\t\t\n\t\ttry:\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t#-----------------Previous completed workorders information--------------------------\t\n\t\t\tself.getSibling(\"ImageLoader\").meta.visible\u003d1\t\t\t\t\t\t\t\n\t\t\tLineId\u003dself.session.custom.LineID\n\t\t\tsystem.perspective.print(\"LineId: \"+str(LineId))\t\t\t\t\t\t\t\n\t\t\tmachineId\u003dself.props.value\n\t\t\tuserId\u003dself.session.custom.UserId\n\t\t\tworkflowId\u003d0\t\t\t\t\t\t\t\t\t#--------------No need to Pass the workflow Id Now----------------------------\n\t\t\tCurrentWorderId \u003dself.session.custom.WorkorderID\n\t\t\tresultData\u003dProductionWorkorderStartReport.GetListofPreviousCompletedWorkorders(LineId,machineId,userId,workflowId,CurrentWorderId)\n\t\t\tself.getSibling(\"DrpdwnMachineName\").props.value \u003d machineId\n\t\t\tsystem.perspective.print(\"PrevWorInfo: \"+str(resultData))\n\t\t\tlistofPrevClubbbedWos \u003d []\n\t\t\tWorkOrderId \u003d 0\n\t\t\tPrevWoNo \u003d 0\n\t\t\tif resultData!\u003d[]:\n\t\t\t\tfor i in (resultData):\t\t\t\t\n\t\t\t\t\tPrevWoNo \u003d i.get(\u0027WorkorderName\u0027)\n\t\t\t\t\tworkorderStatusId \u003d i.get(\u0027WorkorderStatus\u0027)\n\t\t\t\t\tif workorderStatusId\u003d\u003d2:\n\t\t\t\t\t\tPrevWOStatus\u003d\u0027On-Hold\u0027\n\t\t#\t\t\t\n\t\t\t\t\telif workorderStatusId\u003d\u003d3:\n\t\t\t\t\t\tPrevWOStatus\u003d\u0027Completed\u0027\n\t\t\t\t\t\t\n\t\t\t\t\telif workorderStatusId\u003d\u003d1:\n\t\t\t\t\t\tPrevWOStatus\u003d\u0027In-Progress\u0027\t\t\t\t\n\t\t#\t\t\t\t\n\t\t\t\t\telse:\n\t\t\t\t\t\tPrevWOStatus\u003d\u0027\u0027\n\t\t\t\t\tPrevCompletionDate \u003d i.get(\u0027ActualCompletionDate\u0027)\n\t\t\t\t\tPartNumber \u003d i.get(\u0027PartNumber\u0027)\n\t\t\t\t\tPartRevision \u003d i.get(\u0027PartRevision\u0027)\n\t\t\t\t\tFactoryName \u003d  i.get(\u0027FactoryName\u0027)\n\t\t\t\t\tPrevPartNo\u003dstr(PartNumber)+\u0027_\u0027+str(PartRevision)+\u0027_\u0027+str(FactoryName)\n\t\t\t\t\tPrevPlannedQty \u003d i.get(\u0027PlannedQty\u0027)\n\t\t\t\t\tPrevCompletedQty \u003d i.get(\u0027QtyCompleted\u0027)\n\t\t\t\t\tif PrevCompletedQty \u003d\u003d None or PrevCompletedQty\u003d\u003d\u0027\u0027:\n\t\t\t\t\t\tPrevCompletedQty \u003d 0\n\t\t\t\t\telse:\n\t\t\t\t\t\tpass\n\t\t\t\t\tWorkOrderId \u003d i.get(\u0027Id\u0027)\n\t\t\t\t\n\t\t\t\t\tPrevWosList\u003d{\"PrevWoNo\":PrevWoNo,\"PrevWOStatus\":PrevWOStatus,\"PrevCompletionDate\":PrevCompletionDate,\"PrevPartNo\":PrevPartNo,\"PrevPlannedQty\":PrevPlannedQty,\"PrevCompletedQty\":PrevCompletedQty}\t\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\tlistofPrevClubbbedWos.append(PrevWosList)\n\t\t\t\tsystem.perspective.print(\"list of PrevClubbbedWos: \"+str(listofPrevClubbbedWos))\n\t\t#\t\tself.props.widgets[0].viewParams.PrevWosListForCarasoul \u003d listofPrevClubbbedWos \t\t\t\t\t\t\t\t\t\n\t\t\t\tself.getSibling(\"Dashboard\").props.widgets[0].viewParams.PrevWosListForCarasoul\u003d listofPrevClubbbedWos\t\t\t\t\t\t\t\t\n\t\t\t\tmessageType1\u003d\u0027PrevWoInfo\u0027\n\t\t\t\tsystem.perspective.sendMessage(messageType1, payload \u003d {\"value\":0,\"SelctedRowIndex\":0}, scope \u003d \"page\")\n\t\t\t\tself.getSibling(\"LblDataValidation\").props.text \u003d \u0027\u0027\n\t\t\telse:\n\t\t\t\tPrevWosList\u003d{\"PrevWoNo\":\u0027\u0027,\"PrevWOStatus\":\u0027\u0027,\"PrevCompletionDate\":\u0027\u0027,\"PrevPartNo\":\u0027\u0027,\"PrevPlannedQty\":\u0027\u0027,\"PrevCompletedQty\":\u0027\u0027}\t\n\t\t\t\tlistofPrevClubbbedWos.append(PrevWosList)\n\t\t\t\tself.getSibling(\"LblDataValidation\").props.text \u003d \u0027Hold/Completed workorder detail is not available for selected machine.\u0027\n\t\t\t\tself.getSibling(\"Dashboard\").props.widgets[0].viewParams.PrevWosListForCarasoul\u003d listofPrevClubbbedWos\n\t\t\t\n\t#--------------------------------------------Previous Loaded Material On Machine---------------------\n\t\t\tmachineDetails\u003dself.props.options\n\t\t\tMachineId \u003d self.props.value\n\t\t\tnoofmachines\u003dmachineDetails.getRowCount()\n\t\t\tfor machine in range(noofmachines):\n\t\t\t\n\t\t\t\tMACHINEID\u003dmachineDetails.getValueAt(machine, \u0027Id\u0027)\n\t\t\t\tif machineId\u003d\u003dMACHINEID:\n\t\t\t\t\tmachineName\u003dmachineDetails.getValueAt(machine, \u0027MachineName\u0027)\n\t\t\t\t\tmachineName1 \u003d machineName.split(\u0027|\u0027)\n\t\t\t\t\tmachineName\u003dmachineName1[0]\n\t\t\t\t\tbreak\n\t\t\t\telse:\n\t\t\t\t\tpass\n#\t\t\tsystem.perspective.print(\"MachineId in scrip: \"+str(MachineId))\n\t\t\tUserId\u003dself.session.custom.UserId\n\t\t\tworkOrderId\u003dWorkOrderId\n\t\t\twoNumber\u003dPrevWoNo\n\t\t\tlistOfLoadedMaterial \u003d ProductionWorkorderStartReport.PreviousLoadedMaterialOnMachine(workOrderId ,MachineId)\n#\t\t\tlistOfLoadedMaterial\u003dProductionWorkorderStartReport.CurrentLoadedMaterialOnMachine(UserId,workOrderId ,woNumber,machineName)\n\n\t\t\tPrevMaterialRowCount \u003d listOfLoadedMaterial.getRowCount()\n\t\t\t\n\t\t\tif PrevMaterialRowCount!\u003d0:\n\t\t\t\tself.getSibling(\"Dashboard\").props.widgets[2].viewParams.PreviousLoadedMaterial\u003dlistOfLoadedMaterial\n\t\t\telse:\n\t\t\t\tsystem.perspective.print(\"Row Count\" +str(PrevMaterialRowCount))\n#\t\t\t\tsystem.perspective.print(\"Row Count\" +str(PrevClubWoRowCount))\n\t\t\t\tif resultData!\u003d[]:\n\t\t\t\t\tsystem.perspective.print(\"Material Is not avalable\")\n\t\t\t\t\tself.getSibling(\"LblDataValidation\").props.text \u003d \u0027Hold / Completed Workorder Material detail is not available for selected machine.\u0027\n\t\t\t\telse:\n\t\t\t\t\tself.getSibling(\"LblDataValidation\").props.text \u003d \u0027Hold/Completed workorder detail is not available for selected machine.\u0027\n\t\t\t\t\n\t#-------------------------------------Current Loaded Material On Machine------------------------------------\n\t\t\tUserId\u003dself.session.custom.UserId\n\t\t\tworkOrderId\u003dself.session.custom.WorkorderID\n\t\t\twoNumber\u003dself.session.custom.WoNumber\n\t\t\tlistOfLoadedMaterial\u003dProductionWorkorderStartReport.CurrentLoadedMaterialOnMachine(UserId,workOrderId ,woNumber,machineName)\n\t\t\tsystem.perspective.print(\"listOfLoadedMaterial curent: \"+str(listOfLoadedMaterial))\n\t\t\tif listOfLoadedMaterial!\u003d[]:\n\t\t\t\tself.getSibling(\"Dashboard\").props.widgets[3].viewParams.CurrentLoadedMaterial\u003dlistOfLoadedMaterial\n\t\t\telse:\n\t\t\t\tpass\n\t\n\t#----------------------------------Previous Loaded Molds On Machine-----------------------------------\t\t\t\t\t\t\n\t\t\tWorkorderId\u003dWorkOrderId\n\t\t\tWorkorderId\u003dCurrentWorderId\n\t#\t\tmachineID\u003dmachineId\n#\t\t\tsystem.perspective.print(\u0027machineId\u0027+str(machineId))\n#\t\t\tsystem.perspective.print(\u0027WorkorderId\u0027+str(WorkorderId))\n\t\t\tlistOfLoadedMaterial\u003dProductionWorkorderStartReport.PreviousLoadedMoldOnMachine(WorkorderId,machineId)\n\t\t\tsystem.perspective.print(\"listOf pre Loaded molds: \"+str(listOfLoadedMaterial))\n\t\t\tif listOfLoadedMaterial!\u003d[]:\n\t\t\t\tself.getSibling(\"Dashboard\").props.widgets[4].viewParams.PreviousLoadedMolds \u003d listOfLoadedMaterial\n\t\t\telse:\n\t\t\t\tpass\t\t\n\t\t\t\n\t#----------------------------------Current Loaded Molds On Machine-----------------------------------\t\t\t\t\t\t\n\t\t\tWorkorderId\u003dself.session.custom.WorkorderID\n\t#\t\tmachineID\u003d0\n\t\t\tlistOfLoadedMaterial\u003dProductionWorkorderStartReport.CurrentPossibleLoadedMoldOnMachine(WorkorderId,machineId)\n\t\t\tsystem.perspective.print(\"listOf current Loaded Molds: \"+str(listOfLoadedMaterial))\n\t\t\tPrevMaterialRowCount \u003d listOfLoadedMaterial.getRowCount()\n\t\t\tif PrevMaterialRowCount!\u003d0:\n\t\t\t\tself.getSibling(\"Dashboard\").props.widgets[5].viewParams.CurrentLoadedMolds\u003dlistOfLoadedMaterial\n\t\t\telse:\n\t\t\t\tself.getSibling(\"Dashboard\").props.widgets[5].viewParams.CurrentLoadedMolds \u003d []\n#\t\t\t\tpass\n\t\t\t\n\t\t\t\t\t\n\t\t\tmessageType1\u003d\u0027PrevWoInfo\u0027\n\t\t\tsystem.perspective.sendMessage(messageType1, payload \u003d {\"value\":0,\"SelctedRowIndex\":0}, scope \u003d \"page\")\n\t\t\tself.getSibling(\"ImageLoader\").meta.visible\u003d0\n\t\texcept:\n\t\t\tself.getSibling(\"ImageLoader\").meta.visible\u003d0\n\t\t\tsystem.perspective.print(\"Exception: Loading Data To Work ORder Start Report\")\n\t\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\t\tsystem.perspective.print(errorMessage)\n\t\t\tlineno \u003d tb.tb_lineno\n\t\t\tsystem.perspective.print(lineno)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "DrpdwnMachineName",
+          "tooltip": {
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Select Operation/Machine"
+          }
+        },
+        "position": {
+          "height": 0.0413,
+          "width": 0.24,
+          "x": 0.1046,
+          "y": 0.0031
+        },
+        "props": {
+          "options": {
+            "$": [
+              "ds",
+              192,
+              1689048125705
+            ],
+            "$columns": [
+              {
+                "data": [],
+                "name": "Id",
+                "type": "String"
+              },
+              {
+                "data": [],
+                "name": "MachineName",
+                "type": "String"
+              }
+            ]
+          },
+          "placeholder": {
+            "text": "Select Machine Name"
+          },
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "meta": {
+          "name": "LblDataValidation"
+        },
+        "position": {
+          "height": 0.0357,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.3287,
+          "x": 0.3494,
+          "y": 0.0072
+        },
+        "props": {
+          "textStyle": {
+            "classes": "Widgets/WidgetsData",
+            "color": "#FF4747",
+            "fontFamily": "Arial",
+            "fontSize": 12,
+            "textAlign": "right"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "custom": {},
+  "params": {
+    "rowData": "",
+    "rowIndex": "",
+    "value": ""
+  },
+  "propConfig": {
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.value": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 29,
+      "width": 27
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\t\t\t\n\t\t\tisChecked1\u003dself.props.selected\n\t\t\tif isChecked1\u003d\u003dTrue:\n\t\t\t\tisChecked\u003d\u0027true\u0027\n\t\t\telse:\n\t\t\t\tisChecked\u003d\u0027false\u0027\n\t\t\trowindex\u003dself.view.params.rowIndex\n#\t\t\tsystem.perspective.print(\u0027Rowindex \u0027+ str(rowindex))\n\t\t\trowData\u003dself.view.params.rowData\n\t\t\tSelctedRow\u003drowData[\u0027Sr No\u0027]\n#\t\t\tsystem.perspective.print(\u0027SelctedRow\u0027+ str(SelctedRow))\n\t\t\tSelctedRow\u003drowindex\t\t\t\n\t\t\tmessageType \u003d \u0027ColumnUpdateClubWO\u0027\n\t\t\tsystem.perspective.sendMessage(messageType, payload \u003d {\"isChecked\":isChecked,\"SelctedRowIndex\":rowindex}, scope \u003d \"page\")\n\n\texcept:\n\t\t\tsystem.perspective.print(\u0027Exception:WO club CheckBox\u0027)\n\t\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\t\tsystem.perspective.print(errorMessage)\n\t\t\tlineno \u003d tb.tb_lineno\n\t\t\tsystem.perspective.print(lineno)\n\t\t\tsys.exit()\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          },
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\n"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Checkbox"
+        },
+        "position": {
+          "height": 0.8276,
+          "width": 0.7767,
+          "x": 0.0393,
+          "y": 0.069
+        },
+        "propConfig": {
+          "props.selected": {
+            "binding": {
+              "config": {
+                "path": "view.params.value"
+              },
+              "enabled": false,
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "text": ""
+        },
+        "type": "ia.input.checkbox"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

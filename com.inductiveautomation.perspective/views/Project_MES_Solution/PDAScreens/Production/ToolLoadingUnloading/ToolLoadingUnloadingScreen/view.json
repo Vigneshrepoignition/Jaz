@@ -1,0 +1,1054 @@
+{
+  "custom": {
+    "MachineId": 0,
+    "ToolLoadingStatus": 1
+  },
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\tself.getChild(\"root\").getChild(\"MultiStateButton\").props.controlValue \u003d 1\n\tself.getChild(\"root\").getChild(\"LblErrorMessageMold\").meta.visible \u003d False\n"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "propConfig": {
+    "custom.MachineId": {
+      "persistent": true
+    },
+    "custom.ToolLoadingStatus": {
+      "binding": {
+        "config": {
+          "path": "/root/MultiStateButton.props.controlValue"
+        },
+        "transforms": [
+          {
+            "code": "\tif value \u003d\u003d True:\n\t\tvalue \u003d 1\n\telse:\n\t\tvalue  \u003d 0\n\treturn value",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 440,
+      "width": 380
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 22,
+          "width": 166,
+          "x": 32.35,
+          "y": 5
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDAHeader"
+          },
+          "text": "Load-Unload Tool"
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblMachineName"
+        },
+        "position": {
+          "height": 20,
+          "width": 298,
+          "x": 8,
+          "y": 61
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Machine Code:",
+          "textStyle": {
+            "classes": "PDA/PDALabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tself.getSibling(\"LblErrorMessageMachine\").meta.visible \u003d False"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "TxtScanMachine"
+        },
+        "position": {
+          "height": 24,
+          "width": 302,
+          "x": 8,
+          "y": 85
+        },
+        "propConfig": {
+          "props.text": {
+            "onChange": {
+              "enabled": null,
+              "script": "\ttry:\t\t\n\t\tgreenColor \u003d \"#00AC00\"\n\t\tredColor \u003d \"#FF0000\"\n\t\t#------------- Clear all the necessary fields before updating scanned machine details ---------------------\n\t\tself.getSibling(\"LblErrorMessageMold\").meta.visible \u003d False\t\n\t\tself.getSibling(\"DrpdwnToolList\").props.options \u003d \"\"\n\t\tself.getSibling(\"TableToolList\").props.data \u003d \"\"\n\t\t#--------------------------------------------------------\n\t\tuserId \u003d self.session.custom.UserId\n\t\tscannedTextString \u003d self.props.text\t\n\t\tif scannedTextString !\u003d\u0027\u0027:\t\n\t\t\tscannedTextStringArray \u003d scannedTextString.split(\"|\")\n\t\t\tmachineName \u003d str(scannedTextStringArray[0]).strip()\n\t\t\tself.getSibling(\"TxtScanMachine\").props.text \u003d machineName\t\n\t\t\t#--------------------------------------------------------\t\n\t\t\tsystem.perspective.print(\"Machine Name : \"+str(machineName))\n\t\t\ttableData \u003d ProductionOperatorConsole.getToolLoadingUnloadingDetails(machineName)\t\n\t\t\ttableRowCount \u003d tableData.getRowCount()\n\t\t\tsystem.perspective.print(\"Checkpoint 4\")\t\n\t\t\tif tableRowCount\u003e0 :\n\t\t\t\tself.getSibling(\"DrpdwnToolList\").props.placeholder.text \u003d \"\"\n\t\t\t\tself.getSibling(\"DrpdwnToolList\").props.options \u003d ProductionOperatorConsole.getToolListDropDown(machineName,userId)  # Load the data into Dropdown\n\t\t\t\tsystem.perspective.print(\"Checkpoint 6\")\n\t\t\t\tself.getSibling(\"TableToolList\").props.data \u003d tableData\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t # Load the data into Table\n\t\t\t\t\t\t\t\n\t\t\t\t#---- get the machineId from table data ------\n\t\t\t\tpyData \u003d system.dataset.toPyDataSet(tableData)\n\t\t\t\tself.view.custom.MachineId \u003d pyData[0][0]\n\t\t\t\t#---------------------------------------------\t\n\t\t\telif scannedTextString \u003d\u003d\u0027\u0027:\t\t\t\n\t\t\t\tsystem.perspective.print(\"Checkpoint 8\")\n\t\t\t\tself.getSibling(\"DrpdwnToolList\").props.options \u003d \"\"\n\t\t\t\tself.getSibling(\"DrpdwnToolList\").props.placeholder.text \u003d \"Select Tool\"\n\t\t\telse:\n\t\t\t\tself.getSibling(\"LblErrorMessageMold\").props.textStyle.color \u003d redColor\n\t\t\t\tself.getSibling(\"LblErrorMessageMold\").props.text \u003d \u0027Ensure Tools are linked to the machines.If the tools are linked then make sure those are not loaded on other machines.\u0027\n\t\t\t\tself.getSibling(\"LblErrorMessageMold\").meta.visible \u003d True\t\n\t\t\t\tsystem.perspective.print(\"Checkpoint 9\")\n\t\t\t\tself.getSibling(\"DrpdwnToolList\").props.options \u003d \"\"\n\t\t\t\tself.getSibling(\"DrpdwnToolList\").props.placeholder.text \u003d \"Select Tool\"\n\t\telse:\n\t\t\tsystem.perspective.print(\"Checkpoint 10\")\t\n\texcept:\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)\n\t\tsys.exit()\t\t"
+            }
+          }
+        },
+        "props": {
+          "deferUpdates": false,
+          "placeholder": "Scan/Enter Machine Code",
+          "rejectUpdatesWhileFocused": false,
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "events": {
+          "dom": {
+            "onMouseOver": {
+              "config": {
+                "script": "\ttry:\n\t\tWoNumber\u003dself.session.custom.WoNumber\n\t\tworkflowId\u003dself.session.custom.WorkflowId\n\t\tworkflowOperationId\u003dself.session.custom.Process\n\t\tworkflowProcessId\u003dself.session.custom.ProcessID\t\n\t\tComponentsDetails\u003dWorkOrderDetailsAPI.getComponentDetails(WoNumber,workflowId,workflowOperationId,workflowProcessId)\n\t\tsystem.perspective.print(\"Components Details to be Binded are: \"+ str(ComponentsDetails))\n\t#-----------For Start Button Enable Validation\t\t\n\t\tComponents \u003d system.dataset.toPyDataSet(ComponentsDetails)\n\t\ti \u003d None\n\t\tdsData \u003d Components\n\t\theaders \u003d [dsData.getColumnName(c) for c in range(dsData.getColumnCount())]\n\t\tSerialNumberIndex \u003d headers.index(\"SerialNumber\")\n\t\tLotNumberIndex \u003d headers.index(\"LotNumber\")\n\t\tseriallist \u003d dsData.getColumnAsList(SerialNumberIndex)\n\t\tLotNolist \u003d dsData.getColumnAsList(LotNumberIndex)\n\t\tif i in seriallist and i in LotNolist:\n\t\t\tsystem.perspective.print(\"Null Values Preset in the Components\")\n\t\t\tself.getSibling(\"BtnStart\").props.enabled\u003d0\n\t\t\tself.getSibling(\"BtnStart\").meta.tooltip.text\u003d \"Not able to Start, All Components Details are not Filled\"\n\t\telse:\n\t\t\tself.getSibling(\"BtnStart\").props.enabled\u003d1\n\t\t\tsystem.perspective.print(\"Null Not Preset in the Components\")\n\texcept:\n\t\t system.perspective.print(\"Error in the Borcode MouseOver\")\n"
+              },
+              "enabled": false,
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Image_1"
+        },
+        "position": {
+          "height": 24,
+          "width": 34,
+          "x": 336,
+          "y": 83
+        },
+        "props": {
+          "fit": {
+            "mode": "fill"
+          },
+          "source": "/system/images/Builtin/icons/16/barcodesmall.png"
+        },
+        "type": "ia.display.image"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "page": "/PDADashboard"
+              },
+              "scope": "C",
+              "type": "nav"
+            }
+          }
+        },
+        "meta": {
+          "name": "NavigateBackButton"
+        },
+        "position": {
+          "height": 22,
+          "width": 27.729999999999997,
+          "y": 5
+        },
+        "props": {
+          "path": "material/arrow_back"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "TableToolList"
+        },
+        "position": {
+          "height": 226,
+          "width": 363,
+          "x": 8,
+          "y": 206
+        },
+        "props": {
+          "bodyStyle": {
+            "classes": "Table/RowsBorder"
+          },
+          "columns": [
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "ToolId",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Tool Id"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 30
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "MachineId",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Machine Id"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "ToolCode",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Tool Code"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "ToolName",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Tool Name"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 60
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "EquipmentCode",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Machine Name"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "IsLoaded",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Is Loaded"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "boolean",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 40
+            }
+          ],
+          "data": {
+            "$": [
+              "ds",
+              192,
+              1672204871450
+            ],
+            "$columns": [
+              {
+                "data": [],
+                "name": "Sr No",
+                "type": "String"
+              },
+              {
+                "data": [],
+                "name": "MoldCode",
+                "type": "String"
+              }
+            ]
+          },
+          "dragOrderable": false,
+          "emptyMessage": {
+            "noData": {
+              "text": "No Records Available",
+              "textStyle": {
+                "fontSize": "14px",
+                "textAlign": "center",
+                "textTransform": "capitalize"
+              }
+            }
+          },
+          "headerStyle": {
+            "classes": "Table/Header"
+          },
+          "pager": {
+            "bottom": false,
+            "initialOption": 15,
+            "options": [
+              10,
+              15,
+              20,
+              25,
+              50
+            ]
+          },
+          "rows": {
+            "style": {
+              "classes": "Table/Rowsmiddle"
+            },
+            "subviewExpansionMode": "single"
+          },
+          "selection": {
+            "enableRowSelection": false
+          }
+        },
+        "type": "ia.display.table"
+      },
+      {
+        "meta": {
+          "name": "MultiStateButton"
+        },
+        "position": {
+          "height": 24,
+          "width": 208,
+          "x": 161,
+          "y": 31
+        },
+        "propConfig": {
+          "props.states[0].unselectedStyle.backgroundColor": {
+            "binding": {
+              "config": {
+                "path": "this.props.controlValue"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value \u003d\u003d 1:\n\t\tvalue  \u003d \u0027#00D900\u0027\n\t\tself.props.states[0].unselectedStyle.fontWeight \u003d \u0027bolder\u0027\n\telse:\n\t\tvalue  \u003d \u0027#CCFFCC96\u0027\n\t\tself.props.states[0].unselectedStyle.fontWeight\u003d \u0027lighter\u0027\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.states[1].selectedStyle.backgroundColor": {
+            "binding": {
+              "config": {
+                "path": "this.props.controlValue"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value \u003d\u003d 0:\n\t\tvalue  \u003d \u0027#00D900\u0027\n\t\tself.props.states[1].selectedStyle.fontWeight \u003d \u0027bolder\u0027\n\telse:\n\t\tvalue  \u003d \u0027#CCFFCC96\u0027\n\t\tself.props.states[1].selectedStyle.fontWeight \u003d \u0027lighter\u0027\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "controlValue": 1,
+          "defaultSelectedStyle": {
+            "backgroundColor": ""
+          },
+          "endButtonCornerRadius": 3,
+          "indicatorValue": 0,
+          "orientation": "row",
+          "states": [
+            {
+              "selectedStyle": {
+                "backgroundColor": "#CCFFCC96",
+                "classes": ""
+              },
+              "text": "Loading",
+              "unselectedStyle": {
+                "classes": "",
+                "fontWeight": "bolder"
+              },
+              "value": 1
+            },
+            {
+              "selectedStyle": {
+                "classes": "",
+                "fontWeight": "lighter"
+              },
+              "text": "Unloading",
+              "unselectedStyle": {
+                "backgroundColor": "#CCFFCC96",
+                "classes": ""
+              },
+              "value": 0
+            }
+          ]
+        },
+        "type": "ia.input.multi-state-button"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tself.getSibling(\"LblErrorMessageMold\").meta.visible \u003d False\n\tmachineScanned\u003dstr(self.getSibling(\"TxtScanMachine\").props.text)\n\tself.getSibling(\"LblErrorMoldValidation\").props.text\u003d\u0027\u0027\n\tif str(machineScanned) \u003d\u003d str(\u0027\u0027):\n\t\tself.getSibling(\"LblErrorMessageMachine\").props.text \u003d \u0027Please scan machine first\u0027\n\t\tself.getSibling(\"LblErrorMessageMachine\").meta.visible \u003d True\n\t\tself.getSibling(\"TxtScanMachine\").focus()\n\telse:\n\t\tself.getSibling(\"LblErrorMessageMachine\").meta.visible \u003d False"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "DrpdwnToolList"
+        },
+        "position": {
+          "height": 26,
+          "width": 302,
+          "x": 8,
+          "y": 138
+        },
+        "props": {
+          "options": {
+            "$": [
+              "ds",
+              192,
+              1675916286785
+            ],
+            "$columns": [
+              {
+                "data": [],
+                "name": "MoldId",
+                "type": "Integer"
+              },
+              {
+                "data": [],
+                "name": "MoldInfo",
+                "type": "String"
+              }
+            ]
+          },
+          "placeholder": {
+            "text": "Select Tool To Load"
+          },
+          "search": {
+            "noResultsText": "No Tool Found"
+          },
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tgreenColor \u003d \"#00AC00\"\n\tredColor \u003d \"#FF0000\"\n\ttry:\n\t\tWorkorderStatus \u003d 0  # This Status needs to be updated with actual status. Its Hardcoded Status.\n\t\tself.getSibling(\"LblErrorMessageMold\").meta.visible \u003d False\n\t\tuserId \u003d self.session.custom.UserId\n\t\tisLoading \u003d self.getSibling(\"MultiStateButton\").props.controlValue\n\t\tmachineId \u003d self.view.custom.MachineId\t\n\t\tmachineName \u003d self.getSibling(\"TxtScanMachine\").props.text\n\t\t\n\t\tsystem.perspective.print(\u0027machineId :\u0027 + str(machineId))\n\t\t\n\t\tlistofrunningWo \u003d ProductionOperatorConsole.CheckforRunningWos(machineId)\n\t\tfor runningWo in (listofrunningWo):\n\t\t\tisrunning \u003d runningWo.get(\u0027Valid\u0027)\n\t\t\tbreak\t\n\t\tsystem.perspective.print(\u0027isrunning: \u0027+str(isrunning))\t\t\n\t\tif isrunning \u003d\u003d 1:\n\t\t\tselectedToolId \u003d self.getSibling(\"DrpdwnToolList\").props.value\t\t\n\t\t\tds \u003d self.getSibling(\"DrpdwnToolList\").props.options\n\t\t\tds \u003d system.dataset.toPyDataSet(ds)\t\n\t\t\tfor i in ds:\n\t\t\t\tmoldIdds \u003d i[1]\n\t\t\t\tif moldIdds \u003d\u003d selectedToolId:\n\t\t\t\t\tIsMoldLoaded \u003d i[0]\n\t\t\t\t\ttoolId\u003di[1]\n\t\t\t\t\ttoolName \u003d i[2]\n\t\t\t\t\tbreak\n\t\t\t\n\t\t\tsystem.perspective.print(\u0027Is Mold Loaded status :\u0027 + str(IsMoldLoaded))\n\t\t\tsystem.perspective.print(\u0027toolId status :\u0027 + str(toolId))\n\t\t\tsystem.perspective.print(\u0027toolName status :\u0027 + str(toolName))\n\t\t\t\n\t\t\tMachineToolId \u003d toolId\n\t\t\tMaintenanceTypeId \u003d 2\n\t\t\tcheckMainatenanceOrderStatus \u003dProductionOperatorConsole.IsMaintenanceOrderPresent(MachineToolId,MaintenanceTypeId)\n\t\t\t\n\t\t\tIsmaintenanceOrderCreated \u003d checkMainatenanceOrderStatus[0]\n\t\t\tmaintenanceOrderNo \u003d checkMainatenanceOrderStatus[1]\n\t\t\tmaintenanceTypeName \u003d checkMainatenanceOrderStatus[2]\n\t\t\t\n\t\t\tsystem.perspective.print(\u0027IsmaintenanceOrderCreated : \u0027 + str(IsmaintenanceOrderCreated))\n\t\t\tsystem.perspective.print(\u0027maintenanceOrderNo : \u0027 + str(maintenanceOrderNo))\n\t\t\tsystem.perspective.print(\u0027maintenanceTypeName : \u0027 + str(maintenanceTypeName))\n\t\n\t\t\tif WorkorderStatus \u003d\u003d 0 or WorkorderStatus \u003d\u003d 2:\n\t\t\t\tif str(isLoading) \u003d\u003d str(\u00271\u0027):\n\t\t\t\t\tif IsMoldLoaded \u003d\u003d False:\n\t\t\t\t\t\tif str(IsmaintenanceOrderCreated) \u003d\u003d str(\u00270\u0027):\n\t\t\t\t\t\t\tIsLoaded \u003d True\n\t\t\t\t\t\t\tpostStatus \u003d ProductionOperatorConsole.postMoldLoadingStatus(toolId,machineId,IsLoaded,userId,0)\n\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMold\").props.textStyle.color \u003d greenColor\n\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMold\").props.text \u003d toolName +\u0027 is loaded successfully\u0027\n\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMold\").meta.visible \u003d True\t\t\t\t\n\t\t\t\t\t\t\tself.getSibling(\"DrpdwnToolList\").props.options \u003d ProductionOperatorConsole.getToolListDropDown(machineName,userId)  # Load the data into Dropdown\n\t\t\t\t\t\telse:\n\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMold\").props.textStyle.color \u003d redColor\n\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMold\").props.text \u003d maintenanceTypeName+\" order (\"+str(maintenanceOrderNo) +\") is present for \"+str(toolName)\n\t\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMold\").meta.visible \u003d True\t\n\t\t\t\t\telse:\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMold\").props.textStyle.color \u003d redColor\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMold\").props.text \u003d toolName +\u0027 is already loaded to scanned machine\u0027\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMold\").meta.visible \u003d True\t\t\n\t\t\t\telse:\n\t\t\t\t\tif IsMoldLoaded \u003d\u003d True:\n\t\t\t\t\t\tIsLoaded \u003d False\n\t\t\t\t\t\tpostStatus\u003dProductionOperatorConsole.postMoldLoadingStatus(toolId,machineId,IsLoaded,userId,0)\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMold\").props.textStyle.color \u003d greenColor\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMold\").props.text \u003d toolName +\u0027 is unloaded successfully\u0027\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMold\").meta.visible \u003d True\n\t\t\t\t\t\tself.getSibling(\"DrpdwnToolList\").props.placeholder.text \u003d \"Select Tool\"\n\t\t\t\t\t\tself.getSibling(\"DrpdwnToolList\").props.options \u003d ProductionOperatorConsole.getToolListDropDown(machineName,userId)  # Load the data into Dropdown\n\t\t\t\t\telse:\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMold\").props.textStyle.color \u003d redColor\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMold\").props.text \u003d toolName +\u0027 is already unloaded from scanned machine\u0027\n\t\t\t\t\t\tself.getSibling(\"LblErrorMessageMold\").meta.visible \u003d True\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\ttableData \u003d ProductionOperatorConsole.getToolLoadingUnloadingDetails(machineName)\n\t\t\t\tself.getSibling(\"TableToolList\").props.data \u003d tableData\n\t\t\telse:\t\t\t\n\t\t\t\tself.getSibling(\"LblErrorMessageMold\").props.textStyle.color \u003d redColor\n\t\t\t\tself.getSibling(\"LblErrorMessageMold\").props.text \u003d \u0027Failed to Load/Unload Tool : -\u0027 + str(toolName)\n\t\t\t\tself.getSibling(\"LblErrorMessageMold\").meta.visible \u003d True\n\t\t\t\tsystem.perspective.print(\"Can Not Performed the loading and unloading\")\n\t\telse:\n\t\t\trunningWo \u003d runningWo.get(\u0027RunningWorkOrder\u0027)\n\t\t\tself.getSibling(\"LblErrorMessageMold\").props.textStyle.color \u003d redColor\n\t\t\tself.getSibling(\"LblErrorMessageMold\").props.text \u003d str(runningWo) +(\" Workorder is In-Progress, Can not Load/Unload Mold\")\n\t\t\tself.getSibling(\"LblErrorMessageMold\").meta.visible \u003d True\n\n\texcept:\n\t\tself.getSibling(\"LblErrorMessageMold\").props.textStyle.color \u003d redColor\n\t\tself.getSibling(\"LblErrorMessageMold\").props.text \u003d \u0027Error occurred while Loading/Unloading Tool : -\u0027 + str(toolName)\n\t\tself.getSibling(\"LblErrorMessageMold\").meta.visible \u003d True\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: Production Operator Console: Tool OK Button: on Action Performed \u0027:\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnOk"
+        },
+        "position": {
+          "height": 26,
+          "width": 50,
+          "x": 320,
+          "y": 138
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "../DrpdwnToolList.props.value"
+              },
+              "transforms": [
+                {
+                  "code": "\ttoolSelected \u003d value\n\tmachineScanned \u003d str(self.getSibling(\"TxtScanMachine\").props.text).strip()\n\tif toolSelected !\u003d \u0027\u0027 and machineScanned !\u003d \u0027\u0027:\n\t\tvalue \u003d True\n\t\tself.props.style.backgroundColor \u003d \"#3888CC\"\n\t\tself.props.style.borderColor \u003d \"#3888CC\"\n\telse:\n\t\tvalue \u003d False\n\t\tself.props.style.backgroundColor \u003d str(self.session.custom.disableBtncolour)\n\t\tself.props.style.borderColor \u003d str(self.session.custom.disableBtncolour)\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "value",
+            "borderColor": "value"
+          },
+          "text": "Ok"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "LblErrorMessageMold",
+          "visible": false
+        },
+        "position": {
+          "height": 31,
+          "width": 356,
+          "x": 12,
+          "y": 169
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Silicone-MS001 is unloaded successfully",
+          "textStyle": {
+            "classes": "PDA/lblWarning",
+            "color": "#00AC00"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblTool"
+        },
+        "position": {
+          "height": 17,
+          "width": 52,
+          "x": 8,
+          "y": 119
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/PDALabel"
+          },
+          "text": "Tool:",
+          "textStyle": {
+            "classes": "PDA/PDALabel"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.print(\"Operation: Clear Scanned Machine\")\n\tself.getSibling(\"TxtScanMachine\").props.text \u003d \"\"\t\n\tself.getSibling(\"TxtScanMachine\").props.placeholder \u003d \"Scan/Enter Machine Code\"\n\t\n\tself.getSibling(\"DrpdwnToolList\").props.options \u003d \"\"\n\tself.getSibling(\"DrpdwnToolList\").props.value \u003d \"\"\n\tself.getSibling(\"DrpdwnToolList\").props.placeholder.text \u003d \"Select Tool\"\n\tself.getSibling(\"LblErrorMessageMold\").meta.visible \u003d False\n\t\n\tself.getSibling(\"TableToolList\").props.data \u003d \"\"\n\tsystem.perspective.print(\"Operation: Cleared Scanned Machine\")\n\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnClearMachineCode"
+        },
+        "position": {
+          "height": 22,
+          "width": 38,
+          "x": 305,
+          "y": 84.5
+        },
+        "props": {
+          "path": "material/arrow_back"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.print(\"Operation: Clear Scanned Machine\")\n\tself.getSibling(\"TxtScanMachine\").props.text \u003d \"\"\t\n\tself.getSibling(\"TxtScanMachine\").props.placeholder \u003d \"Scan/Enter Machine Code\"\n\t\n\tself.getSibling(\"DrpdwnToolList\").props.options \u003d \"\"\n\tself.getSibling(\"DrpdwnToolList\").props.value \u003d \"\"\n\tself.getSibling(\"DrpdwnToolList\").props.placeholder.text \u003d \"Select Tool\"\n\tself.getSibling(\"LblErrorMessageMold\").meta.visible \u003d False\n\t\n\tself.getSibling(\"TableToolList\").props.data \u003d \"\"\n\tsystem.perspective.print(\"Operation: Cleared Scanned Machine\")\n\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnClearMachineCode_0"
+        },
+        "position": {
+          "height": 22,
+          "width": 38,
+          "x": 305,
+          "y": 84.5
+        },
+        "props": {
+          "path": "material/arrow_back"
+        },
+        "type": "ia.display.icon"
+      }
+    ],
+    "meta": {
+      "name": "root",
+      "tooltip": {
+        "text": "Operation Already Started"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

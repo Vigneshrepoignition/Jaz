@@ -1,0 +1,163 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\tscriptName \u003d \"PMTC: CharTextBox: On Startup\"\n\t\tds\u003dself.view.params.rowData\n\t\tSelctedRow\u003dself.view.params.rowIndex\n\t\tcolumnName\u003dself.view.params.column\n\t\t\n\t\tif str(columnName).strip()\u003d\u003d\u0027RequestedQty\u0027:\n\t\t\tself.getChild(\"root\").getChild(\"txtValue\").meta.visible\u003d1\n\t\t\tself.getChild(\"root\").getChild(\"txtInstrumentSerialNo\").meta.visible\u003d0\n\t\t\trequestQty\u003dds[\u0027RequestedQty\u0027]\n\t\t\tself.getChild(\"root\").getChild(\"txtValue\").props.value\u003drequestQty\n\t\t\t\n\t\telif str(columnName).strip()\u003d\u003d\u0027ConsumedQty\u0027:\n\t\t\tself.getChild(\"root\").getChild(\"txtValue\").meta.visible\u003d1\n\t\t\tself.getChild(\"root\").getChild(\"txtInstrumentSerialNo\").meta.visible\u003d0\n\t\t\tConsumedQty\u003dds[\u0027ConsumedQty\u0027]\n\t\t\tself.getChild(\"root\").getChild(\"txtValue\").props.value\u003dConsumedQty\n\t\t\t\n\t\telif str(columnName).strip()\u003d\u003d\u0027Action\u0027:\n\t\t\tself.getChild(\"root\").getChild(\"txtValue\").meta.visible\u003d0\n\t\t\tself.getChild(\"root\").getChild(\"txtInstrumentSerialNo\").meta.visible\u003d1\n\t\t\tText\u003dds[\u0027Action\u0027]\n\t\t\tself.getChild(\"root\").getChild(\"txtInstrumentSerialNo\").props.text\u003dText\n\t\telif str(columnName).strip()\u003d\u003d\u0027Comments\u0027:\n\t\t\tself.getChild(\"root\").getChild(\"txtValue\").meta.visible\u003d0\n\t\t\tself.getChild(\"root\").getChild(\"txtInstrumentSerialNo\").meta.visible\u003d1\n\t\t\tComments\u003dds[\u0027Comments\u0027]\n\t\t\tself.getChild(\"root\").getChild(\"txtInstrumentSerialNo\").props.text\u003dComments\n\t\telse:\n\t\t\tpass\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "column": "value",
+    "columnIndex": "value",
+    "row": "value",
+    "rowData": "value",
+    "rowIndex": "value"
+  },
+  "propConfig": {
+    "params.column": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.columnIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.row": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 34,
+      "width": 128
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\n\t\tscriptName \u003d \"PMTC: On Action Performed: View Charac Text box\"\n\t\tSelctedRow\u003dself.view.params.rowIndex\n\t\tcolumnName\u003dself.view.params.column\t\n\t\tsystem.perspective.print(\u0027Sending Message e han dler ------------\u003e\u0027)\n\t\tif columnName \u003d\u003d \"RequestedQty\":\n\t\t\tds\u003dself.view.params.rowData\n\t\t\trequestQty\u003dself.props.value\n\t\t\treqQty\u003dds[\u0027RequestedQty\u0027]\n\t\t\tonHandQty\u003dds[\u0027onHandQty\u0027]\n\t\t\tTotalRequestedQty\u003dds[\u0027TotalRequestedQty\u0027]\n\t\t\tdifferenceQty \u003d int(onHandQty) - int(TotalRequestedQty)\n\t\t\t\n\t\t\tif int(requestQty) \u003e int(0):\n\t\t\t\tif int(requestQty) \u003c\u003d int(onHandQty):\n\t\t\t\t\tmessageType \u003d \u0027updateRequestTable\u0027\n\t\t\t\t\tsystem.perspective.sendMessage(messageType, payload \u003d {\"columnName\":columnName,\"requestQty\":requestQty,\"SelctedRow\":SelctedRow}, scope \u003d \"page\")\n\t\t\t\t\tsystem.perspective.print(\u0027Sending Message e han dler ------------\u003e\u0027)\n\t\t\t\telse:\n\t\t\t\t\tMessageText \u003d \"Please enter quantity less than In-HandQty : \" + str(onHandQty) \n\t\t\t\t\tsystem.perspective.openPopup(\u0027MessagePopup\u0027,\u0027Project_MES_Solution/Maint Operator Console_RM/MessageBoxPopup\u0027,params\u003d{\"MessageText\": MessageText,\"ErrorVisible\": True,\"SuccessVisible\":False},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\tself.props.value\u003dreqQty\n#\t\t\t\t\tmessageType \u003d \"ErrorMessage\"\n#\t\t\t\t\tsystem.perspective.sendMessage(messageType,scope \u003d \"page\")\n\t\t\telse:\n\t\t\t\tself.props.value\u003d0\n\t\telif columnName \u003d\u003d \"ConsumedQty\":\n\t\t\tds\u003dself.view.params.rowData\n\t\t\tconsumeQty\u003dself.props.value\n\t\t\tTotalConsumedQty \u003d ds[\u0027TotalConsumedQty\u0027]\n\t\t\tConsumedQty \u003d ds[\u0027ConsumedQty\u0027]\n\t\t\tAllocatedQty \u003d ds[\u0027AllocatedQty\u0027]\n\t\t\tmessageType \u003d \"UpdateConsumeTable\"\n\t\t\t\n\t\t\tDifferenceQty \u003d AllocatedQty - TotalConsumedQty\n\t\t\tif int(consumeQty) \u003e int(0):\n\t\t\t\tif int(consumeQty) \u003c\u003d (int(AllocatedQty)):\n\t\t\t\t\tif int(consumeQty) \u003c\u003d (int(DifferenceQty)):\n\t\t\t\t\t\tsystem.perspective.sendMessage(messageType,payload \u003d {\"columnName\":columnName,\"consumeQty\":consumeQty,\"SelctedRow\":SelctedRow},scope \u003d \"page\")\n\t\t\t\t\telse:\n\t\t\t\t\t\tself.props.value\u003d ConsumedQty\n\t\t\t\t\t\tsystem.perspective.sendMessage(messageType,payload \u003d {\"columnName\":columnName,\"consumeQty\":consumeQty,\"SelctedRow\":SelctedRow},scope \u003d \"page\")\n\t\t\t\telse:\n\t\t\t\t\tself.props.value\u003d ConsumedQty\n\t\t\t\t\tsystem.perspective.sendMessage(messageType,payload \u003d {\"columnName\":columnName,\"consumeQty\":consumeQty,\"SelctedRow\":SelctedRow},scope \u003d \"page\")\n\t\t\telse:\n\t\t\t\tself.props.value\u003d ConsumedQty\n\t\t\t\tsystem.perspective.sendMessage(messageType,payload \u003d {\"columnName\":columnName,\"consumeQty\":consumeQty,\"SelctedRow\":SelctedRow},scope \u003d \"page\")\n\t\telse:\n\t\t\tpass\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "txtValue",
+          "visible": 1
+        },
+        "position": {
+          "height": 0.8824,
+          "width": 0.9375,
+          "x": 0.0234
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "session.custom.WOOperationStatus"
+              },
+              "transforms": [
+                {
+                  "code": "\tmaintenanceType \u003d self.session.custom.PMType  #1-Machine 2-Tools\n\tif str(maintenanceType) \u003d\u003d str(\u00271\u0027) or int(maintenanceType) \u003d\u003d int(1):\n\t\tif value \u003d\u003d str(\"In-Progress\"):# and str(self.session.custom.authorizeMaintenancePMMachineReadOnly) \u003d\u003d str(\u00271\u0027):\n\t\t\tvalue \u003d True\n\t\telse:\n\t\t\tvalue \u003d False \n\telse:\n\t\tif value \u003d\u003d str(\"In-Progress\"):# and str(self.session.custom.authorizeMaintenancePMToolsReadOnly) \u003d\u003d str(\u00271\u0027):\n\t\t\tvalue \u003d True\n\t\telse:\n\t\t\tvalue \u003d False \n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "align": "center",
+          "format": "none",
+          "inputBounds": {
+            "minimum": 0
+          },
+          "style": {
+            "backgroundColor": "#FFFFFF",
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.input.numeric-entry-field"
+      },
+      {
+        "events": {
+          "dom": {
+            "onKeyPress": {
+              "config": {
+                "script": "\tif str(event.key).lower() \u003d\u003d str(\"enter\").lower():\n\t\ttext\u003dself.props.text\n\t\trowData\u003dself.view.params.rowData\n\t\tSelctedRow\u003dself.view.params.rowIndex\n\t\tcolumnName\u003dself.view.params.column\n\t\ttext\u003d(self.props.text).strip()\n\t\tif columnName \u003d\u003d \"Action\":\n\t\t\tselection\u003drowData[\u0027OkSelectedTxt\u0027]\n\t\t\tmessageType \u003d \"UpdateTextTask\"\n\t\t\tsystem.perspective.sendMessage(messageType,payload \u003d {\"columnName\":columnName,\"updatedText\":text,\"selection\":selection,\"SelctedRow\":SelctedRow},scope \u003d \"page\")\n\t\telse:\n\t\t\tmessageType \u003d \"UpdateConsumeTable\"\n\t\t\tsystem.perspective.sendMessage(messageType,payload \u003d {\"columnName\":columnName,\"Comments\":text,\"SelctedRow\":SelctedRow},scope \u003d \"page\")\n\t\t\tpass\n\telse:\n\t\tpass"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "txtInstrumentSerialNo",
+          "visible": 0
+        },
+        "position": {
+          "height": 0.8824,
+          "width": 0.9375,
+          "x": 0.0234
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "session.custom.WOOperationStatus"
+              },
+              "transforms": [
+                {
+                  "code": "\tmaintenanceType \u003d self.session.custom.PMType  #1-Machine 2-Tools\n\tif str(maintenanceType) \u003d\u003d str(\u00271\u0027) or int(maintenanceType) \u003d\u003d int(1):\n\t\tif value \u003d\u003d str(\"In-Progress\"):# and str(self.session.custom.authorizeMaintenancePMMachineReadOnly) \u003d\u003d str(\u00271\u0027):\n\t\t\tvalue \u003d True\n\t\telse:\n\t\t\tvalue \u003d False \n\telse:\n\t\tif value \u003d\u003d str(\"In-Progress\"):# and str(self.session.custom.authorizeMaintenancePMToolsReadOnly) \u003d\u003d str(\u00271\u0027):\n\t\t\tvalue \u003d True\n\t\telse:\n\t\t\tvalue \u003d False \n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.text": {
+            "onChange": {
+              "enabled": null,
+              "script": "\ttext\u003dself.props.text\n\trowData\u003dself.view.params.rowData\n\tSelctedRow\u003dself.view.params.rowIndex\n\tcolumnName\u003dself.view.params.column\n\ttext\u003d(self.props.text).strip()\n\tif columnName \u003d\u003d \"Action\":\n\t\tif str(text) \u003d\u003d \"\":\n\t\t\tselection\u003drowData[\u0027OkSelectedTxt\u0027]\n\t\t\tmessageType \u003d \"UpdateTextTask\"\n\t\t\tsystem.perspective.sendMessage(messageType,payload \u003d {\"columnName\":columnName,\"updatedText\":text,\"selection\":selection,\"SelctedRow\":SelctedRow},scope \u003d \"page\")\n\t\telse:\n\t\t\tpass\n\telse:\n\t\tmessageType \u003d \"UpdateConsumeTable\"\n\t\tsystem.perspective.sendMessage(messageType,payload \u003d {\"columnName\":columnName,\"Comments\":text,\"SelctedRow\":SelctedRow},scope \u003d \"page\")\n\t\tpass"
+            }
+          }
+        },
+        "props": {
+          "deferUpdates": false,
+          "rejectUpdatesWhileFocused": false,
+          "style": {
+            "backgroundColor": "#FFFFFF",
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.input.text-field"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

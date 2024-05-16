@@ -1,0 +1,1680 @@
+{
+  "custom": {
+    "isUpdateTable": 0
+  },
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\timport os\n\timport sys\n\timport re\n\timport json\n\timport urllib2, urllib\n\timport base64\n\timport json\n\ttry:\n\t\t\n\t\tUserID \u003d str(self.session.custom.UserId).strip()\n\t\tself.custom.isUpdateTable\u003d0\n\t\tif self.session.custom.authorizePrintingAndPackingConfiguration!\u003d1:\n\t\t\tsystem.perspective.navigate(\u0027/LoginScreen\u0027)\n\t\telse:\n\n\t\t\tif UserID !\u003d\u0027\u0027:\n\t\t\t\tlineId\u003d0\n\t\n\t\t\t\tassignedDetails \u003dPrinterConfiguration.GetLineWisePrinterList(0)\n\t\t\t\tgetlineList\u003dPrinterConfiguration.GetEnterPrisePlantLinesOnAreaChange(0)\n\t\t\n\t\t\t\tif len(assignedDetails)\u003e0:\n\t\t\t\t\tself.getChild(\"root\").getChild(\"ColumnContainer_3\").getChild(\"Table\").props.data\u003dassignedDetails\n\t\t\t\t\n\t\t\t\t\n\t\t\t\tlineListArea\u003d[]\n\t\t\t\tlistLinePrint\u003d[]\n\t\t\t\tfor i in assignedDetails:\n\t\t\t\t\tlineListArea.append(int( i[\u0027LineId\u0027]))\n\t\t\t\t\t\n\t\t\t\tfor i in getlineList:\n\t\t\t\t\tlistLinePrint.append( int(i[0]))\n\t\t\t\t\n\t\t\t\tlineListArea\u003dlist(lineListArea)\n\t\t\t\tlistLinePrint\u003dlist(listLinePrint)\t\n\t\t\n\t\t\n\t\t\t\tlineList \u003d list(set(listLinePrint) - set(lineListArea))\n\t\t\t\tIsEnabled\u003d1\n\t\t\t\tIsActive\u003d1\n\t\t\t\tUserId\u003dself.session.custom.UserId\n\t\t\t\tprinterId\u003d0\n\t\t\t\tprintName\u003d \"\"\n\t\t\t\tprintIP\u003d \"\"\n\t\t\t\tprintPort\u003d0\n\t\t\t\tif lineList!\u003d[]:\n\t\t\t\t\tresult\u003dPrinterConfiguration.addLineWisePrinter(lineList,printName,printIP,printPort,UserId,printerId,IsEnabled,IsActive)\n\t\t#\t\t\t\tareaId\u003dself.props.value\n\t\t\t\t\t\n\t\t\t\tassignedDetails \u003dPrinterConfiguration.GetLineWisePrinterList(0)\n\t\t\t\tif len(assignedDetails)\u003e0:\n\t\t\n\t\t\t\t\tself.getChild(\"root\").getChild(\"ColumnContainer_3\").getChild(\"Table\").props.data\u003dassignedDetails\n\t\t\t\t\t\n\t\t\t\t\tfrom threading import Timer\n\t\t\t\t\tdef runThisLater():\n\t\t\t\t\t\tself.custom.isUpdateTable\u003d1\n\t\t\t\t\tTimer(3.0, runThisLater).start()\n\t\t\t\telse:\n\t\t\t\t\tself.getChild(\"root\").getChild(\"ColumnContainer_3\").getChild(\"Table\").props.data\u003dNone\n\t\t\t\n\t\t\t\t\n\t\t\t\n\texcept:\n\n\t\timport sys, os\n\t\tself.custom.isUpdateTable\u003d1\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)\t\n\t\tsystem.perspective.print(errorMessage)\n\t\t"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "propConfig": {
+    "custom.isUpdateTable": {
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 905,
+      "width": 1373
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "height": 0.8824,
+              "width": 0.2888,
+              "x": 0.0148,
+              "y": -0.0098
+            },
+            "props": {
+              "text": "Printer Configuration",
+              "textStyle": {
+                "classes": "Common/Label_Header"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "CoordinateContainer_1"
+        },
+        "position": {
+          "height": 0.0556,
+          "width": 1
+        },
+        "props": {
+          "mode": "percent",
+          "style": {
+            "backgroundColor": "#EDF0F0"
+          }
+        },
+        "type": "ia.container.coord"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Table"
+            },
+            "position": {
+              "breakpoints": [
+                {
+                  "colIndex": 0,
+                  "name": "sm",
+                  "order": 0,
+                  "rowIndex": 0,
+                  "span": 9
+                },
+                {
+                  "colIndex": 0,
+                  "name": "md",
+                  "order": 0,
+                  "rowIndex": 0,
+                  "span": 11
+                },
+                {
+                  "colIndex": 0,
+                  "name": "lg",
+                  "order": 1,
+                  "rowIndex": 0,
+                  "span": 12
+                }
+              ],
+              "height": 572
+            },
+            "props": {
+              "bodyStyle": {
+                "classes": "Table/RowsBorder"
+              },
+              "columns": [
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "SRNo",
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "center",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "SR No"
+                  },
+                  "justify": "center",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "number",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": false,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": 50
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "PrinterId",
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "PrinterId"
+                  },
+                  "justify": "auto",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": false,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": false,
+                  "width": ""
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "PrinterName",
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Printer Name"
+                  },
+                  "justify": "auto",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "view",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": false,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {
+                    "column": "value",
+                    "columnIndex": "value",
+                    "row": "value",
+                    "rowData": "value",
+                    "rowIndex": "value"
+                  },
+                  "viewPath": "Project_MES_Solution/Printing/Template/PrinterTextBox",
+                  "visible": false,
+                  "width": 100
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "LineName",
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Host / IP"
+                  },
+                  "justify": "auto",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "string",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": false,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {
+                    "column": "value",
+                    "columnIndex": "value",
+                    "row": "value",
+                    "rowData": "value",
+                    "rowIndex": "value"
+                  },
+                  "viewPath": "Project_MES_Solution/Printing/Template/PrinterTextBox",
+                  "visible": true,
+                  "width": 60
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "PrinterIP",
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Host / IP"
+                  },
+                  "justify": "auto",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "view",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": false,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {
+                    "column": "value",
+                    "columnIndex": "value",
+                    "row": "value",
+                    "rowData": "value",
+                    "rowIndex": "value"
+                  },
+                  "viewPath": "Project_MES_Solution/Printing/Template/PrinterTextBox",
+                  "visible": true,
+                  "width": 100
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "Port",
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Port"
+                  },
+                  "justify": "auto",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "view",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": false,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {
+                    "column": "value",
+                    "columnIndex": "value",
+                    "row": "value",
+                    "rowData": "value",
+                    "rowIndex": "value"
+                  },
+                  "viewPath": "Project_MES_Solution/Printing/Template/PrinterTextBox",
+                  "visible": true,
+                  "width": 100
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "LineName",
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Line Name"
+                  },
+                  "justify": "auto",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": false,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": false,
+                  "width": 60
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "IsEnabled",
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Enabled"
+                  },
+                  "justify": "left",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "view",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": false,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {
+                    "column": "value",
+                    "columnIndex": "value",
+                    "row": "value",
+                    "rowData": "value",
+                    "rowIndex": "value",
+                    "value": "value"
+                  },
+                  "viewPath": "Project_MES_Solution/Printing/Template/CheckBoxSelect",
+                  "visible": false,
+                  "width": 50
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "CreatedBy",
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "CreatedBy"
+                  },
+                  "justify": "auto",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": false,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {
+                    "column": "value",
+                    "columnIndex": "value",
+                    "row": "value",
+                    "rowData": "value",
+                    "rowIndex": "value",
+                    "value": "value"
+                  },
+                  "viewPath": "Project_MES_Solution/Warehouse Operator Console/Template/ViewEditDeleteWarehouseOperatorConsole",
+                  "visible": true,
+                  "width": 60
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "CreatedOn",
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Created On"
+                  },
+                  "justify": "auto",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": false,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": 60
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "ModifiedBy",
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "ModifiedBy"
+                  },
+                  "justify": "auto",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": false,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": 60
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "ModifiedOn",
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "ModifiedOn"
+                  },
+                  "justify": "auto",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": false,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": 60
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "LineId",
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "LineId"
+                  },
+                  "justify": "auto",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": false,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": false,
+                  "width": ""
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "IsActive",
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "IsActive"
+                  },
+                  "justify": "auto",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "view",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": false,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {
+                    "column": "value",
+                    "columnIndex": "value",
+                    "dataset": "value",
+                    "row": "value",
+                    "rowData": "value",
+                    "rowIndex": "value",
+                    "value": "value"
+                  },
+                  "viewPath": "Project_MES_Solution/Printing/Template/CheckBoxSelect",
+                  "visible": false,
+                  "width": 50
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "View",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Action"
+                  },
+                  "justify": "auto",
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": false,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": false,
+                  "width": ""
+                }
+              ],
+              "data": {
+                "$": [
+                  "ds",
+                  192,
+                  1677636125456
+                ],
+                "$columns": [
+                  {
+                    "data": [],
+                    "name": "SRNo",
+                    "type": "Integer"
+                  },
+                  {
+                    "data": [],
+                    "name": "PrinterId",
+                    "type": "Long"
+                  },
+                  {
+                    "data": [],
+                    "name": "PrinterName",
+                    "type": "String"
+                  },
+                  {
+                    "data": [],
+                    "name": "PrinterIP",
+                    "type": "String"
+                  },
+                  {
+                    "data": [],
+                    "name": "Port",
+                    "type": "String"
+                  },
+                  {
+                    "data": [],
+                    "name": "LineName",
+                    "type": "String"
+                  },
+                  {
+                    "data": [],
+                    "name": "IsActive",
+                    "type": "Boolean"
+                  },
+                  {
+                    "data": [],
+                    "name": "CreatedBy",
+                    "type": "String"
+                  },
+                  {
+                    "data": [],
+                    "name": "CreatedOn",
+                    "type": "String"
+                  },
+                  {
+                    "data": [],
+                    "name": "ModifiedBy",
+                    "type": "String"
+                  },
+                  {
+                    "data": [],
+                    "name": "ModifiedOn",
+                    "type": "String"
+                  },
+                  {
+                    "data": [],
+                    "name": "LineId",
+                    "type": "Long"
+                  },
+                  {
+                    "data": [],
+                    "name": "IsEnabled",
+                    "type": "Boolean"
+                  },
+                  {
+                    "data": [],
+                    "name": "View",
+                    "type": "String"
+                  }
+                ]
+              },
+              "filter": {
+                "enabled": true,
+                "style": {
+                  "opacity": "1"
+                }
+              },
+              "headerStyle": {
+                "classes": "Table/Header"
+              },
+              "rows": {
+                "style": {
+                  "classes": "Table/Rowsmiddle"
+                }
+              },
+              "selection": {
+                "style": {
+                  "backgroundColor": "#77B9BD40"
+                }
+              }
+            },
+            "scripts": {
+              "customMethods": [],
+              "extensionFunctions": null,
+              "messageHandlers": [
+                {
+                  "messageType": "PrinterConfigurationHandler",
+                  "pageScope": true,
+                  "script": "\ttry:\n\t\tscriptName\u003d\"Message Handler PrinterConfigurationHandler rConsoleTable \"\n\t\tselColumn\u003dpayload[\u0027columnName\u0027]\n\t\tsystem.perspective.print(\"selColumn \"+str(selColumn))\n\t\tNo\u003dpayload[\u0027ChangeValue\u0027]\n\t\tsystem.perspective.print(\"No \"+str(No))\n\t\tselRow\u003dpayload[\u0027SelctedRow\u0027]\n\t\tsystem.perspective.print(\"selRow \"+str(selRow))\n\t\tupdatedValue\u003dNo    \n\t\tdtSet\u003dself.props.data \n\t\tsystem.perspective.print(\"selColumn \"+str(selColumn))\n\t\tsystem.perspective.print(\"updatedValue \"+str(updatedValue))\n#\t\tdtSet\u003d system.dataset.toDataSet(dtSet)    \n\t\tupdateRowResultDs \u003d {selColumn:updatedValue}    \n\t\tsystem.perspective.print(\"befotr update\")\n\t\tresultpyData \u003d system.dataset.updateRow(dtSet,selRow,updateRowResultDs)        \n\t\tsystem.perspective.print(\"after update\")\n\t\tds\u003d system.dataset.toPyDataSet(resultpyData)    \n\t\tsystem.perspective.print(\"after convert\")\n\t\tself.props.data\u003dds\n\t\tsystem.perspective.print(\"after bind\")\n\t\n\t\t\n\t\n\t\tsystem.perspective.print(\"CALL api \")\n\t\tds \u003d system.dataset.toPyDataSet(ds)\n\t\tcount\u003d0\n\t\tisUpdate\u003d0\n\t\tfor i in ds:\n\t\t\tif count\u003d\u003dselRow:\n\t\t\t\tprinterId\u003di[\u0027PrinterId\u0027]\n\t\t\t\tprintName\u003di[\u0027PrinterName\u0027]\n\t\t\t\tprintPort\u003di[\u0027Port\u0027]\n\t\t\t\tprintIP\u003di[\u0027PrinterIP\u0027]\n\t\t\t\tIsEnabled\u003di[\u0027IsEnabled\u0027]\n\t\t\t\tIsActive\u003di[\u0027IsActive\u0027]\n\t\t\t\tUserId\u003dself.session.custom.UserId\n\t\t\t\tisUpdate\u003d1\n\t\t\t\t\t\n\t\t\t\tbreak\n\t\t\tcount\u003dcount+1\n\t\tsystem.perspective.print(\"isUpdate \"+str(isUpdate))\t\n#\t\tif \tisUpdate\u003d\u003d1:\n\t\tif \tisUpdate\u003d\u003d1 and self.view.custom.isUpdateTable\u003d\u003d1:\n\t\t\tlineList\u003d[]\n\t\t\tresult\u003d PrinterConfiguration.addLineWisePrinter(lineList,printName,printIP,printPort,UserId,printerId,IsEnabled,IsActive)\n\t\t\tsystem.perspective.print(\"result \"+str(result))\n\t\t\tif \tresult\u003d\u003d1:\t\t\n#\t\t\t\tareaId\u003dself.parent.parent.getChild(\"CoordinateContainer_2\").getChild(\"AreaDrpDwn\").props.value\n\t\t\t\tassignedDetails \u003dPrinterConfiguration.GetLineWisePrinterList(0)\n\t\t\t\tif len(assignedDetails)\u003e0:\n\t\t\t\t\n\t\t\t\t\tself.props.data\u003dassignedDetails\n\t\t\t\telse:\n\t\t\t\t\tself.props.data\u003dNone\n\t\t\t\t\n\n\texcept Exception as e:\n\t\timport sys, os\n\t\texc_tb \u003d sys.exc_info()\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\t\n\t\tAuthentication.exceptionLogger(errorMessage)\n\t\tsystem.perspective.print(errorMessage)\n\t\t\t",
+                  "sessionScope": false,
+                  "viewScope": false
+                },
+                {
+                  "messageType": "PrinterConfigurationTableRefresh",
+                  "pageScope": true,
+                  "script": "\t# implement your handler here\n#\tareaId\u003dself.parent.parent.getChild(\"CoordinateContainer_2\").getChild(\"AreaDrpDwn\").props.value\n\tassignedDetails \u003dPrinterConfiguration.GetLineWisePrinterList(0)\n\tif len(assignedDetails)\u003e0:\n\t\n\t\tself.props.data\u003dassignedDetails\n\telse:\n\t\tself.props.data\u003dNone",
+                  "sessionScope": false,
+                  "viewScope": false
+                }
+              ]
+            },
+            "type": "ia.display.table"
+          }
+        ],
+        "meta": {
+          "name": "ColumnContainer_3"
+        },
+        "position": {
+          "height": 0.7702,
+          "width": 1,
+          "y": 0.1722
+        },
+        "type": "ia.container.column"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "EnterpriseLbl"
+            },
+            "position": {
+              "height": 0.6522,
+              "width": 0.0624,
+              "x": 0.0103,
+              "y": 0.1734
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "#EDF0F0",
+                "classes": "Common/Label"
+              },
+              "text": "Enterprise",
+              "textStyle": {
+                "classes": "Common/OprConsoleLabelText"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "custom": {
+              "entID": "value",
+              "entName": "value"
+            },
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\ttry:\n\t\t\tself.parent.parent.getChild(\"ColumnContainer_3\").getChild(\"Table\").props.data\u003dNone\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: Line Lead Console :: Enterprise Dropdown :\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)\t"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "EnterpriseDrpDwn",
+              "tooltip": {
+                "location": "bottom-right",
+                "style": {
+                  "classes": "Common/ToolTip"
+                }
+              }
+            },
+            "position": {
+              "height": 0.6522,
+              "width": 0.1197,
+              "x": 0.0844,
+              "y": 0.1726
+            },
+            "propConfig": {
+              "props.options": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.UserId"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tuserID \u003d value \n\ttry:\n\t\tvalue  \u003d PlantHirarchyAPI.getEnterpriseList(userID)\t\n\texcept:\n\t\tvalue \u003d \u0027\u0027\t\n\treturn value",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "placeholder": {
+                "text": "Select Enterprise"
+              },
+              "style": {
+                "classes": "Common/TextBox"
+              }
+            },
+            "type": "ia.input.dropdown"
+          },
+          {
+            "meta": {
+              "name": "PlantLbl"
+            },
+            "position": {
+              "height": 0.6522,
+              "width": 0.0624,
+              "x": 0.2308,
+              "y": 0.1731
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "#EDF0F0",
+                "classes": "Common/Label"
+              },
+              "text": "Plant",
+              "textStyle": {
+                "classes": "Common/OprConsoleLabelText"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\ttry:\n\t\tself.parent.parent.getChild(\"ColumnContainer_3\").getChild(\"Table\").props.data\u003dNone\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: Line Lead Console :: Plant Dropdown :\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "PlantDrpDwn",
+              "tooltip": {
+                "style": {
+                  "classes": "Common/ToolTip"
+                }
+              }
+            },
+            "position": {
+              "height": 0.6522,
+              "rotate": {
+                "anchor": "25% 50%"
+              },
+              "width": 0.1197,
+              "x": 0.3033,
+              "y": 0.1731
+            },
+            "propConfig": {
+              "props.options": {
+                "binding": {
+                  "config": {
+                    "expression": "{../EnterpriseDrpDwn.props.value}"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tenterpriseID \u003d value\n\tuserID \u003d self.session.custom.UserId\n\ttry:\n\t\tvalue \u003d PlantHirarchyAPI.getPlantList(enterpriseID,userID)\n\texcept Exception as e:\n\t\tvalue \u003d \u0027\u0027\n\t\tscriptName \u003d \"Operator Console:\"\n\t\terrorMessage\u003dscriptName  +\u0027 Exception - \u0027+  str(e)\n\t\tAuthentication.exceptionLogger(errorMessage)\n\treturn value",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "placeholder": {
+                "text": "Select Plant"
+              },
+              "style": {
+                "classes": "Common/TextBox"
+              }
+            },
+            "type": "ia.input.dropdown"
+          },
+          {
+            "meta": {
+              "name": "AreaLbl"
+            },
+            "position": {
+              "height": 0.6522,
+              "rotate": {
+                "anchor": "-167% 39%"
+              },
+              "width": 0.0624,
+              "x": 0.4441,
+              "y": 0.1731
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "#EDF0F0",
+                "classes": "Common/Label"
+              },
+              "text": "Area",
+              "textStyle": {
+                "classes": "Common/OprConsoleLabelText"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\ttry:\n\t\tareaId\u003dself.props.value\n\t\tlineId\u003d0\n\t\tuserId\u003dself.session.custom.UserId\n\t\tassignedDetails \u003dPrinterConfiguration.GetLineWisePrinterList(areaId)\n\t\tgetlineList\u003dPrinterConfiguration.GetEnterPrisePlantLinesOnAreaChange(areaId)\n\t\tif len(assignedDetails)\u003e0:\n\t\t\n\t\t\tself.parent.parent.getChild(\"ColumnContainer_3\").getChild(\"Table\").props.data\u003dassignedDetails\n\t\t\t\n\t\t\t\n\t\t\tlineListArea\u003d[]\n\t\t\tlistLinePrint\u003d[]\n\t\t\tfor i in assignedDetails:\n\t\t\t\tIsEnabled\u003d i[\u0027IsEnabled\u0027]\n\t\t\t\tIsActive\u003d i[\u0027IsActive\u0027]\n\t\t\t\t\n\t\t\t\tif IsActive\u003d\u003d1 and IsEnabled\u003d\u003d1:\n\t\t\t\t\tprintName\u003d i[\u0027PrinterName\u0027]\n\t\t\t\t\tprintIP\u003d i[\u0027PrinterIP\u0027]\n\t\t\t\t\tprintPort\u003d i[\u0027Port\u0027]\n\t\t\t\tlineListArea.append(int( i[\u0027LineId\u0027]))\n\t\t\t\t\n\t\t\tfor i in getlineList:\n\t\t\t\t\t\n\t\t\t\t\tlistLinePrint.append(int( i[0]))\n\t\t\t\n\t\t\tlineListArea\u003dlist(lineListArea)\n\t\t\tlistLinePrint\u003dlist(listLinePrint)\t\n\n\n\t\t\tlineList \u003d list(set(listLinePrint) - set(lineListArea))\n\t\t\tIsEnabled\u003d1\n\t\t\tIsActive\u003d1\n\t\t\tUserId\u003dself.session.custom.UserId\n\t\t\tprinterId\u003d0\n\t\t\tresult\u003dPrinterConfiguration.addLineWisePrinter(lineList,printName,printIP,printPort,UserId,printerId,IsEnabled,IsActive)\n\t\t\tareaId\u003dself.props.value\n\t\t\tassignedDetails \u003dPrinterConfiguration.GetLineWisePrinterList(areaId)\n\t\t\tif len(assignedDetails)\u003e0:\n\t\t\t\n\t\t\t\tself.parent.parent.getChild(\"ColumnContainer_3\").getChild(\"Table\").props.data\u003dassignedDetails\n\t\telse:\n\t\t\tself.parent.parent.getChild(\"ColumnContainer_3\").getChild(\"Table\").props.data\u003dNone\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: Line Lead Console :: Area Dropdown :\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "AreaDrpDwn",
+              "tooltip": {
+                "location": "bottom-right",
+                "style": {
+                  "classes": "Common/ToolTip"
+                }
+              }
+            },
+            "position": {
+              "height": 0.6522,
+              "rotate": {
+                "anchor": "450% 50%"
+              },
+              "width": 0.1197,
+              "x": 0.5174,
+              "y": 0.1731
+            },
+            "propConfig": {
+              "props.options": {
+                "binding": {
+                  "config": {
+                    "expression": "{../PlantDrpDwn.props.value}"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tplantID \u003d value\n\tenterpriseID \u003d self.getSibling(\"EnterpriseDrpDwn\").props.value\n\tuserID \u003d self.session.custom.UserId\n\ttry:\n\t\tvalue \u003d PlantHirarchyAPI.getAreaList(enterpriseID,plantID,userID)\n\texcept Exception as e:\n\t\tvalue \u003d \u0027\u0027\t\n\t\tscriptName \u003d \"Operator Console:\"\n\t\terrorMessage\u003dscriptName  +\u0027 Exception - \u0027+  str(e)\n\t\tAuthentication.exceptionLogger(errorMessage)\n\treturn value",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "multiSelect": "",
+              "placeholder": {
+                "text": "Select Area"
+              },
+              "style": {
+                "classes": "Common/TextBox"
+              }
+            },
+            "type": "ia.input.dropdown"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": [
+                  {
+                    "config": {
+                      "script": "\tself.session.custom.EnterpriseId\u003dself.getSibling(\"EnterpriseDrpDwn\").props.value\n\tself.session.custom.PlantID\u003dself.getSibling(\"PlantDrpDwn\").props.value\n\tself.session.custom.AreaID\u003dself.getSibling(\"AreaDrpDwn\").props.value\n#\tsystem.perspective.openPopup(\u0027PopupAddPrinter\u0027,\u0027Project_MES_Solution/Printing/Popup/PopupAddPrinter\u0027,params \u003d {\u0027rowData\u0027 :self.view.params.rowData},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)"
+                    },
+                    "enabled": false,
+                    "scope": "G",
+                    "type": "script"
+                  },
+                  {
+                    "config": {
+                      "draggable": false,
+                      "id": "g78hF5yz",
+                      "modal": true,
+                      "overlayDismiss": false,
+                      "position": {
+                        "top": 100
+                      },
+                      "positionType": "exact",
+                      "resizable": false,
+                      "showCloseIcon": false,
+                      "type": "open",
+                      "viewParams": {
+                        "AreaId": "{/root/CoordinateContainer_2/AreaDrpDwn.props.value}"
+                      },
+                      "viewPath": "Project_MES_Solution/Printing/Popup/PopupAddPrinter",
+                      "viewportBound": false
+                    },
+                    "scope": "C",
+                    "type": "popup"
+                  }
+                ]
+              }
+            },
+            "meta": {
+              "name": "tblAddPrinter",
+              "tooltip": {
+                "enabled": true,
+                "location": "bottom-left",
+                "style": {
+                  "classes": "Common/ToolTip"
+                },
+                "text": null
+              },
+              "visible": false
+            },
+            "position": {
+              "height": 0.6,
+              "width": 0.0712,
+              "x": 0.9,
+              "y": 0.2366
+            },
+            "propConfig": {
+              "props.enabled": {
+                "binding": {
+                  "config": {
+                    "path": "../AreaDrpDwn.props.value"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tif str(value).strip()!\u003d\u0027\u0027 and str(value).strip()!\u003d\u0027None\u0027 and value \u003e 0:\n\t\tvalue\u003d1\n\telse:\n\t\tvalue\u003d0 \n\treturn value",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "image": {
+                "height": 25,
+                "width": 45
+              },
+              "style": {
+                "classes": "Common/Button"
+              },
+              "text": "Add Printer",
+              "textStyle": {
+                "fontFamily": "Arial",
+                "fontSize": 11
+              }
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "CoordinateContainer_2",
+          "visible": false
+        },
+        "position": {
+          "height": 0.0695,
+          "width": 0.9934,
+          "x": -0.0062,
+          "y": 0.0653
+        },
+        "props": {
+          "mode": "percent",
+          "style": {
+            "classes": "Basic/OprConsoleHirarchy"
+          }
+        },
+        "type": "ia.container.coord"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": 0.024,
+      "y": 0.0099
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

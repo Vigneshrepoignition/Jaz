@@ -1,0 +1,13 @@
+{
+  "base": {
+    "style": {
+      "borderWidth": "0px",
+      "borderRadius": "0px",
+      "color": "#DADADA",
+      "fontFamily": "Arial",
+      "fontSize": "14px",
+      "fontWeight": "normal",
+      "outlineWidth": "0"
+    }
+  }
+}

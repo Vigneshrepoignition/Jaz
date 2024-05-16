@@ -1,0 +1,74 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 557,
+      "width": 1594
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Dashboard"
+        },
+        "position": {
+          "height": 0.9982,
+          "width": 0.9994
+        },
+        "props": {
+          "editingToggle": false,
+          "style": {
+            "borderStyle": "none"
+          },
+          "widgets": [
+            {
+              "body": {
+                "style": {
+                  "classes": ""
+                }
+              },
+              "header": {
+                "enabled": true,
+                "style": {
+                  "classes": "Widgets/WidgetsHeader"
+                },
+                "title": "Packing Details"
+              },
+              "isConfigurable": false,
+              "minSize": {
+                "columnSpan": 1,
+                "rowSpan": 1
+              },
+              "name": "Packing Details",
+              "position": {
+                "columnEnd": 10,
+                "columnStart": 1,
+                "rowEnd": 10,
+                "rowStart": 1
+              },
+              "style": {
+                "classes": ""
+              },
+              "viewParams": {},
+              "viewPath": "Project_MES_Solution/ProductionOperatorConsole/Modules/PackingConfiguration"
+            }
+          ]
+        },
+        "type": "ia.display.dashboard"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -0.0063,
+      "y": 0.0054
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

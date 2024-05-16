@@ -1,0 +1,2 @@
+INSERT INTO TRN_IgnitionAutoOperation (machineId,WorkflowOperationsId,scanBadgeText,Status,UserId,WoNumber,WOQty,WorkflowId)
+VALUES(machineId=:machineId,WorkflowOperationsId=:WorkflowOperationsId,scanBadgeText=:scanBadgeText,Status=:Status,UserId=:UserId,WoNumber=:WoNumber,WOQty=:WOQty,WorkflowId=:WorkflowId)

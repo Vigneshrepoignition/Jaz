@@ -1,0 +1,96 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\trowData\u003dself.params.rowData\n\tvalue\u003dself.params.value\n\tsystem.perspective.print(\"Check box value \"+str(value))\n\tif str(value).strip().lower()\u003d\u003d\u0027false\u0027 or  str(value).lower()\u003d\u003d\u00270\u0027 or value\u003d\u003dFalse:\n\t\tself.getChild(\"root\").getChild(\"chkYes\").props.selected\u003dFalse\n\telif  str(value).strip().lower()\u003d\u003d\u0027true\u0027 or  str(value).lower()\u003d\u003d\u00271\u0027 or value\u003d\u003d True:\n\t\t\tself.getChild(\"root\").getChild(\"chkYes\").props.selected\u003dTrue"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "column": "value",
+    "columnIndex": "value",
+    "dataset": "value",
+    "row": "value",
+    "rowData": "value",
+    "rowIndex": "value",
+    "value": "value"
+  },
+  "propConfig": {
+    "params.column": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.columnIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.dataset": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.row": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.value": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 35,
+      "width": 74
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tNo\u003dself.props.selected\n\tds\u003dself.view.params.rowData\n\tSelctedRow\u003dself.view.params.rowIndex\n\tcolumnName\u003dself.view.params.column\n\t\n\tmessageType \u003d \u0027PrinterConfigurationHandler\u0027\n\tsystem.perspective.sendMessage(messageType, payload \u003d {\"columnName\":columnName,\"ChangeValue\":No,\"SelctedRow\":SelctedRow}, scope \u003d \"page\")"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "chkYes"
+        },
+        "position": {
+          "height": 0.8286,
+          "width": 0.5946,
+          "x": 0.1091,
+          "y": 0.114
+        },
+        "props": {
+          "text": ""
+        },
+        "type": "ia.input.checkbox"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

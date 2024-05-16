@@ -1,0 +1,191 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry: \n\t\tscriptName \u003d \"CLRI :AssignMessageBox:  OnStartup\"\n\t\tTabledata\u003dself.params.rowData\n\t\tnamePreWorkFlow\u003dself.params.name\n\t\tCLRIName\u003dself.params.CLRIName\n\n\t\tif str(CLRIName).strip()!\u003dNone and str(CLRIName).strip()!\u003d\u0027None\u0027 and str(CLRIName).strip()!\u003d\u0027\u0027 and str(CLRIName).lower().strip()!\u003d\u0027value\u0027:\n\t\t\tself.getChild(\"root\").getChild(\"ViewbtnLblMsg\").props.text\u003d\u0027CLRI Already Assigned\u0027\n\t\telse:\n\t\t\tself.getChild(\"root\").getChild(\"ViewbtnLblMsg\").props.text\u003d\u0027Please Complete\u0027\n\t\tif str(namePreWorkFlow).strip()!\u003dNone and str(namePreWorkFlow).strip()!\u003d\u0027None\u0027 and str(namePreWorkFlow).strip()!\u003d\u0027\u0027 and str(namePreWorkFlow).lower().strip()!\u003d\u0027value\u0027:\n\t\t\tname\u003dnamePreWorkFlow\n\t\telse:\n\t\t\tname \u003d Tabledata.get(\"Name\")\n#\t\t\t\tTabledata.get(\"Status\")\n\t\tself.getChild(\"root\").getChild(\"ViewBtnRMNumber\").props.text\u003dname\n\t\t\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "CLRIName": "value",
+    "name": "value",
+    "rowData": "value"
+  },
+  "propConfig": {
+    "params.CLRIName": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.name": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 195,
+      "width": 326
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "#\tself.session.custom.WoNumber \u003d \"\"\n\tself.session.custom.RMOrderID \u003d \"\"\n\tself.session.custom.Line \u003d \"\"\n\tself.session.custom.Machine \u003d \"\"\t\t\n\tself.session.custom.WOOperationStatus \u003d \"\"\n\tself.session.custom.ActualStartDate \u003d \"\"\n\tself.session.custom.ActualCmpDateTime \u003d \"\"\t\n\tself.session.custom.AreaID \u003d \"\"\n\tself.session.custom.areaName \u003d \"\"\n\tself.session.custom.lineName \u003d \"\"\n\tself.session.custom.MachineID \u003d \"\"\n\tself.session.custom.enterpriseName\u003d \"\"\n\tself.session.custom.plantName \u003d \"\"\n\tsystem.perspective.closePopup(\"\")"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnNo",
+          "tooltip": {
+            "enabled": true,
+            "text": "Click to Cancel"
+          }
+        },
+        "position": {
+          "height": 34,
+          "width": 110,
+          "x": 107,
+          "y": 144.5
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "classes": "Common/Button"
+          },
+          "text": "OK"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 32,
+          "width": 324
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Message",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 10,
+            "textAlign": "left",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "#\tself.session.custom.WoNumber \u003d \"\"\n\tself.session.custom.RMOrderID \u003d \"\"\n\tself.session.custom.Line \u003d \"\"\n\tself.session.custom.Machine \u003d \"\"\t\t\n\tself.session.custom.WOOperationStatus \u003d \"\"\n\tself.session.custom.ActualStartDate \u003d \"\"\n\tself.session.custom.ActualCmpDateTime \u003d \"\"\t\n\tself.session.custom.AreaID \u003d \"\"\n\tself.session.custom.areaName \u003d \"\"\n\tself.session.custom.lineName \u003d \"\"\n\tself.session.custom.MachineID \u003d \"\"\n\tself.session.custom.enterpriseName\u003d \"\"\n\tself.session.custom.plantName \u003d \"\"\n\tsystem.perspective.closePopup(\"\")"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 30,
+          "width": 30,
+          "x": 293.938
+        },
+        "props": {
+          "path": "material/close",
+          "style": {
+            "color": "#FFFFFF",
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "ViewbtnLblMsg"
+        },
+        "position": {
+          "height": 39,
+          "width": 268,
+          "x": 44,
+          "y": 42
+        },
+        "props": {
+          "text": "Please Complete",
+          "textStyle": {
+            "fontFamily": "Arial",
+            "fontSize": 25,
+            "textTransform": "none"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "ViewBtnRMNumber"
+        },
+        "position": {
+          "height": 44,
+          "width": 307,
+          "x": 9,
+          "y": 87
+        },
+        "props": {
+          "textStyle": {
+            "fontFamily": "Arial",
+            "fontSize": 25,
+            "fontWeight": "bold",
+            "textAlign": "center",
+            "textTransform": "none"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -176,
+      "y": 35
+    },
+    "props": {
+      "style": {
+        "classes": "Panel/PopUp"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

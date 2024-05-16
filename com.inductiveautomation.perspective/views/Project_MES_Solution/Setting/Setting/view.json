@@ -1,0 +1,571 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\tsystem.perspective.closePopup(\u0027\u0027)\n\tself.getChild(\"root\").getChild(\"CntColumnPwrTbl\").getChild(\"DrpDwnSelectLanguage\").props.enabled\u003d0\n\tself.getChild(\"root\").getChild(\"CntColumnPwrTbl\").getChild(\"DrpDwnParameter2\").props.enabled\u003d0\n\tself.getChild(\"root\").getChild(\"CntColumnPwrTbl\").getChild(\"DrpDwnParameter3\").props.enabled\u003d0\n\tself.getChild(\"root\").getChild(\"CntColumnPwrTbl\").getChild(\"DrpDwnParameter4\").props.enabled\u003d0\n\tself.getChild(\"root\").getChild(\"CntColumnPwrTbl\").getChild(\"ColumnContainer\").getChild(\"CoordinateContainer\").getChild(\"Btnedit\").meta.visible\u003d1\n\tself.getChild(\"root\").getChild(\"CntColumnPwrTbl\").getChild(\"ColumnContainer\").getChild(\"CoordinateContainer\").getChild(\"BtnClose\").meta.visible\u003d0\n\tself.getChild(\"root\").getChild(\"CntColumnPwrTbl\").getChild(\"ColumnContainer\").getChild(\"CoordinateContainer\").getChild(\"BtnSvae\").meta.visible\u003d0\n#\tself.getChild(\"root\").getChild(\"CntColumnPwrTbl\").getChild(\"ColumnContainer\").getChild(\"Btnedit\").meta.visible\u003d1\n#\tself.getChild(\"root\").getChild(\"CntColumnPwrTbl\").getChild(\"ColumnContainer\").getChild(\"BtnSvae\").meta.visible\u003d0\n#\tself.getChild(\"root\").getChild(\"CntColumnPwrTbl\").getChild(\"ColumnContainer\").getChild(\"BtnClose\").meta.visible\u003d0"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 440,
+      "width": 1346
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "breakpoints": [
+                {
+                  "colIndex": 0,
+                  "name": "sm",
+                  "order": 0,
+                  "rowIndex": 0,
+                  "span": 2
+                },
+                {
+                  "colIndex": 0,
+                  "name": "md",
+                  "order": 0,
+                  "rowIndex": 0,
+                  "span": 2
+                },
+                {
+                  "colIndex": 0,
+                  "name": "lg",
+                  "order": 0,
+                  "rowIndex": 0,
+                  "span": 2
+                }
+              ],
+              "height": 52
+            },
+            "props": {
+              "text": "User Setting",
+              "textStyle": {
+                "fontSize": 22
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "LblSelLanguage"
+            },
+            "position": {
+              "breakpoints": [
+                {
+                  "colIndex": 0,
+                  "name": "sm",
+                  "order": 0,
+                  "rowIndex": 1,
+                  "span": 2
+                },
+                {
+                  "colIndex": 0,
+                  "name": "md",
+                  "order": 0,
+                  "rowIndex": 1,
+                  "span": 2
+                },
+                {
+                  "colIndex": 0,
+                  "name": "lg",
+                  "order": 0,
+                  "rowIndex": 1,
+                  "span": 2
+                }
+              ],
+              "height": 37
+            },
+            "props": {
+              "text": "Select Language"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "DrpDwnSelectLanguage"
+            },
+            "position": {
+              "breakpoints": [
+                {
+                  "colIndex": 0,
+                  "name": "sm",
+                  "order": 0,
+                  "rowIndex": 2,
+                  "span": 3
+                },
+                {
+                  "colIndex": 0,
+                  "name": "md",
+                  "order": 0,
+                  "rowIndex": 2,
+                  "span": 3
+                },
+                {
+                  "colIndex": 0,
+                  "name": "lg",
+                  "order": 0,
+                  "rowIndex": 2,
+                  "span": 3
+                }
+              ],
+              "height": 42
+            },
+            "props": {
+              "enabled": 0,
+              "options": [
+                {
+                  "label": "English",
+                  "value": "en-US"
+                },
+                {
+                  "label": "Chinese",
+                  "value": "zh-TW"
+                }
+              ],
+              "placeholder": {
+                "color": "#AAAAAA",
+                "text": "Select Language"
+              },
+              "style": {
+                "classes": "Ref_MES/Common/TextBox"
+              }
+            },
+            "type": "ia.input.dropdown"
+          },
+          {
+            "meta": {
+              "name": "LblParameter2"
+            },
+            "position": {
+              "breakpoints": [
+                {
+                  "colIndex": 1,
+                  "name": "sm",
+                  "order": 1,
+                  "rowIndex": 3,
+                  "span": 1
+                },
+                {
+                  "colIndex": 1,
+                  "name": "md",
+                  "order": 1,
+                  "rowIndex": 3,
+                  "span": 1
+                },
+                {
+                  "colIndex": 0,
+                  "name": "lg",
+                  "order": 0,
+                  "rowIndex": 3,
+                  "span": 2
+                }
+              ],
+              "height": 37
+            },
+            "props": {
+              "text": "User Parameter 2"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "DrpDwnParameter2"
+            },
+            "position": {
+              "breakpoints": [
+                {
+                  "colIndex": 0,
+                  "name": "sm",
+                  "order": 1,
+                  "rowIndex": 4,
+                  "span": 8
+                },
+                {
+                  "colIndex": 0,
+                  "name": "md",
+                  "order": 1,
+                  "rowIndex": 4,
+                  "span": 7
+                },
+                {
+                  "colIndex": 0,
+                  "name": "lg",
+                  "order": 0,
+                  "rowIndex": 4,
+                  "span": 3
+                }
+              ],
+              "height": 42
+            },
+            "props": {
+              "enabled": 0,
+              "placeholder": {
+                "color": "#AAAAAA",
+                "text": "User Parameter 2"
+              },
+              "style": {
+                "classes": "Ref_MES/Common/TextBox"
+              }
+            },
+            "type": "ia.input.dropdown"
+          },
+          {
+            "meta": {
+              "name": "LblParameter3"
+            },
+            "position": {
+              "breakpoints": [
+                {
+                  "colIndex": 9,
+                  "name": "sm",
+                  "order": 3,
+                  "rowIndex": 1,
+                  "span": 2
+                },
+                {
+                  "colIndex": 9,
+                  "name": "md",
+                  "order": 3,
+                  "rowIndex": 1,
+                  "span": 2
+                },
+                {
+                  "colIndex": 9,
+                  "name": "lg",
+                  "order": 3,
+                  "rowIndex": 1,
+                  "span": 2
+                }
+              ],
+              "height": 37
+            },
+            "props": {
+              "text": "User Parameter 1"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "DrpDwnParameter3"
+            },
+            "position": {
+              "breakpoints": [
+                {
+                  "colIndex": 4,
+                  "name": "sm",
+                  "order": 1,
+                  "rowIndex": 2,
+                  "span": 8
+                },
+                {
+                  "colIndex": 4,
+                  "name": "md",
+                  "order": 1,
+                  "rowIndex": 2,
+                  "span": 7
+                },
+                {
+                  "colIndex": 9,
+                  "name": "lg",
+                  "order": 1,
+                  "rowIndex": 2,
+                  "span": 3
+                }
+              ],
+              "height": 42
+            },
+            "props": {
+              "enabled": 0,
+              "placeholder": {
+                "color": "#AAAAAA",
+                "text": "User Parameter 1"
+              },
+              "style": {
+                "classes": "Ref_MES/Common/TextBox"
+              }
+            },
+            "type": "ia.input.dropdown"
+          },
+          {
+            "meta": {
+              "name": "LblParameter4"
+            },
+            "position": {
+              "breakpoints": [
+                {
+                  "colIndex": 1,
+                  "name": "sm",
+                  "order": 1,
+                  "rowIndex": 3,
+                  "span": 1
+                },
+                {
+                  "colIndex": 1,
+                  "name": "md",
+                  "order": 1,
+                  "rowIndex": 3,
+                  "span": 1
+                },
+                {
+                  "colIndex": 9,
+                  "name": "lg",
+                  "order": 1,
+                  "rowIndex": 3,
+                  "span": 2
+                }
+              ],
+              "height": 37
+            },
+            "props": {
+              "text": "User Parameter 3"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "DrpDwnParameter4"
+            },
+            "position": {
+              "breakpoints": [
+                {
+                  "colIndex": 0,
+                  "name": "sm",
+                  "order": 1,
+                  "rowIndex": 4,
+                  "span": 8
+                },
+                {
+                  "colIndex": 0,
+                  "name": "md",
+                  "order": 1,
+                  "rowIndex": 4,
+                  "span": 7
+                },
+                {
+                  "colIndex": 9,
+                  "name": "lg",
+                  "order": 1,
+                  "rowIndex": 4,
+                  "span": 3
+                }
+              ],
+              "height": 43
+            },
+            "props": {
+              "enabled": 0,
+              "placeholder": {
+                "color": "#AAAAAA",
+                "text": "User Parameter 3"
+              },
+              "style": {
+                "classes": "Ref_MES/Common/TextBox"
+              }
+            },
+            "type": "ia.input.dropdown"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "script": "\tself.getSibling(\"BtnSvae\").meta.visible\u003d1\n\tself.meta.visible\u003d0\n\tself.getSibling(\"BtnClose\").meta.visible\u003d1\n\tself.parent.parent.parent.getChild(\"DrpDwnSelectLanguage\").props.enabled\u003d1\n\tself.parent.parent.parent.getChild(\"DrpDwnParameter2\").props.enabled\u003d1\n\tself.parent.parent.parent.getChild(\"DrpDwnParameter3\").props.enabled\u003d1\n\tself.parent.parent.parent.getChild(\"DrpDwnParameter4\").props.enabled\u003d1"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "Btnedit",
+                      "visible": 1
+                    },
+                    "position": {
+                      "height": 36,
+                      "rotate": {
+                        "anchor": "180% 100%"
+                      },
+                      "width": 36,
+                      "x": 148.33,
+                      "y": 1.17
+                    },
+                    "props": {
+                      "path": "material/edit",
+                      "style": {
+                        "margin": 8,
+                        "textAlign": "right"
+                      }
+                    },
+                    "type": "ia.display.icon"
+                  },
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "script": "\tself.getSibling(\"BtnSvae\").meta.visible\u003d0\n\tself.getSibling(\"Btnedit\").meta.visible\u003d1\n\tself.meta.visible\u003d0\n\tself.parent.parent.parent.getChild(\"DrpDwnSelectLanguage\").props.enabled\u003d0\n\tself.parent.parent.parent.getChild(\"DrpDwnParameter2\").props.enabled\u003d0\n\tself.parent.parent.parent.getChild(\"DrpDwnParameter3\").props.enabled\u003d0\n\tself.parent.parent.parent.getChild(\"DrpDwnParameter4\").props.enabled\u003d0"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "BtnClose",
+                      "visible": 0
+                    },
+                    "position": {
+                      "height": 38,
+                      "width": 35,
+                      "x": 145.33,
+                      "y": -3.83
+                    },
+                    "props": {
+                      "color": "#808080",
+                      "path": "material/cancel",
+                      "style": {
+                        "margin": 10
+                      }
+                    },
+                    "type": "ia.display.icon"
+                  },
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "script": "\tsystem.perspective.openPopup(\"myPopupId\",\u0027Project_AGV_Solution/Admin/Popup/SaveUpdate\u0027,params \u003d {\u0027Parameter\u0027:\u0027User Settings\u0027}, showCloseIcon \u003d False, draggable \u003d False, resizable \u003d False, modal \u003d False)\n\tself.session.props.locale\u003dself.parent.parent.parent.getChild(\"DrpDwnSelectLanguage\").props.value\n\tself.meta.visible\u003d0\n\tself.getSibling(\"Btnedit\").meta.visible\u003d1\n\tself.getSibling(\"BtnClose\").meta.visible\u003d0\n\tself.parent.parent.parent.getChild(\"DrpDwnSelectLanguage\").props.enabled\u003d0\n\tself.parent.parent.parent.getChild(\"DrpDwnParameter2\").props.enabled\u003d0\n\tself.parent.parent.parent.getChild(\"DrpDwnParameter3\").props.enabled\u003d0\n\tself.parent.parent.parent.getChild(\"DrpDwnParameter4\").props.enabled\u003d0\n#\tsystem.perspective.closePopup(\u0027\u0027)"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "BtnSvae",
+                      "visible": 0
+                    },
+                    "position": {
+                      "height": 35,
+                      "width": 99.00000000000001,
+                      "x": 45.33,
+                      "y": -0.83
+                    },
+                    "props": {
+                      "style": {
+                        "margin": 8
+                      },
+                      "text": "Save"
+                    },
+                    "type": "ia.input.button"
+                  }
+                ],
+                "meta": {
+                  "name": "CoordinateContainer"
+                },
+                "position": {
+                  "breakpoints": [
+                    {
+                      "colIndex": 7,
+                      "name": "sm",
+                      "order": 4,
+                      "rowIndex": 0,
+                      "span": 5
+                    },
+                    {
+                      "colIndex": 7,
+                      "name": "md",
+                      "order": 4,
+                      "rowIndex": 0,
+                      "span": 5
+                    },
+                    {
+                      "colIndex": 7,
+                      "name": "lg",
+                      "order": 4,
+                      "rowIndex": 0,
+                      "span": 5
+                    }
+                  ],
+                  "height": 56
+                },
+                "type": "ia.container.coord"
+              }
+            ],
+            "meta": {
+              "name": "ColumnContainer"
+            },
+            "position": {
+              "breakpoints": [
+                {
+                  "colIndex": 7,
+                  "name": "sm",
+                  "order": 2,
+                  "rowIndex": 0,
+                  "span": 5
+                },
+                {
+                  "colIndex": 7,
+                  "name": "md",
+                  "order": 2,
+                  "rowIndex": 0,
+                  "span": 5
+                },
+                {
+                  "colIndex": 7,
+                  "name": "lg",
+                  "order": 2,
+                  "rowIndex": 0,
+                  "span": 5
+                }
+              ],
+              "height": 59
+            },
+            "type": "ia.container.column"
+          }
+        ],
+        "meta": {
+          "name": "CntColumnPwrTbl"
+        },
+        "position": {
+          "height": 372,
+          "width": 1196,
+          "x": 75,
+          "y": 14.84
+        },
+        "type": "ia.container.column"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": 0,
+      "y": 150
+    },
+    "props": {
+      "style": {
+        "backgroundColor": "#E0E3E4"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

@@ -1,0 +1,253 @@
+{
+  "custom": {},
+  "params": {
+    "Cavity": "value",
+    "MachineCode": "",
+    "MachineShots": "value",
+    "MoldCode": "value",
+    "Piece": "value",
+    "ShortRangeMin": "value"
+  },
+  "propConfig": {
+    "params.Cavity": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.MachineCode": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.MachineShots": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.MoldCode": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Piece": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.ShortRangeMin": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 239,
+      "width": 327
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Carousel"
+        },
+        "position": {
+          "height": 1,
+          "width": 1
+        },
+        "props": {
+          "appearance": {
+            "arrows": {
+              "enabled": false,
+              "next": {
+                "iconPath": "material/keyboard_arrow_right"
+              },
+              "previous": {
+                "iconPath": "material/keyboard_arrow_left"
+              }
+            },
+            "slidePadding": 0,
+            "slidesToShow": 0
+          },
+          "lazyLoad": false,
+          "views": []
+        },
+        "type": "ia.display.carousel"
+      },
+      {
+        "meta": {
+          "name": "ImageLoader",
+          "visible": 0
+        },
+        "position": {
+          "height": 0.372,
+          "width": 0.3971,
+          "x": 0.2902,
+          "y": 0.2979
+        },
+        "props": {
+          "fit": {
+            "mode": "cover"
+          },
+          "source": "/system/images/Builtin/icons/32/giphy.gif"
+        },
+        "type": "ia.display.image"
+      },
+      {
+        "meta": {
+          "name": "LblNoData"
+        },
+        "position": {
+          "height": 0.135,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.6369,
+          "x": 0.2423,
+          "y": 0.5108
+        },
+        "props": {
+          "style": {
+            "fontWeight": "lighter"
+          },
+          "text": "Tool data is not available.",
+          "textStyle": {
+            "color": "#808080",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "lighter"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "custom": {
+      "RefreshFrequecy": 3
+    },
+    "events": {
+      "system": {
+        "onStartup": {
+          "config": {
+            "script": "\ttry:\n\t\tself.getChild(\"ImageLoader\").meta.visible \u003d 1\n\t\tWoNumber\u003dself.session.custom.WoNumber\n\t\tWorkorderId\u003dself.session.custom.WorkorderID\n\t\tmachineID\u003d0    #--------------------------To Load The Mold No Need To Send Machine ID, Will Get All Molds Against Wo No---------------\n\t\tMoldDetails\u003d ProductionOperatorConsole.NewgetMoldAssignmentDetails(WorkorderId,machineID)\n\t\tNoofMolds\u003dlen(MoldDetails)\n\t\tMachineviewElements\u003d{\u0027alignItems\u0027: \u0027flex-start\u0027, \u0027justify\u0027: \u0027flex-start\u0027, \u0027viewParams\u0027: {\u0027ShortRangeMin\u0027: \u0027value\u0027, \u0027Cavity\u0027: \u0027value\u0027, \u0027MachineCode\u0027: \u0027value\u0027, \u0027Piece\u0027: \u0027value\u0027, \u0027MachineShots\u0027: \u0027value\u0027, \u0027MoldCode\u0027: \u0027value\u0027,\u0027MaxLife\u0027: \u0027value\u0027,\u0027MoldLife\u0027:\u0027value\u0027,\u0027AlertQty\u0027:\u0027value\u0027}, \u0027direction\u0027: \u0027row\u0027, \u0027viewPath\u0027: \u0027Project_MES_Solution/ProductionOperatorConsole/Modules/MoldInformation\u0027}\n\t\tMachineDynamicViewElements\u003d[]\n\t\t\n#-------------------------------Calculate Refresh Frequency--------------------------------------\n\t\tif NoofMolds\u003e0:\n\t\t\tConfigTransitionDelay \u003d self.getChild(\"Carousel\").props.autoplay.transitionDelay\n\t\t\tConfigTransitionDelayInSec \u003d (ConfigTransitionDelay/1000.0)\n\t\t\tConfigTransitionDelayInSec \u003d float(ConfigTransitionDelayInSec)\n\t\t\trefreshRateinSec \u003d float(NoofMolds * ConfigTransitionDelayInSec)\n\t\t\tself.custom.RefreshFrequecy \u003d refreshRateinSec\n\t\telse:\n\t\t\tself.custom.RefreshFrequecy \u003d 3\n\t\t\n\t#-----------------------------Only to Prepare the Views------------------------------------\n\t\tfor i in range(NoofMolds):\n\t\t\tMachineDynamicViewElements.append(MachineviewElements)\n\t\t\tself.getChild(\"Carousel\").props.views \u003d MachineDynamicViewElements\n\t#-----------------------------------Loading Parameters Values To the Views----------------------------------\t\t\n\t\tfor i in range (NoofMolds):\n\t\t\tMachineName \u003d MoldDetails[i].get(\u0027MachineName\u0027)\n\t\t\tMachineId \u003d MoldDetails[i].get(\u0027MachineId\u0027)\n\t\t\tMoldCode \u003d MoldDetails[i].get(\u0027MoldCode\u0027)\n\t\t\tcavity \u003d MoldDetails[i].get(\u0027cavity\u0027)\n\t\t\tproductPiece \u003d MoldDetails[i].get(\u0027productPiece\u0027)\n\t\t\tMaxLife \u003d MoldDetails[i].get(\u0027MaxLife\u0027)\n\t\t\tActualLife \u003d MoldDetails[i].get(\u0027ActualLife\u0027)\n\t\t\tAlertQty \u003d MoldDetails[i].get(\u0027AlertQty\u0027)\n\t\t\tMachineShots \u003d MoldDetails[i].get(\u0027MachineShots\u0027)\n\t\t\trecievedmoldParameters \u003d {\"MachineName\":MachineName,\"MachineId\":MachineId,\"MoldCode\":MoldCode,\"cavity\":cavity,\"productPiece\":productPiece,\"MaxLife\":MaxLife,\"ActualLife\":ActualLife,\"MachineShots\":MachineShots,\u0027AlertQty\u0027:AlertQty}\t\t\n\n\t\t\tself.getChild(\"Carousel\").props.views[i].viewParams.Cavity \u003d int(cavity)\n\t\t\tself.getChild(\"Carousel\").props.views[i].viewParams.MachineCode \u003d MachineName\n\t\t\tself.getChild(\"Carousel\").props.views[i].viewParams.MachineShots \u003d (MachineShots)\n\t\t\tself.getChild(\"Carousel\").props.views[i].viewParams.MoldCode \u003d MoldCode\n\t\t\tself.getChild(\"Carousel\").props.views[i].viewParams.Piece \u003d productPiece\n\t\t\tself.getChild(\"Carousel\").props.views[i].viewParams.MaxLife \u003d MaxLife\n\t\t\tself.getChild(\"Carousel\").props.views[i].viewParams.AlertQty \u003d AlertQty\n\t\t\tself.getChild(\"Carousel\").props.views[i].viewParams.MoldLife \u003d (ActualLife+MachineShots)\n\t\tself.getChild(\"ImageLoader\").meta.visible \u003d 0\n\t\tsystem.perspective.print(\"Mold Information refreshed Successfully---\u003e\")\n\texcept:\n\t\tself.getChild(\"ImageLoader\").meta.visible \u003d 0\n\t\tsystem.perspective.print(\"Exception::Value loading to mold swipe\")\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)\t\t\t"
+          },
+          "scope": "G",
+          "type": "script"
+        }
+      }
+    },
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -0.1835,
+      "y": 0.0042
+    },
+    "propConfig": {
+      "custom.MoldSwapPolling": {
+        "binding": {
+          "config": {
+            "aggregate": "MinMax",
+            "avoidScanClassValidation": true,
+            "dateRange": {
+              "mostRecent": "1",
+              "mostRecentUnits": "HOUR"
+            },
+            "enableValueCache": true,
+            "ignoreBadQuality": false,
+            "polling": {
+              "enabled": true,
+              "rate": "{this.custom.RefreshFrequecy}"
+            },
+            "preventInterpolation": false,
+            "returnFormat": "Wide",
+            "returnSize": {
+              "numRows": "100",
+              "type": "FIXED"
+            },
+            "tags": [],
+            "valueFormat": "DATASET"
+          },
+          "transforms": [
+            {
+              "code": "\ttry:\n\t\tWorkorderId\u003dself.session.custom.WorkorderID\n\t\tmachineID\u003d0\n\t\tMoldDetails\u003d ProductionOperatorConsole.NewgetMoldAssignmentDetails(WorkorderId,machineID)\n\n\t\tNoofMolds\u003dlen(MoldDetails)\n\t\n\t\tMachineviewElements\u003d{\u0027alignItems\u0027: \u0027flex-start\u0027, \u0027justify\u0027: \u0027flex-start\u0027, \u0027viewParams\u0027: {\u0027ShortRangeMin\u0027: \u0027value\u0027, \u0027Cavity\u0027: \u0027value\u0027, \u0027MachineCode\u0027: \u0027value\u0027, \u0027Piece\u0027: \u0027value\u0027, \u0027MachineShots\u0027: \u0027value\u0027, \u0027MoldCode\u0027: \u0027value\u0027,\u0027MaxLife\u0027: \u0027value\u0027,\u0027MoldLife\u0027:\u0027value\u0027,\u0027AlertQty\u0027:\u0027value\u0027}, \u0027direction\u0027: \u0027row\u0027, \u0027viewPath\u0027: \u0027Project_MES_Solution/ProductionOperatorConsole/Modules/MoldInformation\u0027}\n\t\tMachineDynamicViewElements\u003d[]\n\t\t\n\t#-----------------------------Only to Prepare the Views------------------------------------\n\t\tif NoofMolds\u003e0:\n\t\t\tself.getChild(\"LblNoData\").meta.visible \u003d False\n\t\t\tfor i in range(NoofMolds):\n\t\t\t\tMachineDynamicViewElements.append(MachineviewElements)\n\t\t\t\tself.getChild(\"Carousel\").props.views\u003dMachineDynamicViewElements\n\t\telse:\n\t\t\tself.getChild(\"Carousel\").props.views\u003d[]\n\t\t\tself.getChild(\"LblNoData\").meta.visible \u003d True\n\t#-----------------------------------Loading Parameters Values To the Views----------------------------------\t\t\n\t\tfor i in range (NoofMolds):\n\t\t\tMachineName\u003dMoldDetails[i].get(\u0027MachineName\u0027)\n\t\t\tMachineId\u003dMoldDetails[i].get(\u0027MachineId\u0027)\n\t\t\tMoldCode\u003dMoldDetails[i].get(\u0027MoldCode\u0027)\n\t\t\tcavity\u003dMoldDetails[i].get(\u0027cavity\u0027)\n\t\t\tproductPiece\u003dMoldDetails[i].get(\u0027productPiece\u0027)\n\t\t\tMaxLife\u003dMoldDetails[i].get(\u0027MaxLife\u0027)\n\t\t\tActualLife\u003dMoldDetails[i].get(\u0027ActualLife\u0027)\n\t\t\tAlertQty \u003d MoldDetails[i].get(\u0027AlertQty\u0027)\n\t\t\tMachineShots\u003dMoldDetails[i].get(\u0027MachineShots\u0027)\n\t\t\trecievedmoldParameters\u003d{\"MachineName\":MachineName,\"MachineId\":MachineId,\"MoldCode\":MoldCode,\"cavity\":cavity,\"productPiece\":productPiece,\"MaxLife\":MaxLife,\"ActualLife\":ActualLife,\"MachineShots\":MachineShots}\t\t\n#\t\t\tsystem.perspective.print(\"recievedmoldParameters;--\u003e\"+str(recievedmoldParameters))\n\t\t\tself.getChild(\"Carousel\").props.views[i].viewParams.Cavity\u003dint(cavity)\n\t\t\tself.getChild(\"Carousel\").props.views[i].viewParams.MachineCode\u003dMachineName\n\t\t\tself.getChild(\"Carousel\").props.views[i].viewParams.MachineShots\u003d(MachineShots)\n\t\t\tself.getChild(\"Carousel\").props.views[i].viewParams.MoldCode\u003dMoldCode\n\t\t\tself.getChild(\"Carousel\").props.views[i].viewParams.Piece\u003dproductPiece\n\t\t\tself.getChild(\"Carousel\").props.views[i].viewParams.MaxLife\u003dMaxLife\n\t\t\tself.getChild(\"Carousel\").props.views[i].viewParams.AlertQty \u003d AlertQty\n\t\t\tself.getChild(\"Carousel\").props.views[i].viewParams.MoldLife\u003d(ActualLife)\n\t\t\n#\t\tsystem.perspective.print(\"Mold Information refreshed Successfully---\u003e\")\n\texcept:\n\t\tsystem.perspective.print(\"Exception::Polling Data to mold swipe\")\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)",
+              "type": "script"
+            }
+          ],
+          "type": "tag-history"
+        }
+      }
+    },
+    "props": {
+      "mode": "percent",
+      "pipes": [
+        {
+          "appearance": "auto",
+          "end": "none",
+          "fill": "",
+          "flanges": true,
+          "lineVariant": "solid",
+          "name": "pipe",
+          "origin": {
+            "connections": [],
+            "x": 0,
+            "y": 0
+          },
+          "start": "none",
+          "stroke": "",
+          "visible": true,
+          "width": 10
+        },
+        {
+          "appearance": "auto",
+          "end": "none",
+          "fill": "",
+          "flanges": true,
+          "lineVariant": "solid",
+          "name": "pipe_0",
+          "origin": {
+            "connections": [],
+            "x": 0,
+            "y": 0
+          },
+          "start": "none",
+          "stroke": "",
+          "visible": true,
+          "width": 10
+        },
+        {
+          "appearance": "auto",
+          "end": "none",
+          "fill": "",
+          "flanges": true,
+          "lineVariant": "solid",
+          "name": "pipe_1",
+          "origin": {
+            "connections": [],
+            "x": 0,
+            "y": 0
+          },
+          "start": "none",
+          "stroke": "",
+          "visible": true,
+          "width": 10
+        },
+        {
+          "appearance": "auto",
+          "end": "none",
+          "fill": "",
+          "flanges": true,
+          "lineVariant": "solid",
+          "name": "pipe_2",
+          "origin": {
+            "connections": [],
+            "x": 0,
+            "y": 0
+          },
+          "start": "none",
+          "stroke": "",
+          "visible": true,
+          "width": 10
+        }
+      ],
+      "style": {
+        "classes": "Widgets/Widgets"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

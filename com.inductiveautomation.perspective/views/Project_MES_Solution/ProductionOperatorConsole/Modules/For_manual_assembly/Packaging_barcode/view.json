@@ -1,0 +1,456 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\t\t\t\n\tdata \u003d [\"Scanned data 1\",\"Scanned data 2\",\"Scanned data 3\",\"Scanned data 4\",\"Scanned data 5\",\"Scanned data 6\",\"Scanned data 7\"]\n\tdatalist \u003d []\n\ts_no \u003d 0\n\tfor i in data:\n\t\ts_no \u003d s_no+1\n\t\tmylist \u003d[s_no, i]\n\t\tdatalist.append(mylist)\n\theaders \u003d [\"Id\", \"Status\"]\n\tresultDetails \u003d system.dataset.toDataSet(headers,datalist)\n\tself.getChild(\"root\").getChild(\"Table\").props.data \u003d resultDetails"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 228,
+      "width": 452
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Label"
+        },
+        "position": {
+          "height": 0.1404,
+          "width": 0.2611,
+          "x": 0.0265,
+          "y": 0.057
+        },
+        "props": {
+          "text": "Scanner Value"
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "ImgBarcode"
+        },
+        "position": {
+          "height": 0.0921,
+          "width": 0.0664,
+          "x": 0.7113,
+          "y": 0.0855
+        },
+        "props": {
+          "source": "/system/images/Builtin/icons/16/barcode.png"
+        },
+        "type": "ia.display.image"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tself.getSibling(\"Table\").props.data\u003dfpsi_ignition01.get_workorderitem_and_serialnumber(fkWorkOrderId\u003d151075)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BarcodeScannerInput",
+          "visible": false
+        },
+        "position": {
+          "height": 0.1447,
+          "width": 0.3407,
+          "x": 0.6527,
+          "y": 0.125
+        },
+        "props": {
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.barcodescannerinput"
+      },
+      {
+        "meta": {
+          "name": "Table"
+        },
+        "position": {
+          "height": 0.5921,
+          "width": 0.9801,
+          "x": 0.0133,
+          "y": 0.3026
+        },
+        "props": {
+          "columns": [
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "serialNumber",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "serialNumber"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 250
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "count",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Count"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "ok",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "status"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "boolean",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": ""
+            }
+          ],
+          "data": {
+            "$": [
+              "ds",
+              192,
+              1706099258887
+            ],
+            "$columns": [
+              {
+                "data": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7
+                ],
+                "name": "Id",
+                "type": "Integer"
+              },
+              {
+                "data": [
+                  "Scanned data 1",
+                  "Scanned data 2",
+                  "Scanned data 3",
+                  "Scanned data 4",
+                  "Scanned data 5",
+                  "Scanned data 6",
+                  "Scanned data 7"
+                ],
+                "name": "Status",
+                "type": "String"
+              }
+            ]
+          },
+          "headerStyle": {
+            "backgroundColor": "#4275a0",
+            "classes": "Table/Header"
+          },
+          "pager": {
+            "bottom": false
+          },
+          "rows": {
+            "style": {
+              "classes": "Table/Rowsmiddle"
+            }
+          },
+          "selection": {
+            "data": [
+              {
+                "Id": 2,
+                "Status": "Scanned data 2",
+                "column_3": ""
+              }
+            ],
+            "selectedRow": 1
+          }
+        },
+        "type": "ia.display.table"
+      },
+      {
+        "events": {
+          "dom": {
+            "onMouseEnter": {
+              "config": {
+                "script": "\t#fpsi_ignition01.post_scanned_serialnumber(serialNumber\u003d str(self.props.text),fkWorkOrderId\u003dint(self.session.custom.WOValue))\n\tself.getSibling(\"Table\").props.data \u003d \" \"\n\tsystem.perspective.print(\"data\")\n\tself.getSibling(\"Table\").props.data\u003dfpsi_ignition01.get_workorderitem_and_serialnumber(fkWorkOrderId\u003dint(self.props.text))\n\tsystem.perspective.print(\"data\")"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "TextField"
+        },
+        "position": {
+          "height": 0.1404,
+          "width": 0.3319,
+          "x": 0.3031,
+          "y": 0.0614
+        },
+        "props": {
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.text-field"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent",
+      "style": {
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

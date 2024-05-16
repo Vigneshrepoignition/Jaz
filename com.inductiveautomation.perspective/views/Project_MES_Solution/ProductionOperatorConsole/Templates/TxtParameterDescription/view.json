@@ -1,0 +1,86 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\tscriptName \u003d \"PMTC: CharTextBox: On Startup\"\n\t\tds\u003dself.view.params.rowData\n\t\tSelctedRow\u003dself.view.params.rowIndex\n\t\tcolumnName\u003dself.view.params.column\n\t\t\n\t\tif str(columnName).strip()\u003d\u003d\u0027ParameterDescription\u0027:\n\t\t\tself.getChild(\"root\").getChild(\"TxtParameterDescription\").meta.visible \u003d 1\n\t\t\tParameterDescription\u003dds[\u0027ParameterDescription\u0027]\n\t\t\tself.getChild(\"root\").getChild(\"TxtParameterDescription\").props.text\u003dParameterDescription\n\t\telse:\n\t\t\tpass\n\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "column": "value",
+    "columnIndex": "value",
+    "row": "value",
+    "rowData": "value",
+    "rowIndex": "value"
+  },
+  "propConfig": {
+    "params.column": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.columnIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.row": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 34,
+      "width": 128
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "TxtParameterDescription",
+          "visible": 0
+        },
+        "position": {
+          "height": 0.8824,
+          "width": 0.9375,
+          "x": 0.0234
+        },
+        "propConfig": {
+          "props.text": {
+            "onChange": {
+              "enabled": null,
+              "script": "\ttext\u003dself.props.text\n\trowData\u003dself.view.params.rowData\n\tSelctedRow\u003dself.view.params.rowIndex\n\tcolumnName\u003dself.view.params.column\n\n\tif columnName \u003d\u003d \"ParameterDescription\":\n#\t\tif str(text).strip() !\u003d str(\"\"):\n\t\ttext\u003dstr(self.props.text).strip()\n\t\tmessageType \u003d \"UpdateParamDesc\"\n\t\tsystem.perspective.sendMessage(messageType,payload \u003d {\"columnName\":columnName,\"updatedText\":text,\"SelctedRow\":SelctedRow},scope \u003d \"page\")\n\t\tsystem.perspective.print(\u0027Send message Hander with description :\u0027 + str(text))\n"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#FFFFFF",
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.input.text-field"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

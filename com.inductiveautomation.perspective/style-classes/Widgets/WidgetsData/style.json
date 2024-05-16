@@ -1,0 +1,12 @@
+{
+  "base": {
+    "style": {
+      "color": "6D757B",
+      "fontFamily": "Arial",
+      "fontSize": "10px",
+      "fontWeight": "800",
+      "overflowWrap": "break-word",
+      "textAlign": "left"
+    }
+  }
+}

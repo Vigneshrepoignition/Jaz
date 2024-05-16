@@ -1,0 +1,160 @@
+{
+  "custom": {
+    "IcnPhysicalActionColor": 0,
+    "IcnvisualActionColor": 0
+  },
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\t\n\tsystem.perspective.print(\"Check Point rowData\"+str(self.params.rowData))\t\n\tself.custom.IcnvisualActionColor\u003d0\n\tself.custom.IcnPhysicalActionColor\u003d0\n\n\t\n\tTabledata\u003dself.params.rowData\n\tself.custom.IcnvisualActionColor\u003dTabledata.get(\"visualAction\")\n\tself.custom.IcnPhysicalActionColor\u003dTabledata.get(\"physicalAction\")\n\n\tsystem.perspective.print(\"self.custom.IcnvisualActionColor \"+str(self.custom.IcnvisualActionColor))\t\n\tsystem.perspective.print(\"self.custom.IcnPhysicalActionColor \"+str(self.custom.IcnPhysicalActionColor))\t\n#\tvisualActionAndphysicalAction\u003dself.params.value\n\tif self.custom.IcnvisualActionColor\u003d\u003dTrue:\n\t\tself.getChild(\"root\").getChild(\"IcnvisualAction\").props.color\u003d\u0027#00AC00\u0027\n\telse:\n\t\tself.getChild(\"root\").getChild(\"IcnvisualAction\").props.color\u003d\u0027#000000\u0027\n\t\t\n\tif self.custom.IcnPhysicalActionColor\u003d\u003dTrue:\n\t\tself.getChild(\"root\").getChild(\"IcnPhysicalAction\").props.color\u003d\u0027#00AC00\u0027\n\telse:\n\t\tself.getChild(\"root\").getChild(\"IcnPhysicalAction\").props.color\u003d\u0027#000000\u0027\t\n"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "column": "value",
+    "columnIndex": "value",
+    "row": "value",
+    "rowData": "value",
+    "rowIndex": "value",
+    "value": "value"
+  },
+  "propConfig": {
+    "custom.IcnPhysicalActionColor": {
+      "persistent": true
+    },
+    "custom.IcnvisualActionColor": {
+      "persistent": true
+    },
+    "params.column": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.columnIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.row": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.value": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 35,
+      "width": 115
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\tscriptName\u003d\"Color Icon Click\"\n\t\tWOOperationStatus\u003dself.session.custom.WOOperationStatus\n\t\tif str(WOOperationStatus).lower().strip()\u003d\u003d\u0027In-Progress\u0027.lower() or str(WOOperationStatus).lower().strip()\u003d\u003d\u0027In Progress\u0027.lower():\n\t\t\n\t\t\tsystem.perspective.print(\"Click on Icon \"+str(self.view.custom.IcnvisualActionColor))\n\t\t\tif self.view.custom.IcnvisualActionColor \u003d\u003d True or self.view.custom.IcnvisualActionColor \u003d\u003d 1:\n\t\t\t\tself.view.custom.IcnvisualActionColor\u003dFalse\n\t\t\t\tsystem.perspective.print(\"Condition True First IF \")\n\t\t\t\tself.props.color\u003d\u0027#000000\u0027\n\t\t\telse:\t\t\n\t\t\t\tif self.view.custom.IcnvisualActionColor \u003d\u003d False or self.view.custom.IcnvisualActionColor \u003d\u003d 0:\n\t\t\t\t\tself.view.custom.IcnvisualActionColor\u003dTrue\n\t\t\t\t\tself.props.color\u003d\u0027#00AC00\u0027\n\t\t\t\t\tsystem.perspective.print(\"Condition True second IF \")\n\t\t\tsystem.perspective.print(\"Click on Change  \"+str(self.view.custom.IcnvisualActionColor))\n\t\t\tcolumnName\u003dself.view.params.column\n\t\t\tSelctedRow\u003dself.view.params.rowIndex\n\t\t\tpayload \u003d {\"Value\":self.view.custom.IcnvisualActionColor,\"SelctedRow\":SelctedRow,\"columnName\":\u0027visualAction\u0027}\n\t\t\tmessageType\u003d\u0027CLRICheckList\u0027\n\t\t\tsystem.perspective.sendMessage(messageType, payload, scope \u003d \u0027page\u0027)\n\texcept:\t\t\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\terrorMessage\u003derrorMessage  +\u0027 Line No  : \u0027+  str(lineno)\n\t\tAuthentication.exceptionLogger(errorMessage)\t\n\t\tsystem.perspective.print(errorMessage)"
+              },
+              "enabled": false,
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnvisualAction"
+        },
+        "position": {
+          "height": 0.8571,
+          "width": 0.4087,
+          "x": 0.0595,
+          "y": 0.0571
+        },
+        "propConfig": {
+          "props.color": {
+            "binding": {
+              "config": {
+                "path": "view.custom.IcnvisualActionColor"
+              },
+              "transforms": [
+                {
+                  "code": "\n\tif value\u003d\u003d1 or value\u003d\u003dTrue:\n\t\tcolor\u003d\u0027#00AC00\u0027\t\n\telse\t:\n\t\tcolor\u003d\u0027#000000\u0027\t\n\treturn color",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "path": "material/remove_red_eye"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\tWOOperationStatus\u003dself.session.custom.WOOperationStatus\n\t\tif str(WOOperationStatus).lower().strip()\u003d\u003d\u0027In-Progress\u0027.lower() or str(WOOperationStatus).lower().strip()\u003d\u003d\u0027In Progress\u0027.lower():\n\n\t\t\tif self.view.custom.IcnPhysicalActionColor \u003d\u003d True or self.view.custom.IcnPhysicalActionColor \u003d\u003d 1:\n\t\t\t\tself.view.custom.IcnPhysicalActionColor\u003dFalse\n\t\t\t\tself.props.color\u003d\u0027#000000\u0027\n\t\t\telse:\t\t\n\t\t\t\tif self.view.custom.IcnPhysicalActionColor \u003d\u003d False or self.view.custom.IcnPhysicalActionColor \u003d\u003d 0:\n\t\t\t\t\tself.view.custom.IcnPhysicalActionColor\u003dTrue\t\n\t\t\t\t\tself.props.color\u003d\u0027#00AC00\u0027\n\t\t\t\n\t\t\tcolumnName\u003d\u0027physicalAction\u0027\n\t\t\tSelctedRow\u003dself.view.params.rowIndex\n\t\t\tpayload \u003d {\"Value\":self.view.custom.IcnPhysicalActionColor,\"SelctedRow\":SelctedRow,\"columnName\":columnName}\n\t\t\tmessageType\u003d\u0027CLRICheckList\u0027\n\t\t\tsystem.perspective.sendMessage(messageType, payload, scope \u003d \u0027page\u0027)\t\t\n\texcept:\t\t\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\terrorMessage\u003derrorMessage  +\u0027 Line No  : \u0027+  str(lineno)\n\t\tAuthentication.exceptionLogger(errorMessage)\t\n\t\tsystem.perspective.print(errorMessage)"
+              },
+              "enabled": false,
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnPhysicalAction"
+        },
+        "position": {
+          "height": 0.8571,
+          "width": 0.4087,
+          "x": 0.4534,
+          "y": 0.0569
+        },
+        "propConfig": {
+          "props.color": {
+            "binding": {
+              "config": {
+                "path": "view.custom.IcnPhysicalActionColor"
+              },
+              "transforms": [
+                {
+                  "code": "\t\n\tif value\u003d\u003d1 or  value\u003d\u003dTrue:\n\t\tcolor\u003d\u0027#00AC00\u0027\t\n\telse\t:\n\t\tcolor\u003d\u0027#000000\u0027\t\n\treturn color\n\t",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "path": "material/pan_tool"
+        },
+        "type": "ia.display.icon"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

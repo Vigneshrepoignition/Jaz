@@ -1,0 +1,755 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\tuserId \u003d self.session.custom.UserId\n\t\tselectedWorkorderId \u003d self.params.selectedWorkorderId\n\t\tselectedLineId \u003d self.params.selectedLineId\n\t\tsystem.perspective.print(\u0027selectedWorkorderId : \u0027 + str(selectedWorkorderId))\n\t\tsystem.perspective.print(\u0027selectedLineId : \u0027 + str(selectedLineId))\n\t\tgetPrintHistory\u003dPDAComponentScanning.getAllPrintedHistory(selectedWorkorderId,selectedLineId,userId)\n\t\tself.getChild(\"root\").getChild(\"TblReturnLotPrinting\").props.data \u003d getPrintHistory\n\texcept:\n\t\tpass"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "selectedLineId": "",
+    "selectedWorkorderId": ""
+  },
+  "propConfig": {
+    "params.selectedLineId": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.selectedWorkorderId": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 244,
+      "width": 351
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 0.1443,
+          "width": 1
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Re-Print Lot Number",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "classes": "PDA/HeaderText",
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 10,
+            "fontWeight": "bolder",
+            "margin": 10,
+            "textAlign": "center",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onRowClick": {
+              "config": {
+                "script": "\ttry:\n\t\tselectedRow\u003dself.props.selection.selectedRow\n\t\tselectedColumn\u003dself.props.selection.selectedColumn\n\t\tReprint \u003d \"Reprint\"\n\t\tif selectedColumn \u003d\u003d str(\"Reprint\"):\n\t\t\tTableData \u003d self.props.data\n\t\t\tlineId \u003d self.view.params.selectedLineId\n\t\t\tprintedBy\u003dself.session.custom.UserId\n\t\t\tworkOrderNumber\u003d \u0027string\u0027\n\t\t\tWorkorderId \u003d self.view.params.selectedWorkorderId\n\t\t\tsystem.perspective.print(\u0027selectedRow :\u0027 + str(selectedRow))\n\t\t\tPrintHistoryId \u003d TableData.getValueAt(selectedRow,\"id\")\n\t\t\tsystem.perspective.print(\u0027PrintHistoryId :\u0027 + str(PrintHistoryId))\n\t\t\tisPrint\u003d0\n\t\t\tNoOfPrint\u003d0\n\t\t\tPrinterIP\u003dNone\n\t\t\tPort\u003d9100\n\t\t\tprintFile \u003d PDAComponentScanning.getReprintTemplate(PrintHistoryId,isPrint,NoOfPrint,PrinterIP,Port)\n\t\t\t\n#\t\t\tsystem.perspective.print(\u0027printFile page :\u0027 + (printFile))\n\t\t\tNoOfPrint\u003dint(1)\n\t\t\tdsPrintlist\u003dPrinterConfiguration.GetWONumberLineWisePrinterDetails(lineId,WorkorderId)\n\t\t\t\n#\t\t\tsystem.perspective.print(\u0027dsPrintlist :\u0027 + str(dsPrintlist))\n\t\t\tif len(dsPrintlist)\u003e0:\n\t\t\t\tfor i  in \tdsPrintlist:\n\t\t\t\t\tPrinterId\u003d i[\u0027PrinterId\u0027]\n\t\t\t\t\tPrinterName\u003d str(i[\u0027PrinterName\u0027]).strip()\n\t\t\t\t\tPrinterIP\u003d str(i[\u0027PrinterIP\u0027]).strip()\n\t\t\t\t\tPort\u003d str(i[\u0027Port\u0027]).strip()\n\t\t\t\t\tLineId \u003d str(i[\u0027LineId\u0027]).strip()\n\t\t\t\t\tbreak\n\t#\t\t\tsystem.perspective.print(\u0027PrinterId : \u0027 + str(PrinterId))\n\t#\t\t\tsystem.perspective.print(\u0027PrinterName : \u0027 + str(PrinterName))\n\t#\t\t\tsystem.perspective.print(\u0027PrinterIP : \u0027 + str(PrinterIP))\n\t\n\t\t\t\tif  str(PrinterIP).strip()\u003d\u003d\u0027\u0027 or str(PrinterIP).strip()\u003d\u003dNone or str(PrinterIP).lower().strip()\u003d\u003d\u0027none\u0027 or  str(PrinterIP).lower().strip()\u003d\u003d\u0027null\u0027:\n\t\t\t\t\tMessageText\u003d\"Warning: Print Failed.Please Configure Printer IP address.\"\n\t\t\t\t\tsystem.perspective.openPopup(\u0027MessagePopup\u0027,\u0027Project_MES_Solution/PDAScreens/Production/MaterialReturn/MessageBoxReturn\u0027,params\u003d{\"MessageText\":MessageText,\"ErrorVisible\": True,\"SuccessVisible\":False},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\telif str(Port).strip()\u003d\u003d\u0027\u0027 or str(Port).strip()\u003d\u003dNone or str(Port).lower().strip()\u003d\u003d\u0027none\u0027 or  str(Port).lower().strip()\u003d\u003d\u0027null\u0027:\t\n\t\t\t\t\tMessageText\u003d\"Warning: Print Failed.Please Configure Printer Port.\"\n\t\t\t\t\tsystem.perspective.openPopup(\u0027MessagePopup\u0027,\u0027Project_MES_Solution/PDAScreens/Production/MaterialReturn/MessageBoxReturn\u0027,params\u003d{\"MessageText\":MessageText,\"ErrorVisible\": True,\"SuccessVisible\":False},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\telif str(printFile).strip()\u003d\u003d\u0027\u0027 or str(printFile).strip()\u003d\u003dNone or str(printFile).lower().strip()\u003d\u003d\u0027none\u0027 or  str(printFile).lower().strip()\u003d\u003d\u0027null\u0027:\t\n\t\t\t\t\tMessageText\u003d\"Warning : Please Configure PRN File.\"\n\t\t\t\t\tsystem.perspective.openPopup(\u0027MessagePopup\u0027,\u0027Project_MES_Solution/PDAScreens/Production/MaterialReturn/MessageBoxReturn\u0027,params\u003d{\"MessageText\":MessageText,\"ErrorVisible\": True,\"SuccessVisible\":False},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\telse:\n#\t\t\t\t\tsystem.perspective.print(\u0027printFile before call:\u0027 + (printFile))\n\t\t\t\t\tisPrint\u003d1\n\t\t\t\t\tprintResult \u003d PDAComponentScanning.getReprintTemplate(PrintHistoryId,isPrint,NoOfPrint,PrinterIP,Port)\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t \n#\t\t\t\t\tprintResult\u003dPrint.printingServer(printFile,NoOfPrint,PrinterIP,Port)\n#\t\t\t\t\tsystem.perspective.print(\u0027printResult :\u0027 + (printResult))\n\t\t\t\t\tif printResult \u003d\u003d True or str(printResult).strip().lower() \u003d\u003d str(\u0027true\u0027).strip().lower():\n\t\t\t\t\t\tsystem.perspective.openPopup(\u0027MessagePopup\u0027,\u0027Project_MES_Solution/PDAScreens/Production/MaterialReturn/MessageBoxReturn\u0027,params\u003d{\"MessageText\":\" Successfully printed\",\"ErrorVisible\": False,\"SuccessVisible\":True},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\telse:\n\t\t\t\t\t\tsystem.perspective.openPopup(\u0027MessagePopup\u0027,\u0027Project_MES_Solution/PDAScreens/Production/MaterialReturn/MessageBoxReturn\u0027,params\u003d{\"MessageText\":\" Error in printing\",\"ErrorVisible\": True,\"SuccessVisible\":False},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: PDA :: Material Return : On Startup\u0027:\"+ str(exc_obj) + \"Code Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "TblReturnLotPrinting"
+        },
+        "position": {
+          "height": 0.8443,
+          "width": 0.9936,
+          "y": 0.1459
+        },
+        "props": {
+          "bodyStyle": {
+            "classes": "Table/RowsBorder"
+          },
+          "columns": [
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "id",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "WorkOrderNo",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "ComponentName",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Component"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "LotNumber",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Lot"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "PrintedOn",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Printed On"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "CreatedBy",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Printed By"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "Reprint",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": ""
+            }
+          ],
+          "data": null,
+          "dragOrderable": false,
+          "headerStyle": {
+            "classes": "Table/Header"
+          },
+          "pager": {
+            "bottom": false
+          },
+          "rows": {
+            "subview": {
+              "viewPath": "Project_MES_Solution/OperatorConsole/PDAScreen/PDAPopups/ComponentSubview"
+            }
+          },
+          "selection": {
+            "enableColumnSelection": true
+          }
+        },
+        "type": "ia.display.table"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Icon"
+        },
+        "position": {
+          "height": 0.1493,
+          "width": 0.0962,
+          "x": 0.8942,
+          "y": -0.005
+        },
+        "props": {
+          "color": "#FFFFFF",
+          "path": "material/clear"
+        },
+        "type": "ia.display.icon"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

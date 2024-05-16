@@ -1,0 +1,67 @@
+{
+  "custom": {},
+  "params": {
+    "Message": ""
+  },
+  "propConfig": {
+    "params.Message": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 37,
+      "width": 1502
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Label"
+        },
+        "position": {
+          "height": 0.973,
+          "width": 0.9987,
+          "x": 0.0012,
+          "y": 0.0011
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.Message"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#307492",
+            "borderColor": "#AAAAAA",
+            "borderStyle": "solid"
+          },
+          "textStyle": {
+            "color": "#FFFFFF",
+            "fontFamily": "Arial",
+            "fontSize": 14,
+            "fontWeight": "bold"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root",
+      "tooltip": {
+        "tail": false
+      }
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

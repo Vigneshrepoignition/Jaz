@@ -1,0 +1,599 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\tsystem.perspective.print(\"Machine Check\")\n\t\tWoNumber \u003dself.session.custom.WoNumber\n\t\tdefaultPath\u003dsystem.tag.read(\"[default]JMES_InternalTags/DafaultTagPath\").value\n\t\tif WoNumber !\u003d str(\u0027\u0027):\n\t\t\tMachineDynamicViewElements\u003d[]\n\t\t\tResult \u003d PackingAndLabelling.getActiveWorkOrderMachineList()\t\t\n\t\t\tfor row in Result:\n\t\t\t\tmachineName \u003d row.get(\"MachineName\")\n\t\t\t\tWorkOrderNo \u003d row.get(\u0027WorkOrderNo\u0027)\n\t\t\t\tif str(WoNumber) \u003d\u003d str(WorkOrderNo):\t\t\t\t\n\t\t\t\t\ttagPath \u003d str(defaultPath)+str(machineName)\n\t\t\t\t\tmachineStatusTag \u003d system.tag.read(str(tagPath)+\u0027/MachineStatus.value\u0027).value\n\t\t\t\t\tqualityTag \u003d system.tag.read(str(tagPath)+\u0027/MachineStatus.Quality\u0027).value\n\t\t\t\t\t\n\t\t\t\t\tif machineStatusTag \u003d\u003d (1 or 2 or 3 or 4 or 5) and str(qualityTag).lower() \u003d\u003d str(\u0027Good\u0027).lower():\n\t\t\t\t\t\tsystem.perspective.print (\u0027Pass\u0027)\n\t\t\t\t\telse:\n\t\t\t\t\t\tsystem.perspective.print(\"Disconnected machineName:-\"+str(machineName))\n\t\t\t\t\t\tmessage \u003d  str(machineName) + \u0027 Is Disconnected for workorder No\u0027+str(WorkOrderNo)\n\t\t\t\t\t\tmachineDetails.append(message)\n\t\t\t\t\t\tsystem.perspective.print(message)\n\t\t\t\t\t\tMachineviewElements\u003d{\u0027alignItems\u0027: \u0027flex-start\u0027, \u0027justify\u0027: \u0027flex-start\u0027, \u0027viewParams\u0027: {\u0027Message\u0027: \u0027Value\u0027}, \u0027direction\u0027: \u0027row\u0027, \u0027viewPath\u0027: \u0027Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg\u0027}\n\t\t\t\t\t\tMachineDynamicViewElements.append(MachineviewElements)\t\n\t\t\tself.getChild(\"root\").getChild(\"Carousel\").props.views\u003dMachineDynamicViewElements\n\t\t\tsystem.perspective.print(\"List of Deisconnected Machines For Workorder:\"+str(machineDetails))\n\t\t\tnoofMachine\u003d(len(MachineDynamicViewElements))\n\t\t\tsystem.perspective.print(\"noofMachine --\u003e\"+str(noofMachine))\n\t\t\tfor i in range(noofMachine):\n\t\t\t\n\t\t\t\tsystem.perspective.print(\"Disconnect machine message For Wo:\"+str(message))\n\t\t\t\tself.getChild(\"root\").getChild(\"Carousel\").props.views[i].viewParams.Message\u003dmachineDetails[i]\t\n\t\telse:\n\t\t\tMachineDynamicViewElements\u003d[]\n\t\t\tResult \u003d PackingAndLabelling.getActiveWorkOrderMachineList()\t\n\t\t\tmachineDetails\u003d[]\t\n\t\t\tfor row in Result:\n\t\t\t\tmachineName \u003d row.get(\"MachineName\")\n\t\t\t\tWorkOrderNo \u003d row.get(\u0027WorkOrderNo\u0027)\t\t\t\t\n\t\t\t\ttagPath \u003d str(defaultPath)+str(machineName)\n\t\t\t\tmachineStatusTag \u003d system.tag.read(str(tagPath)+\u0027/MachineStatus.value\u0027).value\n\t\t\t\tqualityTag \u003d system.tag.read(str(tagPath)+\u0027/MachineStatus.Quality\u0027).value\n#\t\t\t\tprint \u0027machineName :\u0027,str(machineName),\u0027 :-\u0027 +str(machineStatusTag)+ \u0027 :-\u0027+ str(qualityTag)\n\t\t\t\tif machineStatusTag \u003d\u003d (1 or 2 or 3 or 4 or 5) and str(qualityTag).lower() \u003d\u003d str(\u0027Good\u0027).lower():\n\t\t\t\t\tsystem.perspective.print (\u0027Pass\u0027)\n\t\t\t\telse:\n\t\t\t\t\tsystem.perspective.print(\"Disconnected machineName:-\"+str(machineName))\n\t\t\t\t\tmessage \u003d  str(machineName) + \u0027 Is Disconnected for workorder No\u0027+str(WorkOrderNo)\n\t\t\t\t\tmachineDetails.append(message)\n#\t\t\t\t\tsystem.perspective.print(message)\n\t\t\t\t\tMachineviewElements\u003d{\u0027alignItems\u0027: \u0027flex-start\u0027, \u0027justify\u0027: \u0027flex-start\u0027, \u0027viewParams\u0027: {\u0027Message\u0027: \u0027Value\u0027}, \u0027direction\u0027: \u0027row\u0027, \u0027viewPath\u0027: \u0027Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg\u0027}\n\t\t\t\t\tMachineDynamicViewElements.append(MachineviewElements)\t\n\t\t\t\t\t\t\n\t\t\tself.getChild(\"root\").getChild(\"Carousel\").props.views\u003dMachineDynamicViewElements\n#\t\t\tsystem.perspective.print(\"List of Deisconnected Machines:\"+str(machineDetails))\t\n\t\t\t\n\t\t\tnoofMachine\u003d(len(MachineDynamicViewElements))\n#\t\t\tsystem.perspective.print(\"noofMachine --\u003e\"+str(noofMachine))\n\t\t\tfor i in range(noofMachine):\n\t\t\t\n#\t\t\t\tsystem.perspective.print(\"Disconnect machine message:\"+str(message))\n\t\t\t\tself.getChild(\"root\").getChild(\"Carousel\").props.views[i].viewParams.Message\u003dmachineDetails[i]\n\t\treturn \u0027\u0027\n\texcept:\n\t\tsystem.perspective.print(\"Exception in hecking PLC Status\")"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "Message": "MYE_COMM_100A_003 is disconnected"
+  },
+  "propConfig": {
+    "params.Message": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 51,
+      "width": 1603
+    },
+    "views": [
+      {
+        "alignItems": "flex-start",
+        "direction": "row",
+        "justify": "flex-start",
+        "viewParams": {
+          "Message": "Value"
+        },
+        "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+      },
+      {
+        "alignItems": "flex-start",
+        "direction": "row",
+        "justify": "flex-start",
+        "viewParams": {
+          "Message": "Value"
+        },
+        "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+      },
+      {
+        "alignItems": "flex-start",
+        "direction": "row",
+        "justify": "flex-start",
+        "viewParams": {
+          "Message": "Value"
+        },
+        "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+      },
+      {
+        "alignItems": "flex-start",
+        "direction": "row",
+        "justify": "flex-start",
+        "viewParams": {
+          "Message": "Value"
+        },
+        "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+      },
+      {
+        "alignItems": "flex-start",
+        "direction": "row",
+        "justify": "flex-start",
+        "viewParams": {
+          "Message": "Value"
+        },
+        "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+      }
+    ]
+  },
+  "root": {
+    "children": [
+      {
+        "custom": {
+          "Param": ""
+        },
+        "meta": {
+          "name": "Carousel"
+        },
+        "position": {
+          "height": 0.8649,
+          "width": 0.9981,
+          "x": 0.0007,
+          "y": 0.0678
+        },
+        "props": {
+          "appearance": {
+            "arrows": {
+              "enabled": false
+            },
+            "dots": {
+              "enabled": false
+            },
+            "slidePadding": 0,
+            "slidesToShow": 0
+          },
+          "autoplay": {
+            "enabled": true,
+            "transitionDelay": 5000
+          },
+          "behavior": {
+            "desktopDraggable": false,
+            "mobileSwipeable": false
+          },
+          "lazyLoad": false,
+          "views": [
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "YFY_LAMI_M001_076 Is Disconnected for workorder No: 13862577"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "FEK_TC_302_F180823A Is Disconnected for workorder No: 13862577"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "FEK_TC_302_F180823B Is Disconnected for workorder No: 13862577"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "YFY_LAMI_M001_076 Is Disconnected for workorder No: 13862578"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "FEK_TC_302_F180823A Is Disconnected for workorder No: 13862578"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "FEK_TC_302_F180823B Is Disconnected for workorder No: 13862578"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "BA_H01_0050_0061 Is Disconnected for workorder No: CL13864568"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MYE_EASS_200A_003 Is Disconnected for workorder No: PD53374283"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MD279B_002 Is Disconnected for workorder No: PD53374283"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MYE_EASS_200A_003 Is Disconnected for workorder No: PD53374284"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MD279B_002 Is Disconnected for workorder No: PD53374284"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MYE_EASS_200A_003 Is Disconnected for workorder No: PD53374307"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MYE_MASS_301A_001 Is Disconnected for workorder No: PD53374307"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MD279B_002 Is Disconnected for workorder No: PD53374307"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MYE_EASS_200A_003 Is Disconnected for workorder No: PD53374444"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MD279B_002 Is Disconnected for workorder No: PD53374444"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "QCH_AVIS_130_002 Is Disconnected for workorder No: PD53374445"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MYE_EASS_200A_003 Is Disconnected for workorder No: PD53374445"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MYE_MASS_301A_001 Is Disconnected for workorder No: PD53374445"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "YHD_MTES_340A_001 Is Disconnected for workorder No: PD53374445"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MD279B_002 Is Disconnected for workorder No: PD53374445"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "QCH_AVIS_130_002 Is Disconnected for workorder No: PD53374446"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MYE_EASS_200A_003 Is Disconnected for workorder No: PD53374446"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MYE_MASS_301A_001 Is Disconnected for workorder No: PD53374446"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "YHD_MTES_340A_001 Is Disconnected for workorder No: PD53374446"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MD279B_002 Is Disconnected for workorder No: PD53374446"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MYE_EASS_200A_003 Is Disconnected for workorder No: PD53374462"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MYE_MASS_301A_001 Is Disconnected for workorder No: PD53374462"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MD279B_002 Is Disconnected for workorder No: PD53374462"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MYE_EASS_200A_003 Is Disconnected for workorder No: PD53374463"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MYE_MASS_301A_001 Is Disconnected for workorder No: PD53374463"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MD279B_002 Is Disconnected for workorder No: PD53374463"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MYE_EASS_200A_003 Is Disconnected for workorder No: PD53374464"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MYE_MASS_301A_001 Is Disconnected for workorder No: PD53374464"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MD279B_002 Is Disconnected for workorder No: PD53374464"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MYE_EASS_200A_003 Is Disconnected for workorder No: PD53374468"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MYE_MASS_301A_001 Is Disconnected for workorder No: PD53374468"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MD279B_002 Is Disconnected for workorder No: PD53374468"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MYE_EASS_200A_003 Is Disconnected for workorder No: PD53374475"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MYE_MASS_301A_001 Is Disconnected for workorder No: PD53374475"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MD279B_002 Is Disconnected for workorder No: PD53374475"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MYE_EASS_200A_003 Is Disconnected for workorder No: PD53374478"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MYE_MASS_301A_001 Is Disconnected for workorder No: PD53374478"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MD279B_002 Is Disconnected for workorder No: PD53374478"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MYE_EASS_200A_003 Is Disconnected for workorder No: PD53374479"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MYE_MASS_301A_001 Is Disconnected for workorder No: PD53374479"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "Message": "MD279B_002 Is Disconnected for workorder No: PD53374479"
+              },
+              "viewPath": "Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg"
+            }
+          ]
+        },
+        "type": "ia.display.carousel"
+      }
+    ],
+    "meta": {
+      "name": "root",
+      "tooltip": {
+        "tail": false
+      }
+    },
+    "propConfig": {
+      "custom.MachinePolling": {
+        "binding": {
+          "config": {
+            "aggregate": "MinMax",
+            "avoidScanClassValidation": true,
+            "dateRange": {
+              "mostRecent": "1",
+              "mostRecentUnits": "HOUR"
+            },
+            "enableValueCache": true,
+            "ignoreBadQuality": false,
+            "polling": {
+              "enabled": true,
+              "rate": "10"
+            },
+            "preventInterpolation": false,
+            "returnFormat": "Wide",
+            "returnSize": {
+              "numRows": "100",
+              "type": "FIXED"
+            },
+            "tags": [],
+            "valueFormat": "DATASET"
+          },
+          "transforms": [
+            {
+              "code": "\tmessageType \u003d \u0027CheckMachineStatus\u0027\n\tsystem.perspective.sendMessage(messageType)\t\n\treturn value",
+              "type": "script"
+            }
+          ],
+          "type": "tag-history"
+        }
+      }
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "scripts": {
+      "customMethods": [],
+      "extensionFunctions": null,
+      "messageHandlers": [
+        {
+          "messageType": "CheckMachineStatus",
+          "pageScope": true,
+          "script": "\ttry:\n#\t\tsystem.perspective.print(\"Machine Check\")\n\t\tWoNumber \u003dself.session.custom.WoNumber\n\t\tdefaultPath\u003dsystem.tag.read(\"[default]JMES_InternalTags/DafaultTagPath\").value\n\t\tmachineDetails\u003d[]\n\t\tMachineDynamicViewElements\u003d[]\n\t\tif WoNumber !\u003d str(\u0027\u0027):\n\t\t\tMachineDynamicViewElements\u003d[]\n\t\t\tResult \u003d PackingAndLabelling.getActiveWorkOrderMachineList()\t\t\n\t\t\tfor row in Result:\n\t\t\t\tmachineName \u003d row.get(\"MachineName\")\n\t\t\t\tWorkOrderNo \u003d row.get(\u0027WorkOrderNo\u0027)\n\t\t\t\tif str(WoNumber) \u003d\u003d str(WorkOrderNo):\t\t\t\t\n\t\t\t\t\ttagPath \u003d str(defaultPath)+str(machineName)\n\t\t\t\t\tmachineStatusTag \u003d system.tag.read(str(tagPath)+\u0027/MachineStatus.value\u0027).value\n\t\t\t\t\tqualityTag \u003d system.tag.read(str(tagPath)+\u0027/MachineStatus.Quality\u0027).value\n\t\t\t\t\t\n\t\t\t\t\tif machineStatusTag \u003d\u003d (1 or 2 or 3 or 4 or 5) and str(qualityTag).lower() \u003d\u003d str(\u0027Good\u0027).lower():\n\t\t\t\t\t\tsystem.perspective.print (\u0027Pass\u0027)\n\t\t\t\t\telse:\n#\t\t\t\t\t\tsystem.perspective.print(\"Disconnected machineName:-\"+str(machineName))\n\t\t\t\t\t\tmessage \u003d  str(machineName) + \u0027 Is Disconnected for workorder No: \u0027+str(WorkOrderNo)\n\t\t\t\t\t\tmachineDetails.append(message)\n#\t\t\t\t\t\tsystem.perspective.print(message)\n\t\t\t\t\t\tMachineviewElements\u003d{\u0027alignItems\u0027: \u0027flex-start\u0027, \u0027justify\u0027: \u0027flex-start\u0027, \u0027viewParams\u0027: {\u0027Message\u0027: \u0027Value\u0027}, \u0027direction\u0027: \u0027row\u0027, \u0027viewPath\u0027: \u0027Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg\u0027}\n\t\t\t\t\t\tMachineDynamicViewElements.append(MachineviewElements)\t\n\t\t\tself.getChild(\"Carousel\").props.views\u003dMachineDynamicViewElements\n#\t\t\tsystem.perspective.print(\"List of Deisconnected Machines For Workorder:\"+str(machineDetails))\n\t\t\tnoofMachine\u003d(len(MachineDynamicViewElements))\n#\t\t\tsystem.perspective.print(\"noofMachine --\u003e\"+str(noofMachine))\n\t\t\tfor i in range(noofMachine):\n\t\t\t\n#\t\t\t\tsystem.perspective.print(\"Disconnect machine message For Wo:\"+str(message))\n\t\t\t\tself.getChild(\"Carousel\").props.views[i].viewParams.Message\u003dmachineDetails[i]\t\n\t\telse:\n\t\t\tMachineDynamicViewElements\u003d[]\n\t\t\tResult \u003d PackingAndLabelling.getActiveWorkOrderMachineList()\t\n\t\t\t\n\t\t\tfor row in Result:\n\t\t\t\tmachineName \u003d row.get(\"MachineName\")\n\t\t\t\tWorkOrderNo \u003d row.get(\u0027WorkOrderNo\u0027)\t\t\t\t\n\t\t\t\ttagPath \u003d str(defaultPath)+str(machineName)\n\t\t\t\tmachineStatusTag \u003d system.tag.read(str(tagPath)+\u0027/MachineStatus.value\u0027).value\n\t\t\t\tqualityTag \u003d system.tag.read(str(tagPath)+\u0027/MachineStatus.Quality\u0027).value\n\t\t\t\tif machineStatusTag \u003d\u003d (1 or 2 or 3 or 4 or 5) and str(qualityTag).lower() \u003d\u003d str(\u0027Good\u0027).lower():\n\t\t\t\t\tsystem.perspective.print (\u0027Pass\u0027)\n\t\t\t\telse:\n#\t\t\t\t\tsystem.perspective.print(\"Disconnected machineName:-\"+str(machineName))\n\t\t\t\t\tmessage \u003d  str(machineName) + \u0027 Is Disconnected for workorder No: \u0027+str(WorkOrderNo)\n\t\t\t\t\tmachineDetails.append(message)\n\t\t\t\t\tMachineviewElements\u003d{\u0027alignItems\u0027: \u0027flex-start\u0027, \u0027justify\u0027: \u0027flex-start\u0027, \u0027viewParams\u0027: {\u0027Message\u0027: \u0027Value\u0027}, \u0027direction\u0027: \u0027row\u0027, \u0027viewPath\u0027: \u0027Project_MES_Solution/Header_And_Footer/ProductionConsoleFootermsg\u0027}\n\t\t\t\t\tMachineDynamicViewElements.append(MachineviewElements)\t\n\t\t\t\t\t\t\n\t\t\tself.getChild(\"Carousel\").props.views\u003dMachineDynamicViewElements\t\t\t\t\n\t\t\tnoofMachine\u003d(len(MachineDynamicViewElements))\n\t\t\tfor i in range(noofMachine):\n\t\t\t\tself.getChild(\"Carousel\").props.views[i].viewParams.Message\u003dmachineDetails[i]\n\t\treturn \u0027\u0027\n\texcept:\n\t\tsystem.perspective.print(\"Exception in hecking PLC Status\")\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)",
+          "sessionScope": false,
+          "viewScope": false
+        }
+      ]
+    },
+    "type": "ia.container.coord"
+  }
+}

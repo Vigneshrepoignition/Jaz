@@ -1,0 +1,103 @@
+{
+  "custom": {},
+  "params": {
+    "rowData": "value"
+  },
+  "propConfig": {
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 44,
+      "width": 178
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "draggable": false,
+                "id": "lauiSGMf",
+                "modal": false,
+                "overlayDismiss": false,
+                "resizable": false,
+                "showCloseIcon": false,
+                "type": "open",
+                "viewParams": {
+                  "rowData": "{view.params.rowData}"
+                },
+                "viewPath": "Project_MES_Solution/ProductionOperatorConsole/PopUps/Popupautoproduction/Action_reasons",
+                "viewportBound": false
+              },
+              "scope": "C",
+              "type": "popup"
+            }
+          }
+        },
+        "meta": {
+          "name": "Button"
+        },
+        "position": {
+          "height": 0.5491,
+          "width": 0.4048,
+          "x": 0.0935,
+          "y": 0.2368
+        },
+        "props": {
+          "text": "Reason"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "draggable": false,
+                "id": "oLLXKiQH",
+                "modal": false,
+                "overlayDismiss": false,
+                "resizable": false,
+                "showCloseIcon": false,
+                "type": "open",
+                "viewParams": {
+                  "rowData": "{view.params.rowData}"
+                },
+                "viewPath": "Project_MES_Solution/ProductionOperatorConsole/PopUps/Popupautoproduction/Action_Split",
+                "viewportBound": false
+              },
+              "scope": "C",
+              "type": "popup"
+            }
+          }
+        },
+        "meta": {
+          "name": "Button_0"
+        },
+        "position": {
+          "height": 0.5491,
+          "width": 0.4048,
+          "x": 0.5237,
+          "y": 0.2368
+        },
+        "props": {
+          "text": "Split"
+        },
+        "type": "ia.input.button"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

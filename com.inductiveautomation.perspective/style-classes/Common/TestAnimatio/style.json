@@ -1,0 +1,17 @@
+{
+  "base": {
+    "animation": {
+      "duration": "0.000001s",
+      "direction": "reverse",
+      "fillMode": "none",
+      "keyframes": {
+        "0%": {
+          "backgroundColor": "#D7CCCCE6",
+          "color": "#808080",
+          "textShadow": "#EF6565"
+        },
+        "100%": {}
+      }
+    }
+  }
+}

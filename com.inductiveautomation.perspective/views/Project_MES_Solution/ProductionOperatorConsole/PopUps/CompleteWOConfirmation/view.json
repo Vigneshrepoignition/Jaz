@@ -1,0 +1,235 @@
+{
+  "custom": {},
+  "params": {
+    "PartNo": "",
+    "WONo": "",
+    "WONoProductionCount": ""
+  },
+  "propConfig": {
+    "params.PartNo": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.WONo": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.WONoProductionCount": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 193,
+      "width": 354
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 31,
+          "width": "100%"
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Confirmation",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 75,
+            "textAlign": "Center",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 31,
+          "width": 40,
+          "x": 307.95,
+          "y": 1
+        },
+        "props": {
+          "path": "material/close",
+          "style": {
+            "color": "#FFFFFF",
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "LblMsgScan"
+        },
+        "position": {
+          "height": 26.000000000000007,
+          "width": 246,
+          "x": 53,
+          "y": 42.4
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/Label_WithOutBackground"
+          },
+          "text": "Do you want to complete the workorder?",
+          "textStyle": {
+            "classes": "PDA/LabelText"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\n\t\tWoNumber\u003dself.view.params.WONo\n\t\twoNo\u003dself.view.params.WONo\n\t\tWorkOrderId\u003dself.session.custom.LineLeadWorkorderId\n\t\tUserId\u003dself.session.custom.UserId\n\t\tproductionCount\u003dself.view.params.WONoProductionCount\n\t\tuserId\u003dself.session.custom.UserId\n\t\tPartNo\u003dself.view.params.PartNo\t\n\t\tIsprocessedinQuality\u003dProductionOperatorConsole.IsprocessedInQuality(woNo)\n\t\tsystem.perspective.print(\" IsprocessedinQuality--\"+str(IsprocessedinQuality))\t\n\t\tif \tIsprocessedinQuality\u003d\u003d\u0027True\u0027 or IsprocessedinQuality\u003d\u003d\u0027true\u0027 or IsprocessedinQuality\u003d\u003dTrue:\t\t\n\t\t\tlineleadpost\u003d ProductionOperatorConsole.updateProductionCount(woNo,productionCount,userId,PartNo)\n\t\t\tsystem.perspective.print(\" lineleadpost--\"+str(lineleadpost))\t\n\t\t\tif \tlineleadpost\u003d\u003d\u0027true\u0027 or lineleadpost\u003d\u003d\u0027True\u0027 or lineleadpost\u003d\u003dTrue:\t\n\t\t\t\t\t\t\t\n\t\t\t\tIsClubbed\u003dFalse\n\t\t\t\tWorkOrderStatusId\u003d3\n\t\t\t\tScanBadge\u003d\u0027\u0027\n\t\t\t\tHoldReasonCodeId\u003d0\n\t\t\t\tComment\u003d\u0027Completed By Line Lead\u0027\n#\t\t\t\tparameters \u003d {\"WorkOrderId\":WorkOrderId, \"UserId\":UserId,\"IsClubbed\":IsClubbed,\"WorkOrderStatusId\":WorkOrderStatusId,\"ScanBadge\":ScanBadge,\"HoldReasonCodeId\":HoldReasonCodeId,\"Comment\":Comment} # Run the Named Query.\n#\t\t\t\tWoStartAck\u003dsystem.db.runNamedQuery(\"WorkorderOperation/WoStart\", parameters)\n#\t\t\t\tHoldReasonCodeId\u003d0\n#\t\t\t\tComment\u003d\u0027\u0027\n\t\t\t\tWoStartAck\u003dProductionOperatorConsole.UpdateWoOperationStatus(WorkOrderId,IsClubbed,UserId,WorkOrderStatusId,ScanBadge,HoldReasonCodeId,Comment)\n\t\t\t\tsystem.perspective.print(\"WoStartAck----\u003e\"+str(WoStartAck))           \t\n\t\t\t\t\n\t\t\t\tMessageText\u003d\"Workorder Completed Successfully.\"\n\t\t\t\tupdaateStatus\u003d1\n\t\t\t\tsystem.perspective.closePopup(\u0027\u0027)\n\t\t\t\tsystem.perspective.navigate(\"/LineLeadConsole\")\n\t\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\telse:\n\t\t\t\tsystem.perspective.print(\"Fail to update production Count\")\n\t\t\t\tpass\t\t\n\t\t\t\n\t\telse:\n\t\t\tMessageText\u003d\"The Container Approval Is Pending For Below Workorder.\"\n\t\t\tupdaateStatus\u003d0\n\t\t\tNavigationPath\u003d\u0027/QualityScrapDetails\u0027\n\t\t\tWoNo\u003dwoNo\n\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopupWithNavigation\u0027,params\u003d{\"MessageText\":MessageText,\"NavigationPath\":NavigationPath,\"WoNo\":WoNo},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\n\texcept:\n\t\tsystem.perspective.print(\"Exception:: Complete Workorder By Line Lead\")\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)\n"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnOk",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Click To Complete"
+          }
+        },
+        "position": {
+          "height": 35,
+          "width": 100,
+          "x": 61,
+          "y": 128.5
+        },
+        "props": {
+          "image": {
+            "width": 100
+          },
+          "style": {
+            "backgroundColor": "value",
+            "borderColor": "value",
+            "classes": "PDA/PDAButton"
+          },
+          "text": "Yes"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnOk_0",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Click To Cancel"
+          }
+        },
+        "position": {
+          "height": 35,
+          "width": 100,
+          "x": 191,
+          "y": 128.5
+        },
+        "props": {
+          "image": {
+            "width": 100
+          },
+          "style": {
+            "classes": "PDA/PDAButton"
+          },
+          "text": "No"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "LblWONo"
+        },
+        "position": {
+          "height": 26.000000000000007,
+          "width": 246,
+          "x": 53,
+          "y": 72.4
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.WONo"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "PDA/Label_WithOutBackground"
+          },
+          "textStyle": {
+            "classes": "PDA/LabelText"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -6.0625,
+      "y": -11.109375
+    },
+    "props": {
+      "style": {
+        "classes": "Panel/PopUp"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

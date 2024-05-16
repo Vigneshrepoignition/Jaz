@@ -1,0 +1,352 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\tself.getChild(\"root\").getChild(\"TxtScan\").focus()"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 270,
+      "width": 371
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 32,
+          "width": "100%"
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Resume Production",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 15,
+            "fontWeight": "bold",
+            "margin": 70,
+            "textAlign": "Center",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 30,
+          "width": 30,
+          "x": 332.938
+        },
+        "props": {
+          "path": "material/close",
+          "style": {
+            "color": "#FFFFFF",
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "LblMsgScan"
+        },
+        "position": {
+          "height": 24,
+          "width": 78,
+          "x": 17,
+          "y": 47
+        },
+        "props": {
+          "alignVertical": "top",
+          "style": {
+            "classes": "Common/Label_WithOutBackground"
+          },
+          "text": "Scan Badge",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "TxtScan"
+        },
+        "position": {
+          "height": 32,
+          "width": 280,
+          "x": 17,
+          "y": 73
+        },
+        "propConfig": {
+          "props.text": {
+            "onChange": {
+              "enabled": null,
+              "script": "\tif len(currentValue)\u003e1:\n\t\tself.getSibling(\"BtnOk\").props.enabled\u003d1\n\telse:\n\t\tself.getSibling(\"BtnOk\").props.enabled\u003d0\n\t\t"
+            }
+          }
+        },
+        "props": {
+          "deferUpdates": false,
+          "placeholder": "Scan Badge",
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "ImgBarcode"
+        },
+        "position": {
+          "height": 25,
+          "width": 35,
+          "x": 5.5,
+          "y": 2.5
+        },
+        "props": {
+          "source": "/system/images/Builtin/icons/16/barcode.png"
+        },
+        "type": "ia.display.image"
+      },
+      {
+        "meta": {
+          "name": "ImgScanner"
+        },
+        "position": {
+          "height": 32,
+          "width": 42,
+          "x": 313.814,
+          "y": 73
+        },
+        "props": {
+          "fit": {
+            "mode": "fill"
+          },
+          "source": "/system/images/Builtin/icons/16/barcodesmall.png  "
+        },
+        "type": "ia.display.image"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          },
+          "dom": {
+            "onClick": {
+              "config": {
+                "draggable": false,
+                "id": "uf01-dte",
+                "modal": true,
+                "overlayDismiss": false,
+                "resizable": false,
+                "showCloseIcon": false,
+                "type": "close",
+                "viewPath": "Project_MES_Solution/OperatorConsole/PopUps/ResumeOpsPopup",
+                "viewportBound": false
+              },
+              "scope": "C",
+              "type": "popup"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnCancel",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Click to Cancel"
+          }
+        },
+        "position": {
+          "height": 34,
+          "width": 80,
+          "x": 73.438,
+          "y": 208
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "classes": "Common/Button"
+          },
+          "text": "Cancel"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.openPopup(\u0027LoaderPopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/Loader/LoaderPopup\u0027,draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\ttry:\n\t\tWoNumber \u003d self.session.custom.WoNumber\n\t\tWorkOrderId \u003d selectedWorkorderId \u003d self.session.custom.WorkorderID\n\t\tScanBadge\u003dself.getSibling(\"TxtScan\").props.text\n\t\tUserId\u003d int(self.session.custom.UserId)   \t\t\n\t\tWorkorderType \u003d self.session.custom.WOType\t\t\n\t\tWorkOrderStatusId\u003d1\n\n\t\tif (str(WorkorderType) \u003d\u003d str(2)):\n\t\t\tClubbedWo \u003d MaterialRequestAPI.getCNSClubbedWorkorderDetailsbyworkorderId(selectedWorkorderId)\n\t\t\tIsWorkOrderClubbed \u003d ClubbedWo.getValueAt(0,\u0027IsWorkOrderClubbed\u0027)\n\n\t\t\tif IsWorkOrderClubbed \u003d\u003d True or str(IsWorkOrderClubbed).lower() \u003d\u003d str(\"true\").lower():\n\t\t\t\tsystem.perspective.print(\"Print 1: CNS : In Clubbed Workorder\")\n\t\t\t\tprimaryWorkorderId \u003d ClubbedWo.getValueAt(0,\u0027PrimaryWorkOrderId\u0027)\n\t\t\t\tif selectedWorkorderId\u003d\u003dprimaryWorkorderId:\n\t\t\t\t\tIsClubbed\u003dTrue\n\t\t\t\t\tHoldReasonCodeId\u003d0\n\t\t\t\t\tComment\u003d\u0027\u0027\n\t\t\t\t\tWoStartAck\u003dProductionOperatorConsole.UpdateWoOperationStatus(WorkOrderId,IsClubbed,UserId,WorkOrderStatusId,ScanBadge,HoldReasonCodeId,Comment)\n\t\t\t\t\tfor_changeoverrecord \u003d JEMESSetupapi.Post_addworkorderchangeoverlogo(workOrderId)\n\t\t\t\t\tself.session.custom.WOOperationStatus \u003d \u0027In-Progress\u0027 #To write in Start Session\n\t \t\t\t\tself.session.custom.woStatus\u003d\u0027In-Progress\u0027\n\t \t\t\t\tsystem.perspective.closePopup(\u0027ResumeOpPopup\u0027)\n\t \t\t\t\tsystem.perspective.closePopup(\u0027LoaderPopup\u0027) \n \t\t\t\telse:\n \t\t\t\t\tsystem.perspective.closePopup(\u0027ResumeOpPopup\u0027) \n \t\t\t\t\tsystem.perspective.closePopup(\u0027LoaderPopup\u0027) \n \t\t\t\t\tsystem.perspective.closePopup(\u0027\u0027) \n\t\t\t\t\tPrimaryWorkorderNo \u003d ClubbedWo.getValueAt(0,\u0027PrimaryWorkorderNo\u0027)\n\t\t\t\t\tMessageText\u003d \"Please resume the operation againt main part workorder only : \" + str(PrimaryWorkorderNo)\n\t\t\t\t\tupdaateStatus\u003d0\n\t\t\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\n\t\t\telse:\n\t\t\t\tsystem.perspective.print(\"Print 2: CNS : Not A Clubbed Workorder\")\n\t\t\t\tIsClubbed\u003dFalse\n\t\t\t\tHoldReasonCodeId\u003d0\n\t\t\t\tComment\u003d\u0027\u0027\n\t\t\t\tWoStartAck\u003dProductionOperatorConsole.UpdateWoOperationStatus(WorkOrderId,IsClubbed,UserId,WorkOrderStatusId,ScanBadge,HoldReasonCodeId,Comment)\n\t\t\t\tfor_changeoverrecord \u003d JEMESSetupapi.Post_addworkorderchangeoverlogo(workOrderId)\n\t\t\t\tself.session.custom.WOOperationStatus \u003d \u0027In-Progress\u0027 #To write in Start Session\n\t\t\t\tself.session.custom.woStatus\u003d\u0027In-Progress\u0027\n\t\t\t\tsystem.perspective.closePopup(\u0027ResumeOpPopup\u0027)\n\t\t\t\tsystem.perspective.closePopup(\u0027LoaderPopup\u0027)\n\t\telse:\n\t\t\tsystem.perspective.print(\"Print 3: Assembly Workorder\")\n\t\t\tIsClubbed\u003dFalse\n\t\t\tHoldReasonCodeId\u003d0\n\t\t\tComment\u003d\u0027\u0027\n\t\t\tWoStartAck\u003dProductionOperatorConsole.UpdateWoOperationStatus(WorkOrderId,IsClubbed,UserId,WorkOrderStatusId,ScanBadge,HoldReasonCodeId,Comment)\n\t\t\tfor_changeoverrecord \u003d JEMESSetupapi.Post_addworkorderchangeoverlogo(workOrderId)\n\t\t\tself.session.custom.WOOperationStatus \u003d \u0027In-Progress\u0027 #To write in Start Session\n\t\t\tself.session.custom.woStatus\u003d\u0027In-Progress\u0027\n\t\t\tsystem.perspective.closePopup(\u0027ResumeOpPopup\u0027)\n\t\t\tsystem.perspective.closePopup(\u0027LoaderPopup\u0027)\n\t\tsystem.perspective.closePopup(\u0027LoaderPopup\u0027)\n\t\t\n\texcept:\n\t\timport sys, os\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\tlineno \u003d tb.tb_lineno\n\t\terrorMessage \u003d \"\u0027Exception :: Production Operator Console: View WO: Resume WO: \u0027:\"+ str(exc_obj) + \" || Line No: \"+ str(lineno)\n\t\tsystem.perspective.print(errorMessage+\u0027 || Line No :\u0027 + str(lineno))\n\t\tAuthentication.exceptionLogger(errorMessage)\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnOk",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Click to Resume"
+          }
+        },
+        "position": {
+          "height": 34,
+          "width": 80,
+          "x": 206,
+          "y": 208
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "expression": "now(1000)"
+              },
+              "transforms": [
+                {
+                  "code": "\tscanTxt \u003d self.getSibling(\"TxtScan\").props.text\n\tcommentTxt \u003d self.getSibling(\"TxtComment\").props.text\n\t\n\tif (scanTxt!\u003d\u0027\u0027) :\n\t\tvalue \u003d True\n\t\tself.props.style.backgroundColor \u003d \"#3888CC\"\n\t\tself.props.style.borderColor \u003d \"#3888CC\"\n\telse:\n\t\tvalue \u003d False\n\t\tself.props.style.backgroundColor \u003d str(self.session.custom.disableBtncolour)\n\t\tself.props.style.borderColor \u003d str(self.session.custom.disableBtncolour)\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "backgroundColor": "value",
+            "borderColor": "value",
+            "classes": "Common/Button"
+          },
+          "text": "Resume"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "LblComment"
+        },
+        "position": {
+          "height": 32,
+          "width": 95,
+          "x": 17,
+          "y": 122
+        },
+        "props": {
+          "text": "Comment",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "TxtComment"
+        },
+        "position": {
+          "height": 32,
+          "width": 337,
+          "x": 17,
+          "y": 152
+        },
+        "props": {
+          "deferUpdates": false,
+          "placeholder": "Add Comment",
+          "rejectUpdatesWhileFocused": false,
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "LblMsgScan_0"
+        },
+        "position": {
+          "height": 24,
+          "width": 10,
+          "x": 94,
+          "y": 46
+        },
+        "props": {
+          "alignVertical": "top",
+          "style": {
+            "classes": "Common/Label_WithOutBackground"
+          },
+          "text": "*",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground",
+            "color": "#FF4747"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -2,
+      "y": -7
+    },
+    "props": {
+      "style": {
+        "classes": "Panel/PopUp"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\tisReadOnly \u003d self.session.custom.authorizeProductionReadOnly\n\tif isReadOnly\u003d\u003d1 or str(isReadOnly).lower()\u003d\u003d\u0027true\u0027:\n\t\tself.getChild(\"root\").getChild(\"Checkbox\").props.enabled \u003d 0\n\t\t\n\telse:\n\t\tself.getChild(\"root\").getChild(\"Checkbox\").props.enabled \u003d 1"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "rowData": "",
+    "rowIndex": "",
+    "value": ""
+  },
+  "propConfig": {
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.value": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 29,
+      "width": 27
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\t\n\t\twoStatus\u003dself.session.custom.woStatus\t\t\n\t\tif woStatus\u003d\u003d\u0027Not-Started\u0027 or woStatus\u003d\u003d\u0027Not Started\u0027:\n\t\t\tisChecked1\u003dself.props.selected\n\t\t\tif isChecked1\u003d\u003dTrue:\n\t\t\t\tisChecked\u003d\u0027true\u0027\n\t\t\telse:\n\t\t\t\tisChecked\u003d\u0027false\u0027\n\t\t\trowindex\u003dself.view.params.rowIndex\n\t\t\trowData\u003dself.view.params.rowData\n\t\t\tSelctedRow\u003drowData[\u0027Yes_No\u0027]\n\t\t\tSelctedRow\u003drowindex\t\t\t\n\t\t\tmessageType \u003d \u0027SafetyCheckBox\u0027\n\t\t\tsystem.perspective.sendMessage(messageType, payload \u003d {\"isChecked\":isChecked,\"SelctedRowIndex\":rowindex}, scope \u003d \"page\")\n\t\telse:\n\t\t\tself.props.selected\u003dself.view.params.value\n#\t\t\t\tisChecked1\u003dself.props.selected\n#\t\t\t\tif isChecked1\u003d\u003dTrue:\n#\t\t\t\t\tself.props.selected\u003dFalse\n#\t\t\t\telse:\n#\t\t\t\t\tself.props.selected\u003dTrue\n\n\texcept:\n\t\t\tsystem.perspective.print(\u0027Exception:Safety Checklist CheckBox\u0027)\n\t\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\t\tsystem.perspective.print(errorMessage)\n\t\t\tlineno \u003d tb.tb_lineno\n\t\t\tsystem.perspective.print(lineno)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Checkbox",
+          "tooltip": {
+            "text": "Read Only Access"
+          }
+        },
+        "position": {
+          "height": 0.8276,
+          "width": 0.7767,
+          "x": 0.0393,
+          "y": 0.069
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "session.custom.woStatus"
+              },
+              "enabled": false,
+              "previewEnabled": false,
+              "transforms": [
+                {
+                  "code": "\tif (value\u003d\u003d\u0027Not-Started\u0027 or value\u003d\u003d\u0027Not Started\u0027 ):\n\t\tvalue\u003d True\n\telse:\n\t\tvalue\u003d False\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.selected": {
+            "binding": {
+              "config": {
+                "path": "view.params.value"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "enabled": 0,
+          "text": ""
+        },
+        "type": "ia.input.checkbox"
+      }
+    ],
+    "meta": {
+      "name": "root",
+      "tooltip": {
+        "text": "Read Only Access"
+      }
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

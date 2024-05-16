@@ -1,0 +1,472 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\tenterpriseID \u003d 1\n\t\tplantID \u003d 1\n\t\tWorkOrderId \u003d 1\n\t\tShiftId \u003d 1\n\t\tresult\u003dAdhocAPIZAC.GetOPRInfo(enterpriseID,plantID,WorkOrderId,ShiftId)\n\t\tself.getChild(\"root\").getChild(\"OPRDropdown\").props.options\u003d result\n\t\n\texcept Exception as e:    \n\t    scriptName \u003d \"Operator Console:AdhocAPIZAC.GetOPRInfo...\"\n\t    errorMessage\u003dscriptName  +\u0027 Exception - \u0027+  str(e)\n\t    Authentication.exceptionLogger(errorMessage)"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 362,
+      "width": 549
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 38,
+          "width": 549
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Operator Information",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 10,
+            "textAlign": "Center",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "draggable": false,
+                "id": "973KZO4U",
+                "modal": false,
+                "overlayDismiss": false,
+                "resizable": false,
+                "showCloseIcon": false,
+                "type": "close",
+                "viewPath": "Project_MES_Solution/ProductionOperatorConsole/PopUps/DL and IDL operator information/PopupUserAssignmentDL",
+                "viewportBound": false
+              },
+              "scope": "C",
+              "type": "popup"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 34.78,
+          "width": 36.00000000000006,
+          "x": 509.59,
+          "y": 0.59
+        },
+        "props": {
+          "color": "#FFFFFF",
+          "path": "material/close"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "LblProductionLine",
+          "tooltip": {
+            "enabled": true,
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Production Line"
+          }
+        },
+        "position": {
+          "height": 31.02,
+          "width": 127.22,
+          "x": 19.4,
+          "y": 61.2719
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Operator ID",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\n\t\tresultdata \u003d self.props.options\n\t\tfor row_index in range(resultdata.getRowCount()):\n\t\t\tif str(resultdata.getValueAt(row_index, 2))\u003d\u003d str(self.props.value):\n\t\t\t\tself.getSibling(\"TextField\").props.text\u003dresultdata.getValueAt(row_index, 2)\n\t\n\texcept Exception as e:    \n\t\tscriptName \u003d \"onActionperformed\"\n\t\terrorMessage\u003dscriptName  +\u0027 Exception - \u0027+  str(e)\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "OPRDropdown"
+        },
+        "position": {
+          "height": 36,
+          "width": 204,
+          "x": 18,
+          "y": 92.3
+        },
+        "props": {
+          "options": {
+            "$": [
+              "ds",
+              192,
+              1704879461883
+            ],
+            "$columns": [
+              {
+                "data": [
+                  1,
+                  2,
+                  3
+                ],
+                "name": "s_no",
+                "type": "Integer"
+              },
+              {
+                "data": [
+                  96,
+                  97,
+                  98
+                ],
+                "name": "userId",
+                "type": "Integer"
+              },
+              {
+                "data": [
+                  "Vignesh h",
+                  "Gladston Raj",
+                  "Vicky h"
+                ],
+                "name": "LoginId",
+                "type": "String"
+              },
+              {
+                "data": [
+                  "Vignesh",
+                  "Gladraj",
+                  "Operator1"
+                ],
+                "name": "userName",
+                "type": "String"
+              }
+            ]
+          },
+          "style": {
+            "classes": "Common/TextBox "
+          },
+          "value": 4
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "meta": {
+          "name": "LblProductionLine_0",
+          "tooltip": {
+            "enabled": true,
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Production Line"
+          }
+        },
+        "position": {
+          "height": 29.659999999999997,
+          "width": 133.87,
+          "x": 309.07,
+          "y": 61.55
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Operator Name",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Label_0"
+        },
+        "position": {
+          "height": 36,
+          "width": 204,
+          "x": 19.390625,
+          "y": 167.8625
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "expression": "toStr(now(), \"yyyy-MM-dd HH:mm:ss\")"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Common/TextBox_disabled"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblProductionLine_1",
+          "tooltip": {
+            "enabled": true,
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Production Line"
+          }
+        },
+        "position": {
+          "height": 31.02,
+          "width": 127.22,
+          "x": 19.009374999999977,
+          "y": 136.5532
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Start time",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblProductionLine_2",
+          "tooltip": {
+            "enabled": true,
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Production Line"
+          }
+        },
+        "position": {
+          "height": 29.659999999999997,
+          "width": 133.86,
+          "x": 310.12,
+          "y": 133.56
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Operator Type",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Dropdown_0"
+        },
+        "position": {
+          "height": 34.44,
+          "width": 213.35000000000002,
+          "x": 308.65,
+          "y": 163.24
+        },
+        "props": {
+          "options": [
+            {
+              "label": "DL",
+              "value": 0
+            },
+            {
+              "label": "IDL",
+              "value": 1
+            }
+          ],
+          "style": {
+            "classes": "Common/TextBox "
+          },
+          "value": 1
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "meta": {
+          "name": "LblProductionLine_3",
+          "tooltip": {
+            "enabled": true,
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Production Line"
+          }
+        },
+        "position": {
+          "height": 31.02,
+          "width": 127.22,
+          "x": 20.7906,
+          "y": 229.834
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Comments",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": [
+              {
+                "config": {
+                  "script": "\ttry:\n\t\tuserID \u003d int(1)\n\t\tworkOrderId \u003d int(1)\n\t\tresultdata \u003d self.getSibling(\"OPRDropdown\").props.options\n\t\tfor row_index in range(resultdata.getRowCount()):\n\t\t\tif str(resultdata.getValueAt(row_index, 2))\u003d\u003d str(self.getSibling(\"OPRDropdown\").props.value):\n\t\t\t\tdata1\u003dresultdata.getValueAt(row_index, 1)\n\t\tsystem.perspective.print(\"operator id is\")\t\n\t\tsystem.perspective.print(data1)\t\n\t\toperatorId \u003dstr(data1)\n\t\tstartTime \u003dstr(self.getSibling(\"Label_0\").props.text)\n\t\tendTime \u003dstr(self.getSibling(\"Label_0\").props.text)\n\t\tcomment \u003dstr(self.getSibling(\"TextField_0\").props.text)\n\t\tshiftId \u003dint(1)\n\t\tlineId\u003d int(1)\n\t\t\n\t#######for DL or IDL##########\n\t\tif self.getSibling(\"Dropdown_0\").props.value \u003d\u003d 0:\n\t\t\tisDirectLabour \u003d bool(True)\n\t\telif self.getSibling(\"Dropdown_0\").props.value \u003d\u003d 1:\n\t\t\tisDirectLabour \u003d bool(False)\n\t\tsystem.perspective.print(\"is directed\")\n\t\tsystem.perspective.print(isDirectLabour)\n\t\ta\u003dAdhocAPIZAC.PostOPRInfo(userID,workOrderId,operatorId,startTime,endTime,comment,shiftId,lineId,isDirectLabour)\n\t\tif a \u003d\u003d1:\n\t\t\tsystem.perspective.closePopup(\"973KZO4U\")\n\t\telse:\n\t\t\tpass\n\t\tsystem.perspective.print(\"return\")\n\t\tsystem.perspective.print(a)\n\texcept Exception as e:    \n\t\tscriptName \u003d \"Operator Console:AdhocAPIZAC.PostOPRInfo...\"\n\t\terrorMessage\u003dscriptName  +\u0027 Exception - \u0027+  str(e)\n\t\tAuthentication.exceptionLogger(errorMessage)\n\t"
+                },
+                "scope": "G",
+                "type": "script"
+              },
+              {
+                "config": {
+                  "script": "\tmessageType \u003d \u0027popupuserassignment_get_table_data\u0027\n\tsystem.perspective.sendMessage(messageType)"
+                },
+                "scope": "G",
+                "type": "script"
+              }
+            ]
+          }
+        },
+        "meta": {
+          "name": "Button"
+        },
+        "position": {
+          "height": 34,
+          "width": 80,
+          "x": 295.97746923828123,
+          "y": 312.9895820617676
+        },
+        "props": {
+          "text": "submit"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "draggable": false,
+                "id": "973KZO4U",
+                "modal": false,
+                "overlayDismiss": false,
+                "resizable": false,
+                "showCloseIcon": false,
+                "type": "close",
+                "viewPath": "Project_MES_Solution/ProductionOperatorConsole/PopUps/DL and IDL operator information/PopupUserAssignmentDL",
+                "viewportBound": false
+              },
+              "scope": "C",
+              "type": "popup"
+            }
+          }
+        },
+        "meta": {
+          "name": "Button_0"
+        },
+        "position": {
+          "height": 34,
+          "width": 80,
+          "x": 441.984375,
+          "y": 313
+        },
+        "props": {
+          "text": "cancel"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "TextField"
+        },
+        "position": {
+          "height": 34,
+          "width": 212,
+          "x": 309.0925,
+          "y": 92.28125
+        },
+        "props": {
+          "enabled": false,
+          "style": {
+            "classes": "Common/TextBox_disabled",
+            "fontFamily": "Arial",
+            "fontSize": 16
+          }
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "TextField_0"
+        },
+        "position": {
+          "height": 32,
+          "width": 500,
+          "x": 19.780625,
+          "y": 260.84375
+        },
+        "props": {
+          "placeholder": "enter the comments here",
+          "style": {
+            "classes": "Common/TextBox "
+          }
+        },
+        "type": "ia.input.text-field"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": 358,
+      "y": 128.296875
+    },
+    "type": "ia.container.coord"
+  }
+}

@@ -1,0 +1,2 @@
+SELECT AUDIT_EVENTS_ID,Action,Action_target,Action_value,Actor_host,Event_timestamp
+FROM AUDIT_EVENTS

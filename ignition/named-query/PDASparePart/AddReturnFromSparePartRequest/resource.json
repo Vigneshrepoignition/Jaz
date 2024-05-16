@@ -1,0 +1,70 @@
+{
+  "scope": "DG",
+  "version": 2,
+  "restricted": false,
+  "overridable": true,
+  "files": [
+    "query.sql"
+  ],
+  "attributes": {
+    "useMaxReturnSize": false,
+    "autoBatchEnabled": false,
+    "fallbackValue": "",
+    "maxReturnSize": 100,
+    "cacheUnit": "SEC",
+    "type": "UpdateQuery",
+    "enabled": true,
+    "cacheAmount": 1,
+    "cacheEnabled": false,
+    "database": "JEMESNEW",
+    "fallbackEnabled": false,
+    "lastModificationSignature": "766092e3a6c5fc6f206b9c5c5917de34dbed6b5e1d287dd9caadbf4e33a81b1d",
+    "permissions": [
+      {
+        "zone": "",
+        "role": ""
+      }
+    ],
+    "lastModification": {
+      "actor": "external",
+      "timestamp": "2024-05-16T06:24:23Z"
+    },
+    "parameters": [
+      {
+        "type": "Parameter",
+        "identifier": "workOrderNumber",
+        "sqlType": 7
+      },
+      {
+        "type": "Parameter",
+        "identifier": "requestNumberId",
+        "sqlType": 3
+      },
+      {
+        "type": "Parameter",
+        "identifier": "returningQty",
+        "sqlType": 3
+      },
+      {
+        "type": "Parameter",
+        "identifier": "slotId",
+        "sqlType": 3
+      },
+      {
+        "type": "Parameter",
+        "identifier": "userId",
+        "sqlType": 3
+      },
+      {
+        "type": "Parameter",
+        "identifier": "returnBy",
+        "sqlType": 7
+      },
+      {
+        "type": "Parameter",
+        "identifier": "sparePartNumberId",
+        "sqlType": 3
+      }
+    ]
+  }
+}

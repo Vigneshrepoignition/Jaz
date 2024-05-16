@@ -1,0 +1,10 @@
+{
+  "base": {
+    "style": {
+      "backgroundColor": "#D5D5D561",
+      "borderStyle": "groove",
+      "borderWidth": "1px",
+      "fontSize": "14px"
+    }
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "custom": {},
+  "params": {
+    "column": "value",
+    "columnIndex": "value",
+    "row": "value",
+    "rowData": "value",
+    "rowIndex": "value",
+    "value": "value"
+  },
+  "propConfig": {
+    "params.column": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.columnIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.row": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.value": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 35,
+      "width": 84
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": [
+              {
+                "config": {
+                  "params": {
+                    "dsTbloptr": "{view.params.rowData}",
+                    "rowData": "{view.params.rowData}"
+                  },
+                  "view": "Project_MES_Solution/ProductionOperatorConsole/PopUps/ProOprConsWOSel"
+                },
+                "enabled": false,
+                "scope": "C",
+                "type": "nav"
+              },
+              {
+                "config": {
+                  "script": "\t#system.perspective.print(self.view.params.rowData)\n\tdata \u003d self.view.params.rowData\n\tlineid \u003d data.get(\"LineId\")\n\tsystem.perspective.print(lineid)\n\tsystem.perspective.navigate(view \u003d\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ProOprConsWOSel\u0027, params \u003d {\u0027dsTbloptr\u0027:self.view.params.rowData,\u0027rowData\u0027:self.view.params.rowData})"
+                },
+                "scope": "G",
+                "type": "script"
+              }
+            ]
+          }
+        },
+        "meta": {
+          "name": "Button"
+        },
+        "position": {
+          "height": 0.9714,
+          "rotate": {
+            "anchor": "-77% 12%"
+          },
+          "width": 0.9762,
+          "x": -0.0119,
+          "y": 0.0143
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#00000000",
+            "borderStyle": "none",
+            "fontFamily": "Arial"
+          },
+          "text": "View",
+          "textStyle": {
+            "color": "#4747FF",
+            "fontFamily": "Arial",
+            "fontSize": 12,
+            "fontWeight": "bold"
+          }
+        },
+        "type": "ia.input.button"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

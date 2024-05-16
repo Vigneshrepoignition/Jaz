@@ -1,0 +1,246 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\tself.getChild(\"root\").getChild(\"TxtComment\").props.text \u003d \"\"\n\tself.getChild(\"root\").getChild(\"TxtComment\").focus()\n\t"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 204,
+      "width": 295
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027\u0027)\n\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          },
+          "dom": {
+            "onClick": {
+              "config": {
+                "draggable": false,
+                "id": "g78hF5yz",
+                "modal": true,
+                "overlayDismiss": false,
+                "resizable": false,
+                "showCloseIcon": false,
+                "type": "close",
+                "viewPath": "Project_MES_Solution/Maint Operator Console/Popup/PopupCompleteOperation",
+                "viewportBound": false
+              },
+              "scope": "C",
+              "type": "popup"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnYes",
+          "tooltip": {
+            "enabled": true,
+            "text": "Click To Cancel"
+          }
+        },
+        "position": {
+          "height": 0.1683,
+          "width": 0.3754,
+          "x": 0.0751,
+          "y": 0.7178
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "classes": "Common/Button"
+          },
+          "text": "Cancel"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\n\t\tscriptName \u003d \"PMTC: Complete Operation\"\n\t\tuserID \u003d self.session.custom.UserId\n\t\tWoNumber \u003d self.session.custom.WoNumber\n\t\tPMOrderID \u003d self.session.custom.PMOrderID\n\t\tcommentText \u003d self.getSibling(\"TxtComment\").props.text\n#\t\tholdReasonId \u003d self.getSibling(\"DrpDwnReason\").props.value\n#\t\tCompleteCategoryID \u003d self.getSibling(\"DrpDwnCategory\").props.value\n\t\tholdReasonId \u003d 0\n\t\tCompleteCategoryID \u003d 0\n\t\tif commentText \u003d\u003d str(\"\"):\n\t\t\tcommentText \u003d \" \"\n\t\telse:\n\t\t\tcommentText \u003d commentText\n\t\t\t\n\t\ttry:\n\t\t\tsaveResult \u003d MaintenanceOCAPI.completeOperation(WoNumber,PMOrderID,commentText,holdReasonId,CompleteCategoryID,userID)         \t  \n\t\t\tsystem.perspective.print (\"saveResult :\" + str(saveResult))\n\t\t\tPMType \u003d self.session.custom.PMType\n\t\t\tif PMType \u003d\u003d int(1) or PMType \u003d\u003d 1 or PMType \u003d\u003d str(1):\n\t\t\t\tsystem.perspective.navigate(\"/MaintenanceOperatorConsole\")\n\t\t\telse:\n\t\t\t\tsystem.perspective.navigate(\"MaintenanceTechnicianConsole-Tools\")\n\t\texcept:\n\t\t\tsystem.perspective.print(\"Unable to Complete Operation..\")\t\n\t\t\tpass\n\t\t\n\t\tsystem.perspective.closePopup(\u0027\u0027)\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnNo",
+          "tooltip": {
+            "text": "Click To Complete Order"
+          }
+        },
+        "position": {
+          "height": 0.1683,
+          "width": 0.3754,
+          "x": 0.5495,
+          "y": 0.7178
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "backgroundColor": "value",
+            "borderColor": "value",
+            "classes": "Common/Button"
+          },
+          "text": "Ok"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 0.1584,
+          "width": 1
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Complete Order",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 10,
+            "textAlign": "Center",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\"\")"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 0.1485,
+          "width": 0.1024,
+          "x": 0.8974
+        },
+        "props": {
+          "path": "material/close",
+          "style": {
+            "color": "#FFFFFF",
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "LblComment"
+        },
+        "position": {
+          "height": 0.1584,
+          "width": 0.3242,
+          "x": 0.0529,
+          "y": 0.1881
+        },
+        "props": {
+          "text": "Comment",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "TxtComment",
+          "tooltip": {
+            "location": "bottom-right",
+            "style": {
+              "classes": "Common/ToolTip"
+            }
+          }
+        },
+        "position": {
+          "height": 0.2574,
+          "width": 0.8874,
+          "x": 0.0597,
+          "y": 0.3426
+        },
+        "propConfig": {
+          "props.style.borderColor": {
+            "binding": {
+              "config": {
+                "path": "this.props.text"
+              },
+              "transforms": [
+                {
+                  "code": "\tif str(value).strip() !\u003d str(\u0027\u0027).strip():\n\t\tvalue \u003d \"#3888CC\"\n\telse:\n\t\tvalue \u003d str(self.session.custom.disableBtncolour)\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "deferUpdates": false,
+          "placeholder": "Add Comment",
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.text-field"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -40.0625,
+      "y": 0
+    },
+    "props": {
+      "mode": "percent",
+      "style": {
+        "classes": "Panel/PopUp"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

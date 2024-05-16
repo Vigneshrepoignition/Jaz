@@ -1,0 +1,327 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\t#self.getChild(\"root\").getChild(\"TextField_1\").props.text\u003dself.session.custom.temp_production_rowtable\n\tdata \u003d self.session.custom.temp_production_rowtable\n\t\n\tself.getChild(\"root\").getChild(\"hourofshift\").props.text \u003d data[\"Hour\"] \n\tself.getChild(\"root\").getChild(\"target\").props.text \u003d data[\"Target\"] \n\tself.getChild(\"root\").getChild(\"good_qty\").props.value \u003d data[\"Production\"] \n\tself.getChild(\"root\").getChild(\"badqty\").props.value \u003d data[\"Scrap\"] \n\tself.getChild(\"root\").getChild(\"id_field\").props.text \u003d data[\"ID\"] \n\t#{\"Status\":\"\",\"Scrap\":0,\"TotalDownTime\":0,\"Comment\":null,\"Target\":2100,\"DownTime\":\"[0, 0, 60]\",\"Hour\":\"19:30-20:30\",\"IdleTime\":60,\"Production\":0,\"Difference\":\"\",\"RunningTime\":0,\"actions\":\"\"}"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "rowdata": "value"
+  },
+  "propConfig": {
+    "params.rowdata": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 227,
+      "width": 490
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "hourofshift",
+          "tooltip": {
+            "style": {
+              "classes": "Common/TextBox "
+            }
+          }
+        },
+        "position": {
+          "height": 0.1503,
+          "width": 0.3696,
+          "x": 0.0397,
+          "y": 0.3316
+        },
+        "props": {
+          "enabled": false,
+          "style": {
+            "backgroundColor": "#FAFAFB",
+            "borderColor": "#000000",
+            "borderStyle": "inset",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 0.168,
+          "width": 1
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Good Product Details",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 10,
+            "textAlign": "Center",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblProductionLine",
+          "tooltip": {
+            "enabled": true,
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Production Line"
+          }
+        },
+        "position": {
+          "height": 0.1372,
+          "width": 0.2596,
+          "x": 0.0396,
+          "y": 0.1933
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Start Time",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": [
+              {
+                "config": {
+                  "script": "\t#try:\n\tsystem.perspective.print(\"return\")\n\tsystem.perspective.print(self.view.params.rowdata)\n\tID \u003d int(self.getSibling(\"id_field\").props.text)\n\tgoodqty \u003d int(self.getSibling(\"good_qty\").props.value)\n\tbadqty \u003d int(self.getSibling(\"badqty\").props.value)\n\tsystem.perspective.print(ID)\n\ta\u003dJEMESSetupapi.PostShiftProductionDetails(ID,goodqty,badqty)\n\tif a \u003d\u003d1:\n\t\tsystem.perspective.closePopup(\"jTZHtbkw\")\n\telse:\n\t\tpass\n\tsystem.perspective.print(\"Not Posted\")\n\tsystem.perspective.print(a)\n\t#except Exception as e:    \n#\t\tscriptName \u003d \"Operator Console:AdhocAPIZAC.PostOPRInfo...\"\n#\t\terrorMessage\u003dscriptName  +\u0027 Exception - \u0027+  str(e)\n#\t\tAuthentication.exceptionLogger(errorMessage)\n#\t\tsystem.perspective.print(errorMessage)\n#\t"
+                },
+                "scope": "G",
+                "type": "script"
+              },
+              {
+                "config": {
+                  "script": "\tmessageType \u003d \u0027popupuserassignment_get_table_data\u0027\n\tsystem.perspective.sendMessage(messageType)"
+                },
+                "enabled": false,
+                "scope": "G",
+                "type": "script"
+              }
+            ]
+          }
+        },
+        "meta": {
+          "name": "Button"
+        },
+        "position": {
+          "height": 0.1459,
+          "width": 0.1632,
+          "x": 0.5511,
+          "y": 0.7674
+        },
+        "props": {
+          "text": "submit"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "draggable": false,
+                "id": "jTZHtbkw",
+                "modal": false,
+                "overlayDismiss": false,
+                "resizable": false,
+                "showCloseIcon": false,
+                "type": "close",
+                "viewPath": "Project_MES_Solution/ProductionOperatorConsole/PopUps/DL and IDL operator information/PopupUserAssignmentDL",
+                "viewportBound": false
+              },
+              "scope": "C",
+              "type": "popup"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 0.1537,
+          "width": 0.0715,
+          "x": 0.9293,
+          "y": 0.0026
+        },
+        "props": {
+          "color": "#FFFFFF",
+          "path": "material/close"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "LblProductionLine_1",
+          "tooltip": {
+            "enabled": true,
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Production Line"
+          }
+        },
+        "position": {
+          "height": 0.1372,
+          "width": 0.1388,
+          "x": 0.5347,
+          "y": 0.5544
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "Good Qty",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "draggable": true,
+                "id": "jTZHtbkw",
+                "modal": false,
+                "overlayDismiss": false,
+                "resizable": true,
+                "showCloseIcon": true,
+                "type": "close",
+                "viewPath": "Project_MES_Solution/ProductionOperatorConsole/PopUps/DL and IDL operator information/PopupUserAssignmentDL",
+                "viewportBound": false
+              },
+              "scope": "C",
+              "type": "popup"
+            }
+          }
+        },
+        "meta": {
+          "name": "Button_0"
+        },
+        "position": {
+          "height": 0.1459,
+          "width": 0.1632,
+          "x": 0.776,
+          "y": 0.767
+        },
+        "props": {
+          "text": "cancel"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "good_qty"
+        },
+        "position": {
+          "height": 0.141,
+          "width": 0.198,
+          "x": 0.7074,
+          "y": 0.5528
+        },
+        "props": {
+          "mode": "button",
+          "style": {
+            "classes": "Common/TextBox "
+          },
+          "value": 983872
+        },
+        "type": "ia.input.numeric-entry-field"
+      },
+      {
+        "meta": {
+          "name": "LblProductionLine_2",
+          "tooltip": {
+            "enabled": true,
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Production Line"
+          }
+        },
+        "position": {
+          "height": 0.1372,
+          "width": 0.2596,
+          "x": 0.5376,
+          "y": 0.1933
+        },
+        "props": {
+          "style": {
+            "classes": "Widgets/WidgetsLabel"
+          },
+          "text": "End Time",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "hourofshift_0"
+        },
+        "position": {
+          "height": 0.1503,
+          "width": 0.3696,
+          "x": 0.536,
+          "y": 0.3316
+        },
+        "props": {
+          "enabled": false,
+          "style": {
+            "backgroundColor": "#FAFAFB",
+            "borderColor": "#000000",
+            "borderStyle": "inset",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.input.text-field"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

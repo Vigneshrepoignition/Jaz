@@ -1,0 +1,477 @@
+{
+  "custom": {},
+  "params": {
+    "rowData": "value"
+  },
+  "propConfig": {
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 384,
+      "width": 516
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Label_1"
+        },
+        "position": {
+          "height": 32,
+          "rotate": {
+            "anchor": "50% 38%"
+          },
+          "width": 126,
+          "x": 17.0469,
+          "y": 50
+        },
+        "props": {
+          "text": "Start Time",
+          "textStyle": {
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "TextField"
+        },
+        "position": {
+          "height": 32,
+          "width": 205.23,
+          "x": 17.05,
+          "y": 82
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.rowData.startTime"
+              },
+              "overlayOptOut": true,
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "enabled": false
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "Label_2"
+        },
+        "position": {
+          "height": 32,
+          "rotate": {
+            "anchor": "50% 38%"
+          },
+          "width": 126,
+          "x": 288.1,
+          "y": 49.5
+        },
+        "props": {
+          "text": "End Time",
+          "textStyle": {
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "TextField_0"
+        },
+        "position": {
+          "height": 32,
+          "width": 205.23000000000002,
+          "x": 285.37,
+          "y": 82
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.rowData.endTime"
+              },
+              "overlayOptOut": true,
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "enabled": false
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "Label_0"
+        },
+        "position": {
+          "height": 32,
+          "rotate": {
+            "anchor": "50% 38%"
+          },
+          "width": 140,
+          "x": 18.05,
+          "y": 132
+        },
+        "props": {
+          "text": "Reason SubType",
+          "textStyle": {
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tself.getSibling(\"Dropdown_1\").props.options \u003d \" \"\n\tself.getSibling(\"Dropdown_1\").props.options\u003dfpsi_ignition01.GetResoncode(idd\u003dstr(self.props.value))"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Dropdown_0"
+        },
+        "position": {
+          "height": 36,
+          "width": 212.89,
+          "x": 17.05,
+          "y": 169
+        },
+        "props": {
+          "options": {
+            "$": [
+              "ds",
+              192,
+              1706072212643
+            ],
+            "$columns": [
+              {
+                "data": [
+                  1,
+                  2,
+                  3
+                ],
+                "name": "s_no",
+                "type": "Integer"
+              },
+              {
+                "data": [
+                  131,
+                  132,
+                  133
+                ],
+                "name": "reasonSubTypeId",
+                "type": "Integer"
+              },
+              {
+                "data": [
+                  "IT_Capacity",
+                  "IT_Availability",
+                  "IT_Performance"
+                ],
+                "name": "reasonSubTypeName",
+                "type": "String"
+              }
+            ]
+          },
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "meta": {
+          "name": "Label_5"
+        },
+        "position": {
+          "height": 32,
+          "rotate": {
+            "anchor": "50% 38%"
+          },
+          "width": 140,
+          "x": 288.1,
+          "y": 128
+        },
+        "props": {
+          "text": "Reason Code",
+          "textStyle": {
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tsystem.perspective.print(self.props.value)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Dropdown_1"
+        },
+        "position": {
+          "height": 37,
+          "width": 213.75,
+          "x": 280.85,
+          "y": 168
+        },
+        "props": {
+          "style": {
+            "classes": "Common/TextBox"
+          }
+        },
+        "type": "ia.input.dropdown"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tidd \u003d self.view.params.rowData.fkDowntimeId\n\tsplitTime \u003d self.getSibling(\"DateTimeInput\").props.value\n\tfkChangedByID \u003d 1\n\tfkNewReasonCodeId \u003d self.getSibling(\"Dropdown_1\").props.value\n\tdata\u003dfpsi_ignition01.Downtime_auto_set_split(idd\u003didd,splitTime\u003dsplitTime,fkChangedByID\u003dfkChangedByID,fkNewReasonCodeId\u003dfkNewReasonCodeId)\n\tsystem.perspective.print(\"data\")\n\tsystem.perspective.print(idd)\n\tsystem.perspective.print(fkNewReasonCodeId)\n\tsystem.perspective.print(splitTime)\t\n\tsystem.perspective.print(data)\n#\tmessageType \u003d \u0027get_auto_downtimehistory\u0027\n#\tsystem.perspective.sendMessage(messageType, scope\u003d\u0027page\u0027)\n\tif data \u003d\u003d 1:\n\t\tmessageType \u003d \u0027get_auto_downtimehistory\u0027\n\t\tsystem.perspective.sendMessage(messageType, scope\u003d\u0027page\u0027)\n\t\tsystem.perspective.closePopup(\u0027oLLXKiQH\u0027)\n\tsystem.perspective.print(\"data1\")\n"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Button_1"
+        },
+        "position": {
+          "height": 34,
+          "width": 80,
+          "x": 297.499,
+          "y": 328.5
+        },
+        "props": {
+          "text": "Submit"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "draggable": true,
+                "id": "oLLXKiQH",
+                "modal": false,
+                "overlayDismiss": false,
+                "resizable": true,
+                "showCloseIcon": true,
+                "type": "close",
+                "viewPath": "Project_MES_Solution/ProductionOperatorConsole/PopUps/Popupautoproduction/Action_Split",
+                "viewportBound": false
+              },
+              "scope": "C",
+              "type": "popup"
+            }
+          }
+        },
+        "meta": {
+          "name": "Button_2"
+        },
+        "position": {
+          "height": 34,
+          "width": 80,
+          "x": 410.593,
+          "y": 328.5
+        },
+        "props": {
+          "text": "Cancel"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 38,
+          "width": 515,
+          "x": 1.2,
+          "y": 1
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Spit Time Entry",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 10,
+            "textAlign": "Center",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "draggable": false,
+                "id": "oLLXKiQH",
+                "modal": false,
+                "overlayDismiss": false,
+                "resizable": false,
+                "showCloseIcon": false,
+                "type": "close",
+                "viewPath": "Project_MES_Solution/ProductionOperatorConsole/PopUps/Popupautoproduction/Action_Split",
+                "viewportBound": false
+              },
+              "scope": "C",
+              "type": "popup"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 34.78,
+          "rotate": {
+            "anchor": "50% 25%"
+          },
+          "width": 36.00000000000006,
+          "x": 479.047,
+          "y": 4.59
+        },
+        "props": {
+          "color": "#FFFFFF",
+          "path": "material/close"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "DateTimeInput"
+        },
+        "position": {
+          "height": 32,
+          "width": 212,
+          "x": 16.813775,
+          "y": 260.5
+        },
+        "props": {
+          "format": "YYYY-MM-DDTHH:mm:ss",
+          "formattedValue": "2024-01-03T23:00:00",
+          "maxDate": {
+            "$": [
+              "ts",
+              0,
+              1706100846696
+            ],
+            "$ts": 1715184000000
+          },
+          "minDate": {
+            "$": [
+              "ts",
+              0,
+              1706100914745
+            ],
+            "$ts": 1673370000000
+          },
+          "style": {
+            "classes": "Common/TextBox"
+          },
+          "value": {
+            "$": [
+              "ts",
+              0,
+              1706101921761
+            ],
+            "$ts": 1704294000000
+          }
+        },
+        "type": "ia.input.date-time-input"
+      },
+      {
+        "meta": {
+          "name": "Label_3"
+        },
+        "position": {
+          "height": 32,
+          "rotate": {
+            "anchor": "50% 38%"
+          },
+          "width": 140,
+          "x": 17.0969,
+          "y": 225
+        },
+        "props": {
+          "text": "Split Times",
+          "textStyle": {
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tself.getSibling(\"DateTimeInput\").props.value\u003dsystem.date.now()"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Button_0"
+        },
+        "position": {
+          "height": 34,
+          "width": 68.09000000000003,
+          "x": 20.04287499999998,
+          "y": 304.471
+        },
+        "props": {
+          "text": "Now"
+        },
+        "type": "ia.input.button"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}

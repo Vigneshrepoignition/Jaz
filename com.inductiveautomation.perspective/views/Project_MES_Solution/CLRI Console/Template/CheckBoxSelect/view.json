@@ -1,0 +1,156 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\trowData\u003dself.params.rowData\n\tvalue\u003dself.params.value\n\tif str(value).lower()\u003d\u003d\u0027false\u0027 or  str(value).lower()\u003d\u003d\u00270\u0027 or  value\u003d\u003d0 or  value\u003d\u003dFalse:\n\t\tself.getChild(\"root\").getChild(\"chkYes\").props.selected\u003dFalse\n\t\tself.getChild(\"root\").getChild(\"chkNo\").props.selected\u003dTrue\n\telif  str(value).lower()\u003d\u003d\u0027true\u0027 or  str(value).lower()\u003d\u003d\u00271\u0027 or  value\u003d\u003d1 or  value\u003d\u003d True: \n\t\t\tself.getChild(\"root\").getChild(\"chkNo\").props.selected\u003dFalse\t\n\t\t\tself.getChild(\"root\").getChild(\"chkYes\").props.selected\u003dTrue"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "column": "value",
+    "columnIndex": "value",
+    "dataset": "value",
+    "row": "value",
+    "rowData": "value",
+    "rowIndex": "value",
+    "value": "value"
+  },
+  "propConfig": {
+    "params.column": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.columnIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.dataset": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.row": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.value": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 35,
+      "width": 154
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tisSelect\u003dself.props.selected\n\tif isSelect\u003d\u003dTrue:\n\t\tself.getSibling(\"chkNo\").props.selected\u003dFalse\n\t\tisSelect\u003d1\n\t\tcolumnName\u003dself.view.params.column\n\t\tSelctedRow\u003dself.view.params.rowIndex\n\t\tsystem.perspective.print(\"columnName \"+str(columnName))\n\t\tsystem.perspective.print(\"SelctedRow \"+str(SelctedRow))\n\t\tpayload \u003d {\"Value\":isSelect,\"SelctedRow\":SelctedRow,\"columnName\":columnName}\n\t\tmessageType\u003d\u0027CLRICheckList\u0027\n\t\tsystem.perspective.sendMessage(messageType, payload, scope \u003d \u0027page\u0027)\n\telse:\n\t\tself.getSibling(\"chkNo\").props.selected\u003dTrue\t\n\t\tisSelect\u003d0\n\t\tcolumnName\u003dself.view.params.column\n\t\tSelctedRow\u003dself.view.params.rowIndex\n\t\tsystem.perspective.print(\"columnName \"+str(columnName))\n\t\tsystem.perspective.print(\"SelctedRow \"+str(SelctedRow))\n\t\tpayload \u003d {\"Value\":isSelect,\"SelctedRow\":SelctedRow,\"columnName\":columnName}\n\t\tmessageType\u003d\u0027CLRICheckList\u0027\n\t\tsystem.perspective.sendMessage(messageType, payload, scope \u003d \u0027page\u0027)\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "chkYes"
+        },
+        "position": {
+          "height": 0.8286,
+          "width": 0.3345,
+          "x": 0.1092,
+          "y": 0.114
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "session.custom.WOOperationStatus"
+              },
+              "previewEnabled": false,
+              "transforms": [
+                {
+                  "code": "\tif (str(value).lower().strip()\u003d\u003d\u0027In-Progress\u0027.lower() or str(value).lower().strip()\u003d\u003d\u0027In Progress\u0027.lower()) and self.session.custom.authorizeCLRIReadOnly\u003d\u003d1:\n\t\tvalue\u003d1\n\telse:\n\t\tvalue\u003d0\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "selected": true,
+          "text": "Yes"
+        },
+        "type": "ia.input.checkbox"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tisSelect\u003dself.props.selected\n\tif isSelect\u003d\u003dTrue:\n\t\tself.getSibling(\"chkYes\").props.selected\u003dFalse\n\t\tisSelect\u003d0\n\t\tcolumnName\u003dself.view.params.column\n\t\tSelctedRow\u003dself.view.params.rowIndex\n\t\tsystem.perspective.print(\"columnName \"+str(columnName))\n\t\tsystem.perspective.print(\"SelctedRow \"+str(SelctedRow))\n\t\tpayload \u003d {\"Value\":isSelect,\"SelctedRow\":SelctedRow,\"columnName\":columnName}\n\t\tmessageType\u003d\u0027CLRICheckList\u0027\n\t\tsystem.perspective.sendMessage(messageType, payload, scope \u003d \u0027page\u0027)\n\telse:\n\t\tself.getSibling(\"chkYes\").props.selected\u003dTrue\n\t\tisSelect\u003d1\n\t\tcolumnName\u003dself.view.params.column\n\t\tSelctedRow\u003dself.view.params.rowIndex\n\t\tsystem.perspective.print(\"columnName \"+str(columnName))\n\t\tsystem.perspective.print(\"SelctedRow \"+str(SelctedRow))\n\t\tpayload \u003d {\"Value\":isSelect,\"SelctedRow\":SelctedRow,\"columnName\":columnName}\n\t\tmessageType\u003d\u0027CLRICheckList\u0027\n\t\tsystem.perspective.sendMessage(messageType, payload, scope \u003d \u0027page\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "chkNo"
+        },
+        "position": {
+          "height": 0.8286,
+          "width": 0.3539,
+          "x": 0.5485,
+          "y": 0.114
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "session.custom.WOOperationStatus"
+              },
+              "transforms": [
+                {
+                  "code": "\tif (str(value).lower().strip()\u003d\u003d\u0027In-Progress\u0027.lower() or str(value).lower().strip()\u003d\u003d\u0027In Progress\u0027.lower()) and self.session.custom.authorizeCLRIReadOnly\u003d\u003d1:\n\t\tvalue\u003d1\n\telse:\n\t\tvalue\u003d0\n\treturn value",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "text": "No"
+        },
+        "type": "ia.input.checkbox"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

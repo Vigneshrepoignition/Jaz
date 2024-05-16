@@ -1,0 +1,104 @@
+{
+  "custom": {},
+  "params": {
+    "ActualProductionCount": "",
+    "Isenabled": "",
+    "MaxVal": "",
+    "MinVal": "",
+    "PMAlertQty": "",
+    "PMCounter": "",
+    "PmWorkflow": "",
+    "ToolCode": "",
+    "ToolName": ""
+  },
+  "propConfig": {
+    "params.ActualProductionCount": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Isenabled": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.MaxVal": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.MinVal": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.PMAlertQty": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.PMCounter": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.PmWorkflow": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.ToolCode": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.ToolName": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 239,
+      "width": 327
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblWorkflowName"
+        },
+        "position": {
+          "height": 0.2008,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.6758,
+          "x": 0.2845,
+          "y": 0.506
+        },
+        "props": {
+          "style": {
+            "fontWeight": "lighter"
+          },
+          "text": "Tool data is not available.",
+          "textStyle": {
+            "color": "#808080",
+            "fontFamily": "Arial",
+            "fontSize": 18,
+            "fontWeight": "lighter"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -0.2875,
+      "y": 0.2678
+    },
+    "props": {
+      "mode": "percent",
+      "style": {
+        "backgroundColor": "#FFFFFF",
+        "classes": "\n"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

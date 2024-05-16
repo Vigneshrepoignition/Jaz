@@ -1,0 +1,119 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\t\n\tds\u003dself.view.params.rowData\n\tSelctedRow\u003dself.view.params.rowIndex\n\tcolumnName\u003dself.view.params.column\n\t\n\tif ds !\u003d[] and ds!\u003dNone and ds!\u003d\u0027\u0027:\n\t\tMinimumLimit\u003dds[\u0027MinimumLimit\u0027]\n\t\tMaximumLimit\u003dds[\u0027MaximumLimit\u0027]\n\t\tActualuValue\u003dds[\u0027ActualValue\u0027]\n\t\t\n\t\tsystem.perspective.print(\"MinimumLimit \u003d \"+str(MinimumLimit))\n\t\tsystem.perspective.print(\"MaximumLimit \u003d \"+str(MaximumLimit))\n\t\tsystem.perspective.print(\"ActualuValue \u003d \"+str(ActualuValue))\n\t\t\t\t\n\t\tif MinimumLimit \u003c\u003d 0 and MaximumLimit \u003c\u003d0:\n\t\t\tpass\n\t\telif  MinimumLimit \u003c\u003d 0 and MaximumLimit \u003e  0 and ActualuValue \u003e MaximumLimit:\t\n\t\t\t\tself.getChild(\"root\").getChild(\"txtValue\").props.style.backgroundColor\u003d\"RED\"\n\t\t\t\tself.getChild(\"root\").getChild(\"txtValue\").props.style.color\u003d\"WHITE\"\n\t\telif  MinimumLimit  \u003e 0 and MaximumLimit \u003c\u003d   0 and ActualuValue \u003c  MinimumLimit:\t\n\t\t\tself.getChild(\"root\").getChild(\"txtValue\").props.style.backgroundColor\u003d\"RED\"\n\t\t\tself.getChild(\"root\").getChild(\"txtValue\").props.style.color\u003d\"WHITE\"\n\t\telif  MinimumLimit  \u003e 0 and MaximumLimit \u003e    0 and ActualuValue \u003e   MaximumLimit:\t\n\t\t\tself.getChild(\"root\").getChild(\"txtValue\").props.style.backgroundColor\u003d\"RED\"\n\t\t\tself.getChild(\"root\").getChild(\"txtValue\").props.style.color\u003d\"WHITE\"\n\t\telif  MinimumLimit  \u003e 0 and MaximumLimit \u003e  0 and ActualuValue  \u003c   MinimumLimit:\t\n\t\t\tself.getChild(\"root\").getChild(\"txtValue\").props.style.backgroundColor\u003d\"RED\"\n\t\t\tself.getChild(\"root\").getChild(\"txtValue\").props.style.color\u003d\"WHITE\"\n\n#\t\tSelectedInstrument \u003d dict[\u0027SelectedInstrument\u0027]\n\tself.getChild(\"root\").getChild(\"txtValue\").props.value\u003dActualuValue\n#\tself.getChild(\"root\").getChild(\"txtValue\").props.style.backgroundColor\u003d\"RED\"\n\t\n\t\n"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "column": "value",
+    "columnIndex": "value",
+    "row": "value",
+    "rowData": "value",
+    "rowIndex": "value"
+  },
+  "propConfig": {
+    "params.column": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.columnIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.row": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 29,
+      "width": 163
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": [
+              {
+                "config": {
+                  "script": "\ttry:\n\t\tsystem.perspective.print(str(event.key))\n\t\tscriptName\u003d\u0027Quality Actual value enter\u0027\n\t\tNo\u003dself.props.value\n\t\tds\u003dself.view.params.rowData\n\t\tSelctedRow\u003dself.view.params.rowIndex\n\t\tcolumnName\u003dself.view.params.column\n\t\t\n\t#\tif No \u003e 0:\n\t\tmessageType \u003d \u0027QualityCharConsoleTable\u0027\n\t\tsystem.perspective.sendMessage(messageType, payload \u003d {\"columnName\":columnName,\"ChangeValue\":No,\"SelctedRow\":SelctedRow,\"rowData\":ds}, scope \u003d \"page\")\n\t#\telse:\n\t#\t\tself.props.value\u003d0\n\t\t\t\n\t\t\t\n\t\tif ds !\u003d[] and ds!\u003dNone and ds!\u003d\u0027\u0027:\n\t\t\tMinimumLimit\u003dds[\u0027MinimumLimit\u0027]\n\t\t\tMaximumLimit\u003dds[\u0027MaximumLimit\u0027]\n\t\t\tActualuValue\u003dNo\n\t\t\t\n\t\t\tsystem.perspective.print(\"MinimumLimit \u003d \"+str(MinimumLimit))\n\t\t\tsystem.perspective.print(\"MaximumLimit \u003d \"+str(MaximumLimit))\n\t\t\tsystem.perspective.print(\"ActualuValue \u003d \"+str(ActualuValue))\n\t\t\t\n\t\t\tActualuValue\u003dNo\n\t\t\tif MinimumLimit \u003c\u003d 0 and MaximumLimit \u003c\u003d0:\n\t\t\t\tpass\n\t\t\telif  MinimumLimit \u003c\u003d 0 and MaximumLimit \u003e  0 and ActualuValue \u003e MaximumLimit:\t\n\t\t\t\tself.props.style.backgroundColor\u003d\"RED\"\n\t\t\telif  MinimumLimit  \u003e 0 and MaximumLimit \u003c\u003d   0 and ActualuValue \u003c  MinimumLimit:\t\n\t\t\t\tself.props.style.backgroundColor\u003d\"RED\"\n\t\t\telif  MinimumLimit  \u003e 0 and MaximumLimit \u003e    0 and ActualuValue \u003e   MaximumLimit:\t\n\t\t\t\tself.props.style.backgroundColor\u003d\"RED\"\n\t\t\telif  MinimumLimit  \u003e 0 and MaximumLimit \u003e  0 and ActualuValue  \u003c   MinimumLimit:\t\n\t\t\t\tself.props.style.backgroundColor\u003d\"RED\"\n\t\t\telse:\n\t\t\t\tself.props.style.backgroundColor\u003d\"\"\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)\n\t\tsystem.perspective.print(\"errorMessage \u003d \"+str(errorMessage))"
+                },
+                "enabled": false,
+                "scope": "G",
+                "type": "script"
+              },
+              {
+                "config": {
+                  "script": "\timport sys\n\tsystem.perspective.print(\"event.key \" + str(event.key))\n\tif str(event.key).lower().strip()\u003d\u003dstr(\u0027Enter\u0027).lower().strip():\n\t\tsystem.perspective.print(\"Enter Key press\")\n\t\tself.focus()\n\t\tfrom threading import Timer\n\t\tdef runThisLater():\n\t\t\tsystem.perspective.print(\"self focus call\")\n\t\t\tself.focus()"
+                },
+                "scope": "G",
+                "type": "script"
+              }
+            ]
+          },
+          "dom": {
+            "onKeyPress": {
+              "config": {
+                "script": "\timport sys\n\tsystem.perspective.print(\"event.key \" + str(event.key))\n\tif str(event.key).lower()\u003d\u003d\u0027Enter\u0027.lower():\n\t\tself.focus()\n\t\tfrom threading import Timer\n\t\tdef runThisLater():\n\t\t\tsystem.perspective.print(\"self focus call\")\n\t\t\tself.focus()\n\t\tTimer(3.0, runThisLater).start()\n\t\t#\t\t\tself.clearUploads()\n\t\t"
+              },
+              "enabled": false,
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "txtValue",
+          "visible": 1
+        },
+        "position": {
+          "height": 28,
+          "width": 116,
+          "x": 30
+        },
+        "propConfig": {
+          "props.value": {
+            "onChange": {
+              "enabled": null,
+              "script": "\tNo\u003dself.props.value\n\tds\u003dself.view.params.rowData\n#\tsystem.perspective.print(\"quality No...... \"+str(No))\n\tif No !\u003d\u0027\u0027 and No !\u003dNone and str(No).strip() !\u003d\u0027\u0027:\n#\t\tsystem.perspective.print(\"inside if quality No...... \"+str(No))\n\t\tds\u003dself.view.params.rowData\n\t\tSelctedRow\u003dself.view.params.rowIndex\n\t\tcolumnName\u003dself.view.params.column\n\t\tsystem.perspective.print(\"ds...... \"+str(ds))\n\t\tsystem.perspective.print(\"No...... \"+str(No))\n\t#\tif No \u003e 0:\n\t\tmessageType \u003d \u0027QualityCharConsoleTable\u0027\n\t\tsystem.perspective.sendMessage(messageType, payload \u003d {\"columnName\":columnName,\"ChangeValue\":No,\"SelctedRow\":SelctedRow,\"rowData\":ds}, scope \u003d \"page\")\n\t\t\n\t\tif ds !\u003d[] and ds!\u003dNone and ds!\u003d\u0027\u0027:\n\t\t\tMinimumLimit\u003dds[\u0027MinimumLimit\u0027]\n\t\t\tMaximumLimit\u003dds[\u0027MaximumLimit\u0027]\n\t\t\tActualuValue\u003dNo\n\t\t\t\n#\t\t\tsystem.perspective.print(\"MinimumLimit \u003d \"+str(MinimumLimit))\n#\t\t\tsystem.perspective.print(\"MaximumLimit \u003d \"+str(MaximumLimit))\n#\t\t\tsystem.perspective.print(\"ActualuValue \u003d \"+str(ActualuValue))\n\t\t\t\n\t\t\tActualuValue\u003dNo\n\t\t\tif MinimumLimit \u003c\u003d 0 and MaximumLimit \u003c\u003d0:\n\t\t\t\tpass\n\t\t\telif  MinimumLimit \u003c\u003d 0 and MaximumLimit \u003e  0 and ActualuValue \u003e MaximumLimit:\t\n\t\t\t\tself.props.style.backgroundColor\u003d\"RED\"\n\t\t\t\tself.props.style.color\u003d\"WHITE\"\n\t\t\telif  MinimumLimit  \u003e 0 and MaximumLimit \u003c\u003d   0 and ActualuValue \u003c  MinimumLimit:\t\n\t\t\t\tself.props.style.backgroundColor\u003d\"RED\"\n\t\t\t\tself.props.style.color\u003d\"WHITE\"\n\t\t\telif  MinimumLimit  \u003e 0 and MaximumLimit \u003e    0 and ActualuValue \u003e   MaximumLimit:\t\n\t\t\t\tself.props.style.backgroundColor\u003d\"RED\"\n\t\t\t\tself.props.style.color\u003d\"WHITE\"\n\t\t\telif  MinimumLimit  \u003e 0 and MaximumLimit \u003e  0 and ActualuValue  \u003c   MinimumLimit:\t\n\t\t\t\tself.props.style.backgroundColor\u003d\"RED\"\n\t\t\t\tself.props.style.color\u003d\"WHITE\"\n\t\t\telse:\n\t\t\t\tself.props.style.backgroundColor\u003d\"\"\n\t\t\t\tself.props.style.color\u003d\"BLACK\"\n\t#\telse:\n\t#\t\tself.props.value\u003d0\n\t\t\t"
+            }
+          }
+        },
+        "props": {
+          "align": "center",
+          "format": "00.000",
+          "spinner": {
+            "enabled": false
+          },
+          "style": {
+            "textAlign": "center"
+          },
+          "value": 0
+        },
+        "type": "ia.input.numeric-entry-field"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}

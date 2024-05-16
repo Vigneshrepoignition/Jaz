@@ -1,0 +1,52 @@
+{
+  "custom": {},
+  "params": {
+    "id": ""
+  },
+  "propConfig": {
+    "params.id": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 24,
+      "width": 74
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\n\ttry:\n\t\t#time.sleep(0.5)\n\t\tid \u003d str(self.view.params.id)\n\t\tsystem.perspective.print(id)\n\t\t#if int(idd) \u003e\u003d 0:\n\t\ta \u003d AdhocAPIZAC.DeleteOPRInfo(id)\n\t\tsystem.perspective.print(a)\n\t\tmessageType \u003d \u0027popupuserassignment_get_table_data\u0027\n\t\tsystem.perspective.sendMessage(messageType)\n\n\texcept Exception as e:    \n\t\tscriptName \u003d \"messageType \u003d \u0027popupuserassignment_get_table_data\u0027\"\n\t\terrorMessage\u003dscriptName  +\u0027 Exception - \u0027+  str(e)\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Icon"
+        },
+        "position": {
+          "height": 21,
+          "width": 30,
+          "x": 23,
+          "y": 2
+        },
+        "props": {
+          "path": "material/delete"
+        },
+        "type": "ia.display.icon"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}

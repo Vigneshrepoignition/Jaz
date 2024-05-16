@@ -1,0 +1,880 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\tLotNo\u003dself.session.custom.LotNo\n\t\tWoNo\u003dself.session.custom.WoNumber\n\t\tContainerList\u003dProductionOperatorConsole.getContaineList(LotNo,WoNo)\n\t\tsystem.perspective.print(\"ContainerList API Result--\u003e\"+str(ContainerList))\n\t\tself.getChild(\"root\").getChild(\"Table\").props.data\u003dContainerList\n\texcept:\n\t\tsystem.perspective.print(\u0027Exception :: Get Container List\u0027)\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)\t"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 450,
+      "width": 1012
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 0.0731,
+          "width": 1
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Container List",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 10,
+            "textAlign": "Center",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.closePopup(\u0027Containerapprove\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 0.0523,
+          "rotate": {
+            "anchor": "50% 37%"
+          },
+          "width": 0.0377,
+          "x": 0.9531,
+          "y": 0.0102
+        },
+        "props": {
+          "path": "material/close",
+          "style": {
+            "color": "#FFFFFF",
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "system": {
+            "onStartup": {
+              "config": {
+                "script": "\twoNo\u003dself.session.custom.WoNumber\n\tpartNO\u003dself.session.custom.Item\n\tpartNO\u003dself.session.custom.Item\n\tsystem.perspective.print(\"partNO--\u003e\"+str(partNO))\n\tdeffectList\u003dProductionOperatorConsole.getdiffectList(woNo,partNO)\t\n\tsystem.perspective.print(\"deffectList--\u003e\"+str(deffectList))\n\tself.props.data\u003ddeffectList\n\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Table"
+        },
+        "position": {
+          "height": 0.76,
+          "width": 0.9482,
+          "x": 0.0257,
+          "y": 0.1907
+        },
+        "props": {
+          "bodyStyle": {
+            "classes": "Table/RowsBorder"
+          },
+          "columns": [
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "SrNo",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Sr No"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": true,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 50
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "Lot No",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Lot No"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "Container Name",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Container Name"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 120
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "Production Qty",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Production Qty"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": 80
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "Created On",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Created On"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "Action",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": true,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "always"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "center",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Action"
+              },
+              "justify": "center",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "view",
+              "resizable": true,
+              "sort": "none",
+              "sortable": false,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {
+                "rowData": "",
+                "rowIndex": "",
+                "value": ""
+              },
+              "viewPath": "Project_MES_Solution/ProductionOperatorConsole/Templates/ContSelect",
+              "visible": true,
+              "width": ""
+            }
+          ],
+          "data": {
+            "$": [
+              "ds",
+              192,
+              1675751364774
+            ],
+            "$columns": [
+              {
+                "data": [
+                  0
+                ],
+                "name": "Sr No",
+                "type": "Integer"
+              },
+              {
+                "data": [
+                  ""
+                ],
+                "name": "Lot No",
+                "type": "String"
+              },
+              {
+                "data": [
+                  ""
+                ],
+                "name": "Container Name",
+                "type": "String"
+              },
+              {
+                "data": [
+                  0
+                ],
+                "name": "Production Qty",
+                "type": "Long"
+              },
+              {
+                "data": [
+                  ""
+                ],
+                "name": "Created On",
+                "type": "String"
+              },
+              {
+                "data": [
+                  ""
+                ],
+                "name": "Action",
+                "type": "String"
+              }
+            ]
+          },
+          "emptyMessage": {
+            "noData": {
+              "icon": {
+                "color": "#C0C0C0",
+                "path": "material/hourglass_empty"
+              },
+              "text": "Containers Are Not Available."
+            },
+            "noFilterResults": {
+              "text": "No Components available"
+            },
+            "style": {
+              "backgroundColor": "#FFFFFF"
+            }
+          },
+          "filter": {
+            "results": {
+              "enabled": true
+            },
+            "style": {
+              "backgroundColor": "#E31C1C00",
+              "borderStyle": "none",
+              "fontFamily": "Arial",
+              "fontSize": 12,
+              "marginBottom": -5,
+              "marginLeft": -10,
+              "marginRight": 0
+            }
+          },
+          "headerStyle": {
+            "classes": "Table/Header"
+          },
+          "pager": {
+            "bottom": false,
+            "initialOption": 6
+          },
+          "rows": {
+            "style": {
+              "classes": "Table/Rowsmiddle"
+            }
+          },
+          "selection": {
+            "enableColumnSelection": true
+          },
+          "style": {
+            "borderStyle": "solid"
+          }
+        },
+        "scripts": {
+          "customMethods": [],
+          "extensionFunctions": null,
+          "messageHandlers": [
+            {
+              "messageType": "IscheckedUpdate",
+              "pageScope": true,
+              "script": "\ttry:\n\t\t\n\t\tisChecked\u003dpayload[\u0027isChecked\u0027]\n\t\t\n\t\tselRow\u003dpayload[\u0027SelctedRowIndex\u0027]\n\t\tsystem.perspective.print(\"isChecked--\u003e\"+str(isChecked))\n\t\tsystem.perspective.print(\"selRow--\u003e\"+str(selRow))\n\t\tupdatedValue\u003d(isChecked)   \n\t\tselColumn\u003d\u0027Action\u0027\n\t\tdtSet\u003dself.props.data    \n\t\tupdateRowResultDs \u003d {selColumn:updatedValue}    \n\t\tresultpyData \u003d system.dataset.updateRow(dtSet,selRow,updateRowResultDs)        \n\t\tds\u003d system.dataset.toPyDataSet(resultpyData)    \n\t\tself.props.data\u003dds  \n\t\tsystem.perspective.print(\"MSG Handler Done--\u003e\")  \n\texcept Exception as e:\n\t\t\tsystem.perspective.print(\u0027Exception :msg Handler updatig column\u0027)\n\t\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\t\tsystem.perspective.print(errorMessage)\n\t\t\tlineno \u003d tb.tb_lineno\n\t\t\tsystem.perspective.print(lineno)\n\t\t\tsys.exit()\n\t",
+              "sessionScope": false,
+              "viewScope": false
+            },
+            {
+              "messageType": "refreshContainerTbl",
+              "pageScope": true,
+              "script": "\ttry:\n\t\tLotNo\u003dself.session.custom.LotNo\n\t\tWoNo\u003dself.session.custom.WoNumber\n\t\tContainerList\u003dProductionOperatorConsole.getContaineList(LotNo,WoNo)\n#\t\tsystem.perspective.print(\"ContainerList API Result--\u003e\"+str(ContainerList))\n\t\tself.props.data\u003dContainerList\n\texcept:\n\t\tsystem.perspective.print(\u0027Exception :: Get Container List Refresh MSG Handler Problem\u0027)\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)\t\n",
+              "sessionScope": false,
+              "viewScope": false
+            }
+          ]
+        },
+        "type": "ia.display.table"
+      },
+      {
+        "meta": {
+          "name": "LblDataValidation",
+          "visible": false
+        },
+        "position": {
+          "height": 0.061,
+          "rotate": {
+            "anchor": "-167% 39%"
+          },
+          "width": 0.2038,
+          "x": 0.7638,
+          "y": 0.1434
+        },
+        "props": {
+          "text": "Please Enter the Deffected Qty",
+          "textStyle": {
+            "classes": "Widgets/WidgetsData",
+            "color": "#FF0000",
+            "fontFamily": "Arial",
+            "fontSize": 10,
+            "textAlign": "right"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n#\t\tLotNo\u003dself.session.custom.LotNo\n#\t\tContainerName\u003d\"\"\n\t\tWoNo\u003dself.session.custom.WoNumber\n\t\tContaierTbleData\u003dself.getSibling(\"Table\").props.data\n\t\ttbleCount\u003dContaierTbleData.getRowCount()\n\t\tcontainerList\u003d[]\n\t\ttableSelection\u003d0\n\t\tfor i in range(tbleCount):\n\t\t\tisChecked\u003dContaierTbleData.getValueAt(i, \u0027Action\u0027)\n\t\t\tsystem.perspective.print(\"IsChecked---\u003e\"+str(isChecked))\n\t\t\tif isChecked\u003d\u003d\u0027true\u0027 or isChecked\u003d\u003dTrue:\n\t\t\t\ttableSelection\u003d1\n\t\t\t\tLotNo\u003dContaierTbleData.getValueAt(i, \u0027Lot No\u0027)\n\t\t\t\tContainerName\u003dContaierTbleData.getValueAt(i, \u0027Container Name\u0027)\n\t\t\t\tparaList\u003d{\n\t\t\t      \"workorderNo\": WoNo,\n\t\t\t      \"containerId\": ContainerName,\n\t\t\t      \"lotNo\": LotNo\n\t\t\t    }\n\t\t\t\tcontainerList.append(paraList)\n\t\t\t\tsystem.perspective.print(\"Total Seleted Lot--\u003e\"+str(i))\n\t\tsystem.perspective.print(\"containerList---\u003e\"+str(containerList))\n\t\tif tableSelection\u003d\u003d1:\t\n\t\t\tcontainerPostResult\u003dProductionOperatorConsole.containerListUpdate(containerList)\n\t\telse:\n\t\t\tMessageText\u003d\"Please Select The Container.\"\n\t\t\tupdaateStatus\u003d0\n\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\t\t\t\n#\t\t\telse:\n#\t\t\t\tsystem.perspective.print(\"Container Is Not Selected\")\n#\t\t\t\tMessageText\u003d\"Container Is Not Selected. Please Select Atleast One Container.\"\n#\t\t\t\tupdaateStatus\u003d0\n#\t\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n##\t\t\t\tbreak\n\n\t\t\t\t\t\t\n\t\tif containerPostResult\u003d\u003d1 and tableSelection\u003d\u003d1:\n\t\t\tmessageType1 \u003d \u0027RefreshQty\u0027\n\t\t\tsystem.perspective.sendMessage(messageType1, payload \u003d {\"value\":\u0027\u0027,\"SelctedRowIndex\":\u0027\u0027}, scope \u003d \"page\")\n\t\t\t\n\t\t\tmessageType \u003d \u0027refreshContainerTbl\u0027\n\t\t\tsystem.perspective.sendMessage(messageType, scope \u003d \"page\")\t\n\t\t\tsystem.perspective.print(\"Refresh Qty MSG Handler Done\")\n\t\t\tMessageText\u003d\"Selected Container Saved/Updated Successfully.\"\n\t\t\tself.view.params.isSaved\u003d1\n\t\t\tupdaateStatus\u003d1\n\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\tsystem.perspective.closePopup(\u0027Containerapprove\u0027)\n\t\telse:\n\t\t\tMessageText\u003d\"Fails to Save/Updated Container Details.\"\n\t\t\tupdaateStatus\u003d0\n\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\n\texcept:\t\n\t\n\t\tMessageText\u003d\"Exception:Fails to Save/Updated Container Details.\"\n\t\tupdaateStatus\u003d0\n\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\tsystem.perspective.print(\u0027Exception :: Posting Selected Contaier\u0027)\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnSave",
+          "tooltip": {
+            "enabled": true
+          }
+        },
+        "position": {
+          "height": 0.0765,
+          "width": 0.0958,
+          "x": 0.8722,
+          "y": 0.0976
+        },
+        "props": {
+          "image": {
+            "height": 20,
+            "width": 50
+          },
+          "style": {
+            "backgroundColor": "#3888CC",
+            "borderColor": "#3888CC",
+            "classes": "PDA/PDAButton"
+          },
+          "text": "OK",
+          "textStyle": {
+            "classes": "PDA/MainButtonText"
+          }
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\ttry:\n\t\t\tTableRecords\u003dself.getSibling(\"Table\").props.data\n#\t\t\tSr No, Lot No, Container Name, Production Qty, Created On, Action\n\t\t\theaders\u003d[\"Sr No\",\"Lot No\",\"Container Name\",\"Production Qty\",\"Created On\",\"Action\"]\n#\t\t\theaders \u003d [\"PartNo\",\"SPQ\",\"Stock\",\"Required Qty\",\"MFGLine\",\"Consumed Qty\",\"Action\",\"Required Part NO\",\"Revision\",\"WarehouseId\",\"ItemID\"]\n\t\t\tRowcount\u003dTableRecords.getRowCount()\n\t\t\tsystem.perspective.print(Rowcount)\n\t\t\tSelectAll\u003dself.props.selected\n\t\t\tsystem.perspective.print(SelectAll)\n\t\t\tRecList\u003d[]\n\t\t\tMaterialList1\u003d[]\n\t\t\tif SelectAll\u003d\u003dTrue:\n\t\t\t\tsystem.perspective.print(\"SelectAll\")\n\t\t\t\tfor i in range(Rowcount):\n\t\t\t\t\tsystem.perspective.print(i)\n\t\t\t\t\tSrNo\u003dTableRecords.getValueAt(i, \u0027Sr No\u0027)\n\t\t\t\t\tLotNo\u003dTableRecords.getValueAt(i, \u0027Lot No\u0027)\n\t\t\t\t\tContainerName\u003dTableRecords.getValueAt(i, \u0027Container Name\u0027)\n\t\t\t\t\tProductionQty\u003dTableRecords.getValueAt(i, \u0027Production Qty\u0027)\n\t\t\t\t\tCreatedOn\u003dTableRecords.getValueAt(i, \u0027Created On\u0027)\n\t\t\t\t\tAction\u003dTrue\n\n\t\t\t\t\tMaterialList1\u003d[SrNo,LotNo,ContainerName,ProductionQty,CreatedOn,Action]\n\t\t\t\t\tRecList.append(MaterialList1)\n#\t\t\t\tsystem.perspective.print(RecievedMaterialList)\t\t\t\t\n\t\t\t\tSelectAll \u003d system.dataset.toDataSet(headers,RecList)\n\t\t\t\tsystem.perspective.print(\"q\")\n\t\t\t\tsystem.perspective.print(SelectAll)\n\t\t\t\tsystem.perspective.print(\"r\")\n\t\t\t\tself.getSibling(\"Table\").props.data\u003dSelectAll\n\t\t\t\tsystem.perspective.print(\"SelectedAll\")\n\t\t\telse:\n\t\t\t\tsystem.perspective.print(\"SelectAll\")\n\t\t\t\tfor i in range(Rowcount):\n\t\t\t\t\tsystem.perspective.print(i)\n\t\t\t\t\tSrNo\u003dTableRecords.getValueAt(i, \u0027Sr No\u0027)\n\t\t\t\t\tLotNo\u003dTableRecords.getValueAt(i, \u0027Lot No\u0027)\n\t\t\t\t\tContainerName\u003dTableRecords.getValueAt(i, \u0027Container Name\u0027)\n\t\t\t\t\tProductionQty\u003dTableRecords.getValueAt(i, \u0027Production Qty\u0027)\n\t\t\t\t\tCreatedOn\u003dTableRecords.getValueAt(i, \u0027Created On\u0027)\n\t\t\t\t\tAction\u003dFalse\n\n\t\t\t\t\tMaterialList1\u003d[SrNo,LotNo,ContainerName,ProductionQty,CreatedOn,Action]\n\t\t\t\t\tRecList.append(MaterialList1)\n#\t\t\t\tsystem.perspective.print(RecievedMaterialList)\t\t\t\t\n\t\t\t\tSelectAll \u003d system.dataset.toDataSet(headers,RecList)\n\t\t\t\tsystem.perspective.print(\"q\")\n\t\t\t\tsystem.perspective.print(SelectAll)\n\t\t\t\tsystem.perspective.print(\"r\")\n\t\t\t\tself.getSibling(\"Table\").props.data\u003dSelectAll\n\t\t\t\tsystem.perspective.print(\"SelectedAll\")\n\texcept Exception as e:\n\t\t\tsystem.perspective.print(e)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "SelectAll"
+        },
+        "position": {
+          "height": 0.0601,
+          "width": 0.0228,
+          "x": 0.909,
+          "y": 0.1943
+        },
+        "props": {
+          "checkedIcon": {
+            "color": {
+              "disabled": "#123FB2",
+              "enabled": "#FAEDED"
+            }
+          },
+          "indeterminateIcon": {
+            "color": {
+              "disabled": "#F53131",
+              "enabled": "#E45E5E"
+            },
+            "path": "material/check_box_outline_blank"
+          },
+          "selected": true,
+          "text": "",
+          "uncheckedIcon": {
+            "color": {
+              "enabled": "#F0E6E6"
+            }
+          }
+        },
+        "type": "ia.input.checkbox"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent"
+    },
+    "type": "ia.container.coord"
+  }
+}

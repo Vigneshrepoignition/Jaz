@@ -1,0 +1,231 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry: \n\t\tscriptName \u003d \"CLRI :Start OP:  OnStart\"\n\t\tTabledata\u003dself.params.rowData\n\t\tname \u003d Tabledata.get(\"Name\")\n#\t\t\t\tTabledata.get(\"Status\")\n\t\tself.getChild(\"root\").getChild(\"LblMsg_0\").props.text\u003dname\n\t\t\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "rowData": "value"
+  },
+  "propConfig": {
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 200,
+      "width": 350
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\tscriptName \u003d \"CLRI: Start Operation: Yes Button: On Click\"\n\t\tTabledata\u003dself.view.params.rowData\n\t\tCLRIID \u003d  (Tabledata.get(\"ID\"))\n\t\tuserID \u003d self.session.custom.UserId\n\t\tMachineId\u003dself.session.custom.MachineID\n\t\tReasonCategoryId\u003d0\n\t\tReasonCodeId\u003d0\n\t\tstatusId \u003d 1\n\t\tReasonCodeComments\u003d\u0027\u0027\n\t\ttry:\n\t\t\tscriptName \u003d \"CLRI: Start Operation Button\"\n\t\t\tpostAssignDetails \u003d CLRIConsole.OperationStatusConformation(CLRIID,statusId,MachineId,userID,ReasonCategoryId,ReasonCodeId,ReasonCodeComments)\n\t\t\tsystem.perspective.print(\"postAssignDetails \"+str(postAssignDetails))\n\t\t\tif postAssignDetails\u003d\u003d1 or str(postAssignDetails)\u003d\u003d\u00271\u0027:\n\t\t\t\tself.session.custom.WOOperationStatus\u003d\u0027In-Progress\u0027\n\t\t\t\tsystem.perspective.sendMessage(\"CLRIStatusforSingleRow\", scope\u003d\u0027page\u0027)\n\t\t\t\tsystem.perspective.sendMessage(\"CLRIStart\", scope\u003d\u0027page\u0027)\n\t\t\t\tsystem.perspective.print(\"Assigned Successfullt Send Message handler\")\n\t\t\t\t\n\t\t\t\t\n\t\t\tsystem.perspective.closePopup(\u0027\u0027)\n\t\texcept:\n\t\t\timport sys, os\n\t\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\t\tAuthentication.exceptionLogger(errorMessage)\n\t\t\t\n\t\tsystem.perspective.closePopup(\u0027\u0027)\t\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnYes",
+          "tooltip": {
+            "enabled": true,
+            "text": "Click To Start"
+          }
+        },
+        "position": {
+          "height": 34,
+          "width": 110,
+          "x": 37,
+          "y": 134
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "classes": "Common/Button"
+          },
+          "text": "Yes"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "draggable": false,
+                "id": "g78hF5yz",
+                "modal": false,
+                "overlayDismiss": false,
+                "resizable": false,
+                "showCloseIcon": false,
+                "type": "close",
+                "viewPath": "Project_MES_Solution/Maint Operator Console_RM/Popup/PopupStartOP",
+                "viewportBound": false
+              },
+              "scope": "C",
+              "type": "popup"
+            }
+          }
+        },
+        "meta": {
+          "name": "BtnNo",
+          "tooltip": {
+            "enabled": true,
+            "text": "Click to Cancel"
+          }
+        },
+        "position": {
+          "height": 34,
+          "width": 110,
+          "x": 195.938,
+          "y": 134
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "classes": "Common/Button"
+          },
+          "text": "No"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "LblTitle"
+        },
+        "position": {
+          "height": 32,
+          "width": 348
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#4E8EC2"
+          },
+          "text": "Start CLRI",
+          "textStyle": {
+            "backgroundColor": "#4E8EC2",
+            "borderTopLeftRadius": 8,
+            "borderTopRightRadius": 8,
+            "color": "#FAFAFB",
+            "fontFamily": "Arial",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "margin": 10,
+            "textAlign": "Center",
+            "whiteSpace": "normal"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "draggable": false,
+                "id": "g78hF5yz",
+                "modal": false,
+                "overlayDismiss": false,
+                "resizable": false,
+                "showCloseIcon": false,
+                "type": "close",
+                "viewPath": "Project_MES_Solution/Maint Operator Console/Popup/PopupStartOP",
+                "viewportBound": false
+              },
+              "scope": "C",
+              "type": "popup"
+            }
+          }
+        },
+        "meta": {
+          "name": "IcnClose"
+        },
+        "position": {
+          "height": 30,
+          "width": 30,
+          "x": 315.938
+        },
+        "props": {
+          "path": "material/close",
+          "style": {
+            "color": "#FFFFFF",
+            "fontFamily": "Arial",
+            "fontSize": 14
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "LblMsg"
+        },
+        "position": {
+          "height": 39,
+          "width": 273,
+          "x": 45.44,
+          "y": 41.5
+        },
+        "props": {
+          "text": "Do you want to start CLRI \n\n",
+          "textStyle": {
+            "fontFamily": "Arial",
+            "fontSize": 22
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "LblMsg_0"
+        },
+        "position": {
+          "height": 39,
+          "width": 247,
+          "x": 49,
+          "y": 83
+        },
+        "props": {
+          "textStyle": {
+            "fontFamily": "Arial",
+            "fontSize": 24,
+            "fontWeight": "bold",
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -176,
+      "y": 35
+    },
+    "props": {
+      "style": {
+        "classes": "Panel/PopUp"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

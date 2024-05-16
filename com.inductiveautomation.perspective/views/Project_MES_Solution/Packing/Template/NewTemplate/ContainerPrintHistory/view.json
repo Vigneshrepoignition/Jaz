@@ -1,0 +1,174 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\n\t\trowData\u003dself.params.rowData\n\t\tcolumn\u003dself.params.column\n\t\tcolumnIndex\u003dself.params.columnIndex\n\t\trow\u003dself.params.row\n\t\trowIndex\u003dself.params.rowIndex\n\t\tvalue\u003dself.params.value\n\t\t\n\t\t\n\t\tworkOrderNumber\u003dstr(self.params.woNumber).strip()\n\n\t\tif workOrderNumber\u003d\u003d\u0027value\u0027 or workOrderNumber\u003d\u003d\u0027\u0027  or str(workOrderNumber)\u003d\u003d\u0027None\u0027:\n\t\t\tself.params.woNumber\u003dself.session.custom.WoNumber\n\n\t\tsystem.perspective.print(\"rowData print and history \"+str(rowData))\n\t\tsystem.perspective.print(\"column print and history \"+str(column))\n\t\tsystem.perspective.print(\"row print and history \"+str(row))\n\t\tsystem.perspective.print(\"value print and history \"+str(value))\n\t\tsystem.perspective.print(\"rowIndex print and history \"+str(rowIndex))\n\t\tsystem.perspective.print(\"columnIndex print and history \"+str(columnIndex))\n\t\tsystem.perspective.print(\"woNumber print and history \"+str(self.params.woNumber))\n\texcept Exception as e:\n\t\tsystem.perspective.print(\"error  print and history : - \"+str(e))"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "column": "",
+    "columnIndex": "",
+    "row": "",
+    "rowData": "",
+    "rowIndex": "",
+    "value": "",
+    "woNumber": ""
+  },
+  "propConfig": {
+    "params.column": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.columnIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.row": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.value": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.woNumber": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 38,
+      "width": 114
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\t#if self.session.custom.authorizePrintingAndPackingConfigurationReadOnly\u003d\u003d1:\n\t\tif self.session.custom.authorizePrintingAndPackingConfigurationReadOnly\u003d\u003d1:\n\t\t\t#system.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\"Read Only Access\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\tpass\t\t\t\n\t\telse:\t\t\n\t\t\tdict\u003dself.view.params.rowData\n\t\t\tscriptName\u003d\"Click On No of print Pages \"\n\t\t\tsystem.perspective.print(\"dict \"+str(dict))\t\t\n\t\t\tIsPalletCompleted \u003d dict[\u0027IsPalletCompleted\u0027]\t\t\t\t\t\n\t\t\tif dict!\u003dNone:\n\t\t\t\tNoOfPrint \u003d dict[\u0027NoOFPrints\u0027]\t\t\t\n\t\t\t\tsystem.perspective.print(\"dict \"+str(dict))\n\t\t\t\ttemplatePath \u003d str(dict[\u0027Template\u0027])\t\n\t\t\t\tType\u003d\u0027Container\u0027\n\t\t\t\tlabelTypeId\u003d2\n\t\t\t\tsystem.perspective.print(\"Type Test \"+str(Type))\n\t\t\t\tif str(Type).strip().lower()\u003d\u003d\u0027Container\u0027.lower():\n\t\t\t\t\tNumber \u003d dict[\u0027Container\u0027]\n\t#\t\t\tworkOrderNumber\u003dself.session.custom.WoNoFromPacking\n\t\t\t\tWorkorderId\u003dself.session.custom.WoNoFromPacking\n\t\t\t\t\n\t#\t\t\tsystem.perspective.print(\"workOrderNumber From Packing \u003d\u003d \"+str(workOrderNumber))\n\t\t\t\tif WorkorderId\u003d\u003d\u0027value\u0027 or WorkorderId\u003d\u003d\u0027\u0027  or str(WorkorderId)\u003d\u003d\u0027None\u0027  or WorkorderId\u003d\u003d0  or WorkorderId\u003d\u003dNone :\n\t\t\t\t\tWorkorderId\u003dself.session.custom.WorkorderID\t\t\t\t\t\t\t\n\t\t\t\tsystem.perspective.print(\"Type \"+str(Type))\t\t\t\t\t\t\n\t\t\t\tif str(NoOfPrint).strip()!\u003d\u0027\u0027 and str(NoOfPrint)!\u003d\u00270\u0027 and NoOfPrint \u003e 0:\n\t#\t\t\t\tsystem.perspective.print(\"workOrderNumber \u003d \"+str(workOrderNumber))\n\t#\t\t\t\tsystem.perspective.print(\"Number \u003d \"+str(Number))\n\t\n\t\t\t\t\tprintFile\u003dPackingAndLabelling.GetWorkOrderPackingConfigurationTemplate(WorkorderId,Number,labelTypeId)\n\t\t\t\t\tNoOfPrint\u003dint(NoOfPrint)\n\t\t\t\t\tprintedBy\u003dself.session.custom.UserId\n\t\t\t\t\tlineId\u003d0\n\t\t\t\t\tdsPrintlist\u003dPrinterConfiguration.GetWONumberLineWisePrinterDetails(lineId,WorkorderId)\n\t\t\t\t\tif len(dsPrintlist)\u003e0:\n\t\t\t\t\t\tfor i  in \tdsPrintlist:\n\t\t\t\t\t\t\tPrinterId\u003d i[\u0027PrinterId\u0027]\n\t\t\t\t\t\t\tPrinterName\u003d str(i[\u0027PrinterName\u0027]).strip()\n\t\t\t\t\t\t\tPrinterIP\u003d str(i[\u0027PrinterIP\u0027]).strip()\n\t\t\t\t\t\t\tPort\u003d str(i[\u0027Port\u0027]).strip()\n\t\t\t\t\t\t\tLineId \u003d str(i[\u0027LineId\u0027]).strip()\n\t\t\t\t\t\t\tbreak\t\t\t\t\t\t\n\t\t\t\t\t\tif \tstr(PrinterIP).strip()\u003d\u003d\u0027\u0027 or str(PrinterIP).strip()\u003d\u003dNone or str(PrinterIP).lower().strip()\u003d\u003d\u0027none\u0027 or  str(PrinterIP).lower().strip()\u003d\u003d\u0027null\u0027:\n\t\t\t\t\t\t\tMessageText\u003d\"Print Failed.Please Configure Printer IP address .\"\n\t\t\t\t\t\t\tupdaateStatus\u003d0\n\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\t\telif \tstr(Port).strip()\u003d\u003d\u0027\u0027 or str(Port).strip()\u003d\u003dNone or str(Port).lower().strip()\u003d\u003d\u0027none\u0027 or  str(Port).lower().strip()\u003d\u003d\u0027null\u0027:\t\n\t\t\t\t\t\t\tMessageText\u003d\"Print Failed.Please Configure Printer Port .\"\n\t\t\t\t\t\t\tupdaateStatus\u003d0\n\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\t\telif \tstr(printFile).strip()\u003d\u003d\u0027\u0027 or str(printFile).strip()\u003d\u003dNone or str(printFile).lower().strip()\u003d\u003d\u0027none\u0027 or  str(printFile).lower().strip()\u003d\u003d\u0027null\u0027:\t\n\t\t\t\t\t\t\tMessageText\u003d\"Please Configure PRN File .\"\n\t\t\t\t\t\t\tupdaateStatus\u003d0\n\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\t\telse:\n\t#\t\t\t\t\t\tPackingAndLabelling.PrintNumberPacking(Number,labelTypeId,printedBy,NoOfPrint,WorkorderId)\t\t\n\t\t\t\t\t\t\tsystem.perspective.print(\"labelTypeId \u003d \"+str(labelTypeId))\n\t\t\t\t\t\t\tsystem.perspective.print(\"printFile ss \"+str(printFile))\n\t\t\t\t\t\t\tsystem.perspective.print(\"PrinterIP ss \"+str(PrinterIP))\n\t\t\t\t\t\t\tsystem.perspective.print(\"Port ss \"+str(Port))\n\t#\t\t\t\t\t\tsystem.perspective.print(\"printFile ss \"+str(printFile))\t\t\t\t\t\t\t\n\t\t\t\t\t\t\tprintResult\u003dPrint.printingServer(printFile,NoOfPrint,PrinterIP,Port)\n\t\t\t\t\t\t\tsystem.perspective.print(\u0027printResult :\u0027 + str(printResult))\n\t\t\t\t\t\t\tif printResult\u003d\u003d True or printResult\u003d\u003d1:\n\t\t\t\t\t\t\t\tMessageText\u003d\"Printed Successfully.\"\n\t\t\t\t\t\t\t\tMessageText\u003d\"Printed Successfully Label For Selected \"+str(Type)\n\t\t\t\t\t\t\t\tupdaateStatus\u003d1\n\t\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\t\t\t\tPackingAndLabelling.PrintNumberPacking(Number,labelTypeId,printedBy,NoOfPrint,WorkorderId)\t\t\n\t\t\t\t\t\t\telse:\n\t\t\t\t\t\t\t\tMessageText\u003d\"Failed To Print The Label For Selected \"+str(Type)\n\t\t\t\t\t\t\t\tupdaateStatus\u003d0\n\t\t\t\t\t\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\telse:\n\t\t\t\t\t\tMessageText\u003d\"Print Failed.Please Configured Printer For Respective Line.\"\n\t\t\t\t\t\tupdaateStatus\u003d0\n\t\t\t\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\telse:\n\t\t\t\t\tsystem.perspective.print(\"Please Enter The No. Of Prints For Selcted \")\n\t\t\t\t\tMessageText\u003d\"Please Enter The No. Of Prints For Selected \"+str(Type)\n\t\t\t\t\tupdaateStatus\u003d3\n\t\t\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\texcept:\n\t\t\tsystem.perspective.print(\u0027Exception :: Print View Button\u0027)\n\t\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\t\tsystem.perspective.print(errorMessage)\n\t\t\tlineno \u003d tb.tb_lineno\n\t\t\tsystem.perspective.print(lineno)\n\t\n"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "lblPrint",
+          "tooltip": {
+            "enabled": true
+          }
+        },
+        "position": {
+          "height": 20,
+          "rotate": {
+            "anchor": "0% -28%"
+          },
+          "width": 39,
+          "x": 1
+        },
+        "propConfig": {
+          "meta.tooltip.text": {
+            "binding": {
+              "config": {
+                "path": "session.custom.authorizePrintingAndPackingConfigurationReadOnly"
+              },
+              "transforms": [
+                {
+                  "code": "\tif value\u003d\u003d1:\n\t\tresult\u003d\u0027Read Only Access\u0027\n\telse:\n\t\tresult\u003d\u0027\u0027\n\treturn result",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "text": "Print",
+          "textStyle": {
+            "color": "#4747FF",
+            "cursor": "pointer"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\n#\t\tWoOrderNumber\u003dself.session.custom.WoNumber\n#\t\tif WoOrderNumber\u003d\u003d\u0027Value\u0027 or WoOrderNumber\u003d\u003d\u0027value\u0027 or WoOrderNumber\u003d\u003d\u0027\u0027:\n#\t\t\tWoOrderNumber\u003dself.session.custom.WoNoFromPacking\n\t\tif self.session.custom.authorizePrintingAndPackingConfigurationReadOnly \u003d\u003d 1:\n\t\t\t#system.perspective.openPopup(\u0027ValidationPopu\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/ValidationPopup\u0027,params\u003d{\"MessageText\":\"Read Only Access\"},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\tpass\n\t\telse:\n\t\t\tWorkorderId\u003dself.session.custom.WoNoFromPacking\t\t\t\t\t\t\t\n\t\t\tif WorkorderId\u003d\u003d\u0027value\u0027 or WorkorderId\u003d\u003d\u0027\u0027  or str(WorkorderId)\u003d\u003d\u0027None\u0027 or WorkorderId\u003d\u003d0 or WorkorderId\u003d\u003dNone:\n\t\t\t\tWorkorderId\u003dself.session.custom.WorkorderID\n\t\t\t\t\n\t\t\trowData\u003dself.view.params.rowData\n\t\t\tIsPalletCompleted \u003d rowData[\u0027IsPalletCompleted\u0027]\n\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/Packing/PopUps/PopupContainerPrintHistory\u0027,params\u003d{\"WoOrderNumber\":WorkorderId,\"rowData\":rowData},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\t\n\texcept:\n\t\t\tsystem.perspective.print(\u0027Exception :: History View Button\u0027)\n\t\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\t\tsystem.perspective.print(errorMessage)\n\t\t\tlineno \u003d tb.tb_lineno\n\t\t\tsystem.perspective.print(lineno)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "lblHistory"
+        },
+        "position": {
+          "height": 20,
+          "rotate": {
+            "anchor": "0% -28%"
+          },
+          "width": 57,
+          "x": 50
+        },
+        "props": {
+          "text": "History",
+          "textStyle": {
+            "color": "#4747FF",
+            "cursor": "pointer"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Label_1"
+        },
+        "position": {
+          "height": 20,
+          "rotate": {
+            "anchor": "0% -28%"
+          },
+          "width": 11,
+          "x": 39
+        },
+        "props": {
+          "text": "/",
+          "textStyle": {
+            "color": "#4747FF"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": -18,
+      "y": 11.5
+    },
+    "type": "ia.container.coord"
+  }
+}

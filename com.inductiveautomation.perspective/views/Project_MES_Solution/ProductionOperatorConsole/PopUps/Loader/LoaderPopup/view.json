@@ -1,0 +1,98 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\tfrom threading import Timer\n\t\tdef runThisLater():\n\t\t\tsystem.perspective.closePopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/ProductionOperatorConsole/PopUps/ValidationPopups/SaveUpdatePopup\u0027)\n\t\t\tsystem.perspective.closePopup(id\u003d\"SaveUpdatePopup\")\n\t\tTimer(10.0, runThisLater).start()\n\texcept :\n\t\tsystem.perspective.print(\u0027Exception :: SaveUpdatePopup Validation popup\u0027)\n\t\texc_type, exc_obj,tb \u003d sys.exc_info()\n\t\terrorMessage \u003d \"Error:\"+ str(exc_obj)\n\t\tsystem.perspective.print(errorMessage)\n\t\tlineno \u003d tb.tb_lineno\n\t\tsystem.perspective.print(lineno)"
+        },
+        "enabled": false,
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "MessageText": "",
+    "updaateStatus": ""
+  },
+  "propConfig": {
+    "params.MessageText": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.updaateStatus": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 169,
+      "width": 199
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Image"
+        },
+        "position": {
+          "height": 0.816,
+          "width": 0.7772,
+          "x": 0.114,
+          "y": -0.0036
+        },
+        "props": {
+          "fit": {
+            "mode": "percent"
+          },
+          "source": "/system/images/Builtin/icons/32/giphy.gif"
+        },
+        "type": "ia.display.image"
+      },
+      {
+        "meta": {
+          "name": "Lbl"
+        },
+        "position": {
+          "height": 0.1859,
+          "width": 0.715,
+          "x": 0.2164,
+          "y": 0.7994
+        },
+        "props": {
+          "text": "Please Wait....",
+          "textStyle": {
+            "classes": "Common/Label_WithOutBackground",
+            "color": "#000000",
+            "fontFamily": "Roboto",
+            "fontSize": 16,
+            "fontWeight": "bold"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent",
+      "style": {
+        "backgroundColor": "#FFFFFF",
+        "borderBottomLeftRadius": 1,
+        "borderBottomRightRadius": 1,
+        "borderColor": "#FFFFFF00",
+        "borderStyle": "dotted",
+        "borderTopLeftRadius": 1,
+        "borderTopRightRadius": 1,
+        "cursor": "auto",
+        "opacity": "0.50",
+        "outlineStyle": "none"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

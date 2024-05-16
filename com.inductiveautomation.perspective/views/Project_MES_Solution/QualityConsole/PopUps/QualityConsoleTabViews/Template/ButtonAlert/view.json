@@ -1,0 +1,95 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\t\n\tds\u003dself.view.params.rowData\n\tSelctedRow\u003dself.view.params.rowIndex\n\tcolumnName\u003dself.view.params.column\n\tsystem.perspective.print(\"columnName\")\n\tif str(columnName).strip()\u003d\u003d\u0027ActualValue\u0027:\n\t\tpass"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "column": "value",
+    "columnIndex": "value",
+    "row": "value",
+    "rowData": "value",
+    "rowIndex": "value"
+  },
+  "propConfig": {
+    "params.column": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.columnIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.row": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowIndex": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 29,
+      "width": 71
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\ttry:\n\t\tscriptName\u003d\u0027Quality Add Alert\u0027\n\t\t\n\t\tdictQ\u003dself.view.params.rowData\n\t\tSelctedRow\u003dself.view.params.rowIndex\n\t\tcolumnName\u003dself.view.params.column\n\t\t\n#\t\tif str(columnName).strip()\u003d\u003d\u0027AddAlert\u0027:\n\t\tsystem.perspective.print(\"dictQ \"+str(dictQ))\n\t\ttrnId\u003ddictQ[\u0027Id\u0027]\n\t\ttrnId \u003dint(trnId)\n\t\tsystem.perspective.print(\"trnId \u003d \"+str(trnId))\n\t\tuserID\u003dself.session.custom.UserId\n\t\tresult\u003dQualityOperatorConsole.AddQualityAlert(trnId,userID)\n\t\tsystem.perspective.print(\"res \"+str(result))\n\t\t\n\t\tif result\u003d\u003d1 or str(result)\u003d\u003d\u00271\u0027 or str(result).lower().strip()\u003d\u003d\u0027true\u0027:\n\t\t\tMessageText\u003d\"Mail Alert Send Succefully\"\n\t\t\tupdaateStatus\u003d1\n\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/QualityConsole/PopUps/QualityConsoleTabViews/ValidationPopup/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\t\telse:\n\t\t\tMessageText\u003d\"Mail Alert Failed to Send\"\n\t\t\tupdaateStatus\u003d0\n\t\t\tsystem.perspective.openPopup(\u0027SaveUpdatePopup\u0027,\u0027Project_MES_Solution/QualityConsole/PopUps/QualityConsoleTabViews/ValidationPopup/SaveUpdatePopup\u0027,params\u003d{\"MessageText\":MessageText,\"updaateStatus\":updaateStatus},draggable\u003dFalse,resizable \u003d False,modal\u003dTrue,showCloseIcon\u003dFalse)\n\texcept:\n\t\timport sys, os\n\t\terrorMessage\u003dscriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)\t\n\t\tsystem.perspective.print(\"errorMessage \"+str(errorMessage))"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "btnAddAlert",
+          "tooltip": {
+            "enabled": true,
+            "location": "bottom-left",
+            "style": {
+              "classes": "Common/ToolTip"
+            },
+            "text": "Click to Alert"
+          }
+        },
+        "position": {
+          "height": 27,
+          "width": 70
+        },
+        "props": {
+          "image": {
+            "width": 50
+          },
+          "style": {
+            "classes": "Common/Button"
+          },
+          "text": "Add Alert"
+        },
+        "type": "ia.input.button"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}

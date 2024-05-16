@@ -1,0 +1,71 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\tscriptName\u003d\"Quality Operation DDL\"\n\t\tdsOperation\u003dself.params.dsOperation\n\t\tds\u003dsystem.dataset.toPyDataSet(dsOperation)\n\t\tif len(ds)\u003e0:\n#\t\t\tself.getChild(\"root\").getChild(\"ddlOpr\").props.value\u003dds[0][0]\n\t\t\t\n\t\t\tself.getChild(\"root\").getChild(\"ddlOpr\").props.options\u003dds\n\t\telse:\n\t\t\tself.getChild(\"root\").getChild(\"ddlOpr\").props.value\u003d-1\n\t\t\tself.getChild(\"root\").getChild(\"ddlOpr\").props.options\u003dNone\n\n\t\t\t\t\n\texcept :\n\t\timport sys, os\n\t\terrorMessage\u003d scriptName  +\u0027 Exception : \u0027+  str(sys.exc_info()[1])\n\t\tAuthentication.exceptionLogger(errorMessage)\n\t\tsystem.perspective.print(\"errorMessage\"+ str(errorMessage))\t"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "dsOperation": "value",
+    "rowData": "None"
+  },
+  "propConfig": {
+    "params.dsOperation": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.rowData": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 37,
+      "width": 212
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\toperationId\u003dself.props.value\n#\tif operationId \n#\tif operationId \u003e 0\n\tmessageType \u003d \u0027GetCharacteristics\u0027\n\tpayload \u003d {\u0027operationId\u0027:operationId}\n\tsystem.perspective.sendMessage(messageType,payload,scope\u003d\u0027page\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "ddlOpr"
+        },
+        "position": {
+          "height": 31,
+          "width": 202,
+          "x": 2,
+          "y": 2
+        },
+        "props": {
+          "options": "None",
+          "placeholder": {
+            "text": "Select Operation"
+          }
+        },
+        "type": "ia.input.dropdown"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}

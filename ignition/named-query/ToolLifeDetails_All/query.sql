@@ -1,1 +1,0 @@
-EXEC ToolLifeDetails_All
